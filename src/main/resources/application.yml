@@ -29,8 +29,6 @@ spring:
           format_sql: true
     show-sql: true
     database: mysql
-    address:
-      api-key: ${API_KEY}
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: Asia/Seoul
