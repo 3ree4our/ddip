@@ -71,7 +71,7 @@ pipeline {
                         string(credentialsId: 'DB_USER_PASSWORD', variable: 'DB_USER_PASSWORD'),
                         string(credentialsId: 'REDIS_PASSWORD', variable: 'REDIS_PASSWORD'),
                         string(credentialsId: 'JWT_SECRET_KEY', variable: 'JWT_SECRET_KEY'),
-                        string(credentialsId: 'SSL_KEY_STORE_PASSWORD', variable: 'SSL_KEY_STORE_PASSWORD')
+                        string(credentialsId: 'SSL_KEY_STORE_PASSWORD', variable: 'SSL_KEY_STORE_PASSWORD'),
                     ]) {
                         sh '''
                         scp -i "$EC2_DEPLOY_KEY_FOR_DDIP" set-up-docker.sh ubuntu@"$EC2_IP_FOR_DDIP":"$EC2_DEPLOY_PATH"
