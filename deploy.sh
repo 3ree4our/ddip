@@ -35,7 +35,7 @@ docker run -d \
     -v /home/ubuntu/keystore.p12:/app/keystore.p12 \
     -e PROJECT_NAME=$PROJECT_NAME \
     -e PROJECT_VERSION=$PROJECT_VERSION \
-    -e SPRING_DATASOURCE_URL=jdbc:mariadb://mariadb-container:3306/$PROJECT_NAME \
+    -e SPRING_DATASOURCE_URL=jdbc:mariadb://ddip-db.c1smcu2wa2ue.us-east-2.rds.amazonaws.com:3306/$PROJECT_NAME \
     -e SPRING_DATASOURCE_USERNAME=$DB_USER_NAME \
     -e SPRING_DATASOURCE_PASSWORD=$DB_USER_PASSWORD \
     -e SPRING_REDIS_PASSWORD=$REDIS_PASSWORD \
