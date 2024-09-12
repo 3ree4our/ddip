@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>회원가입 결과</title>
+</head>
+<body>
+<h1>회원가입 결과</h1>
+<p>이메일: <span th:text="${member.email}"></span></p>
+<p>닉네임: <span th:text="${member.nickname}"></span></p>
+<p>학교: <span th:text="${member.school}"></span></p>
+<p>우편번호: <span th:text="${address.zipcode}"></span></p>
+<p>도로명 주소: <span th:text="${address.roadAddress}"></span></p>
+<p>상세 주소: <span th:text="${address.detailedAddress}"></span></p>
+<p>위도: <span th:text="${address.lat}"></span></p>
+<p>경도: <span th:text="${address.lnt}"></span></p>
+</body>
+</html>

@@ -42,3 +42,9 @@ spring:
     password: ${REDIS_PASSWORD}
 logging:
   config: classpath:logback-spring.xml
+naver:
+  api:
+    url: ${NAVER_API_URL}
+    key:
+      id: ${NAVER_API_KEY_ID}
+      secret: ${NAVER_API_KEY_SECRET}
