@@ -38,3 +38,9 @@ spring:
     host: localhost
     port: 6379
     password: ${REDIS_PASSWORD}
+naver:
+  api:
+    url: ${NAVER_API_URL}
+    key:
+      id: ${NAVER_API_KEY_ID}
+      secret: ${NAVER_API_KEY_SECRET}
