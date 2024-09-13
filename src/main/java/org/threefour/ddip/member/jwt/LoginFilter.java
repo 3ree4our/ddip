@@ -39,12 +39,13 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     //Security Context에 Authentication 객체 저장
     MemberDetails memberDetails = (MemberDetails) authResult.getPrincipal();
     String username = memberDetails.getUsername();
+    Long id = memberDetails.getId();
     Collection<? extends GrantedAuthority> authorities = authResult.getAuthorities();
     Iterator<? extends GrantedAuthority> iterator = authorities.iterator();
     GrantedAuthority authority = iterator.next();
 
     //String role = authority.getAuthority();
-    String token = jwtUtil.createJwt(username, /*role, */ 60 * 60 * 10L);
+    String token = jwtUtil.createJwt(username, id,/*role, */ 1000 * 60 * 60L);
 
     //HTTP 인증 방식인 RFC 7235에 맞추어 정의
     //Authorization: Bearer <token>

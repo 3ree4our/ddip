@@ -1,11 +1,12 @@
 export const SERVER_API = 'http://localhost:8080';
 
+const accessToken = localStorage.getItem('access_token');
+
 // 1번 => suwan
-export const getAllProduct = async (member = 1) => {
-  const accessToken = localStorage.getItem('access_token');
-  const response = await fetch(`${SERVER_API}/${member}/products`,{
-    method:'get',
-    headers:{
+export const getAllProduct = async (member = 'suwan') => {
+  const response = await fetch(`${SERVER_API}/${member}/products`, {
+    method : 'get',
+    headers: {
       "Authorization": `Bearer ${accessToken}`
     }
   })
@@ -13,16 +14,31 @@ export const getAllProduct = async (member = 1) => {
 }
 
 export const getAllChatroom = async (member = 'suwan') => {
-  const response = await fetch(`${SERVER_API}/${member}/chatrooms`);
+  const response = await fetch(`${SERVER_API}/${member}/chatrooms`, {
+    method : 'get',
+    headers: {
+      "Authorization": `Bearer ${accessToken}`
+    }
+  });
   return response.json();
 }
 
 export const getChatroomByProductId = async (member = 'suwan', chatroomId) => {
-  const response = await fetch(`${SERVER_API}/${member}/chatrooms/${chatroomId}`);
+  const response = await fetch(`${SERVER_API}/${member}/chatrooms/${chatroomId}`, {
+    method : 'get',
+    headers: {
+      "Authorization": `Bearer ${accessToken}`
+    }
+  });
   return response.json();
 }
 
 export const createChatroom = async (productId) => {
-  const response = await fetch(`${SERVER_API}/room/${productId}`)
+  const response = await fetch(`${SERVER_API}/room/${productId}`, {
+    method : 'get',
+    headers: {
+      "Authorization": `Bearer ${accessToken}`
+    }
+  })
   return response.json();
 }

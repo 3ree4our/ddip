@@ -1,16 +1,25 @@
 import {getAllProduct, getAllChatroom, getChatroomByProductId} from "./api.js";
 
-const allProducts = await getAllProduct();
+const path = location.pathname;
+const productId = path.substring(path.lastIndexOf('/') + 1);
+
 const allChatroom = await getAllChatroom();
+const chatroom = await getChatroomByProductId('suwan', productId);
 let stompClient = '';
 let connectStatus = false;
 let subscriptions = {};
 let productsId = [];
 
-if (allProducts.length > 0) {
-  allProducts.forEach(e => productsId.push(e.productId));
-  if (!connectStatus) connect(productsId);
+console.log('send', allChatroom)
+export const getConnect = async () => {
+  const allProducts = await getAllProduct();
+  console.log('product', allProducts)
+  if (allProducts.length > 0) {
+    allProducts.forEach(e => productsId.push(e.productId));
+    if (!connectStatus) connect(productsId);
+  }
 }
+getConnect();
 
 function connect(productsId) {
   const socket = new SockJS("/ws-stomp");
