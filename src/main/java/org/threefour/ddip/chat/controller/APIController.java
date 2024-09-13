@@ -40,22 +40,13 @@ public class APIController {
     String accessToken = token.substring(7);
     Long id = jwtUtil.getId(accessToken);
 
-    List<ChatroomResponseDTO> list = new ArrayList<>();
-
-    List<Chat> chatList = chatRepository.findAllChatByReceiverId(id);
-    for (Chat chat : chatList) {
-      list.add(new ChatroomResponseDTO(chat));
-    }
+    List<ChatroomResponseDTO> list = chatRepository.findAllChatByReceiverId(id);
     return new ResponseEntity<>(list, HttpStatus.OK);
   }
 
   @GetMapping("/{member}/chatrooms/{chatroomId}")
   public ResponseEntity<List<ChatResponseDTO>> getChatroomByProductId(@PathVariable("member") String email, @PathVariable("chatroomId") Long chatroomId) {
-    List<ChatResponseDTO> list = new ArrayList<>();
-    List<Chat> allChatByProductId = chatRepository.findAllChatByProductId(chatroomId);
-    for (Chat chat : allChatByProductId) {
-      list.add(new ChatResponseDTO(chat));
-    }
+    List<ChatResponseDTO> list = chatRepository.findAllChatByProductId(chatroomId);
 
     return new ResponseEntity<>(list, HttpStatus.OK);
   }

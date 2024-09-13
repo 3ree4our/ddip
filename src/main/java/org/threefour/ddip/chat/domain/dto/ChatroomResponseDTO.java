@@ -4,20 +4,15 @@ import lombok.*;
 import org.threefour.ddip.chat.domain.Chat;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
 public class ChatroomResponseDTO {
   private Long productId;
   private String message;
-  private Timestamp sendDate;
-
-  // 채팅룸이니 상품명 추가하기
-  public ChatroomResponseDTO(Chat chat) {
-    this.productId = chat.getProductId().getId();
-    this.message = chat.getMessage();
-    this.sendDate = chat.getSendDate();
-  }
+  private Date sendDate;
 
 }
