@@ -42,3 +42,6 @@ export const createChatroom = async (productId) => {
   })
   return response.json();
 }
+
+// 모든 채팅은 productId로 chat 테이블을 뒤져서 찾은 뒤 반환하기
+// 그리고 개인 채팅은 .. 어떻게? ..

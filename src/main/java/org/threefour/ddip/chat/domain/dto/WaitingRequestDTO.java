@@ -9,6 +9,6 @@ import org.threefour.ddip.member.domain.Member;
 @Setter
 public class WaitingRequestDTO {
   private Long productId;
-  private Member senderId;
+  private Member sender;
   private Boolean isPossible;
 }

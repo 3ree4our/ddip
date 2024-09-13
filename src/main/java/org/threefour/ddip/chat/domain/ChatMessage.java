@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ChatMessage {
   private int roomId;
-  private Long senderId;
+  private Long ownerId;
   private String message;
   private String title;
   private boolean isMine = false;

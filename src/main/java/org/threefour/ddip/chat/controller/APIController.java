@@ -35,7 +35,8 @@ public class APIController {
     return new ResponseEntity<>(list, HttpStatus.OK);
   }
 
-  //TODO 중복된 데이터를 .. 가져옴 (채티방 중복..)
+  // TODO 중복된 데이터를 .. 가져옴 (채티방 중복..)
+  // 내 id로 모든 채팅을 중복없이 가져와야 한다.
   @GetMapping("/{member}/chatrooms")
   public ResponseEntity<List<ChatroomResponseDTO>> getAllChatroom(@PathVariable("member") String email, @RequestHeader("Authorization") String token) {
     // 채팅방 갔을 때 응답해주는 컨트롤러
@@ -43,8 +44,9 @@ public class APIController {
     String accessToken = token.substring(7);
     Long id = jwtUtil.getId(accessToken);
 
-    List<ChatroomResponseDTO> list = chatRepository.findAllChatByReceiverId(id);
-    return new ResponseEntity<>(list, HttpStatus.OK);
+    List<ChatroomResponseDTO> sendList = chatRepository.findAllChatByReceiverId(id);
+
+    return new ResponseEntity<>(sendList, HttpStatus.OK);
   }
 
 

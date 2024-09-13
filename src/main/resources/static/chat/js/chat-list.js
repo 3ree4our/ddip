@@ -1,22 +1,23 @@
 import {getAllProduct, getAllChatroom, getChatroomByProductId} from "./api.js";
 
-const path = location.pathname;
-const productId = path.substring(path.lastIndexOf('/') + 1);
 
 const allChatroom = await getAllChatroom();
-const chatroom = await getChatroomByProductId('suwan', productId);
 let stompClient = '';
 let connectStatus = false;
 let subscriptions = {};
-let productsId = [];
 
-console.log('send', allChatroom)
 export const getConnect = async () => {
   const allProducts = await getAllProduct();
-  console.log('product', allProducts)
+  const chatList = [];
   if (allProducts.length > 0) {
-    allProducts.forEach(e => productsId.push(e.productId));
+    const productsId = allProducts.map(e => e.productId);
     if (!connectStatus) connect(productsId);
+
+    for (const e of allProducts) {
+      const messageObj = await getChatroomByProductId('suwan', e.productId);
+      chatList.push(messageObj);
+    }
+    drawChatList(chatList);
   }
 }
 getConnect();
@@ -64,28 +65,30 @@ const drawChatList = (allChatroom) => {
     html += `<h3>게시글이 없습니다.</h3>`
   } else {
     for (let chat of allChatroom) {
-      html += `<div id="user" data-product="${chat.productId}" data-sender="${chat.senderId}">`;
+      console.log('chat', chat);
+      html += `<div id="user" data-product="${chat[0].id}">`;
       html += `<img src="/img/trend/bs-1.jpg" alt="물품사진"/>`
-      html += `<p>${chat.message}</p></div>`
+      html += `<p>${chat[0].message}</p></div>`
     }
   }
 
   chatRoomArea.innerHTML = html;
 
   const chatrooms = document.querySelectorAll('#user');
-  chatrooms.forEach(e => {
-    e.addEventListener('click', async (e) => {
-      let roomId = '';
-      if (e.target.tagName !== 'DIV') {
-        roomId = e.target.parentElement.dataset.product;
-      } else {
-        roomId = e.target.dataset.product;
-      }
-      const messageObj = await getChatroomByProductId('suwan', roomId);
-      drawChat(messageObj)
+  if (chatrooms.length > 0) {
+    chatrooms.forEach(e => {
+      e.addEventListener('click', async (e) => {
+        let roomId = '';
+        if (e.target.tagName !== 'DIV') {
+          roomId = e.target.parentElement.dataset.product;
+        } else {
+          roomId = e.target.dataset.product;
+        }
+        const messageObj = await getChatroomByProductId('suwan', roomId);
+        drawChat(messageObj)
+      })
     })
-
-  })
+  }
 }
 drawChatList(allChatroom);
 

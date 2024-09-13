@@ -38,11 +38,11 @@ public class ChatMessageController {
     Long sellerId = productByProductId.getSellerId();
     String name = "duwan";
     MemberDetails customUserDetails = (MemberDetails) memberDetailsService.loadUserByUsername(name);
-    Long buyerId = customUserDetails.getId();
+    Long ownerId = customUserDetails.getId();
 
     ChatMessage mg = ChatMessage.builder()
             .roomId(message.getRoomId())
-            .senderId(buyerId)
+            .ownerId(ownerId)
             .message(message.getMessage())
             .title(productByProductId.getTitle())
             .build();
@@ -50,8 +50,7 @@ public class ChatMessageController {
     if (sellerId.equals(name)) mg.setMine(true);
 
     ChatRequestDTO dto = ChatRequestDTO.builder()
-            .receiverId(sellerId)
-            .senderId(buyerId)
+            .owner(ownerId)
             .productId(productId)
             .message(message.getMessage())
             .build();

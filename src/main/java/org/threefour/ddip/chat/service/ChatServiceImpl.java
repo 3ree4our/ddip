@@ -22,13 +22,11 @@ public class ChatServiceImpl implements ChatService {
 
   @Override
   public Chat createChat(ChatRequestDTO dto) {
-    Member buyer = memberRepository.findById(dto.getSenderId()).orElseThrow();
-    Member seller = memberRepository.findById(dto.getReceiverId()).orElseThrow();
+    Member owner = memberRepository.findById(dto.getOwner()).orElseThrow();
     Product product = productRepository.findById(dto.getProductId()).orElseThrow();
     Chat chat = Chat.builder()
             .message(dto.getMessage())
-            .senderId(buyer)
-            .receiverId(seller)
+            .owner(owner)
             .productId(product)
             .build();
 

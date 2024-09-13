@@ -9,8 +9,7 @@ import lombok.*;
 @Getter
 public class ChatRequestDTO {
 
-  private Long receiverId; // 판매자
-  private Long senderId; // 구매자
+  private Long owner; // 채팅방주인
   private Long productId;
   private String message;
 

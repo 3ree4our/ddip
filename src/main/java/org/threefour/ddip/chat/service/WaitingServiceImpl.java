@@ -47,7 +47,7 @@ public class WaitingServiceImpl implements WaitingService {
 
     Waiting waiting = Waiting.builder()
             .productId(product)
-            .senderId(dto.getSenderId())
+            .senderId(dto.getSender())
             .isPossible(isPossible)
             .build();
 
