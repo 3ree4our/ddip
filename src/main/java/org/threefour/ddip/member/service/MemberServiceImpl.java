@@ -15,11 +15,9 @@ import org.threefour.ddip.member.repository.MemberRepository;
 @Transactional
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
-  private AddressService addressService;
-
-  private MemberRepository memberRepository;
-
-  private BCryptPasswordEncoder bCryptPasswordEncoder;
+  private final AddressService addressService;
+  private final MemberRepository memberRepository;
+  private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
   @Override
@@ -43,7 +41,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     Member member = new Member();
-    member.setNickname(nickname);
+    member.setNickName(nickname);
     member.setPassword(bCryptPasswordEncoder.encode(password));
     member.setSchool(school);
     member.setEmail(email);
