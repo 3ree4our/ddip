@@ -18,8 +18,8 @@ import org.threefour.ddip.member.service.MemberService;
 @RequiredArgsConstructor
 public class MemberController {
 
-    private MemberService memberService;
-    private AddressService addressService;
+    private final MemberService memberService;
+    private final AddressService addressService;
 
     @GetMapping("/login")
     public String getRegistrationForm() {
@@ -35,7 +35,7 @@ public class MemberController {
     public String join(MemberRequestDTO memberRequestDTO, Model model) {
         System.out.println("Controller: " + memberRequestDTO.getEmail() + " " + memberRequestDTO.getPassword());
         model.addAttribute("member", memberService.join(memberRequestDTO));
-        return "redirect:/member/signIn";
+        return "redirect:/member/login";
     }
 
     @GetMapping("/registration-form")
