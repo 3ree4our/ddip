@@ -2,309 +2,349 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <!-- Basic -->
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <!-- Mobile Metas -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <!-- Site Metas -->
-  <meta name="keywords" content="" />
-  <meta name="description" content="" />
-  <meta name="author" content="" />
-  <link rel="shortcut icon" href="images/favicon.png" type="">
+  <meta charset="UTF-8">
+  <meta name="description" content="Ashion Template">
+  <meta name="keywords" content="Ashion, unica, creative, html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Ashion | Template</title>
 
-  <title> Feane </title>
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
 
-  <!-- bootstrap core css -->
-  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-
-  <!--owl slider stylesheet -->
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
-  <!-- nice select  -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha512-CruCP+TD3yXzlvvijET8wV5WxxEh5H8P4cmz0RFbKK6FlZ2sYl3AEsKlLPHbniXKSrDdFewhbmBK5skbdsASbQ==" crossorigin="anonymous" />
-  <!-- font awesome style -->
-  <link href="css/font-awesome.min.css" rel="stylesheet" />
-
-  <!-- Custom styles for this template -->
-  <link href="css/style.css" rel="stylesheet" />
-  <!-- responsive style -->
-  <link href="css/responsive.css" rel="stylesheet" />
-
+  <!-- Css Styles -->
+  <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+  <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+  <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
+  <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
+  <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+  <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+  <link rel="stylesheet" href="css/style.css" type="text/css">
 </head>
 
-<body class="sub_page">
+<body>
+<!-- Page Preloder -->
+<div id="preloder">
+  <div class="loader"></div>
+</div>
 
-  <div class="hero_area">
-    <div class="bg-box">
-      <img src="images/hero-bg.jpg" alt="">
-    </div>
-    <!-- header section strats -->
-    <header class="header_section">
-      <div class="container">
-        <nav class="navbar navbar-expand-lg custom_nav-container ">
-          <a class="navbar-brand" href="index.html">
-            <span>
-              Feane
-            </span>
-          </a>
+<!-- Offcanvas Menu Begin -->
+<div class="offcanvas-menu-overlay"></div>
+<div class="offcanvas-menu-wrapper">
+  <div class="offcanvas__close">+</div>
+  <ul class="offcanvas__widget">
+    <li><span class="icon_search search-switch"></span></li>
+    <li><a href="#"><span class="icon_heart_alt"></span>
+      <div class="tip">2</div>
+    </a></li>
+    <li><a href="#"><span class="icon_bag_alt"></span>
+      <div class="tip">2</div>
+    </a></li>
+  </ul>
+  <div class="offcanvas__logo">
+    <a href="./index.html"><img src="img/logo.png" alt=""></a>
+  </div>
+  <div id="mobile-menu-wrap"></div>
+  <div class="offcanvas__auth">
+    <a href="#">Login</a>
+    <a href="#">Register</a>
+  </div>
+</div>
+<!-- Offcanvas Menu End -->
 
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class=""> </span>
-          </button>
-
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav  mx-auto ">
-              <li class="nav-item">
-                <a class="nav-link" href="index.html">Home </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="menu.html">Menu</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="about.html">About</a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="registration.html">Book Table <span class="sr-only">(current)</span> </a>
-              </li>
-            </ul>
-            <div class="user_option">
-              <a href="" class="user_link">
-                <i class="fa fa-user" aria-hidden="true"></i>
-              </a>
-              <a class="cart_link" href="#">
-                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
-                  <g>
-                    <g>
-                      <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
-                   c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
-                    </g>
-                  </g>
-                  <g>
-                    <g>
-                      <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
-                   C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
-                   c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
-                   C457.728,97.71,450.56,86.958,439.296,84.91z" />
-                    </g>
-                  </g>
-                  <g>
-                    <g>
-                      <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
-                   c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
-                    </g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                  <g>
-                  </g>
-                </svg>
-              </a>
-              <form class="form-inline">
-                <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
-                  <i class="fa fa-search" aria-hidden="true"></i>
-                </button>
-              </form>
-              <a href="" class="order_online">
-                Order Online
-              </a>
-            </div>
-          </div>
+<!-- Header Section Begin -->
+<header class="header">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xl-3 col-lg-2">
+        <div class="header__logo">
+          <a href="./index.html"><img src="img/logo.png" alt=""></a>
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-7">
+        <nav class="header__menu">
+          <ul>
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="#">Women’s</a></li>
+            <li><a href="#">Men’s</a></li>
+            <li class="active"><a href="./shop.html">Shop</a></li>
+            <li><a href="#">Pages</a>
+              <ul class="dropdown">
+                <li><a href="./product-details.html">Product Details</a></li>
+                <li><a href="./shop-cart.html">Shop Cart</a></li>
+                <li><a href="./registration.html">Checkout</a></li>
+                <li><a href="./blog-details.html">Blog Details</a></li>
+              </ul>
+            </li>
+            <li><a href="./blog.html">Blog</a></li>
+            <li><a href="./contact.html">Contact</a></li>
+          </ul>
         </nav>
       </div>
-    </header>
-    <!-- end header section -->
+      <div class="col-lg-3">
+        <div class="header__right">
+          <div class="header__right__auth">
+            <a href="#">Login</a>
+            <a href="#">Register</a>
+          </div>
+          <ul class="header__right__widget">
+            <li><span class="icon_search search-switch"></span></li>
+            <li><a href="#"><span class="icon_heart_alt"></span>
+              <div class="tip">2</div>
+            </a></li>
+            <li><a href="#"><span class="icon_bag_alt"></span>
+              <div class="tip">2</div>
+            </a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="canvas__open">
+      <i class="fa fa-bars"></i>
+    </div>
   </div>
+</header>
+<!-- Header Section End -->
 
-  <!-- book section -->
-  <section class="book_section layout_padding">
-    <div class="container">
-      <div class="heading_container">
-        <h2>
-          Book A Table
-        </h2>
+<!-- Breadcrumb Begin -->
+<div class="breadcrumb-option">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="breadcrumb__links">
+          <a href="./index.html"><i class="fa fa-home"></i> Home</a>
+          <span>Shopping cart</span>
+        </div>
       </div>
+    </div>
+  </div>
+</div>
+<!-- Breadcrumb End -->
+
+<!-- Checkout Section Begin -->
+<section class="checkout spad">
+  <div class="container">
+    <form action="/member/signUp" class="checkout__form" method="POST">
       <div class="row">
-        <div class="col-md-6">
-          <div class="form_container">
-            <form action="">
-              <div>
-                <input type="text" class="form-control" placeholder="Your Name" />
+        <div class="col-lg-8">
+          <h5>REGISTRATION</h5>
+          <div class="row">
+            <!--<div class="col-lg-6 col-md-6 col-sm-6">-->
+            <div class="col-lg-12">
+              <div class="checkout__form__input">
+                <p>Email <span>*</span></p>
+                <input type="text" name="email">
               </div>
-              <div>
-                <input type="text" class="form-control" placeholder="Phone Number" />
+            </div>
+            <div class="col-lg-12">
+              <div class="checkout__form__input">
+                <p>NickName <span>*</span></p>
+                <input type="text" name="nickName">
               </div>
-              <div>
-                <input type="email" class="form-control" placeholder="Your Email" />
+            </div>
+            <div class="col-lg-12">
+              <div class="checkout__form__input">
+                <p>PassWord <span>*</span></p>
+                <input type="text">
               </div>
-              <div>
-                <select class="form-control nice-select wide">
-                  <option value="" disabled selected>
-                    How many persons?
-                  </option>
-                  <option value="">
-                    2
-                  </option>
-                  <option value="">
-                    3
-                  </option>
-                  <option value="">
-                    4
-                  </option>
-                  <option value="">
-                    5
-                  </option>
-                </select>
+              <div class="checkout__form__input">
+                <p>Account PassWord <span>*</span></p>
+                <input type="text" name="password">
               </div>
-              <div>
-                <input type="date" class="form-control">
+              <div class="checkout__form__input">
+                <p>School <span>*</span></p>
+                <input type="text" name="school">
               </div>
-              <div class="btn_box">
-                <button>
-                  Book Now
-                </button>
+              <div class="checkout__form__input">
+                <p>ADDRESS <span>*</span></p>
+                <input type="text">
               </div>
-            </form>
+            </div>
+            <div class="col-lg-12">
+              <div class="checkout__form__checkbox">
+                <label for="acc">
+                  Create an acount?
+                  <input type="checkbox" id="acc">
+                  <span class="checkmark"></span>
+                </label>
+                <p>Create am acount by entering the information below. If you are a returing
+                  customer login at the <br />top of the page</p>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="col-md-6">
-          <div class="map_container ">
-            <div id="googleMap"></div>
+        <div class="col-lg-4">
+          <div class="checkout__order">
+            <h5>Your Location</h5>
+            <div class="contact__map">
+              <iframe
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48158.305462977965!2d-74.13283844036356!3d41.02757295168286!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2e440473470d7%3A0xcaf503ca2ee57958!2sSaddle%20River%2C%20NJ%2007458%2C%20USA!5e0!3m2!1sen!2sbd!4v1575917275626!5m2!1sen!2sbd"
+                      height="500" style="border:0" allowfullscreen="">
+              </iframe>
+            </div>
+            <button type="submit" class="site-btn">REGISTRATION</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+<!-- Checkout Section End -->
+
+<!-- Instagram Begin -->
+<div class="instagram">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+        <div class="instagram__item set-bg" data-setbg="img/instagram/insta-1.jpg">
+          <div class="instagram__text">
+            <i class="fa fa-instagram"></i>
+            <a href="#">@ ashion_shop</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+        <div class="instagram__item set-bg" data-setbg="img/instagram/insta-2.jpg">
+          <div class="instagram__text">
+            <i class="fa fa-instagram"></i>
+            <a href="#">@ ashion_shop</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+        <div class="instagram__item set-bg" data-setbg="img/instagram/insta-3.jpg">
+          <div class="instagram__text">
+            <i class="fa fa-instagram"></i>
+            <a href="#">@ ashion_shop</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+        <div class="instagram__item set-bg" data-setbg="img/instagram/insta-4.jpg">
+          <div class="instagram__text">
+            <i class="fa fa-instagram"></i>
+            <a href="#">@ ashion_shop</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+        <div class="instagram__item set-bg" data-setbg="img/instagram/insta-5.jpg">
+          <div class="instagram__text">
+            <i class="fa fa-instagram"></i>
+            <a href="#">@ ashion_shop</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+        <div class="instagram__item set-bg" data-setbg="img/instagram/insta-6.jpg">
+          <div class="instagram__text">
+            <i class="fa fa-instagram"></i>
+            <a href="#">@ ashion_shop</a>
           </div>
         </div>
       </div>
     </div>
-  </section>
-  <!-- end book section -->
+  </div>
+</div>
+<!-- Instagram End -->
 
-  <!-- footer section -->
-  <footer class="footer_section">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4 footer-col">
-          <div class="footer_contact">
-            <h4>
-              Contact Us
-            </h4>
-            <div class="contact_link_box">
-              <a href="">
-                <i class="fa fa-map-marker" aria-hidden="true"></i>
-                <span>
-                  Location
-                </span>
-              </a>
-              <a href="">
-                <i class="fa fa-phone" aria-hidden="true"></i>
-                <span>
-                  Call +01 1234567890
-                </span>
-              </a>
-              <a href="">
-                <i class="fa fa-envelope" aria-hidden="true"></i>
-                <span>
-                  demo@gmail.com
-                </span>
-              </a>
-            </div>
+<!-- Footer Section Begin -->
+<footer class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-md-6 col-sm-7">
+        <div class="footer__about">
+          <div class="footer__logo">
+            <a href="./index.html"><img src="img/logo.png" alt=""></a>
           </div>
-        </div>
-        <div class="col-md-4 footer-col">
-          <div class="footer_detail">
-            <a href="" class="footer-logo">
-              Feane
-            </a>
-            <p>
-              Necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with
-            </p>
-            <div class="footer_social">
-              <a href="">
-                <i class="fa fa-facebook" aria-hidden="true"></i>
-              </a>
-              <a href="">
-                <i class="fa fa-twitter" aria-hidden="true"></i>
-              </a>
-              <a href="">
-                <i class="fa fa-linkedin" aria-hidden="true"></i>
-              </a>
-              <a href="">
-                <i class="fa fa-instagram" aria-hidden="true"></i>
-              </a>
-              <a href="">
-                <i class="fa fa-pinterest" aria-hidden="true"></i>
-              </a>
-            </div>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+            cilisis.</p>
+          <div class="footer__payment">
+            <a href="#"><img src="img/payment/payment-1.png" alt=""></a>
+            <a href="#"><img src="img/payment/payment-2.png" alt=""></a>
+            <a href="#"><img src="img/payment/payment-3.png" alt=""></a>
+            <a href="#"><img src="img/payment/payment-4.png" alt=""></a>
+            <a href="#"><img src="img/payment/payment-5.png" alt=""></a>
           </div>
-        </div>
-        <div class="col-md-4 footer-col">
-          <h4>
-            Opening Hours
-          </h4>
-          <p>
-            Everyday
-          </p>
-          <p>
-            10.00 Am -10.00 Pm
-          </p>
         </div>
       </div>
-      <div class="footer-info">
-        <p>
-          &copy; <span id="displayYear"></span> All Rights Reserved By
-          <a href="https://html.design/">Free Html Templates</a><br><br>
-          &copy; <span id="displayYear"></span> Distributed By
-          <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
-        </p>
+      <div class="col-lg-2 col-md-3 col-sm-5">
+        <div class="footer__widget">
+          <h6>Quick links</h6>
+          <ul>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Blogs</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-3 col-sm-4">
+        <div class="footer__widget">
+          <h6>Account</h6>
+          <ul>
+            <li><a href="#">My Account</a></li>
+            <li><a href="#">Orders Tracking</a></li>
+            <li><a href="#">Checkout</a></li>
+            <li><a href="#">Wishlist</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-8 col-sm-8">
+        <div class="footer__newslatter">
+          <h6>NEWSLETTER</h6>
+          <form action="#">
+            <input type="text" placeholder="Email">
+            <button type="submit" class="site-btn">Subscribe</button>
+          </form>
+          <div class="footer__social">
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-youtube-play"></i></a>
+            <a href="#"><i class="fa fa-instagram"></i></a>
+            <a href="#"><i class="fa fa-pinterest"></i></a>
+          </div>
+        </div>
       </div>
     </div>
-  </footer>
-  <!-- footer section -->
+    <div class="row">
+      <div class="col-lg-12">
+        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+        <div class="footer__copyright__text">
+          <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+        </div>
+        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- Footer Section End -->
 
-  <!-- jQery -->
-  <script src="js/jquery-3.4.1.min.js"></script>
-  <!-- popper js -->
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-  </script>
-  <!-- bootstrap js -->
-  <script src="js/bootstrap.js"></script>
-  <!-- owl slider -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
-  </script>
-  <!-- isotope js -->
-  <script src="https://unpkg.com/isotope-layout@3.0.4/dist/isotope.pkgd.min.js"></script>
-  <!-- nice select -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
-  <!-- custom js -->
-  <script src="js/custom.js"></script>
-  <!-- Google Map -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
-  </script>
-  <!-- End Google Map -->
+<!-- Search Begin -->
+<div class="search-model">
+  <div class="h-100 d-flex align-items-center justify-content-center">
+    <div class="search-close-switch">+</div>
+    <form class="search-model-form">
+      <input type="text" id="search-input" placeholder="Search here.....">
+    </form>
+  </div>
+</div>
+<!-- Search End -->
 
+<!-- Js Plugins -->
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.magnific-popup.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/mixitup.min.js"></script>
+<script src="js/jquery.countdown.min.js"></script>
+<script src="js/jquery.slicknav.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/jquery.nicescroll.min.js"></script>
+<script src="js/main.js"></script>
 </body>
 
 </html>

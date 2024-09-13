@@ -1,28 +1,42 @@
 package org.threefour.ddip.member.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 import org.threefour.ddip.address.domain.Address;
 import org.threefour.ddip.address.service.AddressService;
 import org.threefour.ddip.member.domain.Member;
+import org.threefour.ddip.member.domain.MemberRequestDTO;
 import org.threefour.ddip.member.service.MemberService;
 
 @Controller
 @RequestMapping("/member")
+@RequiredArgsConstructor
 public class MemberController {
 
-    @Autowired
     private MemberService memberService;
-
-    @Autowired
     private AddressService addressService;
 
+    @GetMapping("/login")
+    public String getRegistrationForm() {
+        return "member/login";
+    }
+
+    @GetMapping("/signUp")
+    public String joinForm() {
+        return "member/registration";
+    }
+
+    @PostMapping("/signUp")
+    public String join(MemberRequestDTO memberRequestDTO, Model model) {
+        System.out.println("Controller: " + memberRequestDTO.getEmail() + " " + memberRequestDTO.getPassword());
+        model.addAttribute("member", memberService.join(memberRequestDTO));
+        return "redirect:/member/signIn";
+    }
 
     @GetMapping("/registration-form")
     public String getRegistrationForm(Model model) {

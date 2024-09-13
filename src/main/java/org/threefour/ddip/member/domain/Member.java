@@ -2,6 +2,7 @@ package org.threefour.ddip.member.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import org.threefour.ddip.audit.BaseEntity;
 
 import javax.persistence.Column;
@@ -34,6 +35,6 @@ public class Member extends BaseEntity {
     @Column(nullable = false)
     private boolean schoolAuthYn;
 
-    @Column(nullable = false)
+    @ColumnDefault("0")
     private boolean deleteYn;
 }
