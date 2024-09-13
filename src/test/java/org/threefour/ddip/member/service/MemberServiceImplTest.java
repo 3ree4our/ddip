@@ -66,11 +66,21 @@ class MemberServiceImplTest {
             .name("이수완")
             .price(49000)
             .seller(Member.builder()
-                    .id(id1)
+                    .id(id2)
+                    .build())
+            .build();
+    Product product3 = Product.builder()
+            .title("wuwan폰!!!!")
+            .content("뭐요팔아요")
+            .name("이우완")
+            .price(59000)
+            .seller(Member.builder()
+                    .id(id3)
                     .build())
             .build();
     productRepository.save(product1);
     productRepository.save(product2);
+    productRepository.save(product3);
 
   }
 }

@@ -35,32 +35,24 @@ public class APIController {
     return new ResponseEntity<>(list, HttpStatus.OK);
   }
 
-  // TODO 중복된 데이터를 .. 가져옴 (채티방 중복..)
-  // 내 id로 모든 채팅을 중복없이 가져와야 한다.
   @GetMapping("/{member}/chatrooms")
   public ResponseEntity<List<ChatroomResponseDTO>> getAllChatroom(@PathVariable("member") String email, @RequestHeader("Authorization") String token) {
-    // 채팅방 갔을 때 응답해주는 컨트롤러
-    // 채티방을 응답해준다.
     String accessToken = token.substring(7);
     Long id = jwtUtil.getId(accessToken);
 
-    List<ChatroomResponseDTO> sendList = chatRepository.findAllChatByReceiverId(id);
+    List<ChatroomResponseDTO> list = new ArrayList<>();
 
-    return new ResponseEntity<>(sendList, HttpStatus.OK);
+    List<Chat> chatList = chatRepository.findAllChatByReceiverId(id);
+    for (Chat chat : chatList) {
+      list.add(new ChatroomResponseDTO(chat));
+    }
+    return new ResponseEntity<>(list, HttpStatus.OK);
   }
 
-
-  /**
-   * 첫 대화 신청, 메시지 보내는 것을 여기서 처리
-   *
-   * @param email
-   * @param productId
-   * @return
-   */
-  @GetMapping("/{member}/chatrooms/{productId}")
-  public ResponseEntity<List<ChatResponseDTO>> getChatroomByProductId(@PathVariable("member") String email, @PathVariable("productId") Long productId) {
+  @GetMapping("/{member}/chatrooms/{chatroomId}")
+  public ResponseEntity<List<ChatResponseDTO>> getChatroomByProductId(@PathVariable("member") String email, @PathVariable("chatroomId") Long chatroomId) {
     List<ChatResponseDTO> list = new ArrayList<>();
-    List<Chat> allChatByProductId = chatRepository.findAllChatByProductId(productId);
+    List<Chat> allChatByProductId = chatRepository.findAllChatByProductId(chatroomId);
     for (Chat chat : allChatByProductId) {
       list.add(new ChatResponseDTO(chat));
     }

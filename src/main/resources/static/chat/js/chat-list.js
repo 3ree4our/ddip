@@ -1,6 +1,5 @@
 import {getAllProduct, getAllChatroom, getChatroomByProductId} from "./api.js";
 
-
 const allChatroom = await getAllChatroom();
 let stompClient = '';
 let connectStatus = false;
@@ -8,6 +7,7 @@ let subscriptions = {};
 
 export const getConnect = async () => {
   const allProducts = await getAllProduct();
+  console.log('allProducts', allProducts)
   const chatList = [];
   if (allProducts.length > 0) {
     const productsId = allProducts.map(e => e.productId);
@@ -38,9 +38,7 @@ const subscribeToProduct = (productId) => {
   if (stompClient && stompClient.connected) {
     subscriptions[productId] = stompClient.subscribe(`/room/${productId}`, chatMessage => {
       const messageObj = JSON.parse(chatMessage.body);
-      //drawChat(messageObj);
-      //TODO 해당 방에 그리기 ..
-      const roomId = document.querySelector(`[data-product="${messageObj.roomId}"] > p`)
+      const roomId = document.querySelector(`div[data-product="${messageObj.roomId}"] > p`)
       roomId.style.color = 'red';
     })
   }
@@ -59,16 +57,22 @@ function sendChat(productId) {
 }
 
 const drawChatList = (allChatroom) => {
+  console.log('으렵다', allChatroom)
   const chatRoomArea = document.querySelector('#center');
   let html = '';
   if (allChatroom.length === 0) {
     html += `<h3>게시글이 없습니다.</h3>`
   } else {
     for (let chat of allChatroom) {
-      console.log('chat', chat);
-      html += `<div id="user" data-product="${chat[0].id}">`;
-      html += `<img src="/img/trend/bs-1.jpg" alt="물품사진"/>`
-      html += `<p>${chat[0].message}</p></div>`
+      if (chat.length !== undefined) {
+        html += `<div id="user" data-product="${chat[0].productId}">`;
+        html += `<img src="/img/trend/bs-1.jpg" alt="물품사진"/>`
+        html += `<p>${chat[0].message}</p></div>`
+      } else {
+        html += `<div id="user" data-product="${chat.productId}">`;
+        html += `<img src="/img/trend/bs-1.jpg" alt="물품사진"/>`
+        html += `<p>${chat.message}</p></div>`
+      }
     }
   }
 
@@ -100,9 +104,15 @@ const drawChat = (messageObjs) => {
   chatRoomEle.innerHTML = '';
 
   messageObjs.forEach(messageObj => {
-    const messageEle = document.createElement('p');
-    messageEle.classList.add(messageObj.mine ? 'sendMessage' : 'receiveMessage');
-    messageEle.textContent = messageObj.message;
-    chatRoomEle.appendChild(messageEle);
+    console.log('할 수 있을까', messageObj)
+    const messagePEle = document.createElement('p');
+    const submitBtnEle = document.createElement('button');
+    messagePEle.classList.add(messageObj.mine ? 'sendMessage' : 'receiveMessage');
+    messagePEle.textContent = messageObj.message;
+
+    submitBtnEle.textContent = '전송';
+    submitBtnEle.dataset.roomId = messageObj.productId;
+
+    chatRoomEle.appendChild(messagePEle);
   });
 };
