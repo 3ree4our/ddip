@@ -9,13 +9,16 @@ import org.springframework.stereotype.Component;
 import javax.crypto.SecretKey;
 import java.util.Date;
 
+import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.SignatureAlgorithm;
+
 @Component
 public class JWTUtil {
   private SecretKey secretKey;
 
   public JWTUtil(@Value("${spring.jwt.secret}")String secret) {
     byte[] bytes = Decoders.BASE64.decode(secret);
-    secretKey = Keys.hmacShaKeyFor(bytes);
+    secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
   }
 
   public String getUsername(String token) {
