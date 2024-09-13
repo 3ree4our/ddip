@@ -1,6 +1,6 @@
 package org.threefour.ddip.address.service;
 
-import org.springframework.boot.configurationprocessor.json.JSONException;
+import org.json.JSONException;
 import org.threefour.ddip.address.domain.Address;
 
 public interface AddressService {
