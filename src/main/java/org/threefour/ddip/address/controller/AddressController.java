@@ -1,3 +1,4 @@
+/*
 package org.threefour.ddip.address.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,3 +33,4 @@ public class AddressController {
 
 
 }
+*/

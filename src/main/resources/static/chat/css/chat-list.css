@@ -1,0 +1,52 @@
+.container {
+    border: 1px solid purple;
+    height: 100%;
+}
+
+.row {
+    height: 100%;
+}
+
+#left {
+    padding: 0 !important;
+    background-color: gray;
+}
+
+#center {
+    padding: 0 !important;
+}
+
+#user {
+    border: 1px solid cadetblue;
+    display: flex;
+    align-items: center;
+}
+
+#user > img {
+    width: 40px;
+    border-radius: 40px;
+}
+
+#user > p {
+    margin: 0 !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#right {
+    padding: 0 !important;
+}
+
+#chatRoomArea .sendMessage {
+    text-align: end;
+}
+
+#chatRoomArea .receiveMessage {
+}
+
+#rightBottom {
+    height: 45px;
+    bottom: 0;
+}
+

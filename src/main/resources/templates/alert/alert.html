@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="alertFragment">
+<head>
+  <link rel="stylesheet" th:href="@{/chat/css/alert.css}">
+</head>
+<body>
+<article>
+  <div id="alertImgContainer">
+    <img th:src="@{/chat/img/hand.png}" alt="알림이미지">
+  </div>
+</article>
+
+<script th:inline="javascript">
+  const alertImgEle = document.querySelector('#alertImgContainer > img');
+  alertImgEle.addEventListener('click', () => {
+    location.href = '/chatrooms'
+  })
+</script>
+
+</body>
+</html>

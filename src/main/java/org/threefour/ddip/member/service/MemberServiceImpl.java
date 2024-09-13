@@ -1,27 +1,44 @@
 package org.threefour.ddip.member.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.threefour.ddip.address.domain.Address;
-import org.threefour.ddip.address.service.AddressService;
 import org.threefour.ddip.member.domain.Member;
+import org.threefour.ddip.member.domain.MemberRequestDTO;
 import org.threefour.ddip.member.repository.MemberRepository;
 
 @Service
-@Transactional
+@RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
-  @Autowired
-  private AddressService addressService;
+  private final MemberRepository memberRepository;
+  private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-  @Autowired
-  private MemberRepository memberRepository;
+  public Long join(MemberRequestDTO memberRequestDTO) {
+    String email = memberRequestDTO.getEmail();
+    String password = memberRequestDTO.getPassword();
+    String nickName = memberRequestDTO.getNickName();
+    String school = memberRequestDTO.getSchool();
 
-  @Override
-  public Member saveMember(Member member, Address address){
+    Boolean isExist = memberRepository.existsByEmail(email);
+    if (isExist) {
+      System.out.println("회원이 이미 존재합니다!");
+      return 0L;
+    }
+
+    /*Member member = new Member();
+    member.setNickName(nickName);
+    member.setPassword(bCryptPasswordEncoder.encode(password));
+    member.setSchool(school);
+    member.setEmail(email);
+*/
+    Member member = Member.builder()
+            .nickName(nickName)
+            .password(bCryptPasswordEncoder.encode(password))
+            .school(school)
+            .email(email)
+            .build();
     memberRepository.save(member);
-    addressService.saveAddress(address);
 
-    return member;
+    return member.getId();
   }
 }

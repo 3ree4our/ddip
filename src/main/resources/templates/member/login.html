@@ -15,14 +15,14 @@
         rel="stylesheet">
 
   <!-- Css Styles -->
-  <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-  <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
-  <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
-  <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
-  <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
-  <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
-  <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
-  <link rel="stylesheet" href="css/style.css" type="text/css">
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css">
+  <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" type="text/css">
+  <link rel="stylesheet" th:href="@{/css/elegant-icons.css}" type="text/css">
+  <link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}" type="text/css">
+  <link rel="stylesheet" th:href="@{/css/magnific-popup.css}" type="text/css">
+  <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}" type="text/css">
+  <link rel="stylesheet" th:href="@{/css/slicknav.min.css}" type="text/css">
+  <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
 </head>
 
 <body>
@@ -75,12 +75,12 @@
               <ul class="dropdown">
                 <li><a href="./product-details">Product Details</a></li>
                 <li><a href="./shop-cart.html">Shop Cart</a></li>
-                <li><a href="./checkout.html">Checkout</a></li>
+                <li><a href="registration.html">Checkout</a></li>
                 <li><a href="./blog-details.html">Blog Details</a></li>
               </ul>
             </li>
             <li><a href="./blog.html">Blog</a></li>
-            <li><a href="./registration.html">Contact</a></li>
+            <li><a href="./login.html">Contact</a></li>
           </ul>
         </nav>
       </div>
@@ -130,41 +130,16 @@
     <div class="row">
       <div class="col-lg-6 col-md-6">
         <div class="contact__content">
-          <div class="contact__address">
-            <h5>Contact info</h5>
-            <ul>
-              <li>
-                <h6><i class="fa fa-map-marker"></i> Address</h6>
-                <p>160 Pennsylvania Ave NW, Washington, Castle, PA 16101-5161</p>
-              </li>
-              <li>
-                <h6><i class="fa fa-phone"></i> Phone</h6>
-                <p><span>125-711-811</span><span>125-668-886</span></p>
-              </li>
-              <li>
-                <h6><i class="fa fa-headphones"></i> Support</h6>
-                <p>Support.photography@gmail.com</p>
-              </li>
-            </ul>
-          </div>
           <div class="contact__form">
-            <h5>SEND MESSAGE</h5>
-            <form action="#">
-              <input type="text" placeholder="Name">
-              <input type="text" placeholder="Email">
-              <input type="text" placeholder="Website">
-              <textarea placeholder="Message"></textarea>
-              <button type="submit" class="site-btn">Send Message</button>
+            <h5>Login</h5>
+            <form action="/login" method="POST">
+              <input type="text" name="username" placeholder="Email">
+              <input type="text" name="password" placeholder="PassWord">
+              <button type="submit" class="site-btn">로그인</button>
+              <br><br>
+              <a href="/member/signUp" style="text-decoration: none;">회원가입</a>
             </form>
           </div>
-        </div>
-      </div>
-      <div class="col-lg-6 col-md-6">
-        <div class="contact__map">
-          <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48158.305462977965!2d-74.13283844036356!3d41.02757295168286!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2e440473470d7%3A0xcaf503ca2ee57958!2sSaddle%20River%2C%20NJ%2007458%2C%20USA!5e0!3m2!1sen!2sbd!4v1575917275626!5m2!1sen!2sbd"
-                  height="780" style="border:0" allowfullscreen="">
-          </iframe>
         </div>
       </div>
     </div>
@@ -316,16 +291,16 @@
 <!-- Search End -->
 
 <!-- Js Plugins -->
-<script src="js/jquery-3.3.1.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.magnific-popup.min.js"></script>
-<script src="js/jquery-ui.min.js"></script>
-<script src="js/mixitup.min.js"></script>
-<script src="js/jquery.countdown.min.js"></script>
-<script src="js/jquery.slicknav.js"></script>
-<script src="js/owl.carousel.min.js"></script>
-<script src="js/jquery.nicescroll.min.js"></script>
-<script src="js/main.js"></script>
+<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
+<script th:src="@{/js/jquery-ui.min.js}"></script>
+<script th:src="@{/js/mixitup.min.js}"></script>
+<script th:src="@{/js/jquery.countdown.min.js}"></script>
+<script th:src="@{/js/jquery.slicknav.js}"></script>
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script th:src="@{/js/jquery.nicescroll.min.js}"></script>
+<script th:src="@{/js/main.js}"></script>
 </body>
 
 </html>
