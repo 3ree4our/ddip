@@ -1,7 +1,7 @@
 package org.threefour.ddip.image.domain;
 
 import lombok.NoArgsConstructor;
-import org.threefour.ddip.audit.BaseGeneraltEntity;
+import org.threefour.ddip.audit.BaseGeneralEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +10,7 @@ import static lombok.AccessLevel.PROTECTED;
 
 @Entity
 @NoArgsConstructor(access = PROTECTED)
-public class Image extends BaseGeneraltEntity {
+public class Image extends BaseGeneralEntity {
     @Column(nullable = false, length = 20)
     private TargetType targetType;
 
