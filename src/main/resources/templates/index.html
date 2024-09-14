@@ -813,7 +813,7 @@
   const a = async () => {
     const response = await fetch('/access');
     const bb = response.headers.get("accessToken");
-    localStorage.setItem('access_token', bb);
+    if (bb) localStorage.setItem('access_token', bb);
   }
   a();
 </script>

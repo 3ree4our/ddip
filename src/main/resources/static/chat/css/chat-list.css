@@ -1,52 +1,112 @@
-.container {
-    border: 1px solid purple;
-    height: 100%;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.row {
-    height: 100%;
-}
-
-#left {
-    padding: 0 !important;
-    background-color: gray;
-}
-
-#center {
-    padding: 0 !important;
-}
-
-#user {
-    border: 1px solid cadetblue;
+body {
     display: flex;
+    justify-content: center;
     align-items: center;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
-#user > img {
-    width: 40px;
-    border-radius: 40px;
+#chatContainer {
+    width: 800px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
-#user > p {
-    margin: 0 !important;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+#chatContainer .header {
+    font-size: 14px;
+    padding: 15px 0;
+    background: #F18C7E;
+    color: white;
+    text-align: center;
 }
 
-#right {
-    padding: 0 !important;
+#chatWrapper {
+    display: flex;
 }
 
-#chatRoomArea .sendMessage {
-    text-align: end;
+#chatWrapper .chat-list {
+    width: 25%;
+    border-left: 1px solid;
 }
 
-#chatRoomArea .receiveMessage {
+#chatWrapper img {
+    width: 45px;
+    border-radius: 45px;
 }
 
-#rightBottom {
-    height: 45px;
-    bottom: 0;
+#chatContainer .chat {
+    overflow-y: auto;
+    height: 600px;
+    width: 75%;
+    border-right: 1px solid;
+    border-left: 1px solid;
 }
 
+#chatContainer .chat ul {
+    width: 100%;
+    list-style: none;
+}
+
+#chatContainer .chat ul li {
+    width: 100%;
+}
+
+#chatContainer .chat ul li.left {
+    text-align: left;
+}
+
+#chatContainer .chat ul li.right {
+    text-align: right;
+}
+
+#chatContainer .chat ul li > div {
+    font-size: 13px;
+}
+
+#chatContainer .chat ul li > div.sender {
+    margin: 10px 20px 0 20px;
+    font-weight: bold;
+}
+
+#chatContainer .chat ul li > div.message {
+    display: inline-block;
+    word-break: break-all;
+    margin: 5px 20px;
+    max-width: 75%;
+    border: 1px solid #888;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #FCFCFC;
+    color: #555;
+    text-align: left;
+}
+
+#chatContainer .input-div {
+    width: 800px;
+    background-color: #FFF;
+    text-align: center;
+    border-top: 1px solid #F18C7E;
+}
+
+#chatContainer .input-div > textarea {
+    max-height: 150px;
+    min-height: 80px;
+    width: 100%;
+    height: auto;
+    border: 1px solid;
+    border-top: none;
+    padding: 10px;
+    resize: vertical;
+}
+
+.format {
+    display: none;
+}

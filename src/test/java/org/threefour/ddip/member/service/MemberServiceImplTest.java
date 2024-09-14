@@ -66,7 +66,7 @@ class MemberServiceImplTest {
             .name("이수완")
             .price(49000)
             .seller(Member.builder()
-                    .id(2L)
+                    .id(1L)
                     .build())
             .build();
     Product product3 = Product.builder()

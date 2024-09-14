@@ -11,9 +11,11 @@
 </article>
 
 <script th:inline="javascript">
+  const accessToken = localStorage.getItem('access_token');
   const alertImgEle = document.querySelector('#alertImgContainer > img');
   alertImgEle.addEventListener('click', () => {
-    location.href = '/chatrooms'
+    if (accessToken === null) location.href = '/member/login'
+    else location.href = '/chatrooms'
   })
 </script>
 

@@ -13,21 +13,23 @@ import java.util.List;
 @Repository
 public interface ChatRepository extends JpaRepository<Chat, Long> {
 
-  @Query("SELECT new org.threefour.ddip.chat.domain.dto.ChatroomResponseDTO(" +
-          "c.productId.id, c.message, c.sendDate) " +
-          "from Chat c " +
-          "WHERE c.deleteYn = false " +
-          "AND c.owner.id = :ownerId " +
-          "AND c.id IN (" +
-          "    SELECT MAX(c2.id) " +
-          "    FROM Chat c2 " +
-          "    WHERE c2.deleteYn = false " +
-          "    AND c2.owner.id = :ownerId " +
-          "    GROUP BY c2.owner.id, c2.productId.id" +
-          ") " +
-          "ORDER BY c.owner.id")
-  List<ChatroomResponseDTO> findAllChatByReceiverId(@Param("ownerId") Long ownerId);
+  @Query("SELECT new org.threefour.ddip.chat.domain.dto.ChatroomResponseDTO( " +
+          " c.productId.id, c.message, MAX(c.sendDate), c.owner, p.seller) " +
+          "from Chat c join Product p on c.productId.id = p.id " +
+          "where c.deleteYn = false " +
+          "AND c.productId.id = :productId " +
+          "group by c.productId.id"
+  )
+  ChatroomResponseDTO findChatByProductId(@Param("productId") Long productId);
 
+  @Query("SELECT new org.threefour.ddip.chat.domain.dto.ChatroomResponseDTO( " +
+          " c.productId.id, c.message, MAX(c.sendDate), c.owner, p.seller) " +
+          "from Chat c join Product p on c.productId.id = p.id " +
+          "where c.deleteYn = false " +
+          "AND c.owner.id = :ownerId " +
+          "group by c.productId.id"
+  )
+  List<ChatroomResponseDTO> findAllChatByOwnerId(@Param("ownerId") Long ownerId);
 
   @Query("select new org.threefour.ddip.chat.domain.dto.ChatResponseDTO(c.productId.id, c.message, p.title, m.nickName, c.sendDate) " +
           "from Chat c join Product p on c.productId.id = p.id " +

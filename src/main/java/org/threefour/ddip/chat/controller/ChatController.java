@@ -24,13 +24,11 @@ public class ChatController {
 
   @GetMapping("/chatrooms")
   public String moveTochatList(String u) {
-    // 채팅 리스트만 가져오기
     return "chat/chat-list";
   }
 
   @GetMapping("/chatrooms/{productId}")
   public String moveTochatListWithProductId(@PathVariable Long productId) {
-    // 채팅만 가져오기
     return "chat/chat-list";
   }
 

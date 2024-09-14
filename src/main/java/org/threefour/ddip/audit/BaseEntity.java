@@ -18,14 +18,18 @@ import java.sql.Timestamp;
 @MappedSuperclass
 @Getter
 public abstract class BaseEntity {
-    @CreatedDate
-    @Column(nullable = false, updatable = false)
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    private Timestamp createdAt;
+  @CreatedDate
+  @Column(nullable = false, updatable = false)
+  @JsonSerialize(using = TimestampSerializer.class)
+  @JsonDeserialize(using = TimestampDeserializer.class)
+  /*@JsonSerialize(using = LocalDateTimeSerializer.class)
+  @JsonDeserialize(using = LocalDateTimeDeserializer.class)*/
+  private Timestamp createdAt;
 
-    @LastModifiedDate
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    private Timestamp modifiedAt;
+  @LastModifiedDate
+  @JsonSerialize(using = TimestampSerializer.class)
+  @JsonDeserialize(using = TimestampDeserializer.class)
+  /*@JsonSerialize(using = LocalDateTimeSerializer.class)
+  @JsonDeserialize(using = LocalDateTimeDeserializer.class)*/
+  private Timestamp modifiedAt;
 }

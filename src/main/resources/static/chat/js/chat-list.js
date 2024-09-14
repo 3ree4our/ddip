@@ -7,17 +7,16 @@ let subscriptions = {};
 
 export const getConnect = async () => {
   const allProducts = await getAllProduct();
-  console.log('allProducts', allProducts)
   const chatList = [];
   if (allProducts.length > 0) {
     const productsId = allProducts.map(e => e.productId);
     if (!connectStatus) connect(productsId);
 
-    for (const e of allProducts) {
-      const messageObj = await getChatroomByProductId('suwan', e.productId);
-      chatList.push(messageObj);
-    }
-    drawChatList(chatList);
+    /* for (const e of allProducts) {
+       const messageObj = await getChatroomByProductId('suwan', e.productId);
+       chatList.push(messageObj);
+     }
+     drawChatList(chatList);*/
   }
 }
 getConnect();
@@ -57,17 +56,17 @@ function sendChat(productId) {
 }
 
 const drawChatList = (allChatroom) => {
-  console.log('으렵다', allChatroom)
-  const chatRoomArea = document.querySelector('#center');
+  const chatRoomArea = document.querySelector('.chat-list');
   let html = '';
   if (allChatroom.length === 0) {
     html += `<h3>게시글이 없습니다.</h3>`
   } else {
     for (let chat of allChatroom) {
+      console.log('chat_ ', chat)
       if (chat.length !== undefined) {
-        html += `<div id="user" data-product="${chat[0].productId}">`;
+        html += `<div id="user" data-product="${chat.productId}">`;
         html += `<img src="/img/trend/bs-1.jpg" alt="물품사진"/>`
-        html += `<p>${chat[0].message}</p></div>`
+        html += `<p>${chat.message}</p></div>`
       } else {
         html += `<div id="user" data-product="${chat.productId}">`;
         html += `<img src="/img/trend/bs-1.jpg" alt="물품사진"/>`
@@ -94,6 +93,7 @@ const drawChatList = (allChatroom) => {
     })
   }
 }
+console.log('allChatroom', allChatroom)
 drawChatList(allChatroom);
 
 

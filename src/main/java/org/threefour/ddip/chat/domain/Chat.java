@@ -39,9 +39,7 @@ public class Chat extends BaseEntity {
   @Column(length = 1000)
   private String message;
 
-  @CreatedDate
-  @JsonSerialize(using = LocalDateTimeSerializer.class)
-  @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+  @CreationTimestamp
   private Timestamp sendDate;
 
   @ColumnDefault("0")

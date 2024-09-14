@@ -12,6 +12,7 @@ import org.threefour.ddip.chat.domain.dto.ChatResponseDTO;
 import org.threefour.ddip.chat.domain.dto.ChatroomResponseDTO;
 import org.threefour.ddip.chat.domain.dto.ProductResponseDTO;
 import org.threefour.ddip.chat.repository.ChatRepository;
+import org.threefour.ddip.member.domain.Member;
 import org.threefour.ddip.member.jwt.JWTUtil;
 import org.threefour.ddip.product.service.ProductServiceImpl;
 
@@ -39,8 +40,21 @@ public class APIController {
   public ResponseEntity<List<ChatroomResponseDTO>> getAllChatroom(@PathVariable("member") String email, @RequestHeader("Authorization") String token) {
     String accessToken = token.substring(7);
     Long id = jwtUtil.getId(accessToken);
+    List<ChatroomResponseDTO> list = new ArrayList<>();
 
-    List<ChatroomResponseDTO> list = chatRepository.findAllChatByReceiverId(id);
+    List<ProductResponseDTO> allProductBySellerId = productService.getAllProductBySellerId(id);
+    for (ProductResponseDTO product : allProductBySellerId) {
+      ChatroomResponseDTO chatByProductId = chatRepository.findChatByProductId(product.getProductId());
+      if (chatByProductId != null) list.add(chatByProductId);
+    }
+
+    List<ChatroomResponseDTO> chatByOwnerId = chatRepository.findAllChatByOwnerId(id);
+    if (chatByOwnerId != null) {
+      for (ChatroomResponseDTO chat : chatByOwnerId) {
+        list.add(chat);
+      }
+    }
+
     return new ResponseEntity<>(list, HttpStatus.OK);
   }
 
