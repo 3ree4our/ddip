@@ -33,7 +33,7 @@ class MemberServiceImplTest {
     memberRequestDTO1.setNickName("이수완");
     memberRequestDTO1.setSchool("보령중");
 
-    Long id1 = memberService.join(memberRequestDTO1);
+    memberService.join(memberRequestDTO1);
 
     MemberRequestDTO memberRequestDTO2 = new MemberRequestDTO();
     memberRequestDTO2.setEmail("duwan");
@@ -41,7 +41,7 @@ class MemberServiceImplTest {
     memberRequestDTO2.setNickName("이두완");
     memberRequestDTO2.setSchool("주포초");
 
-    Long id2 = memberService.join(memberRequestDTO2);
+    memberService.join(memberRequestDTO2);
 
     MemberRequestDTO memberRequestDTO3 = new MemberRequestDTO();
     memberRequestDTO3.setEmail("wuwan");
@@ -49,7 +49,7 @@ class MemberServiceImplTest {
     memberRequestDTO3.setNickName("이우완");
     memberRequestDTO3.setSchool("시드니대");
 
-    Long id3 = memberService.join(memberRequestDTO3);
+    memberService.join(memberRequestDTO3);
 
     Product product1 = Product.builder()
             .title("갤럭시!!")
@@ -57,7 +57,7 @@ class MemberServiceImplTest {
             .name("이수완")
             .price(39000)
             .seller(Member.builder()
-                    .id(id1)
+                    .id(1L)
                     .build())
             .build();
     Product product2 = Product.builder()
@@ -66,7 +66,7 @@ class MemberServiceImplTest {
             .name("이수완")
             .price(49000)
             .seller(Member.builder()
-                    .id(id2)
+                    .id(2L)
                     .build())
             .build();
     Product product3 = Product.builder()
@@ -75,7 +75,7 @@ class MemberServiceImplTest {
             .name("이우완")
             .price(59000)
             .seller(Member.builder()
-                    .id(id3)
+                    .id(3L)
                     .build())
             .build();
     productRepository.save(product1);

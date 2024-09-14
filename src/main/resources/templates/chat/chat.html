@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:fragment="chat-scrit">
   <title>Hello WebSocket</title>
-  <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="/main.css" rel="stylesheet">
   <script src="/webjars/jquery/jquery.min.js"></script>
   <script src="/webjars/sockjs-client/sockjs.min.js"></script>
   <script src="/webjars/stomp-websocket/stomp.min.js"></script>
@@ -11,12 +9,12 @@
 </head>
 <body>
 
-<div>
-  <div>
+<main>
+  <artice>
     <input type="text" name="message">
     <button id="submitBtn" class="btn btn-primary">전송</button>
-  </div>
-</div>
+  </artice>
+</main>
 
 </body>
 </html>

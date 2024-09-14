@@ -1,4 +1,3 @@
-/*
 package org.threefour.ddip.address.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -6,8 +5,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.configurationprocessor.json.JSONException;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,10 +33,12 @@ public class AddressServiceImpl implements AddressService {
 
   @Override
   public Address saveAddress(Address address) {
-    System.out.println("#도로명 주소: "+ address.getDetailedAddress()+", 상세주소: "+address.getDetailedAddress());
+    System.out.println("#도로명 주소: " + address.getDetailedAddress() + ", 상세주소: " + address.getDetailedAddress());
 
     return addressRepository.save(address);
-  };
+  }
+
+  ;
 
   @Override
   public Address getCoordinates(String address) {
@@ -52,7 +53,7 @@ public class AddressServiceImpl implements AddressService {
     ResponseEntity<String> response = restTemplate.exchange(
             url,
             HttpMethod.GET,
-            new org.springframework.http.HttpEntity<>(headers),
+            new HttpEntity<>(headers),
             String.class
     );
     //System.out.println("@response " + response); 뽑았당~!
@@ -73,9 +74,9 @@ public class AddressServiceImpl implements AddressService {
         addressEntity.setLat(addressNode.path("y").asDouble());
         System.out.println("@@@addressEntity: " + addressEntity);
       }
-    }catch (JsonProcessingException e) {
-      System.out.println("json처리 오류"+e.getMessage());
-    }catch(Exception e){
+    } catch (JsonProcessingException e) {
+      System.out.println("json처리 오류" + e.getMessage());
+    } catch (Exception e) {
       e.printStackTrace();
     }
     return addressEntity;
@@ -88,7 +89,7 @@ public class AddressServiceImpl implements AddressService {
     HttpHeaders headers = new HttpHeaders();
     headers.set("X-NCP-APIGW-API-KEY", apiKeyId);
     headers.set("X-NCP-API-KEY", apikeySecret);
-    System.out.println("@@url: "+url);
+    System.out.println("@@url: " + url);
     HttpEntity<String> entity = new HttpEntity<>(headers);
     System.out.println("@@entity: " + entity);
 
@@ -113,4 +114,3 @@ public class AddressServiceImpl implements AddressService {
 
 
 }
-*/

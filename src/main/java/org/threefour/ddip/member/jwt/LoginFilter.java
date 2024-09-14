@@ -6,7 +6,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.threefour.ddip.member.domain.MemberDetails;
 
@@ -25,27 +24,23 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
   @Override
   public Authentication attemptAuthentication(HttpServletRequest request, final HttpServletResponse response) throws AuthenticationException {
-    //클라이언트 요청에서 username,password 추출
     String username = obtainUsername(request);
     String password = obtainPassword(request);
-    //스프링 시큐리티에서 username과 password 검증하기 위해 token에 담기
     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password, null);
-    //token을 검증을 위한 AuthenticationManager로 전달
     return authenticationManager.authenticate(authToken);
   }
 
   @Override
   protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException {
-    //Security Context에 Authentication 객체 저장
     MemberDetails memberDetails = (MemberDetails) authResult.getPrincipal();
     String username = memberDetails.getUsername();
-    Long id = memberDetails.getId();
     Collection<? extends GrantedAuthority> authorities = authResult.getAuthorities();
     Iterator<? extends GrantedAuthority> iterator = authorities.iterator();
     GrantedAuthority authority = iterator.next();
 
-    //String role = authority.getAuthority();
-    String token = jwtUtil.createJwt(username, id,/*role, */ 1000 * 60 * 60L);
+    Long id = memberDetails.getId();
+
+    String token = jwtUtil.createJwt(id, username, /*role, */ 1000 * 60 * 60L);
 
     //HTTP 인증 방식인 RFC 7235에 맞추어 정의
     //Authorization: Bearer <token>
@@ -57,8 +52,6 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
   @Override
   protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) {
-    System.out.println("로긴실패");
-    //401 응답코드 반환
     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
   }
 
