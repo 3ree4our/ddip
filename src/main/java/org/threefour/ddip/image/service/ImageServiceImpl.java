@@ -75,4 +75,9 @@ public class ImageServiceImpl implements ImageService {
         }
         return convertedFile;
     }
+
+    @Override
+    public List<Image> getImages(TargetType targetType, Long targetId) {
+        return imageRepository.findByTargetTypeAndTargetId(targetType, targetId);
+    }
 }
