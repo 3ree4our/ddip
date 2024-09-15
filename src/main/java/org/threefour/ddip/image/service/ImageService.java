@@ -10,4 +10,6 @@ public interface ImageService {
     void createImages(TargetType targetType, Long targetId, List<MultipartFile> imageRequests);
 
     List<Image> getImages(TargetType targetType, Long targetId);
+
+    void deleteImage(Long id);
 }
