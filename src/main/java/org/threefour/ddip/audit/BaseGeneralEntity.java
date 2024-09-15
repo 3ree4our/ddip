@@ -18,4 +18,8 @@ public abstract class BaseGeneralEntity extends BaseEntity {
 
     @Column(nullable = false, columnDefinition = BOOLEAN_DEFAULT_FALSE)
     private boolean deleteYn;
+
+    protected void deleteEntity() {
+        deleteYn = true;
+    }
 }

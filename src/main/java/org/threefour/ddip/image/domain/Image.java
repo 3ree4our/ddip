@@ -33,4 +33,8 @@ public class Image extends BaseGeneralEntity {
     public String getS3Url() {
         return s3Url;
     }
+
+    public void delete() {
+        deleteEntity();
+    }
 }
