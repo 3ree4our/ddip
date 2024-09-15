@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.threefour.ddip.image.domain.Image;
 import org.threefour.ddip.image.domain.TargetType;
+import org.threefour.ddip.image.exception.ImageNotFoundException;
 import org.threefour.ddip.image.exception.S3UploadFailedException;
 import org.threefour.ddip.image.repository.ImageRepository;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -20,6 +21,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.springframework.transaction.annotation.Isolation.READ_COMMITTED;
+import static org.threefour.ddip.image.exception.ExceptionMessage.IMAGE_NOT_FOUND_EXCEPTION_MESSAGE;
+import static org.threefour.ddip.image.exception.ExceptionMessage.S3_UPLOAD_FAILED_EXCEPTION_MESSAGE;
 
 @Service
 @RequiredArgsConstructor
@@ -27,7 +30,6 @@ public class ImageServiceImpl implements ImageService {
     private final ImageRepository imageRepository;
     private final S3Client s3Client;
 
-    private static final String S3_UPLOAD_FAILED_EXCEPTION_MESSAGE = "S3 업로드 과정에서 오류가 발생했습니다.";
     private static final String TLS_HTTP_PROTOCOL = "https://";
     private static final String S3_ADDRESS = "s3.amazonaws.com";
 
@@ -78,6 +80,18 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public List<Image> getImages(TargetType targetType, Long targetId) {
-        return imageRepository.findByTargetTypeAndTargetId(targetType, targetId);
+        return imageRepository.findByTargetTypeAndTargetIdAndDeleteYnFalse(targetType, targetId);
+    }
+
+    private Image getImage(Long id) {
+        return imageRepository.findByIdAndDeleteYnFalse(id)
+                .orElseThrow(() -> new ImageNotFoundException(String.format(IMAGE_NOT_FOUND_EXCEPTION_MESSAGE, id)));
+    }
+
+    @Override
+    public void deleteImage(Long id) {
+        Image image = getImage(id);
+        image.delete();
+        imageRepository.save(image);
     }
 }

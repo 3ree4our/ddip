@@ -5,7 +5,10 @@ import org.threefour.ddip.image.domain.Image;
 import org.threefour.ddip.image.domain.TargetType;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ImageRepository extends JpaRepository<Image, Long> {
-    List<Image> findByTargetTypeAndTargetId(TargetType targetType, Long id);
+    List<Image> findByTargetTypeAndTargetIdAndDeleteYnFalse(TargetType targetType, Long id);
+
+    Optional<Image> findByIdAndDeleteYnFalse(Long id);
 }
