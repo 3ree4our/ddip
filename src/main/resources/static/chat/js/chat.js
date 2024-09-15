@@ -1,9 +1,3 @@
-/**
- * socket 연결 및 대화 신청시 대화 생성
- * @type {Element}
- */
-import {createChatroom} from "./api.js";
-
 const conversationBtn = document.querySelector('#conversationApply');
 const path = location.pathname;
 const productId = path.substring(path.lastIndexOf('/') + 1);

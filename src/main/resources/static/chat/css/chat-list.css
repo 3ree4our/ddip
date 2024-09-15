@@ -12,6 +12,10 @@ body {
     scrollbar-width: none;
 }
 
+p {
+    margin-bottom: 0 !important;
+}
+
 #chatContainer {
     width: 800px;
     position: absolute;
@@ -37,8 +41,36 @@ body {
     border-left: 1px solid;
 }
 
+#chatWrapper .chat-list .user {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 10px 0;
+}
+
+#chatWrapper .chat-list .user > div {
+    overflow: hidden;
+}
+
+#chatWrapper .chat-list .user p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#chatWrapper .chat-list .user::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: #a71d2a;
+}
+
 #chatWrapper img {
     width: 45px;
+    height: 45px;
     border-radius: 45px;
 }
 
@@ -109,4 +141,8 @@ body {
 
 .format {
     display: none;
+}
+
+.active {
+    background-color: #888;
 }

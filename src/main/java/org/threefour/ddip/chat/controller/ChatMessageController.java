@@ -30,28 +30,30 @@ public class ChatMessageController {
   @MessageMapping("/{productId}")
   @SendTo("/room/{productId}")
   public ChatMessage sendMessage(
-          @DestinationVariable("productId") Long productId,
+          @DestinationVariable("productId") String productId,
           ChatMessage message) {
 
-    ProductResponseDTO productByProductId = productService.getProductByProductId(productId);
+    long pi = Long.parseLong(productId);
+    ProductResponseDTO productByProductId = productService.getProductByProductId(pi);
 
     Long sellerId = productByProductId.getSellerId();
     String name = "duwan";
     MemberDetails customUserDetails = (MemberDetails) memberDetailsService.loadUserByUsername(name);
+    String nickName = customUserDetails.getNickName();
     Long ownerId = customUserDetails.getId();
 
     ChatMessage mg = ChatMessage.builder()
             .roomId(message.getRoomId())
-            .ownerId(ownerId)
+            .senderNickName(nickName)
+            .type(message.getType())
             .message(message.getMessage())
             .title(productByProductId.getTitle())
             .build();
 
-    if (sellerId.equals(name)) mg.setMine(true);
 
     ChatRequestDTO dto = ChatRequestDTO.builder()
             .owner(ownerId)
-            .productId(productId)
+            .productId(pi)
             .message(message.getMessage())
             .build();
 

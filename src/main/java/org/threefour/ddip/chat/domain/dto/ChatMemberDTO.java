@@ -9,6 +9,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ChatMemberDTO {
   private Long id;
-  private String username;
+  private String nickname;
   private String type;
 }

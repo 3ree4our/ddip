@@ -4,6 +4,7 @@ const allChatroom = await getAllChatroom();
 let stompClient = '';
 let connectStatus = false;
 let subscriptions = {};
+let focusChatroom = '';
 
 export const getConnect = async () => {
   const allProducts = await getAllProduct();
@@ -12,11 +13,11 @@ export const getConnect = async () => {
     const productsId = allProducts.map(e => e.productId);
     if (!connectStatus) connect(productsId);
 
-    /* for (const e of allProducts) {
-       const messageObj = await getChatroomByProductId('suwan', e.productId);
-       chatList.push(messageObj);
-     }
-     drawChatList(chatList);*/
+    for (const e of allProducts) {
+      const messageObj = await getChatroomByProductId('suwan', e.productId);
+      chatList.push(messageObj);
+    }
+    if (chatList.length > 0) drawChatList(chatList);
   }
 }
 getConnect();
@@ -37,23 +38,53 @@ const subscribeToProduct = (productId) => {
   if (stompClient && stompClient.connected) {
     subscriptions[productId] = stompClient.subscribe(`/room/${productId}`, chatMessage => {
       const messageObj = JSON.parse(chatMessage.body);
-      const roomId = document.querySelector(`div[data-product="${messageObj.roomId}"] > p`)
-      roomId.style.color = 'red';
+      console.log('지금 있기는 하나? ', messageObj)
+      //appendMessageTag()
+      /*const roomId = document.querySelector(`div[data-product="${messageObj.roomId}"] > p`)
+      roomId.style.color = 'red';*/
     })
   }
 }
 
-function sendChat(productId) {
-  const messageInputEle = document.querySelector('input[name="message"]');
+//===========메시지 전송===============
+document.querySelector("section.input-div textarea").addEventListener("keydown", e => {
+  if (e.keyCode === 13 && !e.shiftKey) {
+    e.preventDefault();
+    sendMessage(); // 입력창 초기화
+    document.querySelector("div.input-div textarea").value = "";
+  }
+});
+
+// 메시지 태그 생성
+const createMessageTag = (LR_className, senderName, message) => {
+  const chatLi = document.querySelector("section.chat.format ul li").cloneNode(true);
+  chatLi.classList.add(LR_className);
+  chatLi.querySelector(".sender span").textContent = senderName;
+  chatLi.querySelector(".message span").textContent = message;
+  return chatLi;
+}
+
+// 메시지 태그 추가
+const appendMessageTag = (LR_className, senderName, message) => {
+  const chatLi = createMessageTag(LR_className, senderName, message);
+  //document.querySelector("section.chat:not(.format) ul").appendChild(chatLi);
+  //document.querySelector("section.chat").scrollTop = document.querySelector("section.chat").scrollHeight;
+}
+
+function sendMessage() {
+  const messageInputEle = document.querySelector('textarea');
   const messageObj = {
     message: messageInputEle.value
   }
 
   if (messageInputEle.value != '') {
-    stompClient.send(`/messages/${productId}`, {}, JSON.stringify(messageObj));
+    stompClient.send(`/messages/${focusChatroom}`, {}, JSON.stringify(messageObj));
     messageInputEle.value = '';
   }
 }
+
+
+//===========================================================================================
 
 const drawChatList = (allChatroom) => {
   const chatRoomArea = document.querySelector('.chat-list');
@@ -62,57 +93,68 @@ const drawChatList = (allChatroom) => {
     html += `<h3>게시글이 없습니다.</h3>`
   } else {
     for (let chat of allChatroom) {
-      console.log('chat_ ', chat)
       if (chat.length !== undefined) {
-        html += `<div id="user" data-product="${chat.productId}">`;
+        html += `<div class="user" data-product="${chat[0].productId}">`;
         html += `<img src="/img/trend/bs-1.jpg" alt="물품사진"/>`
-        html += `<p>${chat.message}</p></div>`
+        html += `<div><p>${chat[0].senderNickname}</p>`
+        html += `<p>${chat[0].message}</p></div></div>`
       } else {
-        html += `<div id="user" data-product="${chat.productId}">`;
+        html += `<div class="user" data-product="${chat.productId}">`;
         html += `<img src="/img/trend/bs-1.jpg" alt="물품사진"/>`
-        html += `<p>${chat.message}</p></div>`
+        html += `<div><p>${chat.senderNickname}</p>`
+        html += `<p>${chat.message}</p></div></div>`
       }
     }
   }
 
   chatRoomArea.innerHTML = html;
 
-  const chatrooms = document.querySelectorAll('#user');
+  const chatrooms = document.querySelectorAll('.user');
   if (chatrooms.length > 0) {
     chatrooms.forEach(e => {
       e.addEventListener('click', async (e) => {
         let roomId = '';
+        let focusStatus = false;
         if (e.target.tagName !== 'DIV') {
-          roomId = e.target.parentElement.dataset.product;
+          if (e.target.tagName !== 'IMG') {
+            const targetEle = e.target.parentElement.parentElement;
+            roomId = targetEle.dataset.product;
+            addClassName(targetEle);
+          } else {
+            const targetEle = e.target.parentElement;
+            roomId = targetEle.dataset.product;
+            addClassName(targetEle);
+          }
         } else {
-          roomId = e.target.dataset.product;
+          const targetEle = e.target;
+          roomId = targetEle.dataset.product;
+          addClassName(targetEle);
         }
+        focusChatroom = roomId;
         const messageObj = await getChatroomByProductId('suwan', roomId);
         drawChat(messageObj)
       })
     })
   }
 }
-console.log('allChatroom', allChatroom)
 drawChatList(allChatroom);
 
-
 const drawChat = (messageObjs) => {
-  const chatRoomEle = document.querySelector('#chatRoomArea');
+  const chatRoomEle = document.querySelector('.chat');
 
   // 기존 메시지 모두 제거 (초기화)
   chatRoomEle.innerHTML = '';
+  appendMessageTag();
 
   messageObjs.forEach(messageObj => {
-    console.log('할 수 있을까', messageObj)
-    const messagePEle = document.createElement('p');
-    const submitBtnEle = document.createElement('button');
-    messagePEle.classList.add(messageObj.mine ? 'sendMessage' : 'receiveMessage');
-    messagePEle.textContent = messageObj.message;
-
-    submitBtnEle.textContent = '전송';
-    submitBtnEle.dataset.roomId = messageObj.productId;
-
-    chatRoomEle.appendChild(messagePEle);
+    console.log('messageObj', messageObj)
   });
 };
+
+const addClassName = (targetEle) => {
+  const elements = document.querySelector('.chat-list');
+  const children = elements.children;
+  for (let child of children) child.classList.remove('active')
+
+  targetEle.classList.add('active');
+}
