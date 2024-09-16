@@ -1,3 +1,4 @@
+/*
 package org.threefour.ddip.image.service;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -13,3 +14,4 @@ public interface ImageService {
 
     void deleteImage(Long id);
 }
+*/

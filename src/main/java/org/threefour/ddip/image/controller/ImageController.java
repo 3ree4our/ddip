@@ -1,3 +1,4 @@
+/*
 package org.threefour.ddip.image.controller;
 
 import lombok.RequiredArgsConstructor;
@@ -37,3 +38,4 @@ public class ImageController {
         return ResponseEntity.status(NO_CONTENT).build();
     }
 }
+*/

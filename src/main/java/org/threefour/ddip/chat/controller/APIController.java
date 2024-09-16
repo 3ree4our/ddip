@@ -59,7 +59,14 @@ public class APIController {
 
   @GetMapping("/{member}/chatrooms/{chatroomId}")
   public ResponseEntity<List<ChatResponseDTO>> getChatroomByProductId(@PathVariable("member") String email, @PathVariable("chatroomId") Long chatroomId) {
-    List<ChatResponseDTO> list = chatRepository.findAllChatByProductId(chatroomId);
+    List<ChatResponseDTO> allChatByProductId = chatRepository.findAllChatByProductId(chatroomId);
+    List<ChatResponseDTO> list = new ArrayList<>();
+    for (ChatResponseDTO chat : allChatByProductId) {
+      if (chat.getProductOwner().getId() != chat.getSender().getId()) chat.setType("RIGHT");
+      else chat.setType("LEFT");
+
+      list.add(chat);
+    }
 
     return new ResponseEntity<>(list, HttpStatus.OK);
   }

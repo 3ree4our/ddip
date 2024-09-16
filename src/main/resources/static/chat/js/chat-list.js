@@ -1,11 +1,11 @@
 import {getAllProduct, getAllChatroom, getChatroomByProductId} from "./api.js";
 
-const allChatroom = await getAllChatroom();
+//const allChatroom = await getAllChatroom();
 let stompClient = '';
 let connectStatus = false;
 let subscriptions = {};
 let focusChatroom = '';
-console.log('땅후니', allChatroom)
+
 export const getConnect = async () => {
   const allProducts = await getAllProduct();
   if (allProducts.length > 0) {
@@ -79,7 +79,8 @@ function sendMessage() {
 
 //===========================================================================================
 
-const drawChatList = (allChatroom) => {
+const drawChatList = async () => {
+  const allChatroom = await getAllChatroom();
   const chatRoomArea = document.querySelector('.chat-list');
   let html = '';
   if (allChatroom.length === 0) {
@@ -100,7 +101,6 @@ const drawChatList = (allChatroom) => {
     chatrooms.forEach(e => {
       e.addEventListener('click', async (e) => {
         let roomId = '';
-        let focusStatus = false;
         if (e.target.tagName !== 'DIV') {
           if (e.target.tagName !== 'IMG') {
             const targetEle = e.target.parentElement.parentElement;
@@ -118,24 +118,13 @@ const drawChatList = (allChatroom) => {
         }
         focusChatroom = roomId;
         const messageObj = await getChatroomByProductId('suwan', roomId);
-        drawChat(messageObj)
+        console.log('messageObj', messageObj)
       })
     })
   }
 }
-drawChatList(drawChatList)
+drawChatList()
 
-const drawChat = (messageObjs) => {
-  const chatRoomEle = document.querySelector('.chat');
-
-  // 기존 메시지 모두 제거 (초기화)
-  chatRoomEle.innerHTML = '';
-  appendMessageTag();
-
-  messageObjs.forEach(messageObj => {
-    console.log('messageObj', messageObj)
-  });
-};
 
 const addClassName = (targetEle) => {
   const elements = document.querySelector('.chat-list');

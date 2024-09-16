@@ -1,3 +1,4 @@
+/*
 package org.threefour.ddip.image.service;
 
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,7 @@ import static org.threefour.ddip.image.exception.ExceptionMessage.IMAGE_NOT_FOUN
 import static org.threefour.ddip.image.exception.ExceptionMessage.S3_UPLOAD_FAILED_EXCEPTION_MESSAGE;
 
 @Service
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class ImageServiceImpl implements ImageService {
     private final ImageRepository imageRepository;
     private final S3Client s3Client;
@@ -95,3 +96,4 @@ public class ImageServiceImpl implements ImageService {
         imageRepository.save(image);
     }
 }
+*/
