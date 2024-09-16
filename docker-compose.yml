@@ -36,6 +36,8 @@ services:
       redis:
         condition: service_started
     environment:
+      PROJECT_NAME: ${PROJECT_NAME}
+      PROJECT_VERSION: ${PROJECT_VERSION}
       SPRING_DATASOURCE_MASTER_URL: jdbc:mariadb://ddip-db.c1smcu2wa2ue.us-east-2.rds.amazonaws.com:3306/${PROJECT_NAME}
       SPRING_DATASOURCE_MASTER_USERNAME: ${DB_MASTER_USER_NAME}
       SPRING_DATASOURCE_MASTER_PASSWORD: ${DB_MASTER_USER_PASSWORD}
