@@ -16,13 +16,19 @@ spring:
       prefix: /
       suffix: .html
   datasource:
-    driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://ddip-db.c1smcu2wa2ue.us-east-2.rds.amazonaws.com:3306/${PROJECT_NAME}?serverTimezone=UTC&characterEncoding=UTF-8
-    username: ${DB_USER_NAME}
-    password: ${DB_USER_PASSWORD}
+    master:
+      driver-class-name: org.mariadb.jdbc.Driver
+      jdbc-url: jdbc:mariadb://ddip-db.c12qq8qq0tns.ap-northeast-2.rds.amazonaws.com:3306/${PROJECT_NAME}?serverTimezone=UTC&characterEncoding=UTF-8
+      username: ${DB_MASTER_USER_NAME}
+      password: ${DB_MASTER_USER_PASSWORD}
+    slave:
+      driver-class-name: org.mariadb.jdbc.Driver
+      jdbc-url: jdbc:mariadb://mariadb-container:3306/${PROJECT_NAME}?serverTimezone=UTC&characterEncoding=UTF-8
+      username: ${DB_SLAVE_USER_NAME}
+      password: ${DB_SLAVE_USER_PASSWORD}
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
       properties:
         hibernate:
           dialect: org.hibernate.dialect.MariaDBDialect

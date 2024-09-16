@@ -67,8 +67,10 @@ pipeline {
                     withCredentials([
                         sshUserPrivateKey(credentialsId: 'EC2_DEPLOY_KEY_FOR_DDIP', keyFileVariable: 'EC2_DEPLOY_KEY_FOR_DDIP'),
                         string(credentialsId: 'DB_ROOT_PASSWORD', variable: 'DB_ROOT_PASSWORD'),
-                        string(credentialsId: 'DB_USER_NAME', variable: 'DB_USER_NAME'),
-                        string(credentialsId: 'DB_USER_PASSWORD', variable: 'DB_USER_PASSWORD'),
+                        string(credentialsId: 'DB_MASTER_USER_NAME', variable: 'DB_MASTER_USER_NAME'),
+                        string(credentialsId: 'DB_MASTER_USER_PASSWORD', variable: 'DB_MASTER_USER_PASSWORD'),
+                        string(credentialsId: 'DB_SLAVE_USER_NAME', variable: 'DB_SLAVE_USER_NAME'),
+                        string(credentialsId: 'DB_SLAVE_USER_PASSWORD', variable: 'DB_SLAVE_USER_PASSWORD'),
                         string(credentialsId: 'REDIS_PASSWORD', variable: 'REDIS_PASSWORD'),
                         string(credentialsId: 'JWT_SECRET_KEY', variable: 'JWT_SECRET_KEY'),
                         string(credentialsId: 'SSL_KEY_STORE_PASSWORD', variable: 'SSL_KEY_STORE_PASSWORD'),
@@ -87,8 +89,10 @@ pipeline {
                             export PROJECT_NAME='${PROJECT_NAME}'
                             export PROJECT_VERSION='${PROJECT_VERSION}'
                             export DOCKER_HUB_USER_NAME='${DOCKER_HUB_USER_NAME}'
-                            export DB_USER_NAME='$DB_USER_NAME'
-                            export DB_USER_PASSWORD='$DB_USER_PASSWORD'
+                            export DB_MASTER_USER_NAME='$DB_MASTER_USER_NAME'
+                            export DB_MASTER_USER_PASSWORD='$DB_MASTER_USER_PASSWORD'
+                            export DB_SLAVE_USER_NAME='$DB_SLAVE_USER_NAME'
+                            export DB_SLAVE_USER_PASSWORD='$DB_SLAVE_USER_PASSWORD'
                             export DB_ROOT_PASSWORD='$DB_ROOT_PASSWORD'
                             export REDIS_PASSWORD='$REDIS_PASSWORD'
                             export JWT_SECRET_KEY='$JWT_SECRET_KEY'
