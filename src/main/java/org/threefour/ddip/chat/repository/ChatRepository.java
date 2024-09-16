@@ -12,23 +12,31 @@ import java.util.List;
 
 @Repository
 public interface ChatRepository extends JpaRepository<Chat, Long> {
-
-  @Query("SELECT new org.threefour.ddip.chat.domain.dto.ChatroomResponseDTO( " +
-          " c.productId.id, c.message, MAX(c.sendDate), c.owner, p.seller) " +
-          "from Chat c join Product p on c.productId.id = p.id " +
-          "where c.deleteYn = false " +
+  @Query("SELECT new org.threefour.ddip.chat.domain.dto.ChatroomResponseDTO(" +
+          "c.productId.id, c.message, c.sendDate, c.owner, p.seller) " +
+          "FROM Chat c " +
+          "JOIN Product p on c.productId.id = p.id " +
+          "WHERE c.deleteYn = false " +
           "AND c.productId.id = :productId " +
-          "group by c.productId.id"
-  )
+          "AND c.sendDate = (" +
+          "    SELECT MAX(c2.sendDate) " +
+          "    FROM Chat c2 " +
+          "    WHERE c2.productId.id = c.productId.id " +
+          "    AND c2.deleteYn = false" +
+          ")")
   ChatroomResponseDTO findChatByProductId(@Param("productId") Long productId);
 
-  @Query("SELECT new org.threefour.ddip.chat.domain.dto.ChatroomResponseDTO( " +
-          " c.productId.id, c.message, MAX(c.sendDate), c.owner, p.seller) " +
-          "from Chat c join Product p on c.productId.id = p.id " +
-          "where c.deleteYn = false " +
-          "AND c.owner.id = :ownerId " +
-          "group by c.productId.id"
-  )
+  @Query("SELECT new org.threefour.ddip.chat.domain.dto.ChatroomResponseDTO(" +
+          "c.productId.id, c.message, c.sendDate, c.owner, p.seller) " +
+          "FROM Chat c " +
+          "JOIN Product p on c.productId.id = p.id " +
+          "WHERE c.deleteYn = false " +
+          "AND c.sendDate = (" +
+          "    SELECT MAX(c2.sendDate) " +
+          "    FROM Chat c2 " +
+          "    WHERE c.owner.id = :ownerId " +
+          "    AND c2.deleteYn = false" +
+          ")")
   List<ChatroomResponseDTO> findAllChatByOwnerId(@Param("ownerId") Long ownerId);
 
   @Query("select new org.threefour.ddip.chat.domain.dto.ChatResponseDTO(c.productId.id, c.message, p.title, m.nickName, c.sendDate) " +

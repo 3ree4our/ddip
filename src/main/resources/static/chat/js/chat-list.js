@@ -5,19 +5,12 @@ let stompClient = '';
 let connectStatus = false;
 let subscriptions = {};
 let focusChatroom = '';
-
+console.log('땅후니', allChatroom)
 export const getConnect = async () => {
   const allProducts = await getAllProduct();
-  const chatList = [];
   if (allProducts.length > 0) {
     const productsId = allProducts.map(e => e.productId);
     if (!connectStatus) connect(productsId);
-
-    for (const e of allProducts) {
-      const messageObj = await getChatroomByProductId('suwan', e.productId);
-      chatList.push(messageObj);
-    }
-    if (chatList.length > 0) drawChatList(chatList);
   }
 }
 getConnect();
@@ -93,17 +86,10 @@ const drawChatList = (allChatroom) => {
     html += `<h3>게시글이 없습니다.</h3>`
   } else {
     for (let chat of allChatroom) {
-      if (chat.length !== undefined) {
-        html += `<div class="user" data-product="${chat[0].productId}">`;
-        html += `<img src="/img/trend/bs-1.jpg" alt="물품사진"/>`
-        html += `<div><p>${chat[0].senderNickname}</p>`
-        html += `<p>${chat[0].message}</p></div></div>`
-      } else {
-        html += `<div class="user" data-product="${chat.productId}">`;
-        html += `<img src="/img/trend/bs-1.jpg" alt="물품사진"/>`
-        html += `<div><p>${chat.senderNickname}</p>`
-        html += `<p>${chat.message}</p></div></div>`
-      }
+      html += `<div class="user" data-product="${chat.productId}">`;
+      html += `<img src="/img/trend/bs-1.jpg" alt="물품사진"/>`
+      html += `<div><p>${chat.sender.nickname}</p>`
+      html += `<p>${chat.message}</p></div></div>`
     }
   }
 
@@ -137,7 +123,7 @@ const drawChatList = (allChatroom) => {
     })
   }
 }
-drawChatList(allChatroom);
+drawChatList(drawChatList)
 
 const drawChat = (messageObjs) => {
   const chatRoomEle = document.querySelector('.chat');

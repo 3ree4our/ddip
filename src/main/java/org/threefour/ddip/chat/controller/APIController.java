@@ -54,7 +54,6 @@ public class APIController {
         list.add(chat);
       }
     }
-
     return new ResponseEntity<>(list, HttpStatus.OK);
   }
 
