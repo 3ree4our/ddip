@@ -32,10 +32,10 @@ const subscribeToProduct = (productId) => {
       const messageObj = JSON.parse(chatMessage.body);
       const roomElement = document.querySelector(`[data-product="${messageObj.roomId}"]`);
       roomElement.querySelector('p:last-child').innerText = messageObj.message;
-      console.log('제발 되어라', Number(messageObj.roomId) === focusChatroom)
-      console.log('제발 되어라', messageObj.roomId, focusChatroom)
-      console.log('제발 되어라', typeof messageObj.roomId, typeof focusChatroom)
+
       if (Number(messageObj.roomId) === Number(focusChatroom)) appendMessageTag(messageObj);
+      else roomElement.style.backgroundColor = 'red'
+
     })
   }
 }
@@ -47,8 +47,6 @@ document.querySelector("section.input-div textarea").addEventListener("keydown",
     sendMessage();
     e.target.value = '';
     e.target.focus();
-
-    //e.target.setSelectionRange(textArea.value.length, textArea.value.length);
   }
 });
 
@@ -91,6 +89,8 @@ const appendMessageTag = (messageObj) => {
       document.querySelector("#chatWrapper .chat").scrollTop = document.querySelector("section.chat").scrollHeight;
     }
   }
+  const chatContainer = document.querySelector("#chatWrapper .chat");
+  chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 
 //===========================================================================================
@@ -148,8 +148,9 @@ const drawChatList = async () => {
 }
 drawChatList()
 
-
 const addClassName = (targetEle) => {
+  targetEle.style.backgroundColor = ''
+
   const elements = document.querySelector('.chat-list');
   const children = elements.children;
   for (let child of children) child.classList.remove('active')

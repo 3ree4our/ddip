@@ -80,12 +80,29 @@ pipeline {
                         string(credentialsId: 'DDIP_S3_BUCKET_NAME', variable: 'DDIP_S3_BUCKET_NAME')
                     ]) {
                         sh '''
-                        scp -i "$EC2_DEPLOY_KEY_FOR_DDIP" set-up-docker.sh ubuntu@"$EC2_IP_FOR_DDIP":"$EC2_DEPLOY_PATH"
-                        scp -i "$EC2_DEPLOY_KEY_FOR_DDIP" "$JAR_PATH" ubuntu@"$EC2_IP_FOR_DDIP":"$EC2_DEPLOY_PATH"
-                        scp -i "$EC2_DEPLOY_KEY_FOR_DDIP" "${WORKSPACE}/deploy.sh" "${WORKSPACE}/check-and-restart.sh" ubuntu@"$EC2_IP_FOR_DDIP":"$EC2_DEPLOY_PATH"
-                        ssh -i "$EC2_DEPLOY_KEY_FOR_DDIP" ubuntu@"$EC2_IP_FOR_DDIP" "chmod +x ${EC2_DEPLOY_PATH}/deploy.sh"
-                        ssh -i "$EC2_DEPLOY_KEY_FOR_DDIP" ubuntu@"$EC2_IP_FOR_DDIP" "chmod +x ${EC2_DEPLOY_PATH}/set-up-docker.sh && PROJECT_NAME='$PROJECT_NAME' ${EC2_DEPLOY_PATH}/set-up-docker.sh $DB_ROOT_PASSWORD $DB_USER_NAME $DB_USER_PASSWORD"
-                        ssh -i "$EC2_DEPLOY_KEY_FOR_DDIP" ubuntu@"$EC2_IP_FOR_DDIP" "export SSL_KEY_STORE_PASSWORD='$SSL_KEY_STORE_PASSWORD'; export DOCKER_HUB_USER_NAME='$DOCKER_HUB_USER_NAME'; export DB_USER_NAME='$DB_USER_NAME'; export DB_USER_PASSWORD='$DB_USER_PASSWORD'; export EC2_IP_FOR_DDIP='$EC2_IP_FOR_DDIP'; export REDIS_PASSWORD='$REDIS_PASSWORD'; export JWT_SECRET_KEY='$JWT_SECRET_KEY'; export PROJECT_NAME='$PROJECT_NAME'; export PROJECT_VERSION='$PROJECT_VERSION'; export NAVER_API_URL='$NAVER_API_URL'; export NAVER_API_KEY_ID='$NAVER_API_KEY_ID'; export NAVER_API_KEY_SECRET='$NAVER_API_KEY_SECRET'; export DDIP_S3_ACCESS_KEY='$DDIP_S3_ACCESS_KEY'; export DDIP_S3_SECRET_KEY='$DDIP_S3_SECRET_KEY'; export DDIP_S3_BUCKET_NAME='$DDIP_S3_BUCKET_NAME'; ${EC2_DEPLOY_PATH}/deploy.sh"
+                        #!/bin/bash
+                        scp -i "$EC2_DEPLOY_KEY_FOR_DDIP" ${WORKSPACE}/docker-compose.yml ubuntu@$EC2_IP_FOR_DDIP:$EC2_DEPLOY_PATH/
+                        ssh -i "$EC2_DEPLOY_KEY_FOR_DDIP" ubuntu@"$EC2_IP_FOR_DDIP" << EOF
+                            cd $EC2_DEPLOY_PATH
+                            export PROJECT_NAME='${PROJECT_NAME}'
+                            export PROJECT_VERSION='${PROJECT_VERSION}'
+                            export DOCKER_HUB_USER_NAME='${DOCKER_HUB_USER_NAME}'
+                            export DB_USER_NAME='$DB_USER_NAME'
+                            export DB_USER_PASSWORD='$DB_USER_PASSWORD'
+                            export DB_ROOT_PASSWORD='$DB_ROOT_PASSWORD'
+                            export REDIS_PASSWORD='$REDIS_PASSWORD'
+                            export JWT_SECRET_KEY='$JWT_SECRET_KEY'
+                            export SSL_KEY_STORE_PASSWORD='$SSL_KEY_STORE_PASSWORD'
+                            export NAVER_API_URL='$NAVER_API_URL'
+                            export NAVER_API_KEY_ID='$NAVER_API_KEY_ID'
+                            export NAVER_API_KEY_SECRET='$NAVER_API_KEY_SECRET'
+                            export DDIP_S3_ACCESS_KEY='$DDIP_S3_ACCESS_KEY'
+                            export DDIP_S3_SECRET_KEY='$DDIP_S3_SECRET_KEY'
+                            export DDIP_S3_BUCKET_NAME='$DDIP_S3_BUCKET_NAME'
+                            docker-compose down
+                            docker-compose pull
+                            docker-compose up -d
+                            << EOF
                         '''
                     }
                 }

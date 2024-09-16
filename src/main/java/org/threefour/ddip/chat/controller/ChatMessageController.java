@@ -20,6 +20,9 @@ import org.threefour.ddip.member.service.MemberDetailsService;
 import org.threefour.ddip.product.service.ProductServiceImpl;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 @Controller
 @RequiredArgsConstructor
@@ -49,15 +52,6 @@ public class ChatMessageController {
     if (username != null) type = "right";
     else type = "left";
 
-    ChatMessage mg = ChatMessage.builder()
-            .roomId(productByProductId.getProductId())
-            .nickname(nickName)
-            .type(type)
-            .message(message.getMessage())
-            .title(productByProductId.getTitle())
-            .build();
-
-
     ChatRequestDTO dto = ChatRequestDTO.builder()
             .owner(memberDetails.getId())
             .productId(pi)
@@ -76,6 +70,16 @@ public class ChatMessageController {
     //}else{
     //
     //}
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    String format = formatter.format(LocalDateTime.now());
+    ChatMessage mg = ChatMessage.builder()
+            .roomId(productByProductId.getProductId())
+            .nickname(nickName)
+            .title(productByProductId.getTitle())
+            .message(message.getMessage())
+            .sendDate(format)
+            .type(type)
+            .build();
 
     return mg;
   }

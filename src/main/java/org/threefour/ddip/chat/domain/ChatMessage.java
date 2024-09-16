@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,5 +16,6 @@ public class ChatMessage {
   private String nickname;
   private String message;
   private String title;
+  private String sendDate;
   private String type;
 }

@@ -37,7 +37,7 @@ spring:
     serialization:
       fail-on-empty-beans: false
   redis:
-    host: localhost
+    host: redis-container
     port: 6379
     password: ${REDIS_PASSWORD}
   jwt:
@@ -59,6 +59,15 @@ cloud:
       static: ap-northeast-2
     s3:
       bucket-name: ${DDIP_S3_BUCKET_NAME}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      enabled: true
+
   config:
     activate:
       on-profile: dev
