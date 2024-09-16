@@ -4,6 +4,20 @@ const productId = path.substring(path.lastIndexOf('/') + 1);
 
 let stompClient = '';
 
+const getAuthHeader = () => {
+  const token = localStorage.getItem('access_token');
+  if (!token) {
+    console.error('No access token found');
+    return null;
+  }
+
+  const headers = {
+    'Authorization': `Bearer ${token}`
+  };
+
+  return headers;
+}
+
 conversationBtn.addEventListener('click', async () => {
   const a = await connect(productId);
   sendChat(productId);
@@ -13,8 +27,7 @@ conversationBtn.addEventListener('click', async () => {
 function connect(productId) {
   var socket = new SockJS("/ws-stomp");
   stompClient = Stomp.over(socket);
-  stompClient.connect({}, function (frame) {
-    console.log('대화 채팅 connect 생성: ' + frame);
+  stompClient.connect(getAuthHeader(), function (frame) {
     sendChat(productId);
     stompClient.subscribe(`/room/${productId}`);
   });
@@ -25,7 +38,7 @@ function sendChat(productId) {
     message: "채팅방이 생성되었습니다."
   }
 
-  stompClient.send(`/messages/${productId}`, {}, JSON.stringify(messageObj));
+  stompClient.send(`/messages/${productId}`, getAuthHeader(), JSON.stringify(messageObj));
 
   location.href = `/chatrooms/${productId}`;
 }

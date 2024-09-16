@@ -31,5 +31,4 @@ public class ChatController {
   public String moveTochatListWithProductId(@PathVariable Long productId) {
     return "chat/chat-list";
   }
-
 }

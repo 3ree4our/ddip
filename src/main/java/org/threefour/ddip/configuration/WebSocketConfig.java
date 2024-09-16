@@ -47,14 +47,12 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
       @Override
       public Message<?> preSend(Message<?> message, MessageChannel channel) {
         StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
-
-        if (StompCommand.SEND.equals(accessor.getCommand())) {
+        if (StompCommand.CONNECT.equals(accessor.getCommand()) || StompCommand.SEND.equals(accessor.getCommand())) {
           String token = accessor.getFirstNativeHeader("Authorization");
           if (token != null && token.startsWith("Bearer ")) {
             token = token.substring(7);
-            // TODO: Validate JWT token and set user authentication
-            System.out.println("시바끄 토큰" + token);
             String username = jwtUtil.getUsername(token);
+
             UserDetails userDetails = memberDetailsService.loadUserByUsername(username);
 
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, null);

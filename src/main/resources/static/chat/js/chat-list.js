@@ -1,8 +1,9 @@
-import {getAllProduct, getAllChatroom, getChatroomByProductId} from "./api.js";
+import {getAllProduct, getAllChatroom, getChatroomByProductId, getUnreadMessageCounts} from "./api.js";
 
 let stompClient = '';
 let connectStatus = false;
 let focusChatroom = '';
+let unreadMessages = {};
 
 export const getConnect = async () => {
   const allProducts = await getAllProduct();
@@ -32,9 +33,13 @@ const subscribeToProduct = (productId) => {
       const roomElement = document.querySelector(`[data-product="${messageObj.roomId}"]`);
       roomElement.querySelector('p:last-child').innerText = messageObj.message;
 
-      if (Number(messageObj.roomId) === Number(focusChatroom)) appendMessageTag(messageObj);
-      else roomElement.style.backgroundColor = 'red'
-
+      if (Number(messageObj.roomId) === Number(focusChatroom)) {
+        appendMessageTag(messageObj);
+      } else {
+        // 읽지 않은 메시지 수 증가
+        unreadMessages[messageObj.roomId] = (unreadMessages[messageObj.roomId] || 0) + 1;
+        updateUnreadBadge(messageObj.roomId);
+      }
     })
   }
 }
@@ -95,6 +100,40 @@ const appendMessageTag = (messageObj) => {
 
 //===========================================================================================
 
+// 채팅방 클릭 이벤트 핸들러 수정
+const chatRoomClickHandler = async (e) => {
+
+  if (document.querySelector("#chatWrapper .chat:not(.format) ul").hasChildNodes()) {
+    document.querySelector("#chatWrapper .chat:not(.format) ul").replaceChildren('')
+  }
+  let roomId = '';
+  if (e.target.tagName !== 'DIV') {
+    if (e.target.tagName !== 'IMG') {
+      const targetEle = e.target.parentElement.parentElement;
+      roomId = targetEle.dataset.product;
+      addClassName(targetEle);
+    } else {
+      const targetEle = e.target.parentElement;
+      roomId = targetEle.dataset.product;
+      addClassName(targetEle);
+    }
+  } else {
+    const targetEle = e.target;
+    roomId = targetEle.dataset.product;
+    addClassName(targetEle);
+  }
+
+  focusChatroom = roomId;
+  // 읽지 않은 메시지 수 초기화
+  unreadMessages[roomId] = 0;
+  updateUnreadBadge(roomId);
+
+  const messageObj = await getChatroomByProductId('suwan', roomId);
+  console.log('messageObj', messageObj);
+  appendMessageTag(messageObj);
+}
+
+
 const drawChatList = async () => {
   const allChatroom = await getAllChatroom();
   const chatRoomArea = document.querySelector('.chat-list');
@@ -117,36 +156,10 @@ const drawChatList = async () => {
   const chatrooms = document.querySelectorAll('.user');
   if (chatrooms.length > 0) {
     chatrooms.forEach(e => {
-      e.addEventListener('click', async (e) => {
-
-        if (document.querySelector("#chatWrapper .chat:not(.format) ul").hasChildNodes()) {
-          document.querySelector("#chatWrapper .chat:not(.format) ul").replaceChildren('')
-        }
-        let roomId = '';
-        if (e.target.tagName !== 'DIV') {
-          if (e.target.tagName !== 'IMG') {
-            const targetEle = e.target.parentElement.parentElement;
-            roomId = targetEle.dataset.product;
-            addClassName(targetEle);
-          } else {
-            const targetEle = e.target.parentElement;
-            roomId = targetEle.dataset.product;
-            addClassName(targetEle);
-          }
-        } else {
-          const targetEle = e.target;
-          roomId = targetEle.dataset.product;
-          addClassName(targetEle);
-        }
-        focusChatroom = roomId;
-        const messageObj = await getChatroomByProductId('suwan', roomId);
-        console.log('messageObj', messageObj)
-        appendMessageTag(messageObj);
-      })
+      e.addEventListener('click', async (e) => chatRoomClickHandler(e))
     })
   }
 }
-drawChatList()
 
 const addClassName = (targetEle) => {
   targetEle.style.backgroundColor = ''
@@ -157,3 +170,37 @@ const addClassName = (targetEle) => {
 
   targetEle.classList.add('active');
 }
+
+
+const updateUnreadBadge = (roomId) => {
+  const roomElement = document.querySelector(`[data-product="${roomId}"]`);
+  console.log('저건 뭐지', roomElement)
+  let badgeElement = roomElement.querySelector('.unread-badge');
+
+  if (!badgeElement) {
+    badgeElement = document.createElement('span');
+    badgeElement.className = 'unread-badge';
+    roomElement.appendChild(badgeElement);
+  }
+
+  const unreadCount = unreadMessages[roomId] || 0;
+  if (unreadCount > 0) {
+    badgeElement.textContent = unreadCount;
+    badgeElement.style.display = 'inline';
+  } else {
+    badgeElement.style.display = 'none';
+  }
+}
+const initializeUnreadCounts = async () => {
+  const allChatroom = await getAllChatroom();
+  const allChatroomId = allChatroom.map(e => e.productId);
+  if (allChatroom.length > 0) {
+    const unreadCounts = await getUnreadMessageCounts(allChatroomId);
+    Object.entries(unreadCounts).forEach(([productId, count]) => {
+      updateUnreadBadge(productId, count);
+    });
+  }
+}
+
+initializeUnreadCounts();
+drawChatList();
