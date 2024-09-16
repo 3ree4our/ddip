@@ -2,7 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org" th:fragment="alertFragment">
 <head>
   <link rel="stylesheet" th:href="@{/chat/css/alert.css}">
-  <script th:defer src="@{/chat/js/alert.js}"></script>
+
+  <!--chat-->
+  <script src="/webjars/jquery/jquery.min.js"></script>
+  <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+  <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+
+  <script th:defer th:type="module" th:src="@{/chat/js/alert.js}"></script>
+
 </head>
 <body>
 <article>

@@ -2,7 +2,6 @@ import {getAllProduct, getAllChatroom, getChatroomByProductId} from "./api.js";
 
 let stompClient = '';
 let connectStatus = false;
-let subscriptions = {};
 let focusChatroom = '';
 
 export const getConnect = async () => {
@@ -28,7 +27,7 @@ function connect(productsId) {
 
 const subscribeToProduct = (productId) => {
   if (stompClient && stompClient.connected) {
-    subscriptions[productId] = stompClient.subscribe(`/room/${productId}`, chatMessage => {
+    stompClient.subscribe(`/room/${productId}`, chatMessage => {
       const messageObj = JSON.parse(chatMessage.body);
       const roomElement = document.querySelector(`[data-product="${messageObj.roomId}"]`);
       roomElement.querySelector('p:last-child').innerText = messageObj.message;
@@ -64,6 +63,7 @@ const sendMessage = () => {
   if (messageInputEle.value != '') {
     stompClient.send(`/messages/${focusChatroom}`, headers, JSON.stringify(messageObj));
   }
+
 }
 
 // 메시지 태그 생성

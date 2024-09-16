@@ -1,4 +1,4 @@
-export const SERVER_API = 'http://192.168.0.3:8080';
+export const SERVER_API = 'http://localhost:8080';
 
 const accessToken = localStorage.getItem('access_token');
 
