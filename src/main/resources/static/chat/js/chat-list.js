@@ -1,6 +1,5 @@
 import {getAllProduct, getAllChatroom, getChatroomByProductId} from "./api.js";
 
-//const allChatroom = await getAllChatroom();
 let stompClient = '';
 let connectStatus = false;
 let subscriptions = {};
@@ -31,10 +30,12 @@ const subscribeToProduct = (productId) => {
   if (stompClient && stompClient.connected) {
     subscriptions[productId] = stompClient.subscribe(`/room/${productId}`, chatMessage => {
       const messageObj = JSON.parse(chatMessage.body);
-      console.log('지금 있기는 하나? ', messageObj)
-      //appendMessageTag()
-      /*const roomId = document.querySelector(`div[data-product="${messageObj.roomId}"] > p`)
-      roomId.style.color = 'red';*/
+      const roomElement = document.querySelector(`[data-product="${messageObj.roomId}"]`);
+      roomElement.querySelector('p:last-child').innerText = messageObj.message;
+      console.log('제발 되어라', Number(messageObj.roomId) === focusChatroom)
+      console.log('제발 되어라', messageObj.roomId, focusChatroom)
+      console.log('제발 되어라', typeof messageObj.roomId, typeof focusChatroom)
+      if (Number(messageObj.roomId) === Number(focusChatroom)) appendMessageTag(messageObj);
     })
   }
 }
@@ -43,10 +44,29 @@ const subscribeToProduct = (productId) => {
 document.querySelector("section.input-div textarea").addEventListener("keydown", e => {
   if (e.keyCode === 13 && !e.shiftKey) {
     e.preventDefault();
-    sendMessage(); // 입력창 초기화
-    document.querySelector("div.input-div textarea").value = "";
+    sendMessage();
+    e.target.value = '';
+    e.target.focus();
+
+    //e.target.setSelectionRange(textArea.value.length, textArea.value.length);
   }
 });
+
+const sendMessage = () => {
+  const messageInputEle = document.querySelector('section.input-div textarea');
+
+  const headers = {
+    'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+  };
+
+  const messageObj = {
+    message: messageInputEle.value
+  }
+
+  if (messageInputEle.value != '') {
+    stompClient.send(`/messages/${focusChatroom}`, headers, JSON.stringify(messageObj));
+  }
+}
 
 // 메시지 태그 생성
 const createMessageTag = (LR_className, senderName, message) => {
@@ -58,48 +78,50 @@ const createMessageTag = (LR_className, senderName, message) => {
 }
 
 // 메시지 태그 추가
-const appendMessageTag = (LR_className, senderName, message) => {
-  const chatLi = createMessageTag(LR_className, senderName, message);
-  //document.querySelector("section.chat:not(.format) ul").appendChild(chatLi);
-  //document.querySelector("section.chat").scrollTop = document.querySelector("section.chat").scrollHeight;
-}
-
-function sendMessage() {
-  const messageInputEle = document.querySelector('textarea');
-  const messageObj = {
-    message: messageInputEle.value
-  }
-
-  if (messageInputEle.value != '') {
-    stompClient.send(`/messages/${focusChatroom}`, {}, JSON.stringify(messageObj));
-    messageInputEle.value = '';
+const appendMessageTag = (messageObj) => {
+  if (messageObj.length === undefined) {
+    const chatLi = createMessageTag(messageObj.type, messageObj.nickname, messageObj.message);
+    document.querySelector("#chatWrapper .chat:not(.format) ul").appendChild(chatLi);
+    document.querySelector("#chatWrapper .chat").scrollTop = document.querySelector("section.chat").scrollHeight;
+  } else {
+    for (let message of messageObj) {
+      // 첫 번째 채팅 => 대화 신청 중간 정렬 나중에 (서버에서 type을 center로 보내게 할 수 있을까?
+      const chatLi = createMessageTag(message.type, message.sender.nickname, message.message);
+      document.querySelector("#chatWrapper .chat:not(.format) ul").appendChild(chatLi);
+      document.querySelector("#chatWrapper .chat").scrollTop = document.querySelector("section.chat").scrollHeight;
+    }
   }
 }
-
 
 //===========================================================================================
 
 const drawChatList = async () => {
   const allChatroom = await getAllChatroom();
   const chatRoomArea = document.querySelector('.chat-list');
+  let productIds = [];
   let html = '';
   if (allChatroom.length === 0) {
     html += `<h3>게시글이 없습니다.</h3>`
   } else {
     for (let chat of allChatroom) {
+      productIds.push(chat.productId);
       html += `<div class="user" data-product="${chat.productId}">`;
       html += `<img src="/img/trend/bs-1.jpg" alt="물품사진"/>`
       html += `<div><p>${chat.sender.nickname}</p>`
       html += `<p>${chat.message}</p></div></div>`
     }
   }
-
+  connect(productIds);
   chatRoomArea.innerHTML = html;
 
   const chatrooms = document.querySelectorAll('.user');
   if (chatrooms.length > 0) {
     chatrooms.forEach(e => {
       e.addEventListener('click', async (e) => {
+
+        if (document.querySelector("#chatWrapper .chat:not(.format) ul").hasChildNodes()) {
+          document.querySelector("#chatWrapper .chat:not(.format) ul").replaceChildren('')
+        }
         let roomId = '';
         if (e.target.tagName !== 'DIV') {
           if (e.target.tagName !== 'IMG') {
@@ -119,6 +141,7 @@ const drawChatList = async () => {
         focusChatroom = roomId;
         const messageObj = await getChatroomByProductId('suwan', roomId);
         console.log('messageObj', messageObj)
+        appendMessageTag(messageObj);
       })
     })
   }

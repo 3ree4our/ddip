@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class ChatMessage {
-  private int roomId;
-  private String senderNickName;
+  private Long roomId;
+  private String nickname;
   private String message;
   private String title;
   private String type;

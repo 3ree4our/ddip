@@ -1,10 +1,13 @@
 package org.threefour.ddip.chat.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.hibernate.tool.schema.internal.exec.ScriptTargetOutputToFile;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.threefour.ddip.chat.domain.ChatMessage;
 import org.threefour.ddip.chat.domain.Waiting;
 import org.threefour.ddip.chat.domain.dto.ChatRequestDTO;
@@ -31,32 +34,35 @@ public class ChatMessageController {
   @SendTo("/room/{productId}")
   public ChatMessage sendMessage(
           @DestinationVariable("productId") String productId,
-          ChatMessage message) {
+          ChatMessage message,
+          Principal principal) {
+
+    String username = principal.getName();
 
     long pi = Long.parseLong(productId);
     ProductResponseDTO productByProductId = productService.getProductByProductId(pi);
 
-    Long sellerId = productByProductId.getSellerId();
-    String name = "duwan";
-    MemberDetails customUserDetails = (MemberDetails) memberDetailsService.loadUserByUsername(name);
-    String nickName = customUserDetails.getNickName();
-    Long ownerId = customUserDetails.getId();
+    MemberDetails memberDetails = (MemberDetails) memberDetailsService.loadUserByUsername(username);
+    String nickName = memberDetails.getNickName();
+
+    String type = "";
+    if (username != null) type = "right";
+    else type = "left";
 
     ChatMessage mg = ChatMessage.builder()
-            .roomId(message.getRoomId())
-            .senderNickName(nickName)
-            .type(message.getType())
+            .roomId(productByProductId.getProductId())
+            .nickname(nickName)
+            .type(type)
             .message(message.getMessage())
             .title(productByProductId.getTitle())
             .build();
 
 
     ChatRequestDTO dto = ChatRequestDTO.builder()
-            .owner(ownerId)
+            .owner(memberDetails.getId())
             .productId(pi)
             .message(message.getMessage())
             .build();
-
 
     // 채팅 저장
     //Waiting chatByProductId = waitingService.getChatByProductId(productId);
