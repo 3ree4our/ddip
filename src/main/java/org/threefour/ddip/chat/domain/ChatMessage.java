@@ -13,9 +13,9 @@ import java.util.Date;
 @Builder
 public class ChatMessage {
   private Long roomId;
+  private Long messageId;
   private String nickname;
   private String message;
   private String title;
   private String sendDate;
-  private String type;
 }

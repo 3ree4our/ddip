@@ -28,7 +28,7 @@ public class ChatServiceImpl implements ChatService {
   private final LastReadMessageRepository lastReadMessageRepository;
 
   @Override
-  public Chat createChat(ChatRequestDTO dto) {
+  public Long createChat(ChatRequestDTO dto) {
     Member owner = memberRepository.findById(dto.getOwner()).orElseThrow();
     Product product = productRepository.findById(dto.getProductId()).orElseThrow();
     Chat chat = Chat.builder()
@@ -37,8 +37,8 @@ public class ChatServiceImpl implements ChatService {
             .productId(product)
             .build();
 
-    chatRepository.save(chat);
-    return null;
+    Chat save = chatRepository.save(chat);
+    return save.getId();
   }
 
   @Override

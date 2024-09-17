@@ -9,7 +9,7 @@ import org.threefour.ddip.chat.domain.dto.ProductResponseDTO;
 import java.util.List;
 
 public interface ChatService {
-  Chat createChat(ChatRequestDTO dto);
+  Long createChat(ChatRequestDTO dto);
 
   ChatroomResponseDTO findChatByProductId(Long productId);
 

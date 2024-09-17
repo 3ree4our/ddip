@@ -8,6 +8,7 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.threefour.ddip.chat.domain.Chat;
 import org.threefour.ddip.chat.domain.ChatMessage;
 import org.threefour.ddip.chat.domain.Waiting;
 import org.threefour.ddip.chat.domain.dto.ChatRequestDTO;
@@ -49,9 +50,6 @@ public class ChatMessageController {
     MemberDetails memberDetails = (MemberDetails) memberDetailsService.loadUserByUsername(username);
     String nickName = memberDetails.getNickName();
 
-    String type = "";
-    if (username != null) type = "right";
-    else type = "left";
 
     ChatRequestDTO dto = ChatRequestDTO.builder()
             .owner(memberDetails.getId())
@@ -59,27 +57,17 @@ public class ChatMessageController {
             .message(message.getMessage())
             .build();
 
-    // 채팅 저장
-    //Waiting chatByProductId = waitingService.getChatByProductId(productId);
-    //WaitingRequestDTO waitingRequestDTO = new WaitingRequestDTO();
-    //if (chatByProductId != null) {
-    chatService.createChat(dto);
-    //  waitingRequestDTO.setProductId(productId);
-    //  waitingRequestDTO.setSenderId(buyerId);
-    //
-    //  waitingService.addWaiting(waitingRequestDTO);
-    //}else{
-    //
-    //}
+    Long saveId = chatService.createChat(dto);
+
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     String format = formatter.format(LocalDateTime.now());
     ChatMessage mg = ChatMessage.builder()
             .roomId(productByProductId.getId())
+            .messageId(saveId)
             .nickname(nickName)
             .title(productByProductId.getTitle())
             .message(message.getMessage())
             .sendDate(format)
-            .type(type)
             .build();
 
     return mg;

@@ -5,6 +5,31 @@ let connectStatus = false;
 let focusChatroom = '';
 let unreadMessages = {};
 
+// 채팅방을 열때
+async function openChatRoom(productId) {
+  const messages = await getChatroomByProductId('suwan', productId);
+  console.log("으잉?, ", messages)
+  await markAsRead(productId);
+}
+
+// 읽음 처리 함수
+async function markAsRead(productId) {
+  await fetch(`/${productId}/mark-read`, {
+    method : 'POST',
+    headers: {
+      'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+    }
+  });
+}
+
+function updateUnreadCount(roomId) {
+  if (!unreadMessages[roomId]) {
+    unreadMessages[roomId] = 0;
+  }
+  unreadMessages[roomId]++;
+  updateUnreadBadge(roomId);
+}
+
 export const getConnect = async () => {
   const allProducts = await getAllProduct();
   if (allProducts.length > 0) {
@@ -12,9 +37,17 @@ export const getConnect = async () => {
     if (!connectStatus) connect(productsId);
   }
 }
-getConnect();
 
 function connect(productsId) {
+  if (stompClient && stompClient.connected) {
+    return; // 이미 연결된 경우 중복 연결 방지
+  }
+
+  if (!productsId) {
+    const pathname = location.pathname;
+    const path = pathname.substring(pathname.lastIndexOf('/') + 1);
+    productsId = path;
+  }
   const socket = new SockJS("/ws-stomp");
   stompClient = Stomp.over(socket);
   stompClient.connect({}, function (frame) {
@@ -28,18 +61,39 @@ function connect(productsId) {
 
 const subscribeToProduct = (productId) => {
   if (stompClient && stompClient.connected) {
-    stompClient.subscribe(`/room/${productId}`, chatMessage => {
+    stompClient.subscribe(`/room/${productId}`, async (chatMessage) => {
       const messageObj = JSON.parse(chatMessage.body);
-      const roomElement = document.querySelector(`[data-product="${messageObj.roomId}"]`);
-      roomElement.querySelector('p:last-child').innerText = messageObj.message;
+
+      let roomElement = document.querySelector(`[data-product="${messageObj.roomId}"]`);
 
       if (Number(messageObj.roomId) === Number(focusChatroom)) {
+        // 현재 보고 있는 채팅방이면 읽음 처리
+        await markAsRead(messageObj.roomId);
         appendMessageTag(messageObj);
       } else {
-        // 읽지 않은 메시지 수 증가
-        unreadMessages[messageObj.roomId] = (unreadMessages[messageObj.roomId] || 0) + 1;
-        updateUnreadBadge(messageObj.roomId);
+        // 다른 채팅방이면 읽지 않은 메시지 수 증가
+        updateUnreadCount(messageObj.roomId);
       }
+
+      if (!roomElement) {
+        // 새로운 채팅방 생성
+        const newChat = {
+          productId: messageObj.roomId,
+          sender   : {nickname: messageObj.nickname},
+          message  : messageObj.message
+        };
+
+        roomElement = createChatRoomElement(newChat);
+        const chatRoomArea = document.querySelector('.chat-list');
+        chatRoomArea.insertBefore(roomElement, chatRoomArea.firstChild);
+      } else {
+        // 기존 채팅방 업데이트
+        roomElement.querySelector('p:last-child').innerText = messageObj.message;
+      }
+
+      if (Number(messageObj.roomId) !== Number(focusChatroom))
+        updateUnreadBadge(messageObj.roomId);
+
     })
   }
 }
@@ -102,7 +156,6 @@ const appendMessageTag = (messageObj) => {
 
 // 채팅방 클릭 이벤트 핸들러 수정
 const chatRoomClickHandler = async (e) => {
-
   if (document.querySelector("#chatWrapper .chat:not(.format) ul").hasChildNodes()) {
     document.querySelector("#chatWrapper .chat:not(.format) ul").replaceChildren('')
   }
@@ -127,6 +180,7 @@ const chatRoomClickHandler = async (e) => {
   // 읽지 않은 메시지 수 초기화
   unreadMessages[roomId] = 0;
   updateUnreadBadge(roomId);
+  await openChatRoom(roomId);
 
   const messageObj = await getChatroomByProductId('suwan', roomId);
   console.log('messageObj', messageObj);
@@ -138,27 +192,20 @@ const drawChatList = async () => {
   const allChatroom = await getAllChatroom();
   const chatRoomArea = document.querySelector('.chat-list');
   let productIds = [];
-  let html = '';
+
   if (allChatroom.length === 0) {
-    html += `<h3>게시글이 없습니다.</h3>`
+    chatRoomArea.innerHTML = '<h3>게시글이 없습니다.</h3>';
   } else {
+    chatRoomArea.innerHTML = '';
     for (let chat of allChatroom) {
       productIds.push(chat.productId);
-      html += `<div class="user" data-product="${chat.productId}">`;
-      html += `<img src="/img/trend/bs-1.jpg" alt="물품사진"/>`
-      html += `<div><p>${chat.sender.nickname}</p>`
-      html += `<p>${chat.message}</p></div></div>`
+      const chatRoomElement = createChatRoomElement(chat);
+      chatRoomArea.appendChild(chatRoomElement);
+      updateUnreadBadge(chat.productId); // 각 채팅방에 대해 읽지 않은 메시지 배지 업데이트
     }
   }
-  connect(productIds);
-  chatRoomArea.innerHTML = html;
 
-  const chatrooms = document.querySelectorAll('.user');
-  if (chatrooms.length > 0) {
-    chatrooms.forEach(e => {
-      e.addEventListener('click', async (e) => chatRoomClickHandler(e))
-    })
-  }
+  connect(productIds);
 }
 
 const addClassName = (targetEle) => {
@@ -174,7 +221,8 @@ const addClassName = (targetEle) => {
 
 const updateUnreadBadge = (roomId) => {
   const roomElement = document.querySelector(`[data-product="${roomId}"]`);
-  console.log('저건 뭐지', roomElement)
+  if (!roomElement) return; // 해당 채팅방 요소가 없으면 함수 종료
+
   let badgeElement = roomElement.querySelector('.unread-badge');
 
   if (!badgeElement) {
@@ -191,16 +239,36 @@ const updateUnreadBadge = (roomId) => {
     badgeElement.style.display = 'none';
   }
 }
+
 const initializeUnreadCounts = async () => {
   const allChatroom = await getAllChatroom();
   const allChatroomId = allChatroom.map(e => e.productId);
   if (allChatroom.length > 0) {
     const unreadCounts = await getUnreadMessageCounts(allChatroomId);
+    unreadMessages = unreadCounts; // 전역 unreadMessages 객체 업데이트
     Object.entries(unreadCounts).forEach(([productId, count]) => {
-      updateUnreadBadge(productId, count);
+      updateUnreadBadge(productId);
     });
   }
 }
 
-initializeUnreadCounts();
-drawChatList();
+const createChatRoomElement = (chat) => {
+  const div = document.createElement('div');
+  div.className = 'user';
+  div.setAttribute('data-product', chat.productId);
+  div.innerHTML = `
+    <img src="/img/trend/bs-1.jpg" alt="물품사진"/>
+    <div>
+      <p>${chat.sender.nickname}</p>
+      <p>${chat.message}</p>
+    </div>
+    <span class="unread-badge" style="display: none;"></span>
+  `;
+  div.addEventListener('click', chatRoomClickHandler);
+  return div;
+}
+
+getConnect();
+drawChatList().then(() => {
+  initializeUnreadCounts();
+});
