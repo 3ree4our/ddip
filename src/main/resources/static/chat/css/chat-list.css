@@ -7,7 +7,6 @@
 body {
     display: flex;
     justify-content: center;
-    align-items: center;
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
@@ -18,10 +17,6 @@ p {
 
 #chatContainer {
     width: 800px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 }
 
 #chatContainer .header {
@@ -30,6 +25,28 @@ p {
     background: #F18C7E;
     color: white;
     text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+#chatContainer .header p {
+    width: 50%;
+    text-align: end;
+}
+
+#chatContainer .header div {
+    width: 50%;
+    text-align: end;
+    margin-right: 10px;
+}
+
+#chatContainer .header img {
+    width: 45px;
+    height: 45px;
+}
+
+#chatContainer .header input {
+    display: none;
 }
 
 #chatWrapper {
@@ -146,3 +163,4 @@ p {
 .active {
     background-color: #888;
 }
+
