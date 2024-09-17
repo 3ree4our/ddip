@@ -1,12 +1,14 @@
 package org.threefour.ddip.util;
 
-import org.threefour.ddip.exception.InvalidTargetTypeException;
-import org.threefour.ddip.exception.ParsingIntegerException;
-import org.threefour.ddip.exception.ParsingLongException;
-import org.threefour.ddip.exception.ParsingShortException;
+import org.threefour.ddip.exception.*;
 import org.threefour.ddip.image.domain.TargetType;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import static org.threefour.ddip.exception.ExceptionMessage.*;
+import static org.threefour.ddip.util.EntityConstant.DATE_PATTERN;
 
 public class FormatConverter {
     public static long parseToLong(String number) {
@@ -33,11 +35,29 @@ public class FormatConverter {
         }
     }
 
+    public static float parseToFloat(String primeNumber) {
+        try {
+            return Float.parseFloat(primeNumber);
+        } catch (NumberFormatException nfe) {
+            throw new ParsingFloatException((String.format(PARSING_FLOAT_EXCEPTION_MESSAGE, primeNumber)));
+        }
+    }
+
     public static TargetType parseToTargetType(String targetType) {
         try {
             return TargetType.valueOf(targetType);
         } catch (IllegalArgumentException iae) {
             throw new InvalidTargetTypeException(String.format(INVALID_TARGET_TYPE_EXCEPTION_MESSAGE, targetType));
+        }
+    }
+
+    public static Timestamp parseToDate(String date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_PATTERN);
+        dateFormat.setLenient(false);
+        try {
+            return new Timestamp(dateFormat.parse(date).getTime());
+        } catch (ParseException e) {
+            throw new ParsingTimestampException(String.format(PARSING_TIMESTAMP_EXCEPTION_MESSAGE, date));
         }
     }
 }
