@@ -14996,3 +14996,1213 @@ io.jsonwebtoken.ExpiredJwtException: JWT expired at 2024-09-17T16:05:42Z. Curren
 [2024-09-18 01:20:00:11133866][http-nio-8080-exec-8] INFO  p6spy - took 0 ms | 
 [2024-09-18 01:20:00:11133867][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/1/unread-count', status code: 200, estimated time: 8ms, used memory: 747736 bytes
 [2024-09-18 01:20:00:11133867][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/2/unread-count', status code: 200, estimated time: 8ms, used memory: 747736 bytes
+[2024-09-18 01:21:59:11252375][File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 19 class path changes (1 addition, 15 deletions, 3 modifications)
+[2024-09-18 01:21:59:11252377][Thread-16] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
+[2024-09-18 01:21:59:11252379][Thread-16] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@606e9228]]
+[2024-09-18 01:21:59:11252379][Thread-16] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
+[2024-09-18 01:21:59:11252530][Thread-16] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+[2024-09-18 01:21:59:11252530][Thread-16] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+[2024-09-18 01:21:59:11252530][Thread-16] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Destroying Spring FrameworkServlet 'dispatcherServlet'
+[2024-09-18 01:21:59:11252533][Thread-16] WARN  o.a.c.loader.WebappClassLoaderBase - The web application [ROOT] appears to have started a thread named [logback-1] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@11.0.24/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@11.0.24/java.util.concurrent.locks.LockSupport.park(LockSupport.java:194)
+ java.base@11.0.24/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2081)
+ java.base@11.0.24/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1170)
+ java.base@11.0.24/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@11.0.24/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1054)
+ java.base@11.0.24/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1114)
+ java.base@11.0.24/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+ java.base@11.0.24/java.lang.Thread.run(Thread.java:829)
+[2024-09-18 01:21:59:11252533][Thread-16] WARN  o.a.c.loader.WebappClassLoaderBase - The web application [ROOT] appears to have started a thread named [logback-2] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@11.0.24/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@11.0.24/java.util.concurrent.locks.LockSupport.park(LockSupport.java:194)
+ java.base@11.0.24/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2081)
+ java.base@11.0.24/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1170)
+ java.base@11.0.24/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@11.0.24/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1054)
+ java.base@11.0.24/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1114)
+ java.base@11.0.24/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+ java.base@11.0.24/java.lang.Thread.run(Thread.java:829)
+[2024-09-18 01:21:59:11252533][Thread-16] WARN  o.a.c.loader.WebappClassLoaderBase - The web application [ROOT] appears to have started a thread named [MessageBroker-4] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@11.0.24/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@11.0.24/java.util.concurrent.locks.LockSupport.park(LockSupport.java:194)
+ java.base@11.0.24/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2081)
+ java.base@11.0.24/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1177)
+ java.base@11.0.24/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@11.0.24/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1054)
+ java.base@11.0.24/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1114)
+ java.base@11.0.24/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+ java.base@11.0.24/java.lang.Thread.run(Thread.java:829)
+[2024-09-18 01:21:59:11252533][Thread-16] WARN  o.a.c.loader.WebappClassLoaderBase - The web application [ROOT] appears to have started a thread named [MessageBroker-6] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@11.0.24/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@11.0.24/java.util.concurrent.locks.LockSupport.park(LockSupport.java:194)
+ java.base@11.0.24/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2081)
+ java.base@11.0.24/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1177)
+ java.base@11.0.24/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@11.0.24/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1054)
+ java.base@11.0.24/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1114)
+ java.base@11.0.24/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+ java.base@11.0.24/java.lang.Thread.run(Thread.java:829)
+[2024-09-18 01:21:59:11252535][Thread-16] WARN  o.a.c.loader.WebappClassLoaderBase - The web application [ROOT] appears to have started a thread named [MessageBroker-7] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@11.0.24/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@11.0.24/java.util.concurrent.locks.LockSupport.park(LockSupport.java:194)
+ java.base@11.0.24/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2081)
+ java.base@11.0.24/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1177)
+ java.base@11.0.24/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@11.0.24/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1054)
+ java.base@11.0.24/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1114)
+ java.base@11.0.24/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+ java.base@11.0.24/java.lang.Thread.run(Thread.java:829)
+[2024-09-18 01:21:59:11252535][Thread-16] WARN  o.a.c.loader.WebappClassLoaderBase - The web application [ROOT] appears to have started a thread named [MessageBroker-8] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@11.0.24/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@11.0.24/java.util.concurrent.locks.LockSupport.park(LockSupport.java:194)
+ java.base@11.0.24/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2081)
+ java.base@11.0.24/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1177)
+ java.base@11.0.24/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@11.0.24/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1054)
+ java.base@11.0.24/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1114)
+ java.base@11.0.24/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+ java.base@11.0.24/java.lang.Thread.run(Thread.java:829)
+[2024-09-18 01:21:59:11252535][Thread-16] WARN  o.a.c.loader.WebappClassLoaderBase - The web application [ROOT] appears to have started a thread named [MessageBroker-9] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@11.0.24/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@11.0.24/java.util.concurrent.locks.LockSupport.park(LockSupport.java:194)
+ java.base@11.0.24/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2081)
+ java.base@11.0.24/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1177)
+ java.base@11.0.24/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@11.0.24/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1054)
+ java.base@11.0.24/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1114)
+ java.base@11.0.24/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+ java.base@11.0.24/java.lang.Thread.run(Thread.java:829)
+[2024-09-18 01:21:59:11252535][Thread-16] WARN  o.a.c.loader.WebappClassLoaderBase - The web application [ROOT] appears to have started a thread named [MessageBroker-12] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@11.0.24/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@11.0.24/java.util.concurrent.locks.LockSupport.park(LockSupport.java:194)
+ java.base@11.0.24/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2081)
+ java.base@11.0.24/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1177)
+ java.base@11.0.24/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@11.0.24/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1054)
+ java.base@11.0.24/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1114)
+ java.base@11.0.24/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+ java.base@11.0.24/java.lang.Thread.run(Thread.java:829)
+[2024-09-18 01:21:59:11252536][Thread-16] WARN  o.a.c.loader.WebappClassLoaderBase - The web application [ROOT] appears to have started a thread named [MessageBroker-13] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@11.0.24/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@11.0.24/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:234)
+ java.base@11.0.24/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2123)
+ java.base@11.0.24/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@11.0.24/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@11.0.24/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1054)
+ java.base@11.0.24/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1114)
+ java.base@11.0.24/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+ java.base@11.0.24/java.lang.Thread.run(Thread.java:829)
+[2024-09-18 01:21:59:11252536][Thread-16] WARN  o.a.c.loader.WebappClassLoaderBase - The web application [ROOT] appears to have started a thread named [MessageBroker-14] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@11.0.24/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@11.0.24/java.util.concurrent.locks.LockSupport.park(LockSupport.java:194)
+ java.base@11.0.24/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2081)
+ java.base@11.0.24/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1177)
+ java.base@11.0.24/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@11.0.24/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1054)
+ java.base@11.0.24/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1114)
+ java.base@11.0.24/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+ java.base@11.0.24/java.lang.Thread.run(Thread.java:829)
+[2024-09-18 01:21:59:11252537][Thread-16] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+[2024-09-18 01:21:59:11252538][Thread-16] INFO  o.a.coyote.http11.Http11NioProtocol - Destroying ProtocolHandler ["http-nio-8080"]
+[2024-09-18 01:21:59:11252546][Thread-16] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+[2024-09-18 01:21:59:11252547][Thread-16] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Shutdown initiated...
+[2024-09-18 01:21:59:11252552][Thread-16] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Shutdown completed.
+[2024-09-18 01:21:59:11252654][restartedMain] INFO  org.threefour.ddip.DdipApplication - Starting DdipApplication using Java 11.0.24 on swansea with PID 5584 (C:\suwan\ddip\9-14\out\production\classes started by swans in C:\suwan\ddip\9-14)
+[2024-09-18 01:21:59:11252654][restartedMain] INFO  org.threefour.ddip.DdipApplication - The following 1 profile is active: "local"
+[2024-09-18 01:21:59:11252855][restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+[2024-09-18 01:21:59:11252855][restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[2024-09-18 01:21:59:11252895][restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 39 ms. Found 8 JPA repository interfaces.
+[2024-09-18 01:21:59:11252898][restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+[2024-09-18 01:21:59:11252898][restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+[2024-09-18 01:21:59:11252906][restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface org.threefour.ddip.address.Repository.AddressRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-09-18 01:21:59:11252906][restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface org.threefour.ddip.chat.repository.ChatRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-09-18 01:21:59:11252907][restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface org.threefour.ddip.chat.repository.LastReadMessageRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-09-18 01:21:59:11252907][restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface org.threefour.ddip.chat.repository.WaitingRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-09-18 01:21:59:11252907][restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface org.threefour.ddip.member.repository.MemberRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-09-18 01:21:59:11252907][restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface org.threefour.ddip.product.category.repository.CategoryRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-09-18 01:21:59:11252907][restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface org.threefour.ddip.product.category.repository.ProductCategoryRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-09-18 01:21:59:11252907][restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface org.threefour.ddip.product.priceinformation.repository.PriceInformationRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-09-18 01:21:59:11252907][restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 9 ms. Found 0 Redis repository interfaces.
+[2024-09-18 01:22:00:11253120][restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+[2024-09-18 01:22:00:11253120][restartedMain] INFO  o.a.c.core.AprLifecycleListener - Loaded Apache Tomcat Native library [2.0.7] using APR version [1.7.4].
+[2024-09-18 01:22:00:11253120][restartedMain] INFO  o.a.c.core.AprLifecycleListener - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true], UDS [true].
+[2024-09-18 01:22:00:11253120][restartedMain] INFO  o.a.c.core.AprLifecycleListener - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+[2024-09-18 01:22:00:11253121][restartedMain] INFO  o.a.c.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 3.0.13 30 Jan 2024]
+[2024-09-18 01:22:00:11253121][restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+[2024-09-18 01:22:00:11253121][restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+[2024-09-18 01:22:00:11253121][restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.83]
+[2024-09-18 01:22:00:11253142][restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+[2024-09-18 01:22:00:11253142][restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 487 ms
+[2024-09-18 01:22:00:11253227][restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+[2024-09-18 01:22:00:11253237][restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Starting...
+[2024-09-18 01:22:00:11253243][restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Start completed.
+[2024-09-18 01:22:00:11253245][restartedMain] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
+[2024-09-18 01:22:00:11253261][restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Invocation of init method failed; nested exception is java.lang.NoClassDefFoundError: org/threefour/ddip/product/domain/Product
+[2024-09-18 01:22:00:11253262][restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Shutdown initiated...
+[2024-09-18 01:22:00:11253265][restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Shutdown completed.
+[2024-09-18 01:22:00:11253267][restartedMain] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+[2024-09-18 01:22:00:11253273][restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+[2024-09-18 01:22:00:11253279][restartedMain] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Invocation of init method failed; nested exception is java.lang.NoClassDefFoundError: org/threefour/ddip/product/domain/Product
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1804)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:620)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1168)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:919)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:591)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:147)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:732)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:409)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:308)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1300)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1289)
+	at org.threefour.ddip.DdipApplication.main(DdipApplication.java:12)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: java.lang.NoClassDefFoundError: org/threefour/ddip/product/domain/Product
+	at java.base/java.lang.Class.getDeclaredMethods0(Native Method)
+	at java.base/java.lang.Class.privateGetDeclaredMethods(Class.java:3166)
+	at java.base/java.lang.Class.getDeclaredMethods(Class.java:2309)
+	at org.hibernate.annotations.common.reflection.java.JavaXClass.getDeclaredMethodProperties(JavaXClass.java:97)
+	at org.hibernate.annotations.common.reflection.java.JavaXClass.getDeclaredProperties(JavaXClass.java:116)
+	at org.hibernate.annotations.common.reflection.java.JavaXClass.getDeclaredProperties(JavaXClass.java:108)
+	at org.hibernate.cfg.InheritanceState.determineDefaultAccessType(InheritanceState.java:252)
+	at org.hibernate.cfg.InheritanceState.getElementsToProcess(InheritanceState.java:211)
+	at org.hibernate.cfg.AnnotationBinder.bindClass(AnnotationBinder.java:772)
+	at org.hibernate.boot.model.source.internal.annotations.AnnotationMetadataSourceProcessorImpl.processEntityHierarchies(AnnotationMetadataSourceProcessorImpl.java:225)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess$1.processEntityHierarchies(MetadataBuildingProcess.java:239)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:282)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1460)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1494)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:341)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1863)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1800)
+	... 21 common frames omitted
+Caused by: java.lang.ClassNotFoundException: org.threefour.ddip.product.domain.Product
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:581)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:178)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:527)
+	at java.base/java.lang.Class.forName0(Native Method)
+	at java.base/java.lang.Class.forName(Class.java:398)
+	at org.springframework.boot.devtools.restart.classloader.RestartClassLoader.loadClass(RestartClassLoader.java:145)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:527)
+	... 42 common frames omitted
+[2024-09-18 01:26:22:683][restartedMain] INFO  org.threefour.ddip.DdipApplication - Starting DdipApplication using Java 11.0.24 on swansea with PID 352 (C:\suwan\ddip\9-14\out\production\classes started by swans in C:\suwan\ddip\9-14)
+[2024-09-18 01:26:22:684][restartedMain] INFO  org.threefour.ddip.DdipApplication - The following 1 profile is active: "local"
+[2024-09-18 01:26:22:719][restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2024-09-18 01:26:22:719][restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2024-09-18 01:26:23:1617][restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+[2024-09-18 01:26:23:1617][restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[2024-09-18 01:26:23:1712][restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 89 ms. Found 10 JPA repository interfaces.
+[2024-09-18 01:26:23:1725][restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+[2024-09-18 01:26:23:1727][restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+[2024-09-18 01:26:23:1749][restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface org.threefour.ddip.address.Repository.AddressRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-09-18 01:26:23:1749][restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface org.threefour.ddip.chat.repository.ChatRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-09-18 01:26:23:1749][restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface org.threefour.ddip.chat.repository.LastReadMessageRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-09-18 01:26:23:1750][restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface org.threefour.ddip.chat.repository.WaitingRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-09-18 01:26:23:1750][restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface org.threefour.ddip.image.repository.ImageRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-09-18 01:26:23:1750][restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface org.threefour.ddip.member.repository.MemberRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-09-18 01:26:23:1750][restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface org.threefour.ddip.product.category.repository.CategoryRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-09-18 01:26:23:1751][restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface org.threefour.ddip.product.category.repository.ProductCategoryRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-09-18 01:26:23:1751][restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface org.threefour.ddip.product.priceinformation.repository.PriceInformationRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-09-18 01:26:23:1751][restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface org.threefour.ddip.product.repository.ProductRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-09-18 01:26:23:1751][restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 16 ms. Found 0 Redis repository interfaces.
+[2024-09-18 01:26:24:2371][restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+[2024-09-18 01:26:24:2372][restartedMain] INFO  o.a.c.core.AprLifecycleListener - Loaded Apache Tomcat Native library [2.0.7] using APR version [1.7.4].
+[2024-09-18 01:26:24:2373][restartedMain] INFO  o.a.c.core.AprLifecycleListener - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true], UDS [true].
+[2024-09-18 01:26:24:2373][restartedMain] INFO  o.a.c.core.AprLifecycleListener - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+[2024-09-18 01:26:24:2377][restartedMain] INFO  o.a.c.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 3.0.13 30 Jan 2024]
+[2024-09-18 01:26:24:2384][restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+[2024-09-18 01:26:24:2385][restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+[2024-09-18 01:26:24:2385][restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.83]
+[2024-09-18 01:26:24:2460][restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+[2024-09-18 01:26:24:2460][restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1741 ms
+[2024-09-18 01:26:24:2707][restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+[2024-09-18 01:26:24:2758][restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+[2024-09-18 01:26:24:2904][restartedMain] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+[2024-09-18 01:26:24:3013][restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+[2024-09-18 01:26:24:3065][restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+[2024-09-18 01:26:24:3079][restartedMain] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
+[2024-09-18 01:26:24:3225][restartedMain] WARN  o.h.t.d.j.JavaTypeDescriptorRegistry - HHH000481: Encountered Java type [class org.threefour.ddip.product.domain.Price] for which we could not locate a JavaTypeDescriptor and which does not appear to implement equals and/or hashCode.  This can lead to significant performance problems when performing equality/dirty checking involving this Java type.  Consider registering a custom JavaTypeDescriptor or at least implementing equals/hashCode.
+[2024-09-18 01:26:24:3228][restartedMain] WARN  o.h.t.d.j.JavaTypeDescriptorRegistry - HHH000481: Encountered Java type [class org.threefour.ddip.product.priceinformation.domain.MinPrice] for which we could not locate a JavaTypeDescriptor and which does not appear to implement equals and/or hashCode.  This can lead to significant performance problems when performing equality/dirty checking involving this Java type.  Consider registering a custom JavaTypeDescriptor or at least implementing equals/hashCode.
+[2024-09-18 01:26:24:3229][restartedMain] WARN  o.h.t.d.j.JavaTypeDescriptorRegistry - HHH000481: Encountered Java type [class org.threefour.ddip.product.priceinformation.domain.NextDiscountedAt] for which we could not locate a JavaTypeDescriptor and which does not appear to implement equals and/or hashCode.  This can lead to significant performance problems when performing equality/dirty checking involving this Java type.  Consider registering a custom JavaTypeDescriptor or at least implementing equals/hashCode.
+[2024-09-18 01:26:24:3229][restartedMain] WARN  o.h.t.d.j.JavaTypeDescriptorRegistry - HHH000481: Encountered Java type [class org.threefour.ddip.product.domain.Price] for which we could not locate a JavaTypeDescriptor and which does not appear to implement equals and/or hashCode.  This can lead to significant performance problems when performing equality/dirty checking involving this Java type.  Consider registering a custom JavaTypeDescriptor or at least implementing equals/hashCode.
+[2024-09-18 01:26:24:3230][restartedMain] WARN  o.h.t.d.j.JavaTypeDescriptorRegistry - HHH000481: Encountered Java type [class org.threefour.ddip.product.priceinformation.domain.PriceDiscountPeriod] for which we could not locate a JavaTypeDescriptor and which does not appear to implement equals and/or hashCode.  This can lead to significant performance problems when performing equality/dirty checking involving this Java type.  Consider registering a custom JavaTypeDescriptor or at least implementing equals/hashCode.
+[2024-09-18 01:26:24:3230][restartedMain] WARN  o.h.t.d.j.JavaTypeDescriptorRegistry - HHH000481: Encountered Java type [class org.threefour.ddip.product.priceinformation.domain.PriceDiscountRate] for which we could not locate a JavaTypeDescriptor and which does not appear to implement equals and/or hashCode.  This can lead to significant performance problems when performing equality/dirty checking involving this Java type.  Consider registering a custom JavaTypeDescriptor or at least implementing equals/hashCode.
+[2024-09-18 01:26:25:3616][restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+[2024-09-18 01:26:25:3625][restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[2024-09-18 01:26:26:4952][restartedMain] INFO  o.s.s.w.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7181f96c, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@19341c1f, org.springframework.security.web.context.SecurityContextPersistenceFilter@667002a8, org.springframework.security.web.header.HeaderWriterFilter@4ca8eaf, org.springframework.security.web.authentication.logout.LogoutFilter@7db79b9f, org.threefour.ddip.member.jwt.LoginFilter@35c4c8c9, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5413f8d1, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5af1cf0f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6022f705, org.springframework.security.web.session.SessionManagementFilter@5433c87, org.springframework.security.web.access.ExceptionTranslationFilter@6a873c53, org.springframework.security.web.access.intercept.AuthorizationFilter@7a8e1db6]
+[2024-09-18 01:26:26:5105][restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[2024-09-18 01:26:26:5220][restartedMain] INFO  o.s.b.a.w.s.WelcomePageHandlerMapping - Adding welcome page template: index
+[2024-09-18 01:26:27:5843][restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+[2024-09-18 01:26:27:5857][restartedMain] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+[2024-09-18 01:26:27:5874][restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+[2024-09-18 01:26:27:5875][restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+[2024-09-18 01:26:27:5875][restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@6547b7dc]]
+[2024-09-18 01:26:27:5876][restartedMain] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+[2024-09-18 01:26:27:5883][restartedMain] INFO  org.threefour.ddip.DdipApplication - Started DdipApplication in 5.63 seconds (JVM running for 6.471)
+[2024-09-18 01:26:39:17660][http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2024-09-18 01:26:39:17660][http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+[2024-09-18 01:26:39:17661][http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+[2024-09-18 01:26:39:17677][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Received request for '/chatrooms'
+[2024-09-18 01:26:39:17891][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/chatrooms', status code: 200, estimated time: 214ms, used memory: 27262976 bytes
+[2024-09-18 01:26:39:17908][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Received request for '/chat/css/chat-list.css'
+[2024-09-18 01:26:39:17908][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Received request for '/webjars/sockjs-client/sockjs.min.js'
+[2024-09-18 01:26:39:17908][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Received request for '/webjars/jquery/jquery.min.js'
+[2024-09-18 01:26:39:17908][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Received request for '/css/bootstrap.min.css'
+[2024-09-18 01:26:39:17908][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Received request for '/chat/css/image.css'
+[2024-09-18 01:26:39:17908][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Received request for '/css/style.css'
+[2024-09-18 01:26:39:17916][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/chat/css/chat-list.css', status code: 200, estimated time: 8ms, used memory: 1734248 bytes
+[2024-09-18 01:26:39:17916][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/chat/css/image.css', status code: 200, estimated time: 8ms, used memory: 1734248 bytes
+[2024-09-18 01:26:39:17916][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/webjars/sockjs-client/sockjs.min.js', status code: 200, estimated time: 8ms, used memory: 1734248 bytes
+[2024-09-18 01:26:39:17916][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/css/style.css', status code: 200, estimated time: 8ms, used memory: 1734248 bytes
+[2024-09-18 01:26:39:17916][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/webjars/jquery/jquery.min.js', status code: 200, estimated time: 8ms, used memory: 1734248 bytes
+[2024-09-18 01:26:39:17918][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/css/bootstrap.min.css', status code: 200, estimated time: 10ms, used memory: 1734248 bytes
+[2024-09-18 01:26:39:17919][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Received request for '/webjars/stomp-websocket/stomp.min.js'
+[2024-09-18 01:26:39:17922][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Received request for '/js/jquery-3.3.1.min.js'
+[2024-09-18 01:26:39:17922][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Received request for '/chat/img/camera.png'
+[2024-09-18 01:26:39:17923][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/webjars/stomp-websocket/stomp.min.js', status code: 200, estimated time: 4ms, used memory: 0 bytes
+[2024-09-18 01:26:39:17924][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Received request for '/chat/js/image.js'
+[2024-09-18 01:26:39:17924][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Received request for '/chat/js/chat-list.js'
+[2024-09-18 01:26:39:17925][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/chat/img/camera.png', status code: 200, estimated time: 3ms, used memory: 679528 bytes
+[2024-09-18 01:26:39:17925][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/js/jquery-3.3.1.min.js', status code: 200, estimated time: 3ms, used memory: 679528 bytes
+[2024-09-18 01:26:39:17927][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/chat/js/image.js', status code: 200, estimated time: 3ms, used memory: 314536 bytes
+[2024-09-18 01:26:39:17927][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/chat/js/chat-list.js', status code: 200, estimated time: 3ms, used memory: 314536 bytes
+[2024-09-18 01:26:39:17932][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Received request for '/js/bootstrap.min.js'
+[2024-09-18 01:26:39:17933][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/js/bootstrap.min.js', status code: 200, estimated time: 1ms, used memory: 0 bytes
+[2024-09-18 01:26:39:17945][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Received request for '/chat/js/api.js'
+[2024-09-18 01:26:39:17948][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/chat/js/api.js', status code: 200, estimated time: 3ms, used memory: 367016 bytes
+[2024-09-18 01:26:39:17952][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Received request for '/suwan/products'
+[2024-09-18 01:26:39:17952][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Received request for '/suwan/chatrooms'
+[2024-09-18 01:26:39:17999][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/suwan/chatrooms', status code: 200, estimated time: 47ms, used memory: 5559488 bytes
+[2024-09-18 01:26:39:17999][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/suwan/products', status code: 200, estimated time: 47ms, used memory: 5559488 bytes
+[2024-09-18 01:26:39:18004][http-nio-8080-exec-7] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is io.jsonwebtoken.security.SignatureException: JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.] with root cause
+io.jsonwebtoken.security.SignatureException: JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.
+	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:399)
+	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:529)
+	at io.jsonwebtoken.impl.DefaultJwtParser.parseClaimsJws(DefaultJwtParser.java:589)
+	at io.jsonwebtoken.impl.ImmutableJwtParser.parseClaimsJws(ImmutableJwtParser.java:173)
+	at org.threefour.ddip.member.jwt.JWTUtil.getId(JWTUtil.java:23)
+	at org.threefour.ddip.chat.controller.APIController.getAllProductByMemberId(APIController.java:35)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1072)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:965)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:529)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:623)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:209)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.servlet.resource.ResourceUrlEncodingFilter.doFilter(ResourceUrlEncodingFilter.java:67)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:337)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:96)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:122)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:126)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:81)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:109)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:149)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:223)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:217)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:112)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:82)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:221)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:186)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:354)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:267)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:168)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:481)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:390)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:928)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1794)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:829)
+[2024-09-18 01:26:39:18004][http-nio-8080-exec-3] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is io.jsonwebtoken.security.SignatureException: JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.] with root cause
+io.jsonwebtoken.security.SignatureException: JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.
+	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:399)
+	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:529)
+	at io.jsonwebtoken.impl.DefaultJwtParser.parseClaimsJws(DefaultJwtParser.java:589)
+	at io.jsonwebtoken.impl.ImmutableJwtParser.parseClaimsJws(ImmutableJwtParser.java:173)
+	at org.threefour.ddip.member.jwt.JWTUtil.getId(JWTUtil.java:23)
+	at org.threefour.ddip.chat.controller.APIController.getAllChatroom(APIController.java:43)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1072)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:965)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:529)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:623)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:209)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.servlet.resource.ResourceUrlEncodingFilter.doFilter(ResourceUrlEncodingFilter.java:67)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:337)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:96)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:122)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:126)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:81)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:109)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:149)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:223)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:217)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:112)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:82)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:221)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:186)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:354)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:267)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:168)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:481)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:390)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:928)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1794)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:829)
+[2024-09-18 01:26:39:18007][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Received request for '/error'
+[2024-09-18 01:26:39:18007][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Received request for '/error'
+[2024-09-18 01:26:39:18039][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/error', status code: 500, estimated time: 32ms, used memory: 3151344 bytes
+[2024-09-18 01:26:39:18039][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/error', status code: 500, estimated time: 32ms, used memory: 3151344 bytes
+[2024-09-18 01:26:40:18517][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Received request for '/'
+[2024-09-18 01:26:40:18545][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Received request for '/css/bootstrap.min.css'
+[2024-09-18 01:26:40:18547][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Received request for '/css/font-awesome.min.css'
+[2024-09-18 01:26:40:18547][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Received request for '/css/magnific-popup.css'
+[2024-09-18 01:26:40:18547][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Received request for '/css/jquery-ui.min.css'
+[2024-09-18 01:26:40:18547][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Received request for '/css/elegant-icons.css'
+[2024-09-18 01:26:40:18547][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/css/bootstrap.min.css', status code: 200, estimated time: 2ms, used memory: 683616 bytes
+[2024-09-18 01:26:40:18548][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/css/magnific-popup.css', status code: 200, estimated time: 1ms, used memory: 1053112 bytes
+[2024-09-18 01:26:40:18548][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/css/jquery-ui.min.css', status code: 200, estimated time: 1ms, used memory: 1053112 bytes
+[2024-09-18 01:26:40:18548][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/css/font-awesome.min.css', status code: 200, estimated time: 1ms, used memory: 1053112 bytes
+[2024-09-18 01:26:40:18549][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/css/elegant-icons.css', status code: 200, estimated time: 2ms, used memory: 1053112 bytes
+[2024-09-18 01:26:40:18549][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Received request for '/css/owl.carousel.min.css'
+[2024-09-18 01:26:40:18550][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Received request for '/css/style.css'
+[2024-09-18 01:26:40:18550][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Received request for '/css/slicknav.min.css'
+[2024-09-18 01:26:40:18550][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Received request for '/chat/js/alert.js'
+[2024-09-18 01:26:40:18551][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/css/owl.carousel.min.css', status code: 200, estimated time: 2ms, used memory: 1044112 bytes
+[2024-09-18 01:26:40:18551][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/logo.png'
+[2024-09-18 01:26:40:18552][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/css/style.css', status code: 200, estimated time: 1ms, used memory: 0 bytes
+[2024-09-18 01:26:40:18552][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/trend/ht-1.jpg'
+[2024-09-18 01:26:40:18552][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/css/slicknav.min.css', status code: 200, estimated time: 1ms, used memory: 0 bytes
+[2024-09-18 01:26:40:18552][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/chat/js/alert.js', status code: 200, estimated time: 1ms, used memory: 316560 bytes
+[2024-09-18 01:26:40:18553][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/logo.png', status code: 200, estimated time: 1ms, used memory: 683536 bytes
+[2024-09-18 01:26:40:18555][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/trend/ht-2.jpg'
+[2024-09-18 01:26:40:18555][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/trend/ht-1.jpg', status code: 200, estimated time: 3ms, used memory: 683536 bytes
+[2024-09-18 01:26:40:18556][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/trend/ht-3.jpg'
+[2024-09-18 01:26:40:18556][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/trend/ht-2.jpg', status code: 200, estimated time: 1ms, used memory: 0 bytes
+[2024-09-18 01:26:40:18556][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/trend/bs-2.jpg'
+[2024-09-18 01:26:40:18557][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/trend/bs-3.jpg'
+[2024-09-18 01:26:40:18557][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/trend/ht-3.jpg', status code: 200, estimated time: 1ms, used memory: 681600 bytes
+[2024-09-18 01:26:40:18557][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/trend/f-1.jpg'
+[2024-09-18 01:26:40:18558][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/trend/bs-2.jpg', status code: 200, estimated time: 2ms, used memory: 1048592 bytes
+[2024-09-18 01:26:40:18558][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/trend/f-2.jpg'
+[2024-09-18 01:26:40:18559][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/trend/bs-3.jpg', status code: 200, estimated time: 2ms, used memory: 366992 bytes
+[2024-09-18 01:26:40:18559][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Received request for '/chat/js/api.js'
+[2024-09-18 01:26:40:18559][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/trend/f-1.jpg', status code: 200, estimated time: 2ms, used memory: 366992 bytes
+[2024-09-18 01:26:40:18560][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/trend/f-3.jpg'
+[2024-09-18 01:26:40:18560][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/trend/f-2.jpg', status code: 200, estimated time: 2ms, used memory: 681584 bytes
+[2024-09-18 01:26:40:18560][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/chat/js/api.js', status code: 200, estimated time: 1ms, used memory: 681584 bytes
+[2024-09-18 01:26:40:18561][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/discount.jpg'
+[2024-09-18 01:26:40:18561][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/trend/f-3.jpg', status code: 200, estimated time: 1ms, used memory: 367040 bytes
+[2024-09-18 01:26:40:18562][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/discount.jpg', status code: 200, estimated time: 1ms, used memory: 364976 bytes
+[2024-09-18 01:26:40:18568][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/', status code: 200, estimated time: 51ms, used memory: 8389056 bytes
+[2024-09-18 01:26:40:18571][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/payment/payment-2.png'
+[2024-09-18 01:26:40:18571][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/payment/payment-3.png'
+[2024-09-18 01:26:40:18571][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/payment/payment-1.png'
+[2024-09-18 01:26:40:18571][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/payment/payment-4.png'
+[2024-09-18 01:26:40:18573][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/payment/payment-5.png'
+[2024-09-18 01:26:40:18573][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Received request for '/chat/css/alert.css'
+[2024-09-18 01:26:40:18574][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/payment/payment-5.png', status code: 200, estimated time: 1ms, used memory: 367008 bytes
+[2024-09-18 01:26:40:18574][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/chat/css/alert.css', status code: 200, estimated time: 1ms, used memory: 367008 bytes
+[2024-09-18 01:26:40:18575][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/payment/payment-3.png', status code: 200, estimated time: 4ms, used memory: 677416 bytes
+[2024-09-18 01:26:40:18574][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/payment/payment-2.png', status code: 200, estimated time: 3ms, used memory: 1042376 bytes
+[2024-09-18 01:26:40:18574][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/payment/payment-1.png', status code: 200, estimated time: 3ms, used memory: 677416 bytes
+[2024-09-18 01:26:40:18575][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/payment/payment-4.png', status code: 200, estimated time: 4ms, used memory: 677416 bytes
+[2024-09-18 01:26:40:18577][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Received request for '/chat/js/alert.js'
+[2024-09-18 01:26:40:18578][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Received request for '/js/jquery-3.3.1.min.js'
+[2024-09-18 01:26:40:18578][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Received request for '/webjars/sockjs-client/sockjs.min.js'
+[2024-09-18 01:26:40:18578][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Received request for '/webjars/jquery/jquery.min.js'
+[2024-09-18 01:26:40:18578][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Received request for '/webjars/stomp-websocket/stomp.min.js'
+[2024-09-18 01:26:40:18578][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Received request for '/js/bootstrap.min.js'
+[2024-09-18 01:26:40:18579][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/chat/js/alert.js', status code: 200, estimated time: 2ms, used memory: 1048560 bytes
+[2024-09-18 01:26:40:18579][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/webjars/stomp-websocket/stomp.min.js', status code: 200, estimated time: 1ms, used memory: 729888 bytes
+[2024-09-18 01:26:40:18579][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/js/bootstrap.min.js', status code: 200, estimated time: 1ms, used memory: 364968 bytes
+[2024-09-18 01:26:40:18579][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/js/jquery-3.3.1.min.js', status code: 200, estimated time: 1ms, used memory: 729888 bytes
+[2024-09-18 01:26:40:18579][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/webjars/sockjs-client/sockjs.min.js', status code: 200, estimated time: 1ms, used memory: 729888 bytes
+[2024-09-18 01:26:40:18580][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/webjars/jquery/jquery.min.js', status code: 200, estimated time: 2ms, used memory: 729888 bytes
+[2024-09-18 01:26:40:18583][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Received request for '/js/owl.carousel.min.js'
+[2024-09-18 01:26:40:18583][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Received request for '/js/jquery.countdown.min.js'
+[2024-09-18 01:26:40:18583][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Received request for '/js/jquery-ui.min.js'
+[2024-09-18 01:26:40:18583][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Received request for '/js/jquery.slicknav.js'
+[2024-09-18 01:26:40:18583][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Received request for '/js/jquery.magnific-popup.min.js'
+[2024-09-18 01:26:40:18583][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Received request for '/js/mixitup.min.js'
+[2024-09-18 01:26:40:18586][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/js/jquery.slicknav.js', status code: 200, estimated time: 3ms, used memory: 367056 bytes
+[2024-09-18 01:26:40:18586][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/js/jquery.countdown.min.js', status code: 200, estimated time: 3ms, used memory: 367056 bytes
+[2024-09-18 01:26:40:18586][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/js/jquery.magnific-popup.min.js', status code: 200, estimated time: 3ms, used memory: 367056 bytes
+[2024-09-18 01:26:40:18586][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/js/owl.carousel.min.js', status code: 200, estimated time: 3ms, used memory: 367056 bytes
+[2024-09-18 01:26:40:18586][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/js/mixitup.min.js', status code: 200, estimated time: 3ms, used memory: 367056 bytes
+[2024-09-18 01:26:40:18586][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/js/jquery-ui.min.js', status code: 200, estimated time: 3ms, used memory: 367056 bytes
+[2024-09-18 01:26:40:18591][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Received request for '/chat/img/hand.png'
+[2024-09-18 01:26:40:18591][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Received request for '/js/main.js'
+[2024-09-18 01:26:40:18591][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Received request for '/js/jquery.nicescroll.min.js'
+[2024-09-18 01:26:40:18592][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/js/main.js', status code: 200, estimated time: 1ms, used memory: 316584 bytes
+[2024-09-18 01:26:40:18592][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/chat/img/hand.png', status code: 200, estimated time: 1ms, used memory: 316584 bytes
+[2024-09-18 01:26:40:18593][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/js/jquery.nicescroll.min.js', status code: 200, estimated time: 2ms, used memory: 316584 bytes
+[2024-09-18 01:26:40:18759][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Received request for '/fonts/ElegantIcons.woff'
+[2024-09-18 01:26:40:18759][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Received request for '/fonts/fontawesome-webfont.woff2'
+[2024-09-18 01:26:40:18762][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/fonts/fontawesome-webfont.woff2', status code: 200, estimated time: 3ms, used memory: 364936 bytes
+[2024-09-18 01:26:40:18762][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/fonts/ElegantIcons.woff', status code: 200, estimated time: 3ms, used memory: 364936 bytes
+[2024-09-18 01:26:40:18775][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Received request for '/access'
+[2024-09-18 01:26:40:18777][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/access', status code: 200, estimated time: 2ms, used memory: 316664 bytes
+[2024-09-18 01:26:40:18803][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/categories/category-4.jpg'
+[2024-09-18 01:26:40:18803][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/categories/category-5.jpg'
+[2024-09-18 01:26:40:18803][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/categories/category-1.jpg'
+[2024-09-18 01:26:40:18803][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/categories/category-3.jpg'
+[2024-09-18 01:26:40:18803][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/categories/category-2.jpg'
+[2024-09-18 01:26:40:18804][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/product/product-1.jpg'
+[2024-09-18 01:26:40:18805][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/categories/category-4.jpg', status code: 200, estimated time: 1ms, used memory: 683648 bytes
+[2024-09-18 01:26:40:18805][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/categories/category-3.jpg', status code: 200, estimated time: 1ms, used memory: 683648 bytes
+[2024-09-18 01:26:40:18805][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/categories/category-5.jpg', status code: 200, estimated time: 1ms, used memory: 1048648 bytes
+[2024-09-18 01:26:40:18805][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/categories/category-1.jpg', status code: 200, estimated time: 1ms, used memory: 1048648 bytes
+[2024-09-18 01:26:40:18805][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/categories/category-2.jpg', status code: 200, estimated time: 1ms, used memory: 683648 bytes
+[2024-09-18 01:26:40:18805][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/product/product-1.jpg', status code: 200, estimated time: 1ms, used memory: 683648 bytes
+[2024-09-18 01:26:40:18810][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/product/product-7.jpg'
+[2024-09-18 01:26:40:18810][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/product/product-4.jpg'
+[2024-09-18 01:26:40:18810][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/product/product-3.jpg'
+[2024-09-18 01:26:40:18810][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/product/product-5.jpg'
+[2024-09-18 01:26:40:18810][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/product/product-2.jpg'
+[2024-09-18 01:26:40:18810][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/product/product-6.jpg'
+[2024-09-18 01:26:40:18812][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/product/product-4.jpg', status code: 200, estimated time: 2ms, used memory: 681528 bytes
+[2024-09-18 01:26:40:18812][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/product/product-6.jpg', status code: 200, estimated time: 2ms, used memory: 681528 bytes
+[2024-09-18 01:26:40:18812][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/product/product-5.jpg', status code: 200, estimated time: 2ms, used memory: 681528 bytes
+[2024-09-18 01:26:40:18812][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/product/product-3.jpg', status code: 200, estimated time: 2ms, used memory: 681528 bytes
+[2024-09-18 01:26:40:18812][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/product/product-7.jpg', status code: 200, estimated time: 2ms, used memory: 681528 bytes
+[2024-09-18 01:26:40:18812][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/product/product-2.jpg', status code: 200, estimated time: 2ms, used memory: 681528 bytes
+[2024-09-18 01:26:40:18816][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/instagram/insta-4.jpg'
+[2024-09-18 01:26:40:18816][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/instagram/insta-2.jpg'
+[2024-09-18 01:26:40:18816][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/instagram/insta-3.jpg'
+[2024-09-18 01:26:40:18816][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/banner/banner-1.jpg'
+[2024-09-18 01:26:40:18816][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/instagram/insta-1.jpg'
+[2024-09-18 01:26:40:18816][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/product/product-8.jpg'
+[2024-09-18 01:26:40:18820][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/product/product-8.jpg', status code: 200, estimated time: 4ms, used memory: 1048648 bytes
+[2024-09-18 01:26:40:18820][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/instagram/insta-2.jpg', status code: 200, estimated time: 4ms, used memory: 1048648 bytes
+[2024-09-18 01:26:40:18820][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/instagram/insta-3.jpg', status code: 200, estimated time: 4ms, used memory: 1048648 bytes
+[2024-09-18 01:26:40:18820][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/instagram/insta-4.jpg', status code: 200, estimated time: 4ms, used memory: 1048648 bytes
+[2024-09-18 01:26:40:18820][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/instagram/insta-1.jpg', status code: 200, estimated time: 4ms, used memory: 1048648 bytes
+[2024-09-18 01:26:40:18820][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/banner/banner-1.jpg', status code: 200, estimated time: 4ms, used memory: 1048648 bytes
+[2024-09-18 01:26:40:18825][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/instagram/insta-5.jpg'
+[2024-09-18 01:26:40:18825][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/instagram/insta-6.jpg'
+[2024-09-18 01:26:40:18828][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/instagram/insta-6.jpg', status code: 200, estimated time: 3ms, used memory: 0 bytes
+[2024-09-18 01:26:40:18828][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/instagram/insta-5.jpg', status code: 200, estimated time: 3ms, used memory: 0 bytes
+[2024-09-18 01:26:40:18829][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Received request for '/suwan/products'
+[2024-09-18 01:26:40:18832][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/suwan/products', status code: 200, estimated time: 3ms, used memory: 366992 bytes
+[2024-09-18 01:26:40:18832][http-nio-8080-exec-8] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is io.jsonwebtoken.security.SignatureException: JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.] with root cause
+io.jsonwebtoken.security.SignatureException: JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.
+	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:399)
+	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:529)
+	at io.jsonwebtoken.impl.DefaultJwtParser.parseClaimsJws(DefaultJwtParser.java:589)
+	at io.jsonwebtoken.impl.ImmutableJwtParser.parseClaimsJws(ImmutableJwtParser.java:173)
+	at org.threefour.ddip.member.jwt.JWTUtil.getId(JWTUtil.java:23)
+	at org.threefour.ddip.chat.controller.APIController.getAllProductByMemberId(APIController.java:35)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1072)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:965)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:529)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:623)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:209)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.servlet.resource.ResourceUrlEncodingFilter.doFilter(ResourceUrlEncodingFilter.java:67)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:337)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:96)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:122)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:126)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:81)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:109)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:149)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:223)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:217)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:112)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:82)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:221)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:186)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:354)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:267)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:168)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:481)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:390)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:928)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1794)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:829)
+[2024-09-18 01:26:40:18834][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Received request for '/error'
+[2024-09-18 01:26:40:18836][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/error', status code: 500, estimated time: 1ms, used memory: 0 bytes
+[2024-09-18 01:26:42:20698][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Received request for '/member/login'
+[2024-09-18 01:26:42:20713][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/member/login', status code: 200, estimated time: 14ms, used memory: 1730104 bytes
+[2024-09-18 01:26:42:20722][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Received request for '/css/font-awesome.min.css'
+[2024-09-18 01:26:42:20722][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Received request for '/css/bootstrap.min.css'
+[2024-09-18 01:26:42:20724][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Received request for '/css/owl.carousel.min.css'
+[2024-09-18 01:26:42:20724][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Received request for '/css/magnific-popup.css'
+[2024-09-18 01:26:42:20724][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Received request for '/css/jquery-ui.min.css'
+[2024-09-18 01:26:42:20724][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Received request for '/css/elegant-icons.css'
+[2024-09-18 01:26:42:20725][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/css/font-awesome.min.css', status code: 200, estimated time: 3ms, used memory: 0 bytes
+[2024-09-18 01:26:42:20725][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/css/bootstrap.min.css', status code: 200, estimated time: 3ms, used memory: 367008 bytes
+[2024-09-18 01:26:42:20726][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/css/owl.carousel.min.css', status code: 200, estimated time: 2ms, used memory: 731944 bytes
+[2024-09-18 01:26:42:20726][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/css/magnific-popup.css', status code: 200, estimated time: 2ms, used memory: 731944 bytes
+[2024-09-18 01:26:42:20726][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/css/elegant-icons.css', status code: 200, estimated time: 2ms, used memory: 731944 bytes
+[2024-09-18 01:26:42:20726][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/css/jquery-ui.min.css', status code: 200, estimated time: 2ms, used memory: 731944 bytes
+[2024-09-18 01:26:42:20726][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Received request for '/css/slicknav.min.css'
+[2024-09-18 01:26:42:20726][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Received request for '/css/style.css'
+[2024-09-18 01:26:42:20727][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/css/slicknav.min.css', status code: 200, estimated time: 1ms, used memory: 689784 bytes
+[2024-09-18 01:26:42:20727][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/css/style.css', status code: 200, estimated time: 1ms, used memory: 689784 bytes
+[2024-09-18 01:26:42:20728][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Received request for '/js/jquery-3.3.1.min.js'
+[2024-09-18 01:26:42:20728][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Received request for '/js/bootstrap.min.js'
+[2024-09-18 01:26:42:20728][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Received request for '/member/img/logo.png'
+[2024-09-18 01:26:42:20728][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Received request for '/member/img/payment/payment-1.png'
+[2024-09-18 01:26:42:20729][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Received request for '/js/jquery.magnific-popup.min.js'
+[2024-09-18 01:26:42:20729][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Received request for '/js/jquery-ui.min.js'
+[2024-09-18 01:26:42:20730][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/js/jquery-3.3.1.min.js', status code: 200, estimated time: 2ms, used memory: 1407376 bytes
+[2024-09-18 01:26:42:20730][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/js/bootstrap.min.js', status code: 200, estimated time: 2ms, used memory: 1407376 bytes
+[2024-09-18 01:26:42:20731][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/member/img/payment/payment-1.png', status code: 404, estimated time: 3ms, used memory: 1042304 bytes
+[2024-09-18 01:26:42:20731][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/member/img/logo.png', status code: 404, estimated time: 3ms, used memory: 1042304 bytes
+[2024-09-18 01:26:42:20731][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Received request for '/error'
+[2024-09-18 01:26:42:20731][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Received request for '/error'
+[2024-09-18 01:26:42:20732][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Received request for '/js/jquery.countdown.min.js'
+[2024-09-18 01:26:42:20732][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/js/jquery.magnific-popup.min.js', status code: 200, estimated time: 2ms, used memory: 0 bytes
+[2024-09-18 01:26:42:20732][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Received request for '/js/mixitup.min.js'
+[2024-09-18 01:26:42:20732][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/js/jquery-ui.min.js', status code: 200, estimated time: 3ms, used memory: 316624 bytes
+[2024-09-18 01:26:42:20733][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/error', status code: 404, estimated time: 1ms, used memory: 316624 bytes
+[2024-09-18 01:26:42:20733][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/error', status code: 404, estimated time: 1ms, used memory: 316624 bytes
+[2024-09-18 01:26:42:20733][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/js/jquery.countdown.min.js', status code: 200, estimated time: 1ms, used memory: 316624 bytes
+[2024-09-18 01:26:42:20734][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/js/mixitup.min.js', status code: 200, estimated time: 2ms, used memory: 316624 bytes
+[2024-09-18 01:26:42:20735][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Received request for '/js/jquery.slicknav.js'
+[2024-09-18 01:26:42:20735][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Received request for '/js/owl.carousel.min.js'
+[2024-09-18 01:26:42:20736][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Received request for '/member/img/payment/payment-3.png'
+[2024-09-18 01:26:42:20736][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Received request for '/member/img/payment/payment-2.png'
+[2024-09-18 01:26:42:20736][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Received request for '/js/main.js'
+[2024-09-18 01:26:42:20736][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Received request for '/js/jquery.nicescroll.min.js'
+[2024-09-18 01:26:42:20737][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/js/owl.carousel.min.js', status code: 200, estimated time: 2ms, used memory: 731976 bytes
+[2024-09-18 01:26:42:20737][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/js/jquery.slicknav.js', status code: 200, estimated time: 2ms, used memory: 731976 bytes
+[2024-09-18 01:26:42:20738][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/js/main.js', status code: 200, estimated time: 2ms, used memory: 1046528 bytes
+[2024-09-18 01:26:42:20738][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/js/jquery.nicescroll.min.js', status code: 200, estimated time: 2ms, used memory: 1046528 bytes
+[2024-09-18 01:26:42:20738][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/member/img/payment/payment-3.png', status code: 404, estimated time: 2ms, used memory: 1046528 bytes
+[2024-09-18 01:26:42:20738][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/member/img/payment/payment-2.png', status code: 404, estimated time: 2ms, used memory: 1046528 bytes
+[2024-09-18 01:26:42:20739][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Received request for '/error'
+[2024-09-18 01:26:42:20739][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Received request for '/error'
+[2024-09-18 01:26:42:20739][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Received request for '/fonts/ElegantIcons.woff'
+[2024-09-18 01:26:42:20739][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Received request for '/fonts/fontawesome-webfont.woff2'
+[2024-09-18 01:26:42:20740][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/error', status code: 404, estimated time: 1ms, used memory: 366992 bytes
+[2024-09-18 01:26:42:20740][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/error', status code: 404, estimated time: 1ms, used memory: 366992 bytes
+[2024-09-18 01:26:42:20741][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/fonts/ElegantIcons.woff', status code: 200, estimated time: 2ms, used memory: 366992 bytes
+[2024-09-18 01:26:42:20741][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/fonts/fontawesome-webfont.woff2', status code: 200, estimated time: 2ms, used memory: 366992 bytes
+[2024-09-18 01:26:42:20742][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Received request for '/member/img/payment/payment-4.png'
+[2024-09-18 01:26:42:20742][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Received request for '/member/img/payment/payment-5.png'
+[2024-09-18 01:26:42:20744][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/member/img/payment/payment-4.png', status code: 404, estimated time: 2ms, used memory: 681584 bytes
+[2024-09-18 01:26:42:20744][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/member/img/payment/payment-5.png', status code: 404, estimated time: 2ms, used memory: 681584 bytes
+[2024-09-18 01:26:42:20746][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Received request for '/error'
+[2024-09-18 01:26:42:20746][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Received request for '/error'
+[2024-09-18 01:26:42:20747][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/error', status code: 404, estimated time: 1ms, used memory: 0 bytes
+[2024-09-18 01:26:42:20747][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/error', status code: 404, estimated time: 1ms, used memory: 0 bytes
+[2024-09-18 01:26:42:20770][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Received request for '/member/img/instagram/insta-5.jpg'
+[2024-09-18 01:26:42:20770][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Received request for '/member/img/instagram/insta-6.jpg'
+[2024-09-18 01:26:42:20770][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Received request for '/member/img/instagram/insta-3.jpg'
+[2024-09-18 01:26:42:20770][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Received request for '/member/img/instagram/insta-2.jpg'
+[2024-09-18 01:26:42:20770][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Received request for '/member/img/instagram/insta-1.jpg'
+[2024-09-18 01:26:42:20770][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Received request for '/member/img/instagram/insta-4.jpg'
+[2024-09-18 01:26:42:20773][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/member/img/instagram/insta-5.jpg', status code: 404, estimated time: 3ms, used memory: 1730112 bytes
+[2024-09-18 01:26:42:20773][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/member/img/instagram/insta-3.jpg', status code: 404, estimated time: 3ms, used memory: 1730112 bytes
+[2024-09-18 01:26:42:20773][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/member/img/instagram/insta-4.jpg', status code: 404, estimated time: 3ms, used memory: 1730112 bytes
+[2024-09-18 01:26:42:20773][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/member/img/instagram/insta-2.jpg', status code: 404, estimated time: 3ms, used memory: 1730112 bytes
+[2024-09-18 01:26:42:20774][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/member/img/instagram/insta-1.jpg', status code: 404, estimated time: 4ms, used memory: 1730112 bytes
+[2024-09-18 01:26:42:20774][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/member/img/instagram/insta-6.jpg', status code: 404, estimated time: 4ms, used memory: 1730112 bytes
+[2024-09-18 01:26:42:20774][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Received request for '/error'
+[2024-09-18 01:26:42:20774][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Received request for '/error'
+[2024-09-18 01:26:42:20774][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Received request for '/error'
+[2024-09-18 01:26:42:20774][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Received request for '/error'
+[2024-09-18 01:26:42:20774][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Received request for '/error'
+[2024-09-18 01:26:42:20774][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Received request for '/error'
+[2024-09-18 01:26:42:20775][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/error', status code: 404, estimated time: 1ms, used memory: 0 bytes
+[2024-09-18 01:26:42:20775][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/error', status code: 404, estimated time: 1ms, used memory: 0 bytes
+[2024-09-18 01:26:42:20775][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/error', status code: 404, estimated time: 1ms, used memory: 0 bytes
+[2024-09-18 01:26:42:20775][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/error', status code: 404, estimated time: 1ms, used memory: 0 bytes
+[2024-09-18 01:26:42:20775][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/error', status code: 404, estimated time: 1ms, used memory: 0 bytes
+[2024-09-18 01:26:42:20775][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/error', status code: 404, estimated time: 1ms, used memory: 0 bytes
+[2024-09-18 01:26:43:22022][http-nio-8080-exec-10] INFO  o.threefour.ddip.aop.LoggingAspect - Beginning to 'MemberDetailsService.loadUserByUsername' task with parameters: username: suwan
+[2024-09-18 01:26:43:22065][http-nio-8080-exec-10] INFO  p6spy - took 4 ms | select member0_.id as id1_5_, member0_.created_at as created_2_5_, member0_.modified_at as modified3_5_, member0_.delete_yn as delete_y4_5_, member0_.email as email5_5_, member0_.nick_name as nick_nam6_5_, member0_.password as password7_5_, member0_.school as school8_5_, member0_.school_auth_yn as school_a9_5_ from member member0_ where member0_.email='suwan'
+[2024-09-18 01:26:43:22078][http-nio-8080-exec-10] INFO  o.threefour.ddip.aop.LoggingAspect - 'MemberDetailsService.loadUserByUsername' task was executed successfully by MemberDetailsService: 'loadUserByUsername', estimated time: 56 ms, used memory: 7340176 bytes
+[2024-09-18 01:26:43:22152][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Received request for '/'
+[2024-09-18 01:26:43:22169][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/', status code: 200, estimated time: 17ms, used memory: 1794952 bytes
+[2024-09-18 01:26:43:22174][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Received request for '/css/bootstrap.min.css'
+[2024-09-18 01:26:43:22174][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Received request for '/css/font-awesome.min.css'
+[2024-09-18 01:26:43:22175][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Received request for '/css/jquery-ui.min.css'
+[2024-09-18 01:26:43:22175][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Received request for '/css/elegant-icons.css'
+[2024-09-18 01:26:43:22175][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Received request for '/css/magnific-popup.css'
+[2024-09-18 01:26:43:22175][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Received request for '/css/owl.carousel.min.css'
+[2024-09-18 01:26:43:22176][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/css/owl.carousel.min.css', status code: 200, estimated time: 1ms, used memory: 1350776 bytes
+[2024-09-18 01:26:43:22176][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/css/elegant-icons.css', status code: 200, estimated time: 1ms, used memory: 1350776 bytes
+[2024-09-18 01:26:43:22176][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/css/jquery-ui.min.css', status code: 200, estimated time: 1ms, used memory: 1350776 bytes
+[2024-09-18 01:26:43:22177][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/css/magnific-popup.css', status code: 200, estimated time: 2ms, used memory: 1350776 bytes
+[2024-09-18 01:26:43:22176][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/css/font-awesome.min.css', status code: 200, estimated time: 1ms, used memory: 1350776 bytes
+[2024-09-18 01:26:43:22177][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/css/bootstrap.min.css', status code: 200, estimated time: 3ms, used memory: 1350776 bytes
+[2024-09-18 01:26:43:22180][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Received request for '/css/slicknav.min.css'
+[2024-09-18 01:26:43:22180][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Received request for '/css/style.css'
+[2024-09-18 01:26:43:22180][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Received request for '/chat/js/alert.js'
+[2024-09-18 01:26:43:22181][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/trend/ht-2.jpg'
+[2024-09-18 01:26:43:22181][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/trend/ht-1.jpg'
+[2024-09-18 01:26:43:22181][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/logo.png'
+[2024-09-18 01:26:43:22183][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/css/slicknav.min.css', status code: 200, estimated time: 2ms, used memory: 364944 bytes
+[2024-09-18 01:26:43:22183][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/chat/js/alert.js', status code: 200, estimated time: 2ms, used memory: 364944 bytes
+[2024-09-18 01:26:43:22183][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/css/style.css', status code: 200, estimated time: 2ms, used memory: 681552 bytes
+[2024-09-18 01:26:43:22184][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/trend/ht-1.jpg', status code: 200, estimated time: 3ms, used memory: 683600 bytes
+[2024-09-18 01:26:43:22184][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/trend/ht-2.jpg', status code: 200, estimated time: 3ms, used memory: 683600 bytes
+[2024-09-18 01:26:43:22184][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/logo.png', status code: 200, estimated time: 3ms, used memory: 683600 bytes
+[2024-09-18 01:26:43:22186][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/trend/ht-3.jpg'
+[2024-09-18 01:26:43:22186][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Received request for '/chat/css/alert.css'
+[2024-09-18 01:26:43:22186][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Received request for '/webjars/jquery/jquery.min.js'
+[2024-09-18 01:26:43:22186][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Received request for '/webjars/sockjs-client/sockjs.min.js'
+[2024-09-18 01:26:43:22186][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Received request for '/webjars/stomp-websocket/stomp.min.js'
+[2024-09-18 01:26:43:22186][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Received request for '/js/jquery-3.3.1.min.js'
+[2024-09-18 01:26:43:22188][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/chat/css/alert.css', status code: 200, estimated time: 2ms, used memory: 365016 bytes
+[2024-09-18 01:26:43:22188][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/trend/ht-3.jpg', status code: 200, estimated time: 2ms, used memory: 365016 bytes
+[2024-09-18 01:26:43:22189][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/js/jquery-3.3.1.min.js', status code: 200, estimated time: 3ms, used memory: 365016 bytes
+[2024-09-18 01:26:43:22189][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/webjars/stomp-websocket/stomp.min.js', status code: 200, estimated time: 3ms, used memory: 365016 bytes
+[2024-09-18 01:26:43:22189][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/webjars/jquery/jquery.min.js', status code: 200, estimated time: 3ms, used memory: 365016 bytes
+[2024-09-18 01:26:43:22189][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/webjars/sockjs-client/sockjs.min.js', status code: 200, estimated time: 3ms, used memory: 365016 bytes
+[2024-09-18 01:26:43:22192][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Received request for '/js/mixitup.min.js'
+[2024-09-18 01:26:43:22192][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Received request for '/js/jquery.countdown.min.js'
+[2024-09-18 01:26:43:22192][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Received request for '/js/bootstrap.min.js'
+[2024-09-18 01:26:43:22192][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Received request for '/js/jquery.magnific-popup.min.js'
+[2024-09-18 01:26:43:22192][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Received request for '/js/jquery-ui.min.js'
+[2024-09-18 01:26:43:22192][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Received request for '/js/jquery.slicknav.js'
+[2024-09-18 01:26:43:22195][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/js/jquery.magnific-popup.min.js', status code: 200, estimated time: 3ms, used memory: 685616 bytes
+[2024-09-18 01:26:43:22195][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/js/bootstrap.min.js', status code: 200, estimated time: 3ms, used memory: 685616 bytes
+[2024-09-18 01:26:43:22195][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/js/jquery.slicknav.js', status code: 200, estimated time: 3ms, used memory: 685616 bytes
+[2024-09-18 01:26:43:22195][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/js/jquery.countdown.min.js', status code: 200, estimated time: 3ms, used memory: 685616 bytes
+[2024-09-18 01:26:43:22195][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/js/mixitup.min.js', status code: 200, estimated time: 3ms, used memory: 685616 bytes
+[2024-09-18 01:26:43:22196][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/js/jquery-ui.min.js', status code: 200, estimated time: 4ms, used memory: 685616 bytes
+[2024-09-18 01:26:43:22202][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/trend/bs-1.jpg'
+[2024-09-18 01:26:43:22202][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Received request for '/js/jquery.nicescroll.min.js'
+[2024-09-18 01:26:43:22202][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/trend/bs-3.jpg'
+[2024-09-18 01:26:43:22202][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/trend/bs-2.jpg'
+[2024-09-18 01:26:43:22202][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Received request for '/js/owl.carousel.min.js'
+[2024-09-18 01:26:43:22202][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Received request for '/js/main.js'
+[2024-09-18 01:26:43:22203][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/trend/bs-2.jpg', status code: 200, estimated time: 1ms, used memory: 681584 bytes
+[2024-09-18 01:26:43:22203][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/trend/bs-1.jpg', status code: 200, estimated time: 1ms, used memory: 681584 bytes
+[2024-09-18 01:26:43:22203][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/js/main.js', status code: 200, estimated time: 1ms, used memory: 681584 bytes
+[2024-09-18 01:26:43:22203][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/trend/bs-3.jpg', status code: 200, estimated time: 1ms, used memory: 681584 bytes
+[2024-09-18 01:26:43:22203][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/js/owl.carousel.min.js', status code: 200, estimated time: 1ms, used memory: 681584 bytes
+[2024-09-18 01:26:43:22203][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/js/jquery.nicescroll.min.js', status code: 200, estimated time: 1ms, used memory: 681584 bytes
+[2024-09-18 01:26:43:22209][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/trend/f-1.jpg'
+[2024-09-18 01:26:43:22209][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/trend/f-3.jpg'
+[2024-09-18 01:26:43:22209][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/trend/f-2.jpg'
+[2024-09-18 01:26:43:22209][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/payment/payment-2.png'
+[2024-09-18 01:26:43:22209][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/payment/payment-1.png'
+[2024-09-18 01:26:43:22209][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/discount.jpg'
+[2024-09-18 01:26:43:22214][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/trend/f-2.jpg', status code: 200, estimated time: 4ms, used memory: 735984 bytes
+[2024-09-18 01:26:43:22214][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/payment/payment-1.png', status code: 200, estimated time: 5ms, used memory: 735984 bytes
+[2024-09-18 01:26:43:22213][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/discount.jpg', status code: 200, estimated time: 4ms, used memory: 735984 bytes
+[2024-09-18 01:26:43:22214][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/trend/f-3.jpg', status code: 200, estimated time: 5ms, used memory: 735984 bytes
+[2024-09-18 01:26:43:22213][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/trend/f-1.jpg', status code: 200, estimated time: 4ms, used memory: 735984 bytes
+[2024-09-18 01:26:43:22214][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/payment/payment-2.png', status code: 200, estimated time: 5ms, used memory: 735984 bytes
+[2024-09-18 01:26:43:22218][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Received request for '/fonts/ElegantIcons.woff'
+[2024-09-18 01:26:43:22218][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Received request for '/fonts/fontawesome-webfont.woff2'
+[2024-09-18 01:26:43:22219][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/payment/payment-3.png'
+[2024-09-18 01:26:43:22219][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Received request for '/chat/img/hand.png'
+[2024-09-18 01:26:43:22219][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/payment/payment-4.png'
+[2024-09-18 01:26:43:22219][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/payment/payment-5.png'
+[2024-09-18 01:26:43:22220][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/fonts/ElegantIcons.woff', status code: 200, estimated time: 2ms, used memory: 731968 bytes
+[2024-09-18 01:26:43:22220][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/fonts/fontawesome-webfont.woff2', status code: 200, estimated time: 2ms, used memory: 731968 bytes
+[2024-09-18 01:26:43:22221][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/payment/payment-4.png', status code: 200, estimated time: 2ms, used memory: 364960 bytes
+[2024-09-18 01:26:43:22221][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/chat/img/hand.png', status code: 200, estimated time: 2ms, used memory: 364960 bytes
+[2024-09-18 01:26:43:22221][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/payment/payment-5.png', status code: 200, estimated time: 2ms, used memory: 364960 bytes
+[2024-09-18 01:26:43:22221][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/payment/payment-3.png', status code: 200, estimated time: 2ms, used memory: 364960 bytes
+[2024-09-18 01:26:43:22238][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Received request for '/chat/js/api.js'
+[2024-09-18 01:26:43:22239][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Received request for '/access'
+[2024-09-18 01:26:43:22240][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/access', status code: 200, estimated time: 0ms, used memory: 0 bytes
+[2024-09-18 01:26:43:22240][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/chat/js/api.js', status code: 200, estimated time: 2ms, used memory: 0 bytes
+[2024-09-18 01:26:43:22254][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/categories/category-1.jpg'
+[2024-09-18 01:26:43:22254][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/categories/category-2.jpg'
+[2024-09-18 01:26:43:22254][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/categories/category-3.jpg'
+[2024-09-18 01:26:43:22254][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/categories/category-4.jpg'
+[2024-09-18 01:26:43:22255][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/categories/category-5.jpg'
+[2024-09-18 01:26:43:22255][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/product/product-1.jpg'
+[2024-09-18 01:26:43:22256][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/categories/category-3.jpg', status code: 200, estimated time: 2ms, used memory: 731920 bytes
+[2024-09-18 01:26:43:22256][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/categories/category-4.jpg', status code: 200, estimated time: 1ms, used memory: 364936 bytes
+[2024-09-18 01:26:43:22256][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/product/product-1.jpg', status code: 200, estimated time: 1ms, used memory: 364936 bytes
+[2024-09-18 01:26:43:22256][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/categories/category-1.jpg', status code: 200, estimated time: 2ms, used memory: 1365184 bytes
+[2024-09-18 01:26:43:22256][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/categories/category-5.jpg', status code: 200, estimated time: 1ms, used memory: 681592 bytes
+[2024-09-18 01:26:43:22256][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/categories/category-2.jpg', status code: 200, estimated time: 2ms, used memory: 1048576 bytes
+[2024-09-18 01:26:43:22260][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/product/product-4.jpg'
+[2024-09-18 01:26:43:22260][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/product/product-7.jpg'
+[2024-09-18 01:26:43:22260][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/product/product-3.jpg'
+[2024-09-18 01:26:43:22260][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/product/product-2.jpg'
+[2024-09-18 01:26:43:22260][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/product/product-5.jpg'
+[2024-09-18 01:26:43:22260][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/product/product-6.jpg'
+[2024-09-18 01:26:43:22263][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/product/product-5.jpg', status code: 200, estimated time: 2ms, used memory: 316648 bytes
+[2024-09-18 01:26:43:22263][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/product/product-2.jpg', status code: 200, estimated time: 2ms, used memory: 316648 bytes
+[2024-09-18 01:26:43:22263][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/product/product-4.jpg', status code: 200, estimated time: 2ms, used memory: 316648 bytes
+[2024-09-18 01:26:43:22263][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/product/product-3.jpg', status code: 200, estimated time: 2ms, used memory: 316648 bytes
+[2024-09-18 01:26:43:22263][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/product/product-6.jpg', status code: 200, estimated time: 2ms, used memory: 316648 bytes
+[2024-09-18 01:26:43:22263][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/product/product-7.jpg', status code: 200, estimated time: 2ms, used memory: 316648 bytes
+[2024-09-18 01:26:43:22267][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/instagram/insta-3.jpg'
+[2024-09-18 01:26:43:22267][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/instagram/insta-4.jpg'
+[2024-09-18 01:26:43:22267][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/instagram/insta-2.jpg'
+[2024-09-18 01:26:43:22267][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/instagram/insta-1.jpg'
+[2024-09-18 01:26:43:22267][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/product/product-8.jpg'
+[2024-09-18 01:26:43:22267][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/banner/banner-1.jpg'
+[2024-09-18 01:26:44:22270][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/product/product-8.jpg', status code: 200, estimated time: 3ms, used memory: 364936 bytes
+[2024-09-18 01:26:44:22270][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/instagram/insta-1.jpg', status code: 200, estimated time: 3ms, used memory: 364936 bytes
+[2024-09-18 01:26:44:22270][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/instagram/insta-4.jpg', status code: 200, estimated time: 3ms, used memory: 364936 bytes
+[2024-09-18 01:26:44:22270][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/instagram/insta-2.jpg', status code: 200, estimated time: 3ms, used memory: 364936 bytes
+[2024-09-18 01:26:44:22270][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/instagram/insta-3.jpg', status code: 200, estimated time: 3ms, used memory: 364936 bytes
+[2024-09-18 01:26:44:22270][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/banner/banner-1.jpg', status code: 200, estimated time: 3ms, used memory: 364936 bytes
+[2024-09-18 01:26:44:22276][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/instagram/insta-6.jpg'
+[2024-09-18 01:26:44:22276][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Received request for '/suwan/products'
+[2024-09-18 01:26:44:22276][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/instagram/insta-5.jpg'
+[2024-09-18 01:26:44:22280][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/instagram/insta-5.jpg', status code: 200, estimated time: 2ms, used memory: 683608 bytes
+[2024-09-18 01:26:44:22280][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/instagram/insta-6.jpg', status code: 200, estimated time: 4ms, used memory: 683608 bytes
+[2024-09-18 01:26:44:22288][http-nio-8080-exec-3] INFO  o.threefour.ddip.aop.LoggingAspect - Beginning to 'ChatServiceImpl.getAllProductBySellerId' task with parameters: sellerId: 1
+[2024-09-18 01:26:44:22300][http-nio-8080-exec-3] INFO  p6spy - took 1 ms | select product0_.id as id1_7_, product0_.created_at as created_2_7_, product0_.modified_at as modified3_7_, product0_.delete_yn as delete_y4_7_, product0_.content as content5_7_, product0_.name as name6_7_, product0_.price as price7_7_, product0_.seller_id as seller_i9_7_, product0_.title as title8_7_ from product product0_ left outer join member member1_ on product0_.seller_id=member1_.id where member1_.id=1
+[2024-09-18 01:26:44:22313][http-nio-8080-exec-3] INFO  o.threefour.ddip.aop.LoggingAspect - 'ChatServiceImpl.getAllProductBySellerId' task was executed successfully by ChatServiceImpl: 'getAllProductBySellerId', estimated time: 25 ms, used memory: 2836224 bytes
+[2024-09-18 01:26:44:22353][http-nio-8080-exec-3] INFO  p6spy - took 1 ms | update product set modified_at='2024-09-18T01:26:44.071+0900', delete_yn=false, content='갤럭시팔아요', name='이수완', price=39000, seller_id=1, title='갤럭시!!' where id=1
+[2024-09-18 01:26:44:22357][http-nio-8080-exec-3] INFO  p6spy - took 0 ms | update product set modified_at='2024-09-18T01:26:44.075+0900', delete_yn=false, content='아이폰팔아요', name='이수완', price=49000, seller_id=1, title='아이폰!!' where id=2
+[2024-09-18 01:26:44:22360][http-nio-8080-exec-3] INFO  p6spy - took 2 ms | 
+[2024-09-18 01:26:44:22376][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/suwan/products', status code: 200, estimated time: 100ms, used memory: 10485968 bytes
+[2024-09-18 01:26:46:24466][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Received request for '/chatrooms'
+[2024-09-18 01:26:46:24472][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/chatrooms', status code: 200, estimated time: 6ms, used memory: 1048608 bytes
+[2024-09-18 01:26:46:24487][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Received request for '/css/bootstrap.min.css'
+[2024-09-18 01:26:46:24487][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Received request for '/webjars/jquery/jquery.min.js'
+[2024-09-18 01:26:46:24487][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Received request for '/css/style.css'
+[2024-09-18 01:26:46:24487][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Received request for '/webjars/stomp-websocket/stomp.min.js'
+[2024-09-18 01:26:46:24487][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Received request for '/chat/css/chat-list.css'
+[2024-09-18 01:26:46:24487][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Received request for '/webjars/sockjs-client/sockjs.min.js'
+[2024-09-18 01:26:46:24498][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/chat/css/chat-list.css', status code: 200, estimated time: 11ms, used memory: -175466112 bytes
+[2024-09-18 01:26:46:24498][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/webjars/stomp-websocket/stomp.min.js', status code: 200, estimated time: 11ms, used memory: -175466112 bytes
+[2024-09-18 01:26:46:24498][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/css/style.css', status code: 200, estimated time: 11ms, used memory: -175466112 bytes
+[2024-09-18 01:26:46:24500][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/webjars/sockjs-client/sockjs.min.js', status code: 200, estimated time: 13ms, used memory: -175466112 bytes
+[2024-09-18 01:26:46:24500][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/css/bootstrap.min.css', status code: 200, estimated time: 13ms, used memory: -175466112 bytes
+[2024-09-18 01:26:46:24500][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/webjars/jquery/jquery.min.js', status code: 200, estimated time: 13ms, used memory: -175288872 bytes
+[2024-09-18 01:26:46:24500][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Received request for '/chat/js/chat-list.js'
+[2024-09-18 01:26:46:24500][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Received request for '/chat/css/image.css'
+[2024-09-18 01:26:46:24500][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Received request for '/chat/js/image.js'
+[2024-09-18 01:26:46:24502][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Received request for '/js/jquery-3.3.1.min.js'
+[2024-09-18 01:26:46:24502][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Received request for '/chat/img/camera.png'
+[2024-09-18 01:26:46:24502][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/chat/js/chat-list.js', status code: 200, estimated time: 2ms, used memory: 771480 bytes
+[2024-09-18 01:26:46:24502][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/chat/js/image.js', status code: 200, estimated time: 2ms, used memory: 771480 bytes
+[2024-09-18 01:26:46:24502][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/chat/css/image.css', status code: 200, estimated time: 2ms, used memory: 771480 bytes
+[2024-09-18 01:26:46:24503][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/js/jquery-3.3.1.min.js', status code: 200, estimated time: 1ms, used memory: 36912 bytes
+[2024-09-18 01:26:46:24503][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/chat/img/camera.png', status code: 200, estimated time: 1ms, used memory: 36912 bytes
+[2024-09-18 01:26:46:24508][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Received request for '/js/bootstrap.min.js'
+[2024-09-18 01:26:46:24509][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/js/bootstrap.min.js', status code: 200, estimated time: 1ms, used memory: 0 bytes
+[2024-09-18 01:26:46:24518][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Received request for '/chat/js/api.js'
+[2024-09-18 01:26:46:24519][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/chat/js/api.js', status code: 200, estimated time: 1ms, used memory: 0 bytes
+[2024-09-18 01:26:46:24524][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Received request for '/suwan/products'
+[2024-09-18 01:26:46:24524][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Received request for '/suwan/chatrooms'
+[2024-09-18 01:26:46:24530][http-nio-8080-exec-7] INFO  o.threefour.ddip.aop.LoggingAspect - Beginning to 'ChatServiceImpl.getAllProductBySellerId' task with parameters: sellerId: 1
+[2024-09-18 01:26:46:24530][http-nio-8080-exec-9] INFO  o.threefour.ddip.aop.LoggingAspect - Beginning to 'ChatServiceImpl.getAllProductBySellerId' task with parameters: sellerId: 1
+[2024-09-18 01:26:46:24533][http-nio-8080-exec-9] INFO  p6spy - took 1 ms | select product0_.id as id1_7_, product0_.created_at as created_2_7_, product0_.modified_at as modified3_7_, product0_.delete_yn as delete_y4_7_, product0_.content as content5_7_, product0_.name as name6_7_, product0_.price as price7_7_, product0_.seller_id as seller_i9_7_, product0_.title as title8_7_ from product product0_ left outer join member member1_ on product0_.seller_id=member1_.id where member1_.id=1
+[2024-09-18 01:26:46:24533][http-nio-8080-exec-7] INFO  p6spy - took 1 ms | select product0_.id as id1_7_, product0_.created_at as created_2_7_, product0_.modified_at as modified3_7_, product0_.delete_yn as delete_y4_7_, product0_.content as content5_7_, product0_.name as name6_7_, product0_.price as price7_7_, product0_.seller_id as seller_i9_7_, product0_.title as title8_7_ from product product0_ left outer join member member1_ on product0_.seller_id=member1_.id where member1_.id=1
+[2024-09-18 01:26:46:24535][http-nio-8080-exec-9] INFO  o.threefour.ddip.aop.LoggingAspect - 'ChatServiceImpl.getAllProductBySellerId' task was executed successfully by ChatServiceImpl: 'getAllProductBySellerId', estimated time: 5 ms, used memory: 0 bytes
+[2024-09-18 01:26:46:24535][http-nio-8080-exec-7] INFO  o.threefour.ddip.aop.LoggingAspect - 'ChatServiceImpl.getAllProductBySellerId' task was executed successfully by ChatServiceImpl: 'getAllProductBySellerId', estimated time: 5 ms, used memory: 0 bytes
+[2024-09-18 01:26:46:24538][http-nio-8080-exec-7] INFO  p6spy - took 1 ms | update product set modified_at='2024-09-18T01:26:46.266+0900', delete_yn=false, content='갤럭시팔아요', name='이수완', price=39000, seller_id=1, title='갤럭시!!' where id=1
+[2024-09-18 01:26:46:24539][http-nio-8080-exec-7] INFO  p6spy - took 0 ms | update product set modified_at='2024-09-18T01:26:46.267+0900', delete_yn=false, content='아이폰팔아요', name='이수완', price=49000, seller_id=1, title='아이폰!!' where id=2
+[2024-09-18 01:26:46:24540][http-nio-8080-exec-9] INFO  p6spy - took 3 ms | update product set modified_at='2024-09-18T01:26:46.266+0900', delete_yn=false, content='갤럭시팔아요', name='이수완', price=39000, seller_id=1, title='갤럭시!!' where id=1
+[2024-09-18 01:26:46:24541][http-nio-8080-exec-7] INFO  p6spy - took 1 ms | 
+[2024-09-18 01:26:46:24541][http-nio-8080-exec-9] INFO  p6spy - took 0 ms | update product set modified_at='2024-09-18T01:26:46.267+0900', delete_yn=false, content='아이폰팔아요', name='이수완', price=49000, seller_id=1, title='아이폰!!' where id=2
+[2024-09-18 01:26:46:24542][http-nio-8080-exec-9] INFO  p6spy - took 0 ms | 
+[2024-09-18 01:26:46:24542][http-nio-8080-exec-7] INFO  o.threefour.ddip.aop.LoggingAspect - Beginning to 'ChatServiceImpl.findChatByProductId' task with parameters: productId: 1
+[2024-09-18 01:26:46:24543][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/suwan/products', status code: 200, estimated time: 19ms, used memory: 969544 bytes
+[2024-09-18 01:26:46:24549][http-nio-8080-exec-7] INFO  p6spy - took 1 ms | update product set modified_at='2024-09-18T01:26:46.276+0900', delete_yn=false, content='갤럭시팔아요', name='이수완', price=39000, seller_id=1, title='갤럭시!!' where id=1
+[2024-09-18 01:26:46:24551][http-nio-8080-exec-7] INFO  p6spy - took 0 ms | update product set modified_at='2024-09-18T01:26:46.277+0900', delete_yn=false, content='아이폰팔아요', name='이수완', price=49000, seller_id=1, title='아이폰!!' where id=2
+[2024-09-18 01:26:46:24553][http-nio-8080-exec-7] INFO  p6spy - took 1 ms | select chat0_.product_id as col_0_0_, chat0_.message as col_1_0_, chat0_.send_date as col_2_0_, chat0_.owner_id as col_3_0_, product1_.seller_id as col_4_0_ from chat chat0_ inner join product product1_ on (chat0_.product_id=product1_.id) inner join member member3_ on product1_.seller_id=member3_.id inner join member member2_ on chat0_.owner_id=member2_.id where chat0_.delete_yn=0 and chat0_.product_id=1 and chat0_.send_date=(select max(chat4_.send_date) from chat chat4_ where chat4_.product_id=chat0_.product_id and chat4_.delete_yn=0)
+[2024-09-18 01:26:46:24558][http-nio-8080-exec-7] INFO  p6spy - took 0 ms | select member0_.id as id1_5_0_, member0_.created_at as created_2_5_0_, member0_.modified_at as modified3_5_0_, member0_.delete_yn as delete_y4_5_0_, member0_.email as email5_5_0_, member0_.nick_name as nick_nam6_5_0_, member0_.password as password7_5_0_, member0_.school as school8_5_0_, member0_.school_auth_yn as school_a9_5_0_ from member member0_ where member0_.id=1
+[2024-09-18 01:26:46:24560][http-nio-8080-exec-7] INFO  o.threefour.ddip.aop.LoggingAspect - 'ChatServiceImpl.findChatByProductId' task was executed successfully by ChatServiceImpl: 'findChatByProductId', estimated time: 18 ms, used memory: 2711056 bytes
+[2024-09-18 01:26:46:24563][http-nio-8080-exec-7] INFO  p6spy - took 0 ms | update product set modified_at='2024-09-18T01:26:46.292+0900', delete_yn=false, content='갤럭시팔아요', name='이수완', price=39000, seller_id=1, title='갤럭시!!' where id=1
+[2024-09-18 01:26:46:24564][http-nio-8080-exec-7] INFO  p6spy - took 0 ms | update product set modified_at='2024-09-18T01:26:46.292+0900', delete_yn=false, content='아이폰팔아요', name='이수완', price=49000, seller_id=1, title='아이폰!!' where id=2
+[2024-09-18 01:26:46:24566][http-nio-8080-exec-7] INFO  p6spy - took 1 ms | 
+[2024-09-18 01:26:46:24567][http-nio-8080-exec-7] INFO  o.threefour.ddip.aop.LoggingAspect - Beginning to 'ChatServiceImpl.findChatByProductId' task with parameters: productId: 2
+[2024-09-18 01:26:46:24569][http-nio-8080-exec-7] INFO  p6spy - took 0 ms | update product set modified_at='2024-09-18T01:26:46.298+0900', delete_yn=false, content='갤럭시팔아요', name='이수완', price=39000, seller_id=1, title='갤럭시!!' where id=1
+[2024-09-18 01:26:46:24570][http-nio-8080-exec-7] INFO  p6spy - took 0 ms | update product set modified_at='2024-09-18T01:26:46.299+0900', delete_yn=false, content='아이폰팔아요', name='이수완', price=49000, seller_id=1, title='아이폰!!' where id=2
+[2024-09-18 01:26:46:24572][http-nio-8080-exec-7] INFO  p6spy - took 0 ms | select chat0_.product_id as col_0_0_, chat0_.message as col_1_0_, chat0_.send_date as col_2_0_, chat0_.owner_id as col_3_0_, product1_.seller_id as col_4_0_ from chat chat0_ inner join product product1_ on (chat0_.product_id=product1_.id) inner join member member3_ on product1_.seller_id=member3_.id inner join member member2_ on chat0_.owner_id=member2_.id where chat0_.delete_yn=0 and chat0_.product_id=2 and chat0_.send_date=(select max(chat4_.send_date) from chat chat4_ where chat4_.product_id=chat0_.product_id and chat4_.delete_yn=0)
+[2024-09-18 01:26:46:24572][http-nio-8080-exec-7] INFO  o.threefour.ddip.aop.LoggingAspect - 'ChatServiceImpl.findChatByProductId' task was executed successfully by ChatServiceImpl: 'findChatByProductId', estimated time: 5 ms, used memory: 181936 bytes
+[2024-09-18 01:26:46:24574][http-nio-8080-exec-7] INFO  p6spy - took 0 ms | update product set modified_at='2024-09-18T01:26:46.304+0900', delete_yn=false, content='갤럭시팔아요', name='이수완', price=39000, seller_id=1, title='갤럭시!!' where id=1
+[2024-09-18 01:26:46:24575][http-nio-8080-exec-7] INFO  p6spy - took 0 ms | update product set modified_at='2024-09-18T01:26:46.304+0900', delete_yn=false, content='아이폰팔아요', name='이수완', price=49000, seller_id=1, title='아이폰!!' where id=2
+[2024-09-18 01:26:46:24577][http-nio-8080-exec-7] INFO  p6spy - took 1 ms | 
+[2024-09-18 01:26:46:24578][http-nio-8080-exec-7] INFO  o.threefour.ddip.aop.LoggingAspect - Beginning to 'ChatServiceImpl.findAllChatByOwnerId' task with parameters: ownerId: 1
+[2024-09-18 01:26:46:24581][http-nio-8080-exec-7] INFO  p6spy - took 0 ms | update product set modified_at='2024-09-18T01:26:46.310+0900', delete_yn=false, content='갤럭시팔아요', name='이수완', price=39000, seller_id=1, title='갤럭시!!' where id=1
+[2024-09-18 01:26:46:24582][http-nio-8080-exec-7] INFO  p6spy - took 0 ms | update product set modified_at='2024-09-18T01:26:46.310+0900', delete_yn=false, content='아이폰팔아요', name='이수완', price=49000, seller_id=1, title='아이폰!!' where id=2
+[2024-09-18 01:26:46:24583][http-nio-8080-exec-7] INFO  p6spy - took 0 ms | select chat0_.product_id as col_0_0_, chat0_.message as col_1_0_, chat0_.send_date as col_2_0_, chat0_.owner_id as col_3_0_, product1_.seller_id as col_4_0_ from chat chat0_ inner join product product1_ on (chat0_.product_id=product1_.id) inner join member member3_ on product1_.seller_id=member3_.id inner join member member2_ on chat0_.owner_id=member2_.id where chat0_.delete_yn=0 and chat0_.owner_id=1 and chat0_.send_date=(select max(chat4_.send_date) from chat chat4_ where chat4_.product_id=chat0_.product_id and chat4_.owner_id=1 and chat4_.delete_yn=0)
+[2024-09-18 01:26:46:24584][http-nio-8080-exec-7] INFO  o.threefour.ddip.aop.LoggingAspect - 'ChatServiceImpl.findAllChatByOwnerId' task was executed successfully by ChatServiceImpl: 'findAllChatByOwnerId', estimated time: 6 ms, used memory: 335768 bytes
+[2024-09-18 01:26:46:24587][http-nio-8080-exec-7] INFO  p6spy - took 1 ms | update product set modified_at='2024-09-18T01:26:46.316+0900', delete_yn=false, content='갤럭시팔아요', name='이수완', price=39000, seller_id=1, title='갤럭시!!' where id=1
+[2024-09-18 01:26:46:24588][http-nio-8080-exec-7] INFO  p6spy - took 0 ms | update product set modified_at='2024-09-18T01:26:46.316+0900', delete_yn=false, content='아이폰팔아요', name='이수완', price=49000, seller_id=1, title='아이폰!!' where id=2
+[2024-09-18 01:26:46:24589][http-nio-8080-exec-7] INFO  p6spy - took 1 ms | 
+[2024-09-18 01:26:46:24593][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/suwan/chatrooms', status code: 200, estimated time: 69ms, used memory: 4463632 bytes
+[2024-09-18 01:26:46:24595][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/trend/bs-1.jpg'
+[2024-09-18 01:26:46:24596][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Received request for '/suwan/chatrooms'
+[2024-09-18 01:26:46:24597][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/trend/bs-1.jpg', status code: 200, estimated time: 2ms, used memory: 274768 bytes
+[2024-09-18 01:26:46:24598][http-nio-8080-exec-1] INFO  o.threefour.ddip.aop.LoggingAspect - Beginning to 'ChatServiceImpl.getAllProductBySellerId' task with parameters: sellerId: 1
+[2024-09-18 01:26:46:24601][http-nio-8080-exec-1] INFO  p6spy - took 0 ms | select product0_.id as id1_7_, product0_.created_at as created_2_7_, product0_.modified_at as modified3_7_, product0_.delete_yn as delete_y4_7_, product0_.content as content5_7_, product0_.name as name6_7_, product0_.price as price7_7_, product0_.seller_id as seller_i9_7_, product0_.title as title8_7_ from product product0_ left outer join member member1_ on product0_.seller_id=member1_.id where member1_.id=1
+[2024-09-18 01:26:46:24602][http-nio-8080-exec-1] INFO  o.threefour.ddip.aop.LoggingAspect - 'ChatServiceImpl.getAllProductBySellerId' task was executed successfully by ChatServiceImpl: 'getAllProductBySellerId', estimated time: 3 ms, used memory: 0 bytes
+[2024-09-18 01:26:46:24604][http-nio-8080-exec-1] INFO  p6spy - took 1 ms | update product set modified_at='2024-09-18T01:26:46.333+0900', delete_yn=false, content='갤럭시팔아요', name='이수완', price=39000, seller_id=1, title='갤럭시!!' where id=1
+[2024-09-18 01:26:46:24606][http-nio-8080-exec-1] INFO  p6spy - took 0 ms | update product set modified_at='2024-09-18T01:26:46.334+0900', delete_yn=false, content='아이폰팔아요', name='이수완', price=49000, seller_id=1, title='아이폰!!' where id=2
+[2024-09-18 01:26:46:24608][http-nio-8080-exec-1] INFO  p6spy - took 1 ms | 
+[2024-09-18 01:26:46:24609][http-nio-8080-exec-1] INFO  o.threefour.ddip.aop.LoggingAspect - Beginning to 'ChatServiceImpl.findChatByProductId' task with parameters: productId: 1
+[2024-09-18 01:26:46:24611][http-nio-8080-exec-1] INFO  p6spy - took 0 ms | update product set modified_at='2024-09-18T01:26:46.341+0900', delete_yn=false, content='갤럭시팔아요', name='이수완', price=39000, seller_id=1, title='갤럭시!!' where id=1
+[2024-09-18 01:26:46:24612][http-nio-8080-exec-1] INFO  p6spy - took 0 ms | update product set modified_at='2024-09-18T01:26:46.341+0900', delete_yn=false, content='아이폰팔아요', name='이수완', price=49000, seller_id=1, title='아이폰!!' where id=2
+[2024-09-18 01:26:46:24613][http-nio-8080-exec-1] INFO  p6spy - took 0 ms | select chat0_.product_id as col_0_0_, chat0_.message as col_1_0_, chat0_.send_date as col_2_0_, chat0_.owner_id as col_3_0_, product1_.seller_id as col_4_0_ from chat chat0_ inner join product product1_ on (chat0_.product_id=product1_.id) inner join member member3_ on product1_.seller_id=member3_.id inner join member member2_ on chat0_.owner_id=member2_.id where chat0_.delete_yn=0 and chat0_.product_id=1 and chat0_.send_date=(select max(chat4_.send_date) from chat chat4_ where chat4_.product_id=chat0_.product_id and chat4_.delete_yn=0)
+[2024-09-18 01:26:46:24614][http-nio-8080-exec-1] INFO  p6spy - took 0 ms | select member0_.id as id1_5_0_, member0_.created_at as created_2_5_0_, member0_.modified_at as modified3_5_0_, member0_.delete_yn as delete_y4_5_0_, member0_.email as email5_5_0_, member0_.nick_name as nick_nam6_5_0_, member0_.password as password7_5_0_, member0_.school as school8_5_0_, member0_.school_auth_yn as school_a9_5_0_ from member member0_ where member0_.id=1
+[2024-09-18 01:26:46:24615][http-nio-8080-exec-1] INFO  o.threefour.ddip.aop.LoggingAspect - 'ChatServiceImpl.findChatByProductId' task was executed successfully by ChatServiceImpl: 'findChatByProductId', estimated time: 6 ms, used memory: 0 bytes
+[2024-09-18 01:26:46:24617][http-nio-8080-exec-1] INFO  p6spy - took 0 ms | update product set modified_at='2024-09-18T01:26:46.347+0900', delete_yn=false, content='갤럭시팔아요', name='이수완', price=39000, seller_id=1, title='갤럭시!!' where id=1
+[2024-09-18 01:26:46:24618][http-nio-8080-exec-1] INFO  p6spy - took 0 ms | update product set modified_at='2024-09-18T01:26:46.347+0900', delete_yn=false, content='아이폰팔아요', name='이수완', price=49000, seller_id=1, title='아이폰!!' where id=2
+[2024-09-18 01:26:46:24619][http-nio-8080-exec-1] INFO  p6spy - took 1 ms | 
+[2024-09-18 01:26:46:24620][http-nio-8080-exec-1] INFO  o.threefour.ddip.aop.LoggingAspect - Beginning to 'ChatServiceImpl.findChatByProductId' task with parameters: productId: 2
+[2024-09-18 01:26:46:24623][http-nio-8080-exec-1] INFO  p6spy - took 0 ms | update product set modified_at='2024-09-18T01:26:46.352+0900', delete_yn=false, content='갤럭시팔아요', name='이수완', price=39000, seller_id=1, title='갤럭시!!' where id=1
+[2024-09-18 01:26:46:24624][http-nio-8080-exec-1] INFO  p6spy - took 0 ms | update product set modified_at='2024-09-18T01:26:46.352+0900', delete_yn=false, content='아이폰팔아요', name='이수완', price=49000, seller_id=1, title='아이폰!!' where id=2
+[2024-09-18 01:26:46:24625][http-nio-8080-exec-1] INFO  p6spy - took 0 ms | select chat0_.product_id as col_0_0_, chat0_.message as col_1_0_, chat0_.send_date as col_2_0_, chat0_.owner_id as col_3_0_, product1_.seller_id as col_4_0_ from chat chat0_ inner join product product1_ on (chat0_.product_id=product1_.id) inner join member member3_ on product1_.seller_id=member3_.id inner join member member2_ on chat0_.owner_id=member2_.id where chat0_.delete_yn=0 and chat0_.product_id=2 and chat0_.send_date=(select max(chat4_.send_date) from chat chat4_ where chat4_.product_id=chat0_.product_id and chat4_.delete_yn=0)
+[2024-09-18 01:26:46:24625][http-nio-8080-exec-1] INFO  o.threefour.ddip.aop.LoggingAspect - 'ChatServiceImpl.findChatByProductId' task was executed successfully by ChatServiceImpl: 'findChatByProductId', estimated time: 5 ms, used memory: 524288 bytes
+[2024-09-18 01:26:46:24627][http-nio-8080-exec-1] INFO  p6spy - took 0 ms | update product set modified_at='2024-09-18T01:26:46.357+0900', delete_yn=false, content='갤럭시팔아요', name='이수완', price=39000, seller_id=1, title='갤럭시!!' where id=1
+[2024-09-18 01:26:46:24628][http-nio-8080-exec-1] INFO  p6spy - took 0 ms | update product set modified_at='2024-09-18T01:26:46.357+0900', delete_yn=false, content='아이폰팔아요', name='이수완', price=49000, seller_id=1, title='아이폰!!' where id=2
+[2024-09-18 01:26:46:24630][http-nio-8080-exec-1] INFO  p6spy - took 1 ms | 
+[2024-09-18 01:26:46:24631][http-nio-8080-exec-1] INFO  o.threefour.ddip.aop.LoggingAspect - Beginning to 'ChatServiceImpl.findAllChatByOwnerId' task with parameters: ownerId: 1
+[2024-09-18 01:26:46:24633][http-nio-8080-exec-1] INFO  p6spy - took 0 ms | update product set modified_at='2024-09-18T01:26:46.363+0900', delete_yn=false, content='갤럭시팔아요', name='이수완', price=39000, seller_id=1, title='갤럭시!!' where id=1
+[2024-09-18 01:26:46:24634][http-nio-8080-exec-1] INFO  p6spy - took 0 ms | update product set modified_at='2024-09-18T01:26:46.363+0900', delete_yn=false, content='아이폰팔아요', name='이수완', price=49000, seller_id=1, title='아이폰!!' where id=2
+[2024-09-18 01:26:46:24635][http-nio-8080-exec-1] INFO  p6spy - took 0 ms | select chat0_.product_id as col_0_0_, chat0_.message as col_1_0_, chat0_.send_date as col_2_0_, chat0_.owner_id as col_3_0_, product1_.seller_id as col_4_0_ from chat chat0_ inner join product product1_ on (chat0_.product_id=product1_.id) inner join member member3_ on product1_.seller_id=member3_.id inner join member member2_ on chat0_.owner_id=member2_.id where chat0_.delete_yn=0 and chat0_.owner_id=1 and chat0_.send_date=(select max(chat4_.send_date) from chat chat4_ where chat4_.product_id=chat0_.product_id and chat4_.owner_id=1 and chat4_.delete_yn=0)
+[2024-09-18 01:26:46:24636][http-nio-8080-exec-1] INFO  o.threefour.ddip.aop.LoggingAspect - 'ChatServiceImpl.findAllChatByOwnerId' task was executed successfully by ChatServiceImpl: 'findAllChatByOwnerId', estimated time: 5 ms, used memory: 0 bytes
+[2024-09-18 01:26:46:24639][http-nio-8080-exec-1] INFO  p6spy - took 0 ms | update product set modified_at='2024-09-18T01:26:46.368+0900', delete_yn=false, content='갤럭시팔아요', name='이수완', price=39000, seller_id=1, title='갤럭시!!' where id=1
+[2024-09-18 01:26:46:24640][http-nio-8080-exec-1] INFO  p6spy - took 0 ms | update product set modified_at='2024-09-18T01:26:46.368+0900', delete_yn=false, content='아이폰팔아요', name='이수완', price=49000, seller_id=1, title='아이폰!!' where id=2
+[2024-09-18 01:26:46:24641][http-nio-8080-exec-1] INFO  p6spy - took 1 ms | 
+[2024-09-18 01:26:46:24643][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/suwan/chatrooms', status code: 200, estimated time: 47ms, used memory: 1307496 bytes
+[2024-09-18 01:26:46:24645][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Received request for '/2/unread-count'
+[2024-09-18 01:26:46:24645][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Received request for '/1/unread-count'
+[2024-09-18 01:26:46:24650][http-nio-8080-exec-4] INFO  o.threefour.ddip.aop.LoggingAspect - Beginning to 'ChatServiceImpl.getUnreadMessageCount' task with parameters: productId: 2, ownerId: 1
+[2024-09-18 01:26:46:24650][http-nio-8080-exec-2] INFO  o.threefour.ddip.aop.LoggingAspect - Beginning to 'ChatServiceImpl.getUnreadMessageCount' task with parameters: productId: 1, ownerId: 1
+[2024-09-18 01:26:46:24658][http-nio-8080-exec-2] INFO  p6spy - took 1 ms | select lastreadme0_.owner_id as owner_id1_4_, lastreadme0_.product_id as product_2_4_, lastreadme0_.last_read_id as last_rea3_4_ from last_read_message lastreadme0_ where lastreadme0_.product_id=1 and lastreadme0_.owner_id=1
+[2024-09-18 01:26:46:24658][http-nio-8080-exec-4] INFO  p6spy - took 1 ms | select lastreadme0_.owner_id as owner_id1_4_, lastreadme0_.product_id as product_2_4_, lastreadme0_.last_read_id as last_rea3_4_ from last_read_message lastreadme0_ where lastreadme0_.product_id=2 and lastreadme0_.owner_id=1
+[2024-09-18 01:26:46:24661][http-nio-8080-exec-2] INFO  p6spy - took 0 ms | select max(chat0_.id) as col_0_0_ from chat chat0_ where chat0_.product_id=1
+[2024-09-18 01:26:46:24661][http-nio-8080-exec-4] INFO  p6spy - took 0 ms | select max(chat0_.id) as col_0_0_ from chat chat0_ where chat0_.product_id=2
+[2024-09-18 01:26:46:24662][http-nio-8080-exec-2] INFO  p6spy - took 0 ms | select count(chat0_.id) as col_0_0_ from chat chat0_ where chat0_.product_id=1 and chat0_.id>22
+[2024-09-18 01:26:46:24662][http-nio-8080-exec-4] INFO  p6spy - took 0 ms | select count(chat0_.id) as col_0_0_ from chat chat0_ where chat0_.product_id=2 and chat0_.id>21
+[2024-09-18 01:26:46:24663][http-nio-8080-exec-4] INFO  o.threefour.ddip.aop.LoggingAspect - 'ChatServiceImpl.getUnreadMessageCount' task was executed successfully by ChatServiceImpl: 'getUnreadMessageCount', estimated time: 13 ms, used memory: 1123888 bytes
+[2024-09-18 01:26:46:24663][http-nio-8080-exec-2] INFO  o.threefour.ddip.aop.LoggingAspect - 'ChatServiceImpl.getUnreadMessageCount' task was executed successfully by ChatServiceImpl: 'getUnreadMessageCount', estimated time: 13 ms, used memory: 1123888 bytes
+[2024-09-18 01:26:46:24663][http-nio-8080-exec-4] INFO  p6spy - took 0 ms | 
+[2024-09-18 01:26:46:24663][http-nio-8080-exec-2] INFO  p6spy - took 0 ms | 
+[2024-09-18 01:26:46:24665][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/2/unread-count', status code: 200, estimated time: 20ms, used memory: 2056424 bytes
+[2024-09-18 01:26:46:24665][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/1/unread-count', status code: 200, estimated time: 20ms, used memory: 2056424 bytes
+[2024-09-18 01:26:52:30655][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Received request for '/chatrooms'
+[2024-09-18 01:26:52:30663][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/chatrooms', status code: 200, estimated time: 8ms, used memory: 818816 bytes
+[2024-09-18 01:26:52:30677][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Received request for '/webjars/stomp-websocket/stomp.min.js'
+[2024-09-18 01:26:52:30677][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Received request for '/chat/css/chat-list.css'
+[2024-09-18 01:26:52:30677][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Received request for '/css/bootstrap.min.css'
+[2024-09-18 01:26:52:30677][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Received request for '/css/style.css'
+[2024-09-18 01:26:52:30677][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Received request for '/webjars/jquery/jquery.min.js'
+[2024-09-18 01:26:52:30677][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Received request for '/webjars/sockjs-client/sockjs.min.js'
+[2024-09-18 01:26:52:30679][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/css/style.css', status code: 200, estimated time: 2ms, used memory: 1081256 bytes
+[2024-09-18 01:26:52:30679][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/chat/css/chat-list.css', status code: 200, estimated time: 2ms, used memory: 1081256 bytes
+[2024-09-18 01:26:52:30679][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/webjars/stomp-websocket/stomp.min.js', status code: 200, estimated time: 2ms, used memory: 1355992 bytes
+[2024-09-18 01:26:52:30679][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/css/bootstrap.min.css', status code: 200, estimated time: 2ms, used memory: 1355992 bytes
+[2024-09-18 01:26:52:30679][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/webjars/sockjs-client/sockjs.min.js', status code: 200, estimated time: 2ms, used memory: 1355992 bytes
+[2024-09-18 01:26:52:30680][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/webjars/jquery/jquery.min.js', status code: 200, estimated time: 3ms, used memory: 1355992 bytes
+[2024-09-18 01:26:52:30683][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Received request for '/chat/css/image.css'
+[2024-09-18 01:26:52:30683][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Received request for '/chat/js/image.js'
+[2024-09-18 01:26:52:30683][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Received request for '/chat/js/chat-list.js'
+[2024-09-18 01:26:52:30685][http-nio-8080-exec-9] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/chat/js/chat-list.js', status code: 200, estimated time: 2ms, used memory: 454248 bytes
+[2024-09-18 01:26:52:30685][http-nio-8080-exec-2] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/chat/css/image.css', status code: 200, estimated time: 2ms, used memory: 701752 bytes
+[2024-09-18 01:26:52:30685][http-nio-8080-exec-4] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/chat/js/image.js', status code: 200, estimated time: 2ms, used memory: 701752 bytes
+[2024-09-18 01:26:52:30686][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Received request for '/chat/img/camera.png'
+[2024-09-18 01:26:52:30686][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Received request for '/js/jquery-3.3.1.min.js'
+[2024-09-18 01:26:52:30687][http-nio-8080-exec-7] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/js/jquery-3.3.1.min.js', status code: 200, estimated time: 1ms, used memory: 480752 bytes
+[2024-09-18 01:26:52:30687][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/chat/img/camera.png', status code: 200, estimated time: 1ms, used memory: 480752 bytes
+[2024-09-18 01:26:52:30692][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Received request for '/js/bootstrap.min.js'
+[2024-09-18 01:26:52:30694][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/js/bootstrap.min.js', status code: 200, estimated time: 2ms, used memory: 0 bytes
+[2024-09-18 01:26:52:30705][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Received request for '/chat/js/api.js'
+[2024-09-18 01:26:52:30708][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/chat/js/api.js', status code: 200, estimated time: 2ms, used memory: 234520 bytes
+[2024-09-18 01:26:52:30713][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Received request for '/suwan/products'
+[2024-09-18 01:26:52:30713][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Received request for '/suwan/chatrooms'
+[2024-09-18 01:26:52:30721][http-nio-8080-exec-1] INFO  o.threefour.ddip.aop.LoggingAspect - Beginning to 'ChatServiceImpl.getAllProductBySellerId' task with parameters: sellerId: 1
+[2024-09-18 01:26:52:30723][http-nio-8080-exec-10] INFO  o.threefour.ddip.aop.LoggingAspect - Beginning to 'ChatServiceImpl.getAllProductBySellerId' task with parameters: sellerId: 1
+[2024-09-18 01:26:52:30724][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Received request for '/favicon.ico'
+[2024-09-18 01:26:52:30724][http-nio-8080-exec-1] INFO  p6spy - took 1 ms | select product0_.id as id1_7_, product0_.created_at as created_2_7_, product0_.modified_at as modified3_7_, product0_.delete_yn as delete_y4_7_, product0_.content as content5_7_, product0_.name as name6_7_, product0_.price as price7_7_, product0_.seller_id as seller_i9_7_, product0_.title as title8_7_ from product product0_ left outer join member member1_ on product0_.seller_id=member1_.id where member1_.id=1
+[2024-09-18 01:26:52:30725][http-nio-8080-exec-10] INFO  p6spy - took 0 ms | select product0_.id as id1_7_, product0_.created_at as created_2_7_, product0_.modified_at as modified3_7_, product0_.delete_yn as delete_y4_7_, product0_.content as content5_7_, product0_.name as name6_7_, product0_.price as price7_7_, product0_.seller_id as seller_i9_7_, product0_.title as title8_7_ from product product0_ left outer join member member1_ on product0_.seller_id=member1_.id where member1_.id=1
+[2024-09-18 01:26:52:30725][http-nio-8080-exec-1] INFO  o.threefour.ddip.aop.LoggingAspect - 'ChatServiceImpl.getAllProductBySellerId' task was executed successfully by ChatServiceImpl: 'getAllProductBySellerId', estimated time: 4 ms, used memory: 0 bytes
+[2024-09-18 01:26:52:30725][http-nio-8080-exec-10] INFO  o.threefour.ddip.aop.LoggingAspect - 'ChatServiceImpl.getAllProductBySellerId' task was executed successfully by ChatServiceImpl: 'getAllProductBySellerId', estimated time: 2 ms, used memory: 0 bytes
+[2024-09-18 01:26:52:30727][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/favicon.ico', status code: 404, estimated time: 3ms, used memory: 358832 bytes
+[2024-09-18 01:26:52:30728][http-nio-8080-exec-10] INFO  p6spy - took 1 ms | update product set modified_at='2024-09-18T01:26:52.456+0900', delete_yn=false, content='갤럭시팔아요', name='이수완', price=39000, seller_id=1, title='갤럭시!!' where id=1
+[2024-09-18 01:26:52:30728][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Received request for '/error'
+[2024-09-18 01:26:52:30730][http-nio-8080-exec-10] INFO  p6spy - took 1 ms | update product set modified_at='2024-09-18T01:26:52.457+0900', delete_yn=false, content='아이폰팔아요', name='이수완', price=49000, seller_id=1, title='아이폰!!' where id=2
+[2024-09-18 01:26:52:30732][http-nio-8080-exec-1] INFO  p6spy - took 5 ms | update product set modified_at='2024-09-18T01:26:52.456+0900', delete_yn=false, content='갤럭시팔아요', name='이수완', price=39000, seller_id=1, title='갤럭시!!' where id=1
+[2024-09-18 01:26:52:30733][http-nio-8080-exec-10] INFO  p6spy - took 2 ms | 
+[2024-09-18 01:26:52:30734][http-nio-8080-exec-1] INFO  p6spy - took 1 ms | update product set modified_at='2024-09-18T01:26:52.457+0900', delete_yn=false, content='아이폰팔아요', name='이수완', price=49000, seller_id=1, title='아이폰!!' where id=2
+[2024-09-18 01:26:52:30735][http-nio-8080-exec-1] INFO  p6spy - took 0 ms | 
+[2024-09-18 01:26:52:30736][http-nio-8080-exec-10] INFO  o.threefour.ddip.aop.LoggingAspect - Beginning to 'ChatServiceImpl.findChatByProductId' task with parameters: productId: 1
+[2024-09-18 01:26:52:30737][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/suwan/products', status code: 200, estimated time: 23ms, used memory: 1539208 bytes
+[2024-09-18 01:26:52:30739][http-nio-8080-exec-3] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/error', status code: 404, estimated time: 11ms, used memory: 1409416 bytes
+[2024-09-18 01:26:52:30739][http-nio-8080-exec-10] INFO  p6spy - took 1 ms | update product set modified_at='2024-09-18T01:26:52.468+0900', delete_yn=false, content='갤럭시팔아요', name='이수완', price=39000, seller_id=1, title='갤럭시!!' where id=1
+[2024-09-18 01:26:52:30741][http-nio-8080-exec-10] INFO  p6spy - took 1 ms | update product set modified_at='2024-09-18T01:26:52.468+0900', delete_yn=false, content='아이폰팔아요', name='이수완', price=49000, seller_id=1, title='아이폰!!' where id=2
+[2024-09-18 01:26:52:30744][http-nio-8080-exec-10] INFO  p6spy - took 1 ms | select chat0_.product_id as col_0_0_, chat0_.message as col_1_0_, chat0_.send_date as col_2_0_, chat0_.owner_id as col_3_0_, product1_.seller_id as col_4_0_ from chat chat0_ inner join product product1_ on (chat0_.product_id=product1_.id) inner join member member3_ on product1_.seller_id=member3_.id inner join member member2_ on chat0_.owner_id=member2_.id where chat0_.delete_yn=0 and chat0_.product_id=1 and chat0_.send_date=(select max(chat4_.send_date) from chat chat4_ where chat4_.product_id=chat0_.product_id and chat4_.delete_yn=0)
+[2024-09-18 01:26:52:30746][http-nio-8080-exec-10] INFO  p6spy - took 1 ms | select member0_.id as id1_5_0_, member0_.created_at as created_2_5_0_, member0_.modified_at as modified3_5_0_, member0_.delete_yn as delete_y4_5_0_, member0_.email as email5_5_0_, member0_.nick_name as nick_nam6_5_0_, member0_.password as password7_5_0_, member0_.school as school8_5_0_, member0_.school_auth_yn as school_a9_5_0_ from member member0_ where member0_.id=1
+[2024-09-18 01:26:52:30746][http-nio-8080-exec-10] INFO  o.threefour.ddip.aop.LoggingAspect - 'ChatServiceImpl.findChatByProductId' task was executed successfully by ChatServiceImpl: 'findChatByProductId', estimated time: 10 ms, used memory: 847880 bytes
+[2024-09-18 01:26:52:30749][http-nio-8080-exec-10] INFO  p6spy - took 1 ms | update product set modified_at='2024-09-18T01:26:52.478+0900', delete_yn=false, content='갤럭시팔아요', name='이수완', price=39000, seller_id=1, title='갤럭시!!' where id=1
+[2024-09-18 01:26:52:30752][http-nio-8080-exec-10] INFO  p6spy - took 1 ms | update product set modified_at='2024-09-18T01:26:52.478+0900', delete_yn=false, content='아이폰팔아요', name='이수완', price=49000, seller_id=1, title='아이폰!!' where id=2
+[2024-09-18 01:26:52:30754][http-nio-8080-exec-10] INFO  p6spy - took 2 ms | 
+[2024-09-18 01:26:52:30756][http-nio-8080-exec-10] INFO  o.threefour.ddip.aop.LoggingAspect - Beginning to 'ChatServiceImpl.findChatByProductId' task with parameters: productId: 2
+[2024-09-18 01:26:52:30758][http-nio-8080-exec-10] INFO  p6spy - took 1 ms | update product set modified_at='2024-09-18T01:26:52.487+0900', delete_yn=false, content='갤럭시팔아요', name='이수완', price=39000, seller_id=1, title='갤럭시!!' where id=1
+[2024-09-18 01:26:52:30760][http-nio-8080-exec-10] INFO  p6spy - took 1 ms | update product set modified_at='2024-09-18T01:26:52.488+0900', delete_yn=false, content='아이폰팔아요', name='이수완', price=49000, seller_id=1, title='아이폰!!' where id=2
+[2024-09-18 01:26:52:30763][http-nio-8080-exec-10] INFO  p6spy - took 1 ms | select chat0_.product_id as col_0_0_, chat0_.message as col_1_0_, chat0_.send_date as col_2_0_, chat0_.owner_id as col_3_0_, product1_.seller_id as col_4_0_ from chat chat0_ inner join product product1_ on (chat0_.product_id=product1_.id) inner join member member3_ on product1_.seller_id=member3_.id inner join member member2_ on chat0_.owner_id=member2_.id where chat0_.delete_yn=0 and chat0_.product_id=2 and chat0_.send_date=(select max(chat4_.send_date) from chat chat4_ where chat4_.product_id=chat0_.product_id and chat4_.delete_yn=0)
+[2024-09-18 01:26:52:30764][http-nio-8080-exec-10] INFO  o.threefour.ddip.aop.LoggingAspect - 'ChatServiceImpl.findChatByProductId' task was executed successfully by ChatServiceImpl: 'findChatByProductId', estimated time: 8 ms, used memory: 324120 bytes
+[2024-09-18 01:26:52:30766][http-nio-8080-exec-10] INFO  p6spy - took 1 ms | update product set modified_at='2024-09-18T01:26:52.495+0900', delete_yn=false, content='갤럭시팔아요', name='이수완', price=39000, seller_id=1, title='갤럭시!!' where id=1
+[2024-09-18 01:26:52:30768][http-nio-8080-exec-10] INFO  p6spy - took 0 ms | update product set modified_at='2024-09-18T01:26:52.495+0900', delete_yn=false, content='아이폰팔아요', name='이수완', price=49000, seller_id=1, title='아이폰!!' where id=2
+[2024-09-18 01:26:52:30770][http-nio-8080-exec-10] INFO  p6spy - took 1 ms | 
+[2024-09-18 01:26:52:30772][http-nio-8080-exec-10] INFO  o.threefour.ddip.aop.LoggingAspect - Beginning to 'ChatServiceImpl.findAllChatByOwnerId' task with parameters: ownerId: 1
+[2024-09-18 01:26:52:30775][http-nio-8080-exec-10] INFO  p6spy - took 1 ms | update product set modified_at='2024-09-18T01:26:52.504+0900', delete_yn=false, content='갤럭시팔아요', name='이수완', price=39000, seller_id=1, title='갤럭시!!' where id=1
+[2024-09-18 01:26:52:30777][http-nio-8080-exec-10] INFO  p6spy - took 1 ms | update product set modified_at='2024-09-18T01:26:52.504+0900', delete_yn=false, content='아이폰팔아요', name='이수완', price=49000, seller_id=1, title='아이폰!!' where id=2
+[2024-09-18 01:26:52:30779][http-nio-8080-exec-10] INFO  p6spy - took 1 ms | select chat0_.product_id as col_0_0_, chat0_.message as col_1_0_, chat0_.send_date as col_2_0_, chat0_.owner_id as col_3_0_, product1_.seller_id as col_4_0_ from chat chat0_ inner join product product1_ on (chat0_.product_id=product1_.id) inner join member member3_ on product1_.seller_id=member3_.id inner join member member2_ on chat0_.owner_id=member2_.id where chat0_.delete_yn=0 and chat0_.owner_id=1 and chat0_.send_date=(select max(chat4_.send_date) from chat chat4_ where chat4_.product_id=chat0_.product_id and chat4_.owner_id=1 and chat4_.delete_yn=0)
+[2024-09-18 01:26:52:30780][http-nio-8080-exec-10] INFO  o.threefour.ddip.aop.LoggingAspect - 'ChatServiceImpl.findAllChatByOwnerId' task was executed successfully by ChatServiceImpl: 'findAllChatByOwnerId', estimated time: 8 ms, used memory: 323912 bytes
+[2024-09-18 01:26:52:30782][http-nio-8080-exec-10] INFO  p6spy - took 1 ms | update product set modified_at='2024-09-18T01:26:52.511+0900', delete_yn=false, content='갤럭시팔아요', name='이수완', price=39000, seller_id=1, title='갤럭시!!' where id=1
+[2024-09-18 01:26:52:30784][http-nio-8080-exec-10] INFO  p6spy - took 1 ms | update product set modified_at='2024-09-18T01:26:52.512+0900', delete_yn=false, content='아이폰팔아요', name='이수완', price=49000, seller_id=1, title='아이폰!!' where id=2
+[2024-09-18 01:26:52:30786][http-nio-8080-exec-10] INFO  p6spy - took 1 ms | 
+[2024-09-18 01:26:52:30788][http-nio-8080-exec-10] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/suwan/chatrooms', status code: 200, estimated time: 74ms, used memory: 4286440 bytes
+[2024-09-18 01:26:52:30792][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Received request for '/suwan/chatrooms'
+[2024-09-18 01:26:52:30792][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Received request for '/img/trend/bs-1.jpg'
+[2024-09-18 01:26:52:30794][http-nio-8080-exec-5] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/img/trend/bs-1.jpg', status code: 200, estimated time: 2ms, used memory: 398496 bytes
+[2024-09-18 01:26:52:30795][http-nio-8080-exec-6] INFO  o.threefour.ddip.aop.LoggingAspect - Beginning to 'ChatServiceImpl.getAllProductBySellerId' task with parameters: sellerId: 1
+[2024-09-18 01:26:52:30797][http-nio-8080-exec-6] INFO  p6spy - took 1 ms | select product0_.id as id1_7_, product0_.created_at as created_2_7_, product0_.modified_at as modified3_7_, product0_.delete_yn as delete_y4_7_, product0_.content as content5_7_, product0_.name as name6_7_, product0_.price as price7_7_, product0_.seller_id as seller_i9_7_, product0_.title as title8_7_ from product product0_ left outer join member member1_ on product0_.seller_id=member1_.id where member1_.id=1
+[2024-09-18 01:26:52:30798][http-nio-8080-exec-6] INFO  o.threefour.ddip.aop.LoggingAspect - 'ChatServiceImpl.getAllProductBySellerId' task was executed successfully by ChatServiceImpl: 'getAllProductBySellerId', estimated time: 3 ms, used memory: 0 bytes
+[2024-09-18 01:26:52:30801][http-nio-8080-exec-6] INFO  p6spy - took 1 ms | update product set modified_at='2024-09-18T01:26:52.530+0900', delete_yn=false, content='갤럭시팔아요', name='이수완', price=39000, seller_id=1, title='갤럭시!!' where id=1
+[2024-09-18 01:26:52:30802][http-nio-8080-exec-6] INFO  p6spy - took 0 ms | update product set modified_at='2024-09-18T01:26:52.530+0900', delete_yn=false, content='아이폰팔아요', name='이수완', price=49000, seller_id=1, title='아이폰!!' where id=2
+[2024-09-18 01:26:52:30804][http-nio-8080-exec-6] INFO  p6spy - took 1 ms | 
+[2024-09-18 01:26:52:30806][http-nio-8080-exec-6] INFO  o.threefour.ddip.aop.LoggingAspect - Beginning to 'ChatServiceImpl.findChatByProductId' task with parameters: productId: 1
+[2024-09-18 01:26:52:30808][http-nio-8080-exec-6] INFO  p6spy - took 0 ms | update product set modified_at='2024-09-18T01:26:52.537+0900', delete_yn=false, content='갤럭시팔아요', name='이수완', price=39000, seller_id=1, title='갤럭시!!' where id=1
+[2024-09-18 01:26:52:30809][http-nio-8080-exec-6] INFO  p6spy - took 0 ms | update product set modified_at='2024-09-18T01:26:52.538+0900', delete_yn=false, content='아이폰팔아요', name='이수완', price=49000, seller_id=1, title='아이폰!!' where id=2
+[2024-09-18 01:26:52:30810][http-nio-8080-exec-6] INFO  p6spy - took 0 ms | select chat0_.product_id as col_0_0_, chat0_.message as col_1_0_, chat0_.send_date as col_2_0_, chat0_.owner_id as col_3_0_, product1_.seller_id as col_4_0_ from chat chat0_ inner join product product1_ on (chat0_.product_id=product1_.id) inner join member member3_ on product1_.seller_id=member3_.id inner join member member2_ on chat0_.owner_id=member2_.id where chat0_.delete_yn=0 and chat0_.product_id=1 and chat0_.send_date=(select max(chat4_.send_date) from chat chat4_ where chat4_.product_id=chat0_.product_id and chat4_.delete_yn=0)
+[2024-09-18 01:26:52:30811][http-nio-8080-exec-6] INFO  p6spy - took 0 ms | select member0_.id as id1_5_0_, member0_.created_at as created_2_5_0_, member0_.modified_at as modified3_5_0_, member0_.delete_yn as delete_y4_5_0_, member0_.email as email5_5_0_, member0_.nick_name as nick_nam6_5_0_, member0_.password as password7_5_0_, member0_.school as school8_5_0_, member0_.school_auth_yn as school_a9_5_0_ from member member0_ where member0_.id=1
+[2024-09-18 01:26:52:30811][http-nio-8080-exec-6] INFO  o.threefour.ddip.aop.LoggingAspect - 'ChatServiceImpl.findChatByProductId' task was executed successfully by ChatServiceImpl: 'findChatByProductId', estimated time: 5 ms, used memory: 0 bytes
+[2024-09-18 01:26:52:30814][http-nio-8080-exec-6] INFO  p6spy - took 0 ms | update product set modified_at='2024-09-18T01:26:52.543+0900', delete_yn=false, content='갤럭시팔아요', name='이수완', price=39000, seller_id=1, title='갤럭시!!' where id=1
+[2024-09-18 01:26:52:30815][http-nio-8080-exec-6] INFO  p6spy - took 0 ms | update product set modified_at='2024-09-18T01:26:52.543+0900', delete_yn=false, content='아이폰팔아요', name='이수완', price=49000, seller_id=1, title='아이폰!!' where id=2
+[2024-09-18 01:26:52:30817][http-nio-8080-exec-6] INFO  p6spy - took 1 ms | 
+[2024-09-18 01:26:52:30818][http-nio-8080-exec-6] INFO  o.threefour.ddip.aop.LoggingAspect - Beginning to 'ChatServiceImpl.findChatByProductId' task with parameters: productId: 2
+[2024-09-18 01:26:52:30820][http-nio-8080-exec-6] INFO  p6spy - took 1 ms | update product set modified_at='2024-09-18T01:26:52.549+0900', delete_yn=false, content='갤럭시팔아요', name='이수완', price=39000, seller_id=1, title='갤럭시!!' where id=1
+[2024-09-18 01:26:52:30821][http-nio-8080-exec-6] INFO  p6spy - took 0 ms | update product set modified_at='2024-09-18T01:26:52.550+0900', delete_yn=false, content='아이폰팔아요', name='이수완', price=49000, seller_id=1, title='아이폰!!' where id=2
+[2024-09-18 01:26:52:30823][http-nio-8080-exec-6] INFO  p6spy - took 0 ms | select chat0_.product_id as col_0_0_, chat0_.message as col_1_0_, chat0_.send_date as col_2_0_, chat0_.owner_id as col_3_0_, product1_.seller_id as col_4_0_ from chat chat0_ inner join product product1_ on (chat0_.product_id=product1_.id) inner join member member3_ on product1_.seller_id=member3_.id inner join member member2_ on chat0_.owner_id=member2_.id where chat0_.delete_yn=0 and chat0_.product_id=2 and chat0_.send_date=(select max(chat4_.send_date) from chat chat4_ where chat4_.product_id=chat0_.product_id and chat4_.delete_yn=0)
+[2024-09-18 01:26:52:30823][http-nio-8080-exec-6] INFO  o.threefour.ddip.aop.LoggingAspect - 'ChatServiceImpl.findChatByProductId' task was executed successfully by ChatServiceImpl: 'findChatByProductId', estimated time: 5 ms, used memory: 0 bytes
+[2024-09-18 01:26:52:30826][http-nio-8080-exec-6] INFO  p6spy - took 1 ms | update product set modified_at='2024-09-18T01:26:52.555+0900', delete_yn=false, content='갤럭시팔아요', name='이수완', price=39000, seller_id=1, title='갤럭시!!' where id=1
+[2024-09-18 01:26:52:30827][http-nio-8080-exec-6] INFO  p6spy - took 0 ms | update product set modified_at='2024-09-18T01:26:52.555+0900', delete_yn=false, content='아이폰팔아요', name='이수완', price=49000, seller_id=1, title='아이폰!!' where id=2
+[2024-09-18 01:26:52:30829][http-nio-8080-exec-6] INFO  p6spy - took 1 ms | 
+[2024-09-18 01:26:52:30830][http-nio-8080-exec-6] INFO  o.threefour.ddip.aop.LoggingAspect - Beginning to 'ChatServiceImpl.findAllChatByOwnerId' task with parameters: ownerId: 1
+[2024-09-18 01:26:52:30833][http-nio-8080-exec-6] INFO  p6spy - took 0 ms | update product set modified_at='2024-09-18T01:26:52.562+0900', delete_yn=false, content='갤럭시팔아요', name='이수완', price=39000, seller_id=1, title='갤럭시!!' where id=1
+[2024-09-18 01:26:52:30834][http-nio-8080-exec-6] INFO  p6spy - took 0 ms | update product set modified_at='2024-09-18T01:26:52.562+0900', delete_yn=false, content='아이폰팔아요', name='이수완', price=49000, seller_id=1, title='아이폰!!' where id=2
+[2024-09-18 01:26:52:30836][http-nio-8080-exec-6] INFO  p6spy - took 1 ms | select chat0_.product_id as col_0_0_, chat0_.message as col_1_0_, chat0_.send_date as col_2_0_, chat0_.owner_id as col_3_0_, product1_.seller_id as col_4_0_ from chat chat0_ inner join product product1_ on (chat0_.product_id=product1_.id) inner join member member3_ on product1_.seller_id=member3_.id inner join member member2_ on chat0_.owner_id=member2_.id where chat0_.delete_yn=0 and chat0_.owner_id=1 and chat0_.send_date=(select max(chat4_.send_date) from chat chat4_ where chat4_.product_id=chat0_.product_id and chat4_.owner_id=1 and chat4_.delete_yn=0)
+[2024-09-18 01:26:52:30837][http-nio-8080-exec-6] INFO  o.threefour.ddip.aop.LoggingAspect - 'ChatServiceImpl.findAllChatByOwnerId' task was executed successfully by ChatServiceImpl: 'findAllChatByOwnerId', estimated time: 7 ms, used memory: 0 bytes
+[2024-09-18 01:26:52:30839][http-nio-8080-exec-6] INFO  p6spy - took 1 ms | update product set modified_at='2024-09-18T01:26:52.568+0900', delete_yn=false, content='갤럭시팔아요', name='이수완', price=39000, seller_id=1, title='갤럭시!!' where id=1
+[2024-09-18 01:26:52:30841][http-nio-8080-exec-6] INFO  p6spy - took 1 ms | update product set modified_at='2024-09-18T01:26:52.568+0900', delete_yn=false, content='아이폰팔아요', name='이수완', price=49000, seller_id=1, title='아이폰!!' where id=2
+[2024-09-18 01:26:52:30843][http-nio-8080-exec-6] INFO  p6spy - took 1 ms | 
+[2024-09-18 01:26:52:30846][http-nio-8080-exec-6] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/suwan/chatrooms', status code: 200, estimated time: 53ms, used memory: 1447072 bytes
+[2024-09-18 01:26:52:30848][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Received request for '/1/unread-count'
+[2024-09-18 01:26:52:30848][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Received request for '/2/unread-count'
+[2024-09-18 01:26:52:30852][http-nio-8080-exec-8] INFO  o.threefour.ddip.aop.LoggingAspect - Beginning to 'ChatServiceImpl.getUnreadMessageCount' task with parameters: productId: 1, ownerId: 1
+[2024-09-18 01:26:52:30852][http-nio-8080-exec-1] INFO  o.threefour.ddip.aop.LoggingAspect - Beginning to 'ChatServiceImpl.getUnreadMessageCount' task with parameters: productId: 2, ownerId: 1
+[2024-09-18 01:26:52:30854][http-nio-8080-exec-8] INFO  p6spy - took 0 ms | select lastreadme0_.owner_id as owner_id1_4_, lastreadme0_.product_id as product_2_4_, lastreadme0_.last_read_id as last_rea3_4_ from last_read_message lastreadme0_ where lastreadme0_.product_id=1 and lastreadme0_.owner_id=1
+[2024-09-18 01:26:52:30854][http-nio-8080-exec-1] INFO  p6spy - took 0 ms | select lastreadme0_.owner_id as owner_id1_4_, lastreadme0_.product_id as product_2_4_, lastreadme0_.last_read_id as last_rea3_4_ from last_read_message lastreadme0_ where lastreadme0_.product_id=2 and lastreadme0_.owner_id=1
+[2024-09-18 01:26:52:30856][http-nio-8080-exec-1] INFO  p6spy - took 0 ms | select max(chat0_.id) as col_0_0_ from chat chat0_ where chat0_.product_id=2
+[2024-09-18 01:26:52:30856][http-nio-8080-exec-8] INFO  p6spy - took 0 ms | select max(chat0_.id) as col_0_0_ from chat chat0_ where chat0_.product_id=1
+[2024-09-18 01:26:52:30857][http-nio-8080-exec-8] INFO  p6spy - took 0 ms | select count(chat0_.id) as col_0_0_ from chat chat0_ where chat0_.product_id=1 and chat0_.id>22
+[2024-09-18 01:26:52:30857][http-nio-8080-exec-1] INFO  p6spy - took 0 ms | select count(chat0_.id) as col_0_0_ from chat chat0_ where chat0_.product_id=2 and chat0_.id>21
+[2024-09-18 01:26:52:30857][http-nio-8080-exec-8] INFO  o.threefour.ddip.aop.LoggingAspect - 'ChatServiceImpl.getUnreadMessageCount' task was executed successfully by ChatServiceImpl: 'getUnreadMessageCount', estimated time: 4 ms, used memory: 0 bytes
+[2024-09-18 01:26:52:30857][http-nio-8080-exec-1] INFO  o.threefour.ddip.aop.LoggingAspect - 'ChatServiceImpl.getUnreadMessageCount' task was executed successfully by ChatServiceImpl: 'getUnreadMessageCount', estimated time: 4 ms, used memory: 0 bytes
+[2024-09-18 01:26:52:30858][http-nio-8080-exec-8] INFO  p6spy - took 0 ms | 
+[2024-09-18 01:26:52:30858][http-nio-8080-exec-1] INFO  p6spy - took 0 ms | 
+[2024-09-18 01:26:52:30859][http-nio-8080-exec-1] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/2/unread-count', status code: 200, estimated time: 10ms, used memory: 250880 bytes
+[2024-09-18 01:26:52:30859][http-nio-8080-exec-8] INFO  o.t.d.i.LoggingInterceptor - Completed request for '/1/unread-count', status code: 200, estimated time: 10ms, used memory: 250880 bytes

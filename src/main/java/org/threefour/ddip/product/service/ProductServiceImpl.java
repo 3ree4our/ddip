@@ -1,6 +1,8 @@
 package org.threefour.ddip.product.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -54,10 +56,20 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    @Transactional(isolation = READ_UNCOMMITTED, readOnly = true, timeout = 10)
+    @Transactional(isolation = READ_COMMITTED, readOnly = true, timeout = 10)
     public Product getProduct(Long productId) {
         return productRepository.findByIdAndDeleteYnFalse(productId).orElseThrow(
                 () -> new ProductNotFoundException(String.format(PRODUCT_NOT_FOUND_EXCEPTION_MESSAGE, productId))
         );
+    }
+
+    @Override
+    @Transactional(isolation = READ_UNCOMMITTED, readOnly = true, timeout = 20)
+    public Page<Product> getProducts(Pageable pageable, Short categoryId) {
+        if (categoryId == 0) {
+            return productRepository.findByDeleteYnFalse(pageable);
+        }
+
+        return productRepository.findByCategoryIdAndDeleteYnFalse(categoryId, pageable);
     }
 }
