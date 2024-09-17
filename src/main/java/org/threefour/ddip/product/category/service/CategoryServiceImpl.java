@@ -44,4 +44,11 @@ public class CategoryServiceImpl implements CategoryService {
                 () -> new CategoryNotFoundException(String.format(CATEGORY_NOT_FOUND_EXCEPTION_MESSAGE, categoryId))
         );
     }
+
+    @Override
+    public void deleteCategory(short id) {
+        Category category = getCategory(id);
+        category.delete();
+        categoryRepository.save(category);
+    }
 }
