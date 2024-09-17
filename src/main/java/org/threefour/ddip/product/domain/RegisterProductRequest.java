@@ -1,31 +1,18 @@
 package org.threefour.ddip.product.domain;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.threefour.ddip.product.category.domain.ConnectCategoryRequest;
+
+@NoArgsConstructor
+@Getter
+@Setter
 public class RegisterProductRequest {
+    private ConnectCategoryRequest connectCategoryRequest;
     private String name;
-    private int price;
+    private String price;
     private String title;
     private String content;
-
-    public RegisterProductRequest(String name, int price, String title, String content) {
-        this.name = name;
-        this.price = price;
-        this.title = title;
-        this.content = content;
-    }
-
-    String getName() {
-        return name;
-    }
-
-    int getPrice() {
-        return price;
-    }
-
-    String getTitle() {
-        return title;
-    }
-
-    String getContent() {
-        return content;
-    }
+    private AutoDiscountRequest autoDiscountRequest;
 }

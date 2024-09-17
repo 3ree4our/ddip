@@ -1,14 +1,16 @@
 package org.threefour.ddip.util;
 
-import org.threefour.ddip.exception.InvalidTargetTypeException;
-import org.threefour.ddip.exception.ParsingLongException;
+import org.threefour.ddip.exception.*;
 import org.threefour.ddip.image.domain.TargetType;
 
-import static org.threefour.ddip.exception.ExceptionMessage.INVALID_TARGET_TYPE_EXCEPTION_MESSAGE;
-import static org.threefour.ddip.exception.ExceptionMessage.PARSING_LONG_EXCEPTION_MESSAGE;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import static org.threefour.ddip.exception.ExceptionMessage.*;
+import static org.threefour.ddip.util.EntityConstant.DATE_PATTERN;
 
 public class FormatConverter {
-
     public static long parseToLong(String number) {
         try {
             return Long.parseLong(number);
@@ -17,11 +19,45 @@ public class FormatConverter {
         }
     }
 
+    public static int parseToInt(String number) {
+        try {
+            return Integer.parseInt(number);
+        } catch (NumberFormatException nfe) {
+            throw new ParsingIntegerException((String.format(PARSING_INTEGER_EXCEPTION_MESSAGE, number)));
+        }
+    }
+
+    public static short parseToShort(String number) throws ParsingShortException {
+        try {
+            return Short.parseShort(number);
+        } catch (NumberFormatException nfe) {
+            throw new ParsingShortException((String.format(PARSING_SHORT_EXCEPTION_MESSAGE, number)));
+        }
+    }
+
+    public static float parseToFloat(String primeNumber) {
+        try {
+            return Float.parseFloat(primeNumber);
+        } catch (NumberFormatException nfe) {
+            throw new ParsingFloatException((String.format(PARSING_FLOAT_EXCEPTION_MESSAGE, primeNumber)));
+        }
+    }
+
     public static TargetType parseToTargetType(String targetType) {
         try {
             return TargetType.valueOf(targetType);
         } catch (IllegalArgumentException iae) {
             throw new InvalidTargetTypeException(String.format(INVALID_TARGET_TYPE_EXCEPTION_MESSAGE, targetType));
+        }
+    }
+
+    public static Timestamp parseToDate(String date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_PATTERN);
+        dateFormat.setLenient(false);
+        try {
+            return new Timestamp(dateFormat.parse(date).getTime());
+        } catch (ParseException e) {
+            throw new ParsingTimestampException(String.format(PARSING_TIMESTAMP_EXCEPTION_MESSAGE, date));
         }
     }
 }

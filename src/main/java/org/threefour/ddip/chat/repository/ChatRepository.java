@@ -48,4 +48,5 @@ public interface ChatRepository extends JpaRepository<Chat, Long> {
           "order by c.id")
   List<ChatResponseDTO> findAllChatByProductId(@Param("productId") Long productId);
 
+  
 }

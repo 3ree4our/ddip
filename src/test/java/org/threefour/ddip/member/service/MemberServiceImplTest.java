@@ -10,6 +10,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import org.threefour.ddip.member.domain.Member;
 import org.threefour.ddip.member.domain.MemberRequestDTO;
+import org.threefour.ddip.product.domain.Price;
 import org.threefour.ddip.product.domain.Product;
 import org.threefour.ddip.product.repository.ProductRepository;
 
@@ -50,12 +51,11 @@ class MemberServiceImplTest {
     memberRequestDTO3.setSchool("시드니대");
 
     memberService.join(memberRequestDTO3);
-
     Product product1 = Product.builder()
             .title("갤럭시!!")
             .content("갤럭시팔아요")
             .name("이수완")
-            .price(39000)
+            .price("39000")
             .seller(Member.builder()
                     .id(1L)
                     .build())
@@ -64,7 +64,7 @@ class MemberServiceImplTest {
             .title("아이폰!!")
             .content("아이폰팔아요")
             .name("이수완")
-            .price(49000)
+            .price("49000")
             .seller(Member.builder()
                     .id(1L)
                     .build())
@@ -73,7 +73,7 @@ class MemberServiceImplTest {
             .title("wuwan폰!!!!")
             .content("뭐요팔아요")
             .name("이우완")
-            .price(59000)
+            .price("59000")
             .seller(Member.builder()
                     .id(3L)
                     .build())

@@ -14,6 +14,7 @@ import org.threefour.ddip.chat.repository.ChatRepository;
 import org.threefour.ddip.chat.service.ChatService;
 import org.threefour.ddip.member.domain.Member;
 import org.threefour.ddip.member.jwt.JWTUtil;
+import org.threefour.ddip.product.service.ProductService;
 import org.threefour.ddip.product.service.ProductServiceImpl;
 
 import java.util.ArrayList;
@@ -25,17 +26,14 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class APIController {
 
-  private final ChatRepository chatRepository;
-  private final ProductServiceImpl productService;
   private final ChatService chatService;
   private final JWTUtil jwtUtil;
 
   @GetMapping("/{member}/products")
   public ResponseEntity<List<ProductResponseDTO>> getAllProductByMemberId(@PathVariable("member") String email, @RequestHeader("Authorization") String token) {
-    // 아직은 회원 정보를 브라우저에 저장 못하니 임의로 하겠다.
     String accessToken = token.substring(7);
     Long id = jwtUtil.getId(accessToken);
-    List<ProductResponseDTO> list = productService.getAllProductBySellerId(id);
+    List<ProductResponseDTO> list = chatService.getAllProductBySellerId(id);
     return new ResponseEntity<>(list, HttpStatus.OK);
   }
 
@@ -45,15 +43,15 @@ public class APIController {
     Long id = jwtUtil.getId(accessToken);
     Map<Long, ChatroomResponseDTO> chatMap = new HashMap<>();
 
-    List<ProductResponseDTO> allProductBySellerId = productService.getAllProductBySellerId(id);
+    List<ProductResponseDTO> allProductBySellerId = chatService.getAllProductBySellerId(id);
     for (ProductResponseDTO product : allProductBySellerId) {
-      ChatroomResponseDTO chatByProductId = chatRepository.findChatByProductId(product.getProductId());
+      ChatroomResponseDTO chatByProductId = chatService.findChatByProductId(product.getProductId());
       if (chatByProductId != null) {
         updateChatMap(chatMap, chatByProductId);
       }
     }
 
-    List<ChatroomResponseDTO> chatByOwnerId = chatRepository.findAllChatByOwnerId(id);
+    List<ChatroomResponseDTO> chatByOwnerId = chatService.findAllChatByOwnerId(id);
     if (chatByOwnerId != null) {
       for (ChatroomResponseDTO chat : chatByOwnerId) {
         updateChatMap(chatMap, chat);
@@ -71,7 +69,7 @@ public class APIController {
     String accessToken = token.substring(7);
     Long id = jwtUtil.getId(accessToken);
 
-    List<ChatResponseDTO> allChatByProductId = chatRepository.findAllChatByProductId(chatroomId);
+    List<ChatResponseDTO> allChatByProductId = chatService.findAllChatByProductId(chatroomId);
     List<ChatResponseDTO> list = new ArrayList<>();
     for (ChatResponseDTO chat : allChatByProductId) {
       if (chat.getSender().getId() != id) chat.setType("left");

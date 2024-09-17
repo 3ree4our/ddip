@@ -5,12 +5,15 @@ import org.threefour.ddip.audit.BaseGeneralEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 import static lombok.AccessLevel.PROTECTED;
 
 @Entity
 @NoArgsConstructor(access = PROTECTED)
 public class Image extends BaseGeneralEntity {
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private TargetType targetType;
 

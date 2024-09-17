@@ -2,39 +2,62 @@ package org.threefour.ddip.product.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.threefour.ddip.chat.domain.dto.ProductResponseDTO;
-import org.threefour.ddip.member.domain.Member;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+import org.threefour.ddip.image.service.ImageService;
+import org.threefour.ddip.member.repository.MemberRepository;
+import org.threefour.ddip.product.category.service.CategoryService;
+import org.threefour.ddip.product.domain.AutoDiscountRequest;
 import org.threefour.ddip.product.domain.Product;
 import org.threefour.ddip.product.domain.RegisterProductRequest;
+import org.threefour.ddip.product.exception.ProductNotFoundException;
+import org.threefour.ddip.product.priceinformation.service.PriceInformationService;
 import org.threefour.ddip.product.repository.ProductRepository;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import static org.springframework.transaction.annotation.Isolation.READ_COMMITTED;
+import static org.springframework.transaction.annotation.Isolation.READ_UNCOMMITTED;
+import static org.springframework.transaction.annotation.Propagation.NESTED;
+import static org.threefour.ddip.image.domain.TargetType.PRODUCT;
+import static org.threefour.ddip.product.exception.ExceptionMessage.PRODUCT_NOT_FOUND_EXCEPTION_MESSAGE;
 
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
-  private final ProductRepository productRepository;
+    private final CategoryService categoryService;
+    private final ImageService imageService;
+    private final PriceInformationService priceInformationService;
+    private final ProductRepository productRepository;
+    private final MemberRepository memberRepository;
 
-  @Override
-  public Long createProduct(RegisterProductRequest registerProductRequest) {
-    return productRepository.save(Product.from(registerProductRequest, new Member())).getId();
-  }
+    @Override
+    @Transactional(isolation = READ_COMMITTED, propagation = NESTED, timeout = 20)
+    public Long createProduct(RegisterProductRequest registerProductRequest, List<MultipartFile> images) {
+        // TODO: 회원 연결
+        Product product = productRepository.save(
+                Product.from(registerProductRequest, memberRepository.findById(1L).get())
+        );
 
-  // 추후 삭제
-  public ProductResponseDTO getProductByProductId(Long productId) {
-    Product product = productRepository.findById(productId).orElseThrow();
-    return new ProductResponseDTO(productId, product.getTitle(), product.getSeller().getId());
-  }
+        categoryService.createProductCategories(registerProductRequest.getConnectCategoryRequest(), product);
 
-  // 추후 삭제
-  public List<ProductResponseDTO> getAllProductBySellerId(Long sellerId) {
-    List<Product> products = productRepository.findBySellerId(sellerId);
-    List<ProductResponseDTO> productListResponseDTO = new ArrayList<>();
-    for (Product p : products) {
-      productListResponseDTO.add(new ProductResponseDTO(p.getId(), p.getTitle(), p.getSeller().getId()));
+        if (images != null && !images.isEmpty()) {
+            imageService.createImages(PRODUCT, product.getId(), images);
+        }
+
+        AutoDiscountRequest autoDiscountRequest = registerProductRequest.getAutoDiscountRequest();
+        if (autoDiscountRequest != null) {
+            priceInformationService.createPriceInformation(product, autoDiscountRequest);
+        }
+
+        return product.getId();
     }
-    return productListResponseDTO;
-  }
 
+    @Override
+    @Transactional(isolation = READ_UNCOMMITTED, readOnly = true, timeout = 10)
+    public Product getProduct(Long productId) {
+        return productRepository.findByIdAndDeleteYnFalse(productId).orElseThrow(
+                () -> new ProductNotFoundException(String.format(PRODUCT_NOT_FOUND_EXCEPTION_MESSAGE, productId))
+        );
+    }
 }

@@ -103,9 +103,11 @@ pipeline {
                             export DDIP_S3_ACCESS_KEY='$DDIP_S3_ACCESS_KEY'
                             export DDIP_S3_SECRET_KEY='$DDIP_S3_SECRET_KEY'
                             export DDIP_S3_BUCKET_NAME='$DDIP_S3_BUCKET_NAME'
-                            docker-compose down
+
+                            docker stop \$PROJECT_NAME || true
+                            docker rm \$PROJECT_NAME || true
                             docker-compose pull
-                            docker-compose up -d
+                            docker-compose up -d --no-recreate
                             << EOF
                         '''
                     }

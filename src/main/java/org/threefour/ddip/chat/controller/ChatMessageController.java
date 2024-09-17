@@ -17,6 +17,7 @@ import org.threefour.ddip.chat.service.ChatService;
 import org.threefour.ddip.chat.service.WaitingService;
 import org.threefour.ddip.member.domain.MemberDetails;
 import org.threefour.ddip.member.service.MemberDetailsService;
+import org.threefour.ddip.product.domain.Product;
 import org.threefour.ddip.product.service.ProductServiceImpl;
 
 import java.security.Principal;
@@ -43,7 +44,7 @@ public class ChatMessageController {
     String username = principal.getName();
 
     long pi = Long.parseLong(productId);
-    ProductResponseDTO productByProductId = productService.getProductByProductId(pi);
+    Product productByProductId = productService.getProduct(pi);
 
     MemberDetails memberDetails = (MemberDetails) memberDetailsService.loadUserByUsername(username);
     String nickName = memberDetails.getNickName();
@@ -73,7 +74,7 @@ public class ChatMessageController {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     String format = formatter.format(LocalDateTime.now());
     ChatMessage mg = ChatMessage.builder()
-            .roomId(productByProductId.getProductId())
+            .roomId(productByProductId.getId())
             .nickname(nickName)
             .title(productByProductId.getTitle())
             .message(message.getMessage())
