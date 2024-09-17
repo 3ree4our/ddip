@@ -5,22 +5,22 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.threefour.ddip.image.service.ImageService;
-import org.threefour.ddip.member.domain.Member;
 import org.threefour.ddip.member.repository.MemberRepository;
 import org.threefour.ddip.product.category.service.CategoryService;
 import org.threefour.ddip.product.domain.AutoDiscountRequest;
 import org.threefour.ddip.product.domain.Product;
 import org.threefour.ddip.product.domain.RegisterProductRequest;
+import org.threefour.ddip.product.exception.ProductNotFoundException;
 import org.threefour.ddip.product.priceinformation.service.PriceInformationService;
 import org.threefour.ddip.product.repository.ProductRepository;
-import org.threefour.ddip.util.FormatValidator;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 import static org.springframework.transaction.annotation.Isolation.READ_COMMITTED;
+import static org.springframework.transaction.annotation.Isolation.READ_UNCOMMITTED;
 import static org.springframework.transaction.annotation.Propagation.NESTED;
 import static org.threefour.ddip.image.domain.TargetType.PRODUCT;
+import static org.threefour.ddip.product.exception.ExceptionMessage.PRODUCT_NOT_FOUND_EXCEPTION_MESSAGE;
 
 @Service
 @RequiredArgsConstructor
@@ -35,13 +35,13 @@ public class ProductServiceImpl implements ProductService {
     @Transactional(isolation = READ_COMMITTED, propagation = NESTED, timeout = 20)
     public Long createProduct(RegisterProductRequest registerProductRequest, List<MultipartFile> images) {
         // TODO: 회원 연결
-        Member member = memberRepository.findById(1L)
-                .orElseThrow(() -> new EntityNotFoundException(String.format("해당 회원이 존재하지 않습니다. ID: %d", 1)));
-        Product product = productRepository.save(Product.from(registerProductRequest, member));
+        Product product = productRepository.save(
+                Product.from(registerProductRequest, memberRepository.findById(1L).get())
+        );
 
         categoryService.createProductCategories(registerProductRequest.getConnectCategoryRequest(), product);
 
-        if (!FormatValidator.isNoValue(images)) {
+        if (images != null && !images.isEmpty()) {
             imageService.createImages(PRODUCT, product.getId(), images);
         }
 
@@ -51,5 +51,13 @@ public class ProductServiceImpl implements ProductService {
         }
 
         return product.getId();
+    }
+
+    @Override
+    @Transactional(isolation = READ_UNCOMMITTED, readOnly = true, timeout = 10)
+    public Product getProduct(Long productId) {
+        return productRepository.findByIdAndDeleteYnFalse(productId).orElseThrow(
+                () -> new ProductNotFoundException(String.format(PRODUCT_NOT_FOUND_EXCEPTION_MESSAGE, productId))
+        );
     }
 }
