@@ -4,16 +4,31 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.threefour.ddip.product.category.domain.Category;
+import org.threefour.ddip.product.category.domain.RegisterCategoryRequest;
 import org.threefour.ddip.product.category.exception.CategoryNotFoundException;
 import org.threefour.ddip.product.category.repository.CategoryRepository;
+import org.threefour.ddip.util.FormatConverter;
 
 import static org.springframework.transaction.annotation.Isolation.READ_UNCOMMITTED;
+import static org.springframework.transaction.annotation.Isolation.SERIALIZABLE;
 import static org.threefour.ddip.product.category.exception.ExceptionMessage.CATEGORY_NOT_FOUND_EXCEPTION_MESSAGE;
 
 @Service
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
+
+    @Override
+    @Transactional(isolation = SERIALIZABLE, timeout = 30)
+    public void createCategory(RegisterCategoryRequest registerCategoryRequest) {
+        try {
+            Category parentCategory
+                    = getCategory(FormatConverter.parseToShort(registerCategoryRequest.getParentCategoryId()));
+            categoryRepository.save(Category.from(registerCategoryRequest, parentCategory));
+        } catch (CategoryNotFoundException cnfe) {
+            categoryRepository.save(Category.from(registerCategoryRequest));
+        }
+    }
 
     @Override
     @Transactional(isolation = READ_UNCOMMITTED, readOnly = true, timeout = 10)
