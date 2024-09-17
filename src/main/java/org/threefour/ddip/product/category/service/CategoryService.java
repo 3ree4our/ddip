@@ -11,4 +11,6 @@ public interface CategoryService {
     List<Category> getCategories(Short parentCategoryId);
 
     Category getCategory(Short id);
+
+    void deleteCategory(short id);
 }
