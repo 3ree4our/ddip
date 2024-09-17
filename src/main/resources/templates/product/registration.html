@@ -625,7 +625,7 @@
 
     document.getElementById('first-category').addEventListener('change', function () {
         const parentCategoryId = this.value;
-        fetch('/category/get-categories?parentCategoryId=' + parentCategoryId)
+        fetch('/category/list?parentCategoryId=' + parentCategoryId)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok ' + response.statusText);
@@ -653,7 +653,7 @@
 
     document.getElementById('second-category').addEventListener('change', function () {
         const parentCategoryId = this.value;
-        fetch('/category/get-categories?parentCategoryId=' + parentCategoryId)
+        fetch('/category/list?parentCategoryId=' + parentCategoryId)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok ' + response.statusText);
