@@ -11,4 +11,8 @@ public interface ImageRepository extends JpaRepository<Image, Long> {
     List<Image> findByTargetTypeAndTargetIdAndDeleteYnFalse(TargetType targetType, Long id);
 
     Optional<Image> findByIdAndDeleteYnFalse(Long id);
+
+    Optional<Image> findFirstByTargetTypeAndTargetIdAndDeleteYnFalseOrderByCreatedAt(
+            TargetType targetType, Long targetId
+    );
 }

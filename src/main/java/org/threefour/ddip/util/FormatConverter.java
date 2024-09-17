@@ -1,5 +1,6 @@
 package org.threefour.ddip.util;
 
+import org.springframework.data.domain.Sort;
 import org.threefour.ddip.exception.*;
 import org.threefour.ddip.image.domain.TargetType;
 
@@ -11,6 +12,10 @@ import static org.threefour.ddip.exception.ExceptionMessage.*;
 import static org.threefour.ddip.util.EntityConstant.DATE_PATTERN;
 
 public class FormatConverter {
+    private static final String TRUE = "true";
+    private static final String FALSE = "false";
+
+
     public static long parseToLong(String number) {
         try {
             return Long.parseLong(number);
@@ -43,14 +48,6 @@ public class FormatConverter {
         }
     }
 
-    public static TargetType parseToTargetType(String targetType) {
-        try {
-            return TargetType.valueOf(targetType);
-        } catch (IllegalArgumentException iae) {
-            throw new InvalidTargetTypeException(String.format(INVALID_TARGET_TYPE_EXCEPTION_MESSAGE, targetType));
-        }
-    }
-
     public static Timestamp parseToDate(String date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_PATTERN);
         dateFormat.setLenient(false);
@@ -59,5 +56,26 @@ public class FormatConverter {
         } catch (ParseException e) {
             throw new ParsingTimestampException(String.format(PARSING_TIMESTAMP_EXCEPTION_MESSAGE, date));
         }
+    }
+
+    public static boolean parseToBoolean(String value) {
+        if (!value.equals(TRUE) && !value.equals(FALSE)) {
+            throw new ParsingBooleanException((String.format(PARSING_BOOLEAN_EXCEPTION_MESSAGE, value)));
+        }
+
+        return Boolean.parseBoolean(value);
+    }
+
+    public static TargetType parseToTargetType(String targetType) {
+        try {
+            return TargetType.valueOf(targetType);
+        } catch (IllegalArgumentException iae) {
+            throw new InvalidTargetTypeException(String.format(INVALID_TARGET_TYPE_EXCEPTION_MESSAGE, targetType));
+        }
+    }
+
+    public static Sort parseSortString(String sort) {
+        String[] parts = sort.split(",");
+        return Sort.by(Sort.Direction.fromString(parts[1]), parts[0]);
     }
 }
