@@ -9,8 +9,9 @@ import org.threefour.ddip.product.category.exception.CategoryNotFoundException;
 import org.threefour.ddip.product.category.repository.CategoryRepository;
 import org.threefour.ddip.util.FormatConverter;
 
-import static org.springframework.transaction.annotation.Isolation.READ_UNCOMMITTED;
-import static org.springframework.transaction.annotation.Isolation.SERIALIZABLE;
+import java.util.List;
+
+import static org.springframework.transaction.annotation.Isolation.*;
 import static org.threefour.ddip.product.category.exception.ExceptionMessage.CATEGORY_NOT_FOUND_EXCEPTION_MESSAGE;
 
 @Service
@@ -28,6 +29,12 @@ public class CategoryServiceImpl implements CategoryService {
         } catch (CategoryNotFoundException cnfe) {
             categoryRepository.save(Category.from(registerCategoryRequest));
         }
+    }
+
+    @Override
+    @Transactional(isolation = READ_COMMITTED, readOnly = true, timeout = 20)
+    public List<Category> getCategories(Short parentCategoryId) {
+        return categoryRepository.findByParentCategoryId(parentCategoryId);
     }
 
     @Override
