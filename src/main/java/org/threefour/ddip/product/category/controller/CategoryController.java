@@ -7,9 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.threefour.ddip.product.category.domain.Category;
 import org.threefour.ddip.product.category.domain.GetCategoryResponse;
+import org.threefour.ddip.product.category.domain.RegisterCategoryRequest;
 import org.threefour.ddip.product.category.service.CategoryService;
 import org.threefour.ddip.util.FormatConverter;
 
+import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
@@ -17,6 +19,13 @@ import static org.springframework.http.HttpStatus.OK;
 @RequiredArgsConstructor
 public class CategoryController {
     private final CategoryService categoryService;
+
+    @GetMapping("/register-category")
+    public ResponseEntity<Void> registerCategory(RegisterCategoryRequest registerCategoryRequest) {
+        categoryService.createCategory(registerCategoryRequest);
+
+        return ResponseEntity.status(CREATED).build();
+    }
 
     @GetMapping("/get-category")
     public ResponseEntity<GetCategoryResponse> getCategory(String id) {
