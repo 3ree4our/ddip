@@ -4,9 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.threefour.ddip.product.category.domain.Category;
+import org.threefour.ddip.product.category.domain.ConnectCategoryRequest;
+import org.threefour.ddip.product.category.domain.ProductCategory;
 import org.threefour.ddip.product.category.domain.RegisterCategoryRequest;
 import org.threefour.ddip.product.category.exception.CategoryNotFoundException;
 import org.threefour.ddip.product.category.repository.CategoryRepository;
+import org.threefour.ddip.product.category.repository.ProductCategoryRepository;
+import org.threefour.ddip.product.domain.Product;
 import org.threefour.ddip.util.FormatConverter;
 
 import java.util.List;
@@ -18,6 +22,7 @@ import static org.threefour.ddip.product.category.exception.ExceptionMessage.CAT
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
+    private final ProductCategoryRepository productCategoryRepository;
 
     @Override
     @Transactional(isolation = SERIALIZABLE, timeout = 30)
@@ -28,6 +33,19 @@ public class CategoryServiceImpl implements CategoryService {
             categoryRepository.save(Category.from(registerCategoryRequest, parentCategory));
         } catch (CategoryNotFoundException cnfe) {
             categoryRepository.save(Category.from(registerCategoryRequest));
+        }
+    }
+
+    @Override
+    @Transactional(isolation = READ_COMMITTED, timeout = 20)
+    public void createProductCategories(ConnectCategoryRequest connectCategoryRequest, Product product) {
+        Category firstCategory = getCategory(FormatConverter.parseToShort(connectCategoryRequest.getFirstCategoryId()));
+        Category secondCategory
+                = getCategory(FormatConverter.parseToShort(connectCategoryRequest.getSecondCategoryId()));
+        Category thirdCategory = getCategory(FormatConverter.parseToShort(connectCategoryRequest.getThirdCategoryId()));
+
+        for (Category category : List.of(firstCategory, secondCategory, thirdCategory)) {
+            productCategoryRepository.save(ProductCategory.of(category, product));
         }
     }
 
