@@ -26,7 +26,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 import static org.threefour.ddip.image.domain.TargetType.PRODUCT;
-import static org.threefour.ddip.util.PagingConstant.*;
+import static org.threefour.ddip.util.PaginationConstant.*;
 
 @Controller
 @RequestMapping("/product")
