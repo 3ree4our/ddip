@@ -86,6 +86,8 @@ pipeline {
                         scp -i "$EC2_DEPLOY_KEY_FOR_DDIP" ${WORKSPACE}/docker-compose.yml ubuntu@$EC2_IP_FOR_DDIP:$EC2_DEPLOY_PATH/
                         ssh -i "$EC2_DEPLOY_KEY_FOR_DDIP" ubuntu@"$EC2_IP_FOR_DDIP" << EOF
                             cd $EC2_DEPLOY_PATH
+                            docker stop app || true
+                            docker rm app || true
                             export PROJECT_NAME='${PROJECT_NAME}'
                             export PROJECT_VERSION='${PROJECT_VERSION}'
                             export DOCKER_HUB_USER_NAME='${DOCKER_HUB_USER_NAME}'
@@ -103,9 +105,8 @@ pipeline {
                             export DDIP_S3_ACCESS_KEY='$DDIP_S3_ACCESS_KEY'
                             export DDIP_S3_SECRET_KEY='$DDIP_S3_SECRET_KEY'
                             export DDIP_S3_BUCKET_NAME='$DDIP_S3_BUCKET_NAME'
-                            docker-compose down
                             docker-compose pull
-                            docker-compose up -d
+                            docker-compose up -d --no-recreate
                             << EOF
                         '''
                     }
