@@ -225,7 +225,7 @@
                                     <label for="price">가격</label>
                                     <div class="input-group">
                                         <input class="form-control" id="price" type="number" name="price" value="1000"
-                                               min="1000" step="1000" placeholder="가격" style="max-width: 100px;" />
+                                               min="1000" step="1000" placeholder="가격" style="max-width: 100px;"/>
                                         <span class="input-group-text">원</span>
                                     </div>
                                     <div id="fee-deduction-info" style="margin-top: 5px; color: gray;"></div>
@@ -247,7 +247,7 @@
                                     <label for="content">내용</label>
                                     <div class="quform-input">
                                         <textarea class="form-control" id="content" type="text"
-                                        name="content" placeholder="게시글 내용"/></textarea>
+                                                  name="content" placeholder="게시글 내용"/></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -305,7 +305,8 @@
                                         <div class="input-group">
                                             <input class="form-control" id="price-discount-rate" type="number"
                                                    name="price-discount-rate"
-                                                   min="1" max="99" step="1" placeholder="1~99" style="max-width: 80px;"/>
+                                                   min="1" max="99" step="1" placeholder="1~99"
+                                                   style="max-width: 80px;"/>
                                             <span class="input-group-text">%</span>
                                         </div>
                                     </div>
@@ -315,8 +316,10 @@
                                     <div class="quform-element form-group">
                                         <label for="min-price">최저 가격</label>
                                         <div class="input-group">
-                                            <input class="form-control" id="min-price" type="number" name="min-price" value="0"
-                                                   min="0" step="1000" placeholder="최저 가격을 입력해 주세요" style="max-width: 100px;" />
+                                            <input class="form-control" id="min-price" type="number" name="min-price"
+                                                   value="0"
+                                                   min="0" step="1000" placeholder="최저 가격을 입력해 주세요"
+                                                   style="max-width: 100px;"/>
                                             <span class="input-group-text">원</span>
                                         </div>
                                         <small>최저 가격 미만으로는 할인되지 않습니다.</small>
@@ -625,7 +628,7 @@
 
     document.getElementById('first-category').addEventListener('change', function () {
         const parentCategoryId = this.value;
-        fetch('/category/list?parentCategoryId=' + parentCategoryId)
+        fetch('/categories?parentCategoryId=' + parentCategoryId)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok ' + response.statusText);
@@ -653,7 +656,7 @@
 
     document.getElementById('second-category').addEventListener('change', function () {
         const parentCategoryId = this.value;
-        fetch('/category/list?parentCategoryId=' + parentCategoryId)
+        fetch('/categories?parentCategoryId=' + parentCategoryId)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok ' + response.statusText);
