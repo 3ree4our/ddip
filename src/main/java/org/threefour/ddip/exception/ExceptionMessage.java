@@ -11,6 +11,8 @@ public class ExceptionMessage {
             = "소수값만 float 타입으로 변환할 수 있습니다. 현재 변환 대상 값: %s";
     public static final String PARSING_TIMESTAMP_EXCEPTION_MESSAGE
             = "날짜값만 Timestamp 타입으로 변환할 수 있습니다. 현재 변환 대상 값: %s";
+    public static final String PARSING_BOOLEAN_EXCEPTION_MESSAGE
+            = "논리형 값만 Boolean 타입으로 변환할 수 있습니다. 현재 변환 대상 값: %s";
     public static final String INVALID_TARGET_TYPE_EXCEPTION_MESSAGE
             = "존재하는 도메인만 TargetType으로 변환할 수 있습니다. 현재 변환 대상 값: %s";
 }

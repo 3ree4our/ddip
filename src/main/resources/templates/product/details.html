@@ -117,9 +117,9 @@
             <div class="col-lg-12">
                 <div class="breadcrumb__links">
                     <a href="./index.html"><i class="fa fa-home"></i> Home</a>
-                    <a th:href="@{/product/category(categoryId=${product.getCategoriesResponse.getCategoryResponses.get(0).id})}"
+                    <a th:href="@{/product/list(categoryId=${product.getCategoriesResponse.getCategoryResponses.get(0).id})}"
                        th:text="${product.getCategoriesResponse.getCategoryResponses.get(0).name.description}">Category Level 1</a>
-                    <a th:href="@{/product/category(categoryId=${product.getCategoriesResponse.getCategoryResponses.get(1).id})}"
+                    <a th:href="@{/product/list(categoryId=${product.getCategoriesResponse.getCategoryResponses.get(1).id})}"
                        th:text="${product.getCategoriesResponse.getCategoryResponses.get(1).name.description}">Category Level 2</a>
                     <span th:text="${product.getCategoriesResponse.getCategoryResponses.get(2).name.description}">Category Level 3</span>
                 </div>

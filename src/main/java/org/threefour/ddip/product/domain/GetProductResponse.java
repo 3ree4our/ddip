@@ -53,4 +53,8 @@ public class GetProductResponse {
                 .imageResponses(images.stream().map(GetImageResponse::from).collect(Collectors.toList()))
                 .build();
     }
+
+    public GetImageResponse getImage(int index) {
+        return imageResponses.get(index);
+    }
 }
