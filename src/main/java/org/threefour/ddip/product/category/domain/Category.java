@@ -48,7 +48,7 @@ public class Category extends BaseEntity {
         return id;
     }
 
-    public CategoryName getName() {
+    CategoryName getName() {
         return name;
     }
 
