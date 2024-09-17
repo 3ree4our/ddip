@@ -1,6 +1,7 @@
 package org.threefour.ddip.util;
 
 import org.threefour.ddip.exception.InvalidTargetTypeException;
+import org.threefour.ddip.exception.ParsingIntegerException;
 import org.threefour.ddip.exception.ParsingLongException;
 import org.threefour.ddip.exception.ParsingShortException;
 import org.threefour.ddip.image.domain.TargetType;
@@ -13,6 +14,14 @@ public class FormatConverter {
             return Long.parseLong(number);
         } catch (NumberFormatException nfe) {
             throw new ParsingLongException((String.format(PARSING_LONG_EXCEPTION_MESSAGE, number)));
+        }
+    }
+
+    public static int parseToInt(String number) {
+        try {
+            return Integer.parseInt(number);
+        } catch (NumberFormatException nfe) {
+            throw new ParsingIntegerException((String.format(PARSING_INTEGER_EXCEPTION_MESSAGE, number)));
         }
     }
 
