@@ -8,8 +8,10 @@ import org.threefour.ddip.image.service.ImageService;
 import org.threefour.ddip.member.domain.Member;
 import org.threefour.ddip.member.repository.MemberRepository;
 import org.threefour.ddip.product.category.service.CategoryService;
+import org.threefour.ddip.product.domain.AutoDiscountRequest;
 import org.threefour.ddip.product.domain.Product;
 import org.threefour.ddip.product.domain.RegisterProductRequest;
+import org.threefour.ddip.product.priceinformation.service.PriceInformationService;
 import org.threefour.ddip.product.repository.ProductRepository;
 import org.threefour.ddip.util.FormatValidator;
 
@@ -25,6 +27,7 @@ import static org.threefour.ddip.image.domain.TargetType.PRODUCT;
 public class ProductServiceImpl implements ProductService {
     private final CategoryService categoryService;
     private final ImageService imageService;
+    private final PriceInformationService priceInformationService;
     private final ProductRepository productRepository;
     private final MemberRepository memberRepository;
 
@@ -40,6 +43,11 @@ public class ProductServiceImpl implements ProductService {
 
         if (!FormatValidator.isNoValue(images)) {
             imageService.createImages(PRODUCT, product.getId(), images);
+        }
+
+        AutoDiscountRequest autoDiscountRequest = registerProductRequest.getAutoDiscountRequest();
+        if (autoDiscountRequest != null) {
+            priceInformationService.createPriceInformation(product, autoDiscountRequest);
         }
 
         return product.getId();

@@ -14,4 +14,5 @@ public class RegisterProductRequest {
     private String price;
     private String title;
     private String content;
+    private AutoDiscountRequest autoDiscountRequest;
 }
