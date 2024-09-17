@@ -73,10 +73,8 @@ document.querySelector('.close').onclick = closeModal;
 document.querySelector('.prev').onclick = prevImage;
 document.querySelector('.next').onclick = nextImage;
 document.querySelector('.modal').addEventListener('click', e => {
-  if (e.target.tagName !== 'IMG') closeModal();
-
+  if (!e.target.closest('img, .prev, .next, .modal-nav')) closeModal();
 });
-
 document.getElementById('images').addEventListener('change', handleImageSelect);
 
 const getSelectedImagesData = () => {
