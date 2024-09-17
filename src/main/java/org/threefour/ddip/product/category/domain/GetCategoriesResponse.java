@@ -21,6 +21,14 @@ public class GetCategoriesResponse {
         return new GetCategoriesResponse(getCategoryResponses);
     }
 
+    public static GetCategoriesResponse fromProduct(List<ProductCategory> productCategories) {
+        List<GetCategoryResponse> getCategoryResponses = productCategories.stream()
+                .map(productCategory -> GetCategoryResponse.from(productCategory.getCategory()))
+                .collect(Collectors.toList());
+
+        return new GetCategoriesResponse(getCategoryResponses);
+    }
+
     public GetCategoryResponse get(int index) {
         return getCategoryResponses.get(index);
     }

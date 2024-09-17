@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import org.threefour.ddip.audit.BaseGeneralEntity;
 import org.threefour.ddip.member.domain.Member;
 import org.threefour.ddip.product.category.domain.ProductCategory;
+import org.threefour.ddip.product.priceinformation.domain.PriceInformation;
 
 import javax.persistence.*;
 import java.util.List;
@@ -35,6 +36,9 @@ public class Product extends BaseGeneralEntity {
 
     @OneToMany(mappedBy = "product", cascade = {PERSIST, MERGE, REMOVE}, orphanRemoval = true, fetch = LAZY)
     private List<ProductCategory> productCategories;
+
+    @OneToMany(mappedBy = "product", cascade = {PERSIST, MERGE, REMOVE}, fetch = LAZY)
+    private List<PriceInformation> priceInformation;
 
     @Builder
     private Product(
@@ -79,5 +83,9 @@ public class Product extends BaseGeneralEntity {
 
     List<ProductCategory> getProductCategories() {
         return productCategories;
+    }
+
+    List<PriceInformation> getPriceInformation() {
+        return priceInformation;
     }
 }
