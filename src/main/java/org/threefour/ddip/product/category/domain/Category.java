@@ -51,4 +51,8 @@ public class Category extends BaseEntity {
     public CategoryName getName() {
         return name;
     }
+
+    public void delete() {
+        deleteYn = true;
+    }
 }
