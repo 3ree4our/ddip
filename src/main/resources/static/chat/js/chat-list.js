@@ -161,8 +161,10 @@ const createMessageTag = (LR_className, senderName, message) => {
 
 // 메시지 태그 추가
 const appendMessageTag = (messageObj) => {
-  console.log('messageObj 넘겨받는..!! ', messageObj)
   let chatLi = '';
+  let chatCurrentImages = [];
+  let chatCurrentImageIndex = 0;
+
   if (messageObj.length === undefined) {
     chatLi = createMessageTag(messageObj.type, messageObj.nickname, messageObj.message);
     document.querySelector("#chatWrapper .chat:not(.format) ul").appendChild(chatLi);
@@ -175,16 +177,65 @@ const appendMessageTag = (messageObj) => {
     }
   }
 
-  if (messageObj.imageUrls.length > 0) {
+
+  const openChatImageModal = (images, index) => {
+    const modal = document.getElementById('chatImageModal');
+    chatCurrentImages = images.map(url => `${SERVER_API}/api/images/${url}`);
+    chatCurrentImageIndex = index;
+    updateChatModalImage();
+    modal.classList.add('show'); // 'show' 클래스 추가
+  }
+
+  const updateChatModalImage = () => {
+    const modalImg = document.getElementById('chatModalImage');
+    modalImg.src = chatCurrentImages[chatCurrentImageIndex];
+    document.getElementById('chatImageCounter').textContent = `${chatCurrentImageIndex + 1} / ${chatCurrentImages.length}`;
+
+    document.querySelector('.chat-modal-prev').style.display = chatCurrentImageIndex > 0 ? 'block' : 'none';
+    document.querySelector('.chat-modal-next').style.display = chatCurrentImageIndex < chatCurrentImages.length - 1 ? 'block' : 'none';
+  }
+
+  const closeChatImageModal = () => {
+    const modal = document.getElementById('chatImageModal');
+    modal.classList.remove('show');
+  }
+
+  const nextChatImage = () => {
+    if (chatCurrentImageIndex < chatCurrentImages.length - 1) {
+      chatCurrentImageIndex++;
+      updateChatModalImage();
+    }
+  }
+
+  const prevChatImage = () => {
+    if (chatCurrentImageIndex > 0) {
+      chatCurrentImageIndex--;
+      updateChatModalImage();
+    }
+  }
+
+// 이벤트 리스너 설정
+  document.querySelector('.chat-modal-close').addEventListener('click', closeChatImageModal);
+  document.querySelector('.chat-modal-prev').addEventListener('click', prevChatImage);
+  document.querySelector('.chat-modal-next').addEventListener('click', nextChatImage);
+  document.getElementById('chatImageModal').addEventListener('click', (event) => {
+    if (event.target === event.currentTarget) {
+      closeChatImageModal();
+    }
+  });
+
+  if (messageObj?.imageUrls?.length > 0) {
     const imageContainer = document.createElement('div');
     imageContainer.className = 'message-images';
-    messageObj.imageUrls[0].forEach(url => {
+    messageObj.imageUrls[0].forEach((url, index) => {
       const img = document.createElement('img');
       img.src = `${SERVER_API}/api/images/${url}`;
       img.alt = 'upload image';
       img.style.maxWidth = '200px';
       img.style.maxHeight = '200px';
       img.style.margin = '5px';
+      img.style.cursor = 'pointer';
+      img.onclick = () => openChatImageModal(messageObj.imageUrls[0], index);
       imageContainer.appendChild(img);
     })
     chatLi.querySelector('.message').appendChild(imageContainer);
@@ -194,6 +245,7 @@ const appendMessageTag = (messageObj) => {
 }
 
 //===========================================================================================
+
 
 // 채팅방 클릭 이벤트 핸들러 수정
 const chatRoomClickHandler = async (e) => {
