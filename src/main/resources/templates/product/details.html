@@ -7,7 +7,6 @@
     <meta name="keywords" content="Ashion, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- 타임리프를 이용해 타이틀에 제품 이름 적용 -->
     <title th:text="${product.name} + ' | Product Details'">Ashion | Template</title>
 
     <!-- Google Font -->
@@ -232,8 +231,27 @@
                             </li>
                         </ul>
                     </div>
+                    <div class="product__details__button">
+                        <div class="quantity">
+                            <span>Quantity:</span>
+                            <div class="pro-qty">
+                                <input type="text" value="1">
+                            </div>
+                        </div>
+                        <a href="#" class="cart-btn"><span class="icon_bag_alt"></span> Add to cart</a>
+                        <ul>
+                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                            <li><a href="#"><span class="icon_adjust-horiz"></span></a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
+
+            <div class="product__delete__button">
+                <button type="button" class="site-btn" th:onclick="'deleteProduct(' + ${product.id} + ')'">상품 삭제</button>
+            </div>
+            <div id="delete-message" style="display: none; color: green; font-weight: bold;">상품이 삭제되었습니다.</div>
+
             <div class="col-lg-12">
                 <div class="product__details__tab">
                     <ul class="nav nav-tabs" role="tablist">
@@ -305,7 +323,7 @@
                         <ul class="product__hover">
                             <li><a th:href="@{/product/details/{id}(id=${relatedProduct.id})}"><span class="icon_bag_alt"></span></a></li>
                         </ul>
-                    </div>
+                    삭제</div>
                     <div class="product__item__text">
                         <h6><a th:href="@{/product/details/{id}(id=${relatedProduct.id})}" th:text="${relatedProduct.name}">Product Name</a></h6>
                         <div class="product__price" th:text="${relatedProduct.price} + ' 원'">₩ 0.0</div>
@@ -457,6 +475,28 @@
     </div>
 </div>
 <!-- Search End -->
+<script>
+    function deleteProduct(productId) {
+        if (confirm('정말 상품을 삭제하시겠습니까?')) {
+            fetch(`/product/delete?id=` + productId, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    document.getElementById('delete-message').style.display = 'block';
+                    alert('상품이 삭제되었습니다.');
+                    location.href = '/product/list';
+                } else {
+                    alert('상품 삭제에 실패했습니다.');
+                }
+            }).catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    }
+</script>
 
 <!-- Js Plugins -->
 <script src="/js/jquery-3.3.1.min.js"></script>

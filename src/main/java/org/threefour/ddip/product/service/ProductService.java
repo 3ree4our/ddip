@@ -17,4 +17,6 @@ public interface ProductService {
     Page<Product> getProducts(Pageable pageable, Short categoryId);
 
     void update(UpdateProductRequest updateProductRequest);
+
+    void delete(Long id);
 }

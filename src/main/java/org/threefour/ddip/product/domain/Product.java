@@ -114,4 +114,8 @@ public class Product extends BaseGeneralEntity {
             content = contentToUpdate;
         }
     }
+
+    public void delete() {
+        deleteEntity();
+    }
 }
