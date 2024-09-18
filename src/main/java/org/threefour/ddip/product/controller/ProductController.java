@@ -38,7 +38,6 @@ public class ProductController {
     @GetMapping("/registration-form")
     public ModelAndView getRegistrationForm() {
         List<Category> categories = categoryService.getCategories(null);
-
         return new ModelAndView("product/registration", "categories", GetCategoriesResponse.from(categories));
     }
 
@@ -121,6 +120,12 @@ public class ProductController {
     @PatchMapping("/update")
     public ResponseEntity<Void> updateAttribute(@RequestBody UpdateProductRequest updateProductRequest) {
         productService.update(updateProductRequest);
+        return ResponseEntity.status(NO_CONTENT).build();
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<Void> deleteProduct(@RequestParam("id") String id) {
+        productService.delete(FormatConverter.parseToLong(id));
         return ResponseEntity.status(NO_CONTENT).build();
     }
 }
