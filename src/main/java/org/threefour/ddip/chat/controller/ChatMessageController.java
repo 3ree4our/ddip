@@ -16,6 +16,7 @@ import org.threefour.ddip.chat.domain.dto.ProductResponseDTO;
 import org.threefour.ddip.chat.domain.dto.WaitingRequestDTO;
 import org.threefour.ddip.chat.service.ChatService;
 import org.threefour.ddip.chat.service.WaitingService;
+import org.threefour.ddip.image.service.ImageLocalServiceImpl;
 import org.threefour.ddip.member.domain.MemberDetails;
 import org.threefour.ddip.member.service.MemberDetailsService;
 import org.threefour.ddip.product.domain.Product;
@@ -25,6 +26,7 @@ import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -33,6 +35,7 @@ public class ChatMessageController {
   private final MemberDetailsService memberDetailsService;
   private final ProductServiceImpl productService;
   private final ChatService chatService;
+  private final ImageLocalServiceImpl imageLocalService;
   private final WaitingService waitingService;
 
   @MessageMapping("/{productId}")
@@ -50,7 +53,6 @@ public class ChatMessageController {
     MemberDetails memberDetails = (MemberDetails) memberDetailsService.loadUserByUsername(username);
     String nickName = memberDetails.getNickName();
 
-
     ChatRequestDTO dto = ChatRequestDTO.builder()
             .owner(memberDetails.getId())
             .productId(pi)
@@ -61,6 +63,7 @@ public class ChatMessageController {
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     String format = formatter.format(LocalDateTime.now());
+
     ChatMessage mg = ChatMessage.builder()
             .roomId(productByProductId.getId())
             .messageId(saveId)

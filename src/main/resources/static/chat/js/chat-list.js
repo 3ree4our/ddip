@@ -1,4 +1,12 @@
-import {getAllProduct, getAllChatroom, getChatroomByProductId, getUnreadMessageCounts} from "./api.js";
+import {
+  getAllProduct,
+  getAllChatroom,
+  getChatroomByProductId,
+  getUnreadMessageCounts,
+  imageUpload,
+  markRead, SERVER_API
+} from "./api.js";
+import {clearImageSelection, getSelectedImagesData} from "./image.js";
 
 let stompClient = '';
 let connectStatus = false;
@@ -6,23 +14,17 @@ let focusChatroom = '';
 let unreadMessages = {};
 
 // 채팅방을 열때
-async function openChatRoom(productId) {
-  const messages = await getChatroomByProductId('suwan', productId);
-  console.log("으잉?, ", messages)
+const openChatRoom = async (productId) => {
+  await getChatroomByProductId(productId);
   await markAsRead(productId);
 }
 
 // 읽음 처리 함수
-async function markAsRead(productId) {
-  await fetch(`/${productId}/mark-read`, {
-    method : 'POST',
-    headers: {
-      'Authorization': 'Bearer ' + localStorage.getItem('access_token')
-    }
-  });
+const markAsRead = async (productId) => {
+  await markRead(productId);
 }
 
-function updateUnreadCount(roomId) {
+const updateUnreadCount = (roomId) => {
   if (!unreadMessages[roomId]) {
     unreadMessages[roomId] = 0;
   }
@@ -30,7 +32,7 @@ function updateUnreadCount(roomId) {
   updateUnreadBadge(roomId);
 }
 
-export const getConnect = async () => {
+const getConnect = async () => {
   const allProducts = await getAllProduct();
   if (allProducts.length > 0) {
     const productsId = allProducts.map(e => e.productId);
@@ -38,7 +40,7 @@ export const getConnect = async () => {
   }
 }
 
-function connect(productsId) {
+const connect = (productsId) => {
   if (stompClient && stompClient.connected) {
     return; // 이미 연결된 경우 중복 연결 방지
   }
@@ -64,19 +66,33 @@ const subscribeToProduct = (productId) => {
     stompClient.subscribe(`/room/${productId}`, async (chatMessage) => {
       const messageObj = JSON.parse(chatMessage.body);
 
+      const selectedImages = getSelectedImagesData();
+
+      const formData = new FormData();
+
+      let imageUrls = [];
+      selectedImages.forEach(file => {
+        formData.append('files', file);
+      });
+      if (selectedImages.length > 0) {
+        formData.append('chatId', messageObj.messageId);
+        const imageIds = await imageUpload(formData);
+        imageUrls.push(imageIds);
+      }
+      messageObj.imageUrls = imageUrls;
+
+      clearImageSelection();
+
       let roomElement = document.querySelector(`[data-product="${messageObj.roomId}"]`);
 
       if (Number(messageObj.roomId) === Number(focusChatroom)) {
-        // 현재 보고 있는 채팅방이면 읽음 처리
         await markAsRead(messageObj.roomId);
         appendMessageTag(messageObj);
       } else {
-        // 다른 채팅방이면 읽지 않은 메시지 수 증가
         updateUnreadCount(messageObj.roomId);
       }
 
       if (!roomElement) {
-        // 새로운 채팅방 생성
         const newChat = {
           productId: messageObj.roomId,
           sender   : {nickname: messageObj.nickname},
@@ -87,7 +103,6 @@ const subscribeToProduct = (productId) => {
         const chatRoomArea = document.querySelector('.chat-list');
         chatRoomArea.insertBefore(roomElement, chatRoomArea.firstChild);
       } else {
-        // 기존 채팅방 업데이트
         roomElement.querySelector('p:last-child').innerText = messageObj.message;
       }
 
@@ -98,32 +113,42 @@ const subscribeToProduct = (productId) => {
   }
 }
 
+
 //===========메시지 전송===============
-document.querySelector("section.input-div textarea").addEventListener("keydown", e => {
+document.querySelector("section.input-div textarea").addEventListener("keydown", async (e) => {
   if (e.keyCode === 13 && !e.shiftKey) {
     e.preventDefault();
-    sendMessage();
-    e.target.value = '';
-    e.target.focus();
+    await sendMessage();
   }
-});
+})
 
-const sendMessage = () => {
+const sendMessage = async () => {
   const messageInputEle = document.querySelector('section.input-div textarea');
+  const message = messageInputEle.value.trim();
+
+  const selectedImages = getSelectedImagesData();
+
+  if (message === '' && selectedImages.length === 0) return;
 
   const headers = {
     'Authorization': 'Bearer ' + localStorage.getItem('access_token')
   };
 
-  const messageObj = {
-    message: messageInputEle.value
+  try {
+
+    if (message !== '' || selectedImages.length > 0) {
+      const messageObj = {message}
+      stompClient.send(`/messages/${focusChatroom}`, headers, JSON.stringify(messageObj));
+    }
+
+  } catch (error) {
+    console.error('error sending message or uploading images: ', error)
   }
 
-  if (messageInputEle.value != '') {
-    stompClient.send(`/messages/${focusChatroom}`, headers, JSON.stringify(messageObj));
-  }
-
+  messageInputEle.value = '';
+  messageInputEle.focus();
 }
+
 
 // 메시지 태그 생성
 const createMessageTag = (LR_className, senderName, message) => {
@@ -136,17 +161,33 @@ const createMessageTag = (LR_className, senderName, message) => {
 
 // 메시지 태그 추가
 const appendMessageTag = (messageObj) => {
+  console.log('messageObj 넘겨받는..!! ', messageObj)
+  let chatLi = '';
   if (messageObj.length === undefined) {
-    const chatLi = createMessageTag(messageObj.type, messageObj.nickname, messageObj.message);
+    chatLi = createMessageTag(messageObj.type, messageObj.nickname, messageObj.message);
     document.querySelector("#chatWrapper .chat:not(.format) ul").appendChild(chatLi);
     document.querySelector("#chatWrapper .chat").scrollTop = document.querySelector("section.chat").scrollHeight;
   } else {
     for (let message of messageObj) {
-      // 첫 번째 채팅 => 대화 신청 중간 정렬 나중에 (서버에서 type을 center로 보내게 할 수 있을까?
-      const chatLi = createMessageTag(message.type, message.sender.nickname, message.message);
+      chatLi = createMessageTag(message.type, message.sender.nickname, message.message);
       document.querySelector("#chatWrapper .chat:not(.format) ul").appendChild(chatLi);
       document.querySelector("#chatWrapper .chat").scrollTop = document.querySelector("section.chat").scrollHeight;
     }
+  }
+
+  if (messageObj.imageUrls.length > 0) {
+    const imageContainer = document.createElement('div');
+    imageContainer.className = 'message-images';
+    messageObj.imageUrls[0].forEach(url => {
+      const img = document.createElement('img');
+      img.src = `${SERVER_API}/api/images/${url}`;
+      img.alt = 'upload image';
+      img.style.maxWidth = '200px';
+      img.style.maxHeight = '200px';
+      img.style.margin = '5px';
+      imageContainer.appendChild(img);
+    })
+    chatLi.querySelector('.message').appendChild(imageContainer);
   }
   const chatContainer = document.querySelector("#chatWrapper .chat");
   chatContainer.scrollTop = chatContainer.scrollHeight;
@@ -182,7 +223,7 @@ const chatRoomClickHandler = async (e) => {
   updateUnreadBadge(roomId);
   await openChatRoom(roomId);
 
-  const messageObj = await getChatroomByProductId('suwan', roomId);
+  const messageObj = await getChatroomByProductId(roomId);
   console.log('messageObj', messageObj);
   appendMessageTag(messageObj);
 }

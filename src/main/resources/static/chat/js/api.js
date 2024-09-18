@@ -1,44 +1,39 @@
 export const SERVER_API = 'http://localhost:8080';
 
 const accessToken = localStorage.getItem('access_token');
+const headers = {
+  'Authorization': 'Bearer ' + localStorage.getItem('access_token')
 
+};
 // 1번 => suwan
-export const getAllProduct = async (member = 'suwan') => {
-  const response = await fetch(`${SERVER_API}/${member}/products`, {
-    method : 'get',
-    headers: {
-      "Authorization": `Bearer ${accessToken}`
-    }
+export const getAllProduct = async () => {
+  const response = await fetch(`${SERVER_API}/products`, {
+    method: 'get',
+    headers
   })
   return response.json();
 }
 
-export const getAllChatroom = async (member = 'suwan') => {
-  const response = await fetch(`${SERVER_API}/${member}/chatrooms`, {
-    method : 'get',
-    headers: {
-      "Authorization": `Bearer ${accessToken}`
-    }
+export const getAllChatroom = async () => {
+  const response = await fetch(`${SERVER_API}/chatrooms`, {
+    method: 'get',
+    headers
   });
   return response.json();
 }
 
-export const getChatroomByProductId = async (member = 'suwan', chatroomId) => {
-  const response = await fetch(`${SERVER_API}/${member}/chatrooms/${chatroomId}`, {
-    method : 'get',
-    headers: {
-      "Authorization": `Bearer ${accessToken}`
-    }
+export const getChatroomByProductId = async (chatroomId) => {
+  const response = await fetch(`${SERVER_API}/chatrooms/${chatroomId}`, {
+    method: 'get',
+    headers
   });
   return response.json();
 }
 
 export const createChatroom = async (productId) => {
   const response = await fetch(`${SERVER_API}/room/${productId}`, {
-    method : 'get',
-    headers: {
-      "Authorization": `Bearer ${accessToken}`
-    }
+    method: 'get',
+    headers
   })
   return response.json();
 }
@@ -73,12 +68,23 @@ export const getUnreadMessageCounts = async (productIds) => {
     console.error('Failed to fetch unread message counts:', error);
     return {};
   }
-};
+}
 
-// 사용 예시
-// const updateUnreadCounts = async () => {
-//   const unreadCounts = await getUnreadMessageCounts();
-//   Object.entries(unreadCounts).forEach(([roomId, count]) => {
-//     updateUnreadBadge(roomId, count);
-//   });
-// };
+export const markRead = async (productId) => {
+  await fetch(`/${productId}/mark-read`, {
+    method : 'POST',
+    headers: {
+      'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+    }
+  });
+}
+
+
+export const imageUpload = async (formData) => {
+  const result = await fetch(`${SERVER_API}/api/images/upload`, {
+    method: 'POST',
+    headers,
+    body  : formData
+  })
+  return result.json();
+}

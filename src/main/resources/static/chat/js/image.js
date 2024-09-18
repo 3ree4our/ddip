@@ -78,11 +78,7 @@ document.querySelector('.modal').addEventListener('click', e => {
 document.getElementById('images').addEventListener('change', handleImageSelect);
 
 const getSelectedImagesData = () => {
-  return selectedImages.map(file => ({
-    name: file.name,
-    type: file.type,
-    size: file.size
-  }));
+  return selectedImages
 }
 
 const clearImageSelection = () => {

@@ -18,16 +18,12 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 public class ChatController {
 
-  private final JWTUtil jwtUtil;
-  private final ChatService chatService;
-  private ConcurrentHashMap<Long, Chat> chatMap = new ConcurrentHashMap<>(); // 나중에 ..
-
-  @GetMapping("/chatrooms")
-  public String moveTochatList(String u) {
+  @GetMapping("/chat-list")
+  public String moveTochatList() {
     return "chat/chat-list";
   }
 
-  @GetMapping("/chatrooms/{productId}")
+  @GetMapping("/chat/{productId}")
   public String moveTochatListWithProductId(@PathVariable Long productId) {
     return "chat/chat-list";
   }

@@ -1,6 +1,7 @@
 package org.threefour.ddip.product.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -27,49 +28,49 @@ import static org.threefour.ddip.product.exception.ExceptionMessage.PRODUCT_NOT_
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
-    private final CategoryService categoryService;
-    private final ImageService imageService;
-    private final PriceInformationService priceInformationService;
-    private final ProductRepository productRepository;
-    private final MemberRepository memberRepository;
+  private final CategoryService categoryService;
+  private final ImageService imageService;
+  private final PriceInformationService priceInformationService;
+  private final ProductRepository productRepository;
+  private final MemberRepository memberRepository;
 
-    @Override
-    @Transactional(isolation = READ_COMMITTED, propagation = NESTED, timeout = 20)
-    public Long createProduct(RegisterProductRequest registerProductRequest, List<MultipartFile> images) {
-        // TODO: 회원 연결
-        Product product = productRepository.save(
-                Product.from(registerProductRequest, memberRepository.findById(1L).get())
-        );
+  @Override
+  @Transactional(isolation = READ_COMMITTED, propagation = NESTED, timeout = 20)
+  public Long createProduct(RegisterProductRequest registerProductRequest, List<MultipartFile> images) {
+    // TODO: 회원 연결
+    Product product = productRepository.save(
+            Product.from(registerProductRequest, memberRepository.findById(1L).get())
+    );
 
-        categoryService.createProductCategories(registerProductRequest.getConnectCategoryRequest(), product);
+    categoryService.createProductCategories(registerProductRequest.getConnectCategoryRequest(), product);
 
-        if (images != null && !images.isEmpty()) {
-            imageService.createImages(PRODUCT, product.getId(), images);
-        }
-
-        AutoDiscountRequest autoDiscountRequest = registerProductRequest.getAutoDiscountRequest();
-        if (autoDiscountRequest != null) {
-            priceInformationService.createPriceInformation(product, autoDiscountRequest);
-        }
-
-        return product.getId();
+    if (images != null && !images.isEmpty()) {
+      imageService.createImages(PRODUCT, product.getId(), images);
     }
 
-    @Override
-    @Transactional(isolation = READ_COMMITTED, readOnly = true, timeout = 10)
-    public Product getProduct(Long productId) {
-        return productRepository.findByIdAndDeleteYnFalse(productId).orElseThrow(
-                () -> new ProductNotFoundException(String.format(PRODUCT_NOT_FOUND_EXCEPTION_MESSAGE, productId))
-        );
+    AutoDiscountRequest autoDiscountRequest = registerProductRequest.getAutoDiscountRequest();
+    if (autoDiscountRequest != null) {
+      priceInformationService.createPriceInformation(product, autoDiscountRequest);
     }
 
-    @Override
-    @Transactional(isolation = READ_UNCOMMITTED, readOnly = true, timeout = 20)
-    public Page<Product> getProducts(Pageable pageable, Short categoryId) {
-        if (categoryId == 0) {
-            return productRepository.findByDeleteYnFalse(pageable);
-        }
+    return product.getId();
+  }
 
-        return productRepository.findByCategoryIdAndDeleteYnFalse(categoryId, pageable);
+  @Override
+  @Transactional(isolation = READ_COMMITTED, readOnly = true, timeout = 10)
+  public Product getProduct(Long productId) {
+    return productRepository.findByIdAndDeleteYnFalse(productId).orElseThrow(
+            () -> new ProductNotFoundException(String.format(PRODUCT_NOT_FOUND_EXCEPTION_MESSAGE, productId))
+    );
+  }
+
+  @Override
+  @Transactional(isolation = READ_UNCOMMITTED, readOnly = true, timeout = 20)
+  public Page<Product> getProducts(Pageable pageable, Short categoryId) {
+    if (categoryId == 0) {
+      return productRepository.findByDeleteYnFalse(pageable);
     }
+
+    return productRepository.findByCategoryIdAndDeleteYnFalse(categoryId, pageable);
+  }
 }

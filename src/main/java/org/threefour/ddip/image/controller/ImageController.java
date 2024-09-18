@@ -19,23 +19,23 @@ import static org.springframework.http.HttpStatus.NO_CONTENT;
 @RequestMapping("/image")
 @RequiredArgsConstructor
 public class ImageController {
-    private final ImageService imageService;
+  private final ImageService imageService;
 
-    @PostMapping("/add")
-    public ResponseEntity<Void> addImages(
-            @ModelAttribute AddImagesRequest addImagesRequest,
-            @RequestParam("images") List<MultipartFile> images) {
-        TargetType targetType = FormatConverter.parseToTargetType(addImagesRequest.getTargetType());
-        imageService.createImages(targetType, addImagesRequest.getTargetId(), images);
+  @PostMapping("/add")
+  public ResponseEntity<Void> addImages(
+          @ModelAttribute AddImagesRequest addImagesRequest,
+          @RequestParam("images") List<MultipartFile> images) {
+    TargetType targetType = FormatConverter.parseToTargetType(addImagesRequest.getTargetType());
+    imageService.createImages(targetType, addImagesRequest.getTargetId(), images);
 
-        return ResponseEntity.status(NO_CONTENT).build();
-    }
+    return ResponseEntity.status(NO_CONTENT).build();
+  }
 
-    @DeleteMapping("/delete/{imageId}")
-    public ResponseEntity<Void> deleteImage(@PathVariable("imageId") String id) {
-        imageService.deleteImage(FormatConverter.parseToLong(id));
+  @DeleteMapping("/delete/{imageId}")
+  public ResponseEntity<Void> deleteImage(@PathVariable("imageId") String id) {
+    imageService.deleteImage(FormatConverter.parseToLong(id));
 
-        return ResponseEntity.status(NO_CONTENT).build();
-    }
+    return ResponseEntity.status(NO_CONTENT).build();
+  }
 }
 */

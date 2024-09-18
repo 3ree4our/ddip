@@ -29,16 +29,16 @@ public class APIController {
   private final ChatService chatService;
   private final JWTUtil jwtUtil;
 
-  @GetMapping("/{member}/products")
-  public ResponseEntity<List<ProductResponseDTO>> getAllProductByMemberId(@PathVariable("member") String email, @RequestHeader("Authorization") String token) {
+  @GetMapping("/products")
+  public ResponseEntity<List<ProductResponseDTO>> getAllProductByMemberId(@RequestHeader("Authorization") String token) {
     String accessToken = token.substring(7);
     Long id = jwtUtil.getId(accessToken);
     List<ProductResponseDTO> list = chatService.getAllProductBySellerId(id);
     return new ResponseEntity<>(list, HttpStatus.OK);
   }
 
-  @GetMapping("/{member}/chatrooms")
-  public ResponseEntity<List<ChatroomResponseDTO>> getAllChatroom(@PathVariable("member") String email, @RequestHeader("Authorization") String token) {
+  @GetMapping("/chatrooms")
+  public ResponseEntity<List<ChatroomResponseDTO>> getAllChatroom(@RequestHeader("Authorization") String token) {
     String accessToken = token.substring(7);
     Long id = jwtUtil.getId(accessToken);
     Map<Long, ChatroomResponseDTO> chatMap = new HashMap<>();
@@ -62,10 +62,10 @@ public class APIController {
     return new ResponseEntity<>(result, HttpStatus.OK);
   }
 
-  @GetMapping("/{member}/chatrooms/{chatroomId}")
-  public ResponseEntity<List<ChatResponseDTO>> getChatroomByProductId(@PathVariable("member") String email,
-                                                                      @PathVariable("chatroomId") Long chatroomId,
-                                                                      @RequestHeader("Authorization") String token) {
+  @GetMapping("/chatrooms/{chatroomId}")
+  public ResponseEntity<List<ChatResponseDTO>> getChatroomByProductId(
+          @PathVariable("chatroomId") Long chatroomId,
+          @RequestHeader("Authorization") String token) {
     String accessToken = token.substring(7);
     Long id = jwtUtil.getId(accessToken);
 

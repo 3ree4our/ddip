@@ -40,5 +40,5 @@ function sendChat(productId) {
 
   stompClient.send(`/messages/${productId}`, getAuthHeader(), JSON.stringify(messageObj));
 
-  location.href = `/chatrooms/${productId}`;
+  location.href = `/chat/${productId}`;
 }
