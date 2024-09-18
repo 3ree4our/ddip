@@ -30,7 +30,7 @@ public class MinPrice {
     }
 
     private static void checkMinPriceHasValue(String minPrice) {
-        if (FormatValidator.isNoValue(minPrice)) {
+        if (!FormatValidator.hasValue(minPrice)) {
             throw new PriceNoValueException(MIN_PRICE_NO_VALUE_EXCEPTION_MESSAGE);
         }
     }

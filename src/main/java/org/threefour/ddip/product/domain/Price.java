@@ -29,7 +29,7 @@ public class Price {
     }
 
     private static void checkPriceHasValue(String price) {
-        if (FormatValidator.isNoValue(price)) {
+        if (!FormatValidator.hasValue(price)) {
             throw new PriceNoValueException(PRICE_NO_VALUE_EXCEPTION_MESSAGE);
         }
     }

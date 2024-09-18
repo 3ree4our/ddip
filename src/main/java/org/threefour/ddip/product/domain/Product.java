@@ -6,6 +6,7 @@ import org.threefour.ddip.audit.BaseGeneralEntity;
 import org.threefour.ddip.member.domain.Member;
 import org.threefour.ddip.product.category.domain.ProductCategory;
 import org.threefour.ddip.product.priceinformation.domain.PriceInformation;
+import org.threefour.ddip.util.FormatValidator;
 
 import javax.persistence.*;
 import java.util.List;
@@ -89,5 +90,34 @@ public class Product extends BaseGeneralEntity {
 
     List<PriceInformation> getPriceInformation() {
         return priceInformation;
+    }
+
+    public void update(UpdateProductRequest updateProductRequest) {
+        String nameToUpdate = updateProductRequest.getName();
+        if (FormatValidator.hasValue(nameToUpdate)) {
+            name = nameToUpdate;
+            return;
+        }
+
+        String priceToUpdate = updateProductRequest.getPrice();
+        if (FormatValidator.hasValue(priceToUpdate)) {
+            price = Price.of(priceToUpdate);
+            return;
+        }
+
+        String titleToUpdate = updateProductRequest.getTitle();
+        if (FormatValidator.hasValue(titleToUpdate)) {
+            title = titleToUpdate;
+            return;
+        }
+
+        String contentToUpdate = updateProductRequest.getContent();
+        if (FormatValidator.hasValue(contentToUpdate)) {
+            content = contentToUpdate;
+        }
+    }
+
+    public void delete() {
+        deleteEntity();
     }
 }

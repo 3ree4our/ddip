@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import org.threefour.ddip.image.domain.AddImagesRequest;
 import org.threefour.ddip.image.domain.Image;
 import org.threefour.ddip.image.domain.RepresentativeImagesRequest;
 import org.threefour.ddip.image.domain.TargetType;
@@ -22,7 +23,7 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class ImageLocalServiceImpl implements ImageService {
+public class ImageLocalServiceImpl {
 
   private final ImageRepository imageRepository;
 
@@ -45,7 +46,7 @@ public class ImageLocalServiceImpl implements ImageService {
 
         imageRequest.transferTo(file);
 
-        Image image = Image.of(targetType, targetId, filePath);
+        Image image = Image.of(targetType, targetId, filePath, true);
         saveImagesId.add(imageRepository.save(image).getId());
       } catch (IOException ie) {
         ie.printStackTrace();
@@ -54,24 +55,6 @@ public class ImageLocalServiceImpl implements ImageService {
     return saveImagesId;
   }
 
-  @Override
-  public void createImages(TargetType targetType, Long targetId, List<MultipartFile> imageRequests) {
-  }
-
-  @Override
-  public List<Image> getImages(TargetType targetType, Long targetId) {
-    return List.of();
-  }
-
-  @Override
-  public List<Image> getRepresentativeImages(RepresentativeImagesRequest representativeImagesRequest) {
-    return List.of();
-  }
-
-  @Override
-  public void deleteImage(Long id) {
-
-  }
 
   private String generateFileName(String originalFilename) {
     String timeStamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));

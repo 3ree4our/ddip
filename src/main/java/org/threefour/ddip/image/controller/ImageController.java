@@ -1,4 +1,3 @@
-/*
 package org.threefour.ddip.image.controller;
 
 import lombok.RequiredArgsConstructor;
@@ -7,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.threefour.ddip.image.domain.AddImagesRequest;
-import org.threefour.ddip.image.domain.TargetType;
 import org.threefour.ddip.image.service.ImageService;
 import org.threefour.ddip.util.FormatConverter;
 
@@ -23,10 +21,18 @@ public class ImageController {
 
   @PostMapping("/add")
   public ResponseEntity<Void> addImages(
-          @ModelAttribute AddImagesRequest addImagesRequest,
-          @RequestParam("images") List<MultipartFile> images) {
-    TargetType targetType = FormatConverter.parseToTargetType(addImagesRequest.getTargetType());
-    imageService.createImages(targetType, addImagesRequest.getTargetId(), images);
+          @RequestParam("images") List<MultipartFile> images,
+          @RequestParam("targetType") String targetType,
+          @RequestParam("targetId") String targetId
+  ) {
+    imageService.createImages(AddImagesRequest.from(images, targetType, targetId));
+
+    return ResponseEntity.status(NO_CONTENT).build();
+  }
+
+  @PatchMapping("/designate-representative")
+  public ResponseEntity<Void> designateRepresentativeImage(@RequestParam("imageId") String id) {
+    imageService.designateRepresentativeImage(FormatConverter.parseToLong(id));
 
     return ResponseEntity.status(NO_CONTENT).build();
   }
@@ -37,5 +43,11 @@ public class ImageController {
 
     return ResponseEntity.status(NO_CONTENT).build();
   }
+
+  @PostMapping("/rollback-deletion/{imageId}")
+  public ResponseEntity<Void> rollbackDeletion(@PathVariable("imageId") String id) {
+    imageService.rollbackDeletion(FormatConverter.parseToLong(id));
+
+    return ResponseEntity.status(NO_CONTENT).build();
+  }
 }
-*/

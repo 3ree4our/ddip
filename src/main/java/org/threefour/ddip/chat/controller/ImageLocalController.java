@@ -10,7 +10,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.threefour.ddip.image.domain.Image;
 import org.threefour.ddip.image.domain.TargetType;
 import org.threefour.ddip.image.service.ImageLocalServiceImpl;
-import org.threefour.ddip.image.service.ImageService;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -21,7 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/images")
 @RequiredArgsConstructor
-public class ImageController {
+public class ImageLocalController {
 
   private final ImageLocalServiceImpl imageLocalService;
 

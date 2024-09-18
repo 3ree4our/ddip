@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,10 +15,7 @@ import org.threefour.ddip.image.service.ImageService;
 import org.threefour.ddip.product.category.domain.Category;
 import org.threefour.ddip.product.category.domain.GetCategoriesResponse;
 import org.threefour.ddip.product.category.service.CategoryService;
-import org.threefour.ddip.product.domain.GetProductResponse;
-import org.threefour.ddip.product.domain.GetProductsResponse;
-import org.threefour.ddip.product.domain.Product;
-import org.threefour.ddip.product.domain.RegisterProductRequest;
+import org.threefour.ddip.product.domain.*;
 import org.threefour.ddip.product.service.ProductService;
 import org.threefour.ddip.util.FormatConverter;
 import org.threefour.ddip.util.FormatValidator;
@@ -25,6 +23,7 @@ import org.threefour.ddip.util.FormatValidator;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.NO_CONTENT;
 import static org.threefour.ddip.image.domain.TargetType.PRODUCT;
 import static org.threefour.ddip.util.PaginationConstant.*;
 
@@ -39,7 +38,6 @@ public class ProductController {
     @GetMapping("/registration-form")
     public ModelAndView getRegistrationForm() {
         List<Category> categories = categoryService.getCategories(null);
-
         return new ModelAndView("product/registration", "categories", GetCategoriesResponse.from(categories));
     }
 
@@ -69,7 +67,7 @@ public class ProductController {
         if (categoryId.equals(ZERO)) {
             categoryId = (String) httpSession.getAttribute("categoryId");
         }
-        if (FormatValidator.isNoValue(categoryId)) {
+        if (!FormatValidator.hasValue(categoryId)) {
             categoryId = ZERO;
         }
 
@@ -91,7 +89,7 @@ public class ProductController {
 
     @GetMapping("/details")
     public ModelAndView getProduct(@RequestParam String id) {
-        if (FormatValidator.isNoValue(id) || !FormatValidator.isNumberPattern(id)) {
+        if (!FormatValidator.hasValue(id) || !FormatValidator.isNumberPattern(id)) {
             return new ModelAndView("redirect:list");
         }
         Long parsedId = FormatConverter.parseToLong(id);
@@ -100,5 +98,34 @@ public class ProductController {
                 "product/details", "product",
                 GetProductResponse.from(productService.getProduct(parsedId), imageService.getImages(PRODUCT, parsedId))
         );
+    }
+
+    @GetMapping("/modification-form")
+    public ModelAndView getModificationForm(@RequestParam String id) {
+        if (!FormatValidator.hasValue(id) || !FormatValidator.isNumberPattern(id)) {
+            return new ModelAndView("redirect:list");
+        }
+        ModelAndView modelAndView = new ModelAndView();
+        Long parsedId = FormatConverter.parseToLong(id);
+        modelAndView.addObject(
+                "product",
+                GetProductResponse.from(productService.getProduct(parsedId), imageService.getImages(PRODUCT, parsedId))
+        );
+        modelAndView.addObject("categories", GetCategoriesResponse.from(categoryService.getCategories(null)));
+        modelAndView.setViewName("product/modification");
+
+        return modelAndView;
+    }
+
+    @PatchMapping("/update")
+    public ResponseEntity<Void> updateAttribute(@RequestBody UpdateProductRequest updateProductRequest) {
+        productService.update(updateProductRequest);
+        return ResponseEntity.status(NO_CONTENT).build();
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<Void> deleteProduct(@RequestParam("id") String id) {
+        productService.delete(FormatConverter.parseToLong(id));
+        return ResponseEntity.status(NO_CONTENT).build();
     }
 }

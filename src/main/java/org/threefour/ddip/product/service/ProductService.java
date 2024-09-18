@@ -7,6 +7,7 @@ import org.threefour.ddip.chat.domain.dto.ChatResponseDTO;
 import org.threefour.ddip.chat.domain.dto.ChatroomResponseDTO;
 import org.threefour.ddip.product.domain.Product;
 import org.threefour.ddip.product.domain.RegisterProductRequest;
+import org.threefour.ddip.product.domain.UpdateProductRequest;
 
 import java.util.List;
 
@@ -16,4 +17,8 @@ public interface ProductService {
     Product getProduct(Long productId);
 
     Page<Product> getProducts(Pageable pageable, Short categoryId);
+
+    void update(UpdateProductRequest updateProductRequest);
+
+    void delete(Long id);
 }
