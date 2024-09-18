@@ -29,7 +29,7 @@ public class PriceDiscountPeriod {
     }
 
     private static void checkPeriodHasValue(String priceDiscountPeriod) {
-        if (FormatValidator.isNoValue(priceDiscountPeriod)) {
+        if (!FormatValidator.hasValue(priceDiscountPeriod)) {
             throw new PriceDiscountPeriodNoValueException(PRICE_DISCOUNT_PERIOD_NO_VALUE_EXCEPTION_MESSAGE);
         }
     }

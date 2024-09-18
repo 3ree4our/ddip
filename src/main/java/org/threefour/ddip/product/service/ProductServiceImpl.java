@@ -6,15 +6,20 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import org.threefour.ddip.image.domain.AddImagesRequest;
 import org.threefour.ddip.image.service.ImageService;
 import org.threefour.ddip.member.repository.MemberRepository;
+import org.threefour.ddip.product.category.domain.ConnectCategoryRequest;
 import org.threefour.ddip.product.category.service.CategoryService;
 import org.threefour.ddip.product.domain.AutoDiscountRequest;
 import org.threefour.ddip.product.domain.Product;
 import org.threefour.ddip.product.domain.RegisterProductRequest;
+import org.threefour.ddip.product.domain.UpdateProductRequest;
 import org.threefour.ddip.product.exception.ProductNotFoundException;
 import org.threefour.ddip.product.priceinformation.service.PriceInformationService;
 import org.threefour.ddip.product.repository.ProductRepository;
+import org.threefour.ddip.util.FormatConverter;
+import org.threefour.ddip.util.FormatValidator;
 
 import java.util.List;
 
@@ -44,7 +49,7 @@ public class ProductServiceImpl implements ProductService {
         categoryService.createProductCategories(registerProductRequest.getConnectCategoryRequest(), product);
 
         if (images != null && !images.isEmpty()) {
-            imageService.createImages(PRODUCT, product.getId(), images);
+            imageService.createImages(AddImagesRequest.from(images, PRODUCT.name(), product.getId().toString()));
         }
 
         AutoDiscountRequest autoDiscountRequest = registerProductRequest.getAutoDiscountRequest();
@@ -71,5 +76,20 @@ public class ProductServiceImpl implements ProductService {
         }
 
         return productRepository.findByCategoryIdAndDeleteYnFalse(categoryId, pageable);
+    }
+
+    @Override
+    @Transactional(isolation = READ_COMMITTED, timeout = 10)
+    public void update(UpdateProductRequest updateProductRequest) {
+        Product product = getProduct(FormatConverter.parseToLong(updateProductRequest.getId()));
+
+        ConnectCategoryRequest connectCategoryRequest = updateProductRequest.getConnectCategoryRequest();
+        if (FormatValidator.hasValue(connectCategoryRequest)) {
+            categoryService.updateProductCategories(connectCategoryRequest, product);
+            return;
+        }
+
+        product.update(updateProductRequest);
+        productRepository.save(product);
     }
 }

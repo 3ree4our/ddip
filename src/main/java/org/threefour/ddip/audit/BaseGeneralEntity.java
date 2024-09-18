@@ -22,4 +22,8 @@ public abstract class BaseGeneralEntity extends BaseEntity {
     protected void deleteEntity() {
         deleteYn = true;
     }
+
+    protected void undeleteEntity() {
+        deleteYn = false;
+    }
 }

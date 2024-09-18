@@ -36,7 +36,7 @@ public class NextDiscountedAt {
     }
 
     private static void checkDateHasValue(String nextDiscountedAt) {
-        if (FormatValidator.isNoValue(nextDiscountedAt)) {
+        if (!FormatValidator.hasValue(nextDiscountedAt)) {
             throw new NextDiscountedAtNoValueException(NEXT_DISCOUNTED_AT_NO_VALUE_EXCEPTION_MESSAGE);
         }
     }
