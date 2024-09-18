@@ -29,7 +29,7 @@ public class PriceDiscountRate {
     }
 
     private static void checkRateHasValue(String priceDiscountPercentRate) {
-        if (FormatValidator.isNoValue(priceDiscountPercentRate)) {
+        if (!FormatValidator.hasValue(priceDiscountPercentRate)) {
             throw new PriceDiscountRateNoValueException(PRICE_DISCOUNT_RATE_NO_VALUE_EXCEPTION_MESSAGE);
         }
     }

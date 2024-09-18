@@ -2,18 +2,17 @@ package org.threefour.ddip.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.List;
 
 import static org.threefour.ddip.util.EntityConstant.DATE_PATTERN;
 import static org.threefour.ddip.util.RegularExpressionConstant.POSITIVE_INTEGER_PATTERN;
 
 public class FormatValidator {
-    public static boolean isNoValue(String value) {
-        return value == null || value.isBlank();
+    public static boolean hasValue(String value) {
+        return value != null && !value.isBlank();
     }
 
-    public static boolean isNoValue(List value) {
-        return value == null || value.isEmpty();
+    public static boolean hasValue(Object value) {
+        return value != null;
     }
 
     public static boolean isNumberPattern(String value) {

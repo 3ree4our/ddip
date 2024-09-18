@@ -5,12 +5,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import org.threefour.ddip.image.domain.AddImagesRequest;
 import org.threefour.ddip.image.domain.Image;
 import org.threefour.ddip.image.domain.RepresentativeImagesRequest;
 import org.threefour.ddip.image.domain.TargetType;
 import org.threefour.ddip.image.exception.ImageNotFoundException;
 import org.threefour.ddip.image.exception.S3UploadFailedException;
 import org.threefour.ddip.image.repository.ImageRepository;
+import org.threefour.ddip.util.FormatConverter;
+import org.threefour.ddip.util.FormatValidator;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
@@ -20,7 +23,6 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.springframework.transaction.annotation.Isolation.*;
 import static org.threefour.ddip.image.exception.ExceptionMessage.*;
@@ -39,16 +41,20 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     @Transactional(isolation = READ_COMMITTED, timeout = 10)
-    public void createImages(TargetType targetType, Long targetId, List<MultipartFile> imageRequests) {
-        List<Image> images = imageRequests.stream()
-                .map(file -> createImage(file, targetType, targetId))
-                .collect(Collectors.toList());
+    public void createImages(AddImagesRequest addImagesRequest) {
+        TargetType targetType = FormatConverter.parseToTargetType(addImagesRequest.getTargetType());
+        Long targetId = FormatConverter.parseToLong(addImagesRequest.getTargetId());
+
+        List<Image> images = new ArrayList<>();
+        for (int i = 0; i < images.size(); i++) {
+            createImage(addImagesRequest.getImages().get(i), targetType, targetId, i == 0);
+        }
 
         imageRepository.saveAll(images);
     }
 
-    private Image createImage(MultipartFile file, TargetType targetType, Long targetId) {
-        return Image.of(targetType, targetId, uploadToS3(file, targetType, targetId));
+    private Image createImage(MultipartFile file, TargetType targetType, Long targetId, boolean isRepresentative) {
+        return Image.of(targetType, targetId, uploadToS3(file, targetType, targetId), isRepresentative);
     }
 
     private String uploadToS3(MultipartFile file, TargetType targetType, Long productId) {
@@ -90,18 +96,38 @@ public class ImageServiceImpl implements ImageService {
     public List<Image> getRepresentativeImages(RepresentativeImagesRequest representativeImagesRequest) {
         List<Image> images = new ArrayList<>();
         TargetType targetType = representativeImagesRequest.getTargetType();
+
         for (int i = 0; i < representativeImagesRequest.size(); i++) {
             Long targetId = representativeImagesRequest.get(i);
             images.add(
                     imageRepository
-                            .findFirstByTargetTypeAndTargetIdAndDeleteYnFalseOrderByCreatedAt(targetType, targetId)
-                            .orElseThrow(() -> new ImageNotFoundException(String.format(
-                                    TARGET_IMAGE_NOT_FOUND_EXCEPTION_MESSAGE, targetType, targetId
-                            )))
+                            .findByTargetTypeAndTargetIdAndRepresentativeYnTrueAndDeleteYnFalse(targetType, targetId)
+                            .orElse(
+                                    imageRepository
+                                            .findFirstByTargetTypeAndTargetIdAndDeleteYnFalseOrderByCreatedAt(
+                                                    targetType, targetId
+                                            )
+                                            .orElseThrow(() -> new ImageNotFoundException(String.format(
+                                                    TARGET_IMAGE_NOT_FOUND_EXCEPTION_MESSAGE, targetType, targetId
+                                            )))
+                            )
             );
         }
 
         return images;
+    }
+
+    @Override
+    public void designateRepresentativeImage(Long id) {
+        Image previousRepresentativeImage = imageRepository.findByRepresentativeYnTrueAndDeleteYnFalse()
+                .orElse(null);
+        if (FormatValidator.hasValue(previousRepresentativeImage)) {
+            previousRepresentativeImage.cancelRepresentative();
+        }
+
+        Image imageToRepresentative = getImage(id);
+        imageToRepresentative.designateRepresentative();
+        imageRepository.save(imageToRepresentative);
     }
 
     private Image getImage(Long id) {
@@ -114,6 +140,15 @@ public class ImageServiceImpl implements ImageService {
     public void deleteImage(Long id) {
         Image image = getImage(id);
         image.delete();
+        imageRepository.save(image);
+    }
+
+    @Override
+    @Transactional(isolation = READ_UNCOMMITTED, timeout = 10)
+    public void rollbackDeletion(Long id) {
+        Image image = imageRepository.findById(id)
+                .orElseThrow(() -> new ImageNotFoundException(String.format(IMAGE_NOT_FOUND_EXCEPTION_MESSAGE, id)));
+        image.undelete();
         imageRepository.save(image);
     }
 }

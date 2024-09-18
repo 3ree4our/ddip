@@ -13,6 +13,7 @@ import org.threefour.ddip.product.category.repository.ProductCategoryRepository;
 import org.threefour.ddip.product.domain.Product;
 import org.threefour.ddip.util.FormatConverter;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 import static org.springframework.transaction.annotation.Isolation.*;
@@ -20,9 +21,11 @@ import static org.threefour.ddip.product.category.exception.ExceptionMessage.CAT
 
 @Service
 @RequiredArgsConstructor
+@Transactional(isolation = REPEATABLE_READ, timeout = 20)
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
     private final ProductCategoryRepository productCategoryRepository;
+    private final EntityManager entityManager;
 
     @Override
     @Transactional(isolation = SERIALIZABLE, timeout = 30)
@@ -37,7 +40,6 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    @Transactional(isolation = READ_COMMITTED, timeout = 20)
     public void createProductCategories(ConnectCategoryRequest connectCategoryRequest, Product product) {
         Category firstCategory = getCategory(FormatConverter.parseToShort(connectCategoryRequest.getFirstCategoryId()));
         Category secondCategory
@@ -47,6 +49,12 @@ public class CategoryServiceImpl implements CategoryService {
         for (Category category : List.of(firstCategory, secondCategory, thirdCategory)) {
             productCategoryRepository.save(ProductCategory.of(category, product));
         }
+    }
+
+    @Override
+    public void updateProductCategories(ConnectCategoryRequest connectCategoryRequest, Product product) {
+        productCategoryRepository.deleteAllByProductId(product.getId());
+        createProductCategories(connectCategoryRequest, product);
     }
 
     @Override
@@ -64,6 +72,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional(isolation = READ_UNCOMMITTED, timeout = 10)
     public void deleteCategory(short id) {
         Category category = getCategory(id);
         category.delete();

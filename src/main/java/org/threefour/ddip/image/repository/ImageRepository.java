@@ -12,7 +12,13 @@ public interface ImageRepository extends JpaRepository<Image, Long> {
 
     Optional<Image> findByIdAndDeleteYnFalse(Long id);
 
+    Optional<Image> findByTargetTypeAndTargetIdAndRepresentativeYnTrueAndDeleteYnFalse(
+            TargetType targetType, Long targetId
+    );
+
     Optional<Image> findFirstByTargetTypeAndTargetIdAndDeleteYnFalseOrderByCreatedAt(
             TargetType targetType, Long targetId
     );
+
+    Optional<Image> findByRepresentativeYnTrueAndDeleteYnFalse();
 }
