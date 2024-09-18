@@ -41,12 +41,12 @@ public interface ChatRepository extends JpaRepository<Chat, Long> {
           ")")
   List<ChatroomResponseDTO> findAllChatByOwnerId(@Param("ownerId") Long ownerId);
 
-  @Query("select new org.threefour.ddip.chat.domain.dto.ChatResponseDTO(c.productId.id, c.message, p.title,p.seller, c.owner, c.sendDate) " +
+  @Query("select new org.threefour.ddip.chat.domain.dto.ChatResponseDTO(c.id, c.productId.id, c.message, p.title,p.seller, c.owner, c.sendDate) " +
           "from Chat c join Product p on c.productId.id = p.id " +
           "join Member m on m.id = p.seller.id " +
           "where c.productId.id = :productId AND c.deleteYn = false " +
           "order by c.id")
   List<ChatResponseDTO> findAllChatByProductId(@Param("productId") Long productId);
 
-  
+
 }

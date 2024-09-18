@@ -12,6 +12,7 @@ import org.threefour.ddip.chat.domain.dto.ChatroomResponseDTO;
 import org.threefour.ddip.chat.domain.dto.ProductResponseDTO;
 import org.threefour.ddip.chat.repository.ChatRepository;
 import org.threefour.ddip.chat.service.ChatService;
+import org.threefour.ddip.image.service.ImageLocalServiceImpl;
 import org.threefour.ddip.member.domain.Member;
 import org.threefour.ddip.member.jwt.JWTUtil;
 import org.threefour.ddip.product.service.ProductService;
@@ -27,6 +28,7 @@ import java.util.Map;
 public class APIController {
 
   private final ChatService chatService;
+  private final ImageLocalServiceImpl imageLocalService;
   private final JWTUtil jwtUtil;
 
   @GetMapping("/products")
@@ -70,10 +72,19 @@ public class APIController {
     Long id = jwtUtil.getId(accessToken);
 
     List<ChatResponseDTO> allChatByProductId = chatService.findAllChatByProductId(chatroomId);
+
+
     List<ChatResponseDTO> list = new ArrayList<>();
     for (ChatResponseDTO chat : allChatByProductId) {
+
       if (chat.getSender().getId() != id) chat.setType("left");
       else chat.setType("right");
+
+      List<Long> imageByChatId = imageLocalService.getImageByChatId(chat.getChatId());
+
+      for (Long imageId : imageByChatId) {
+        chat.getChatImageIds().add(imageId);
+      }
 
       list.add(chat);
     }
