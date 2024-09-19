@@ -1,9 +1,11 @@
 package org.threefour.ddip.product.category.domain;
 
 import lombok.NoArgsConstructor;
+import org.hibernate.Hibernate;
 import org.threefour.ddip.audit.BaseEntity;
 
 import javax.persistence.*;
+import java.util.List;
 
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -23,6 +25,9 @@ public class Category extends BaseEntity {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "parent_category_id")
     private Category parentCategory;
+
+    @OneToMany(mappedBy = "category")
+    private List<ProductCategory> productCategories;
 
     @Column(nullable = false, columnDefinition = BOOLEAN_DEFAULT_FALSE)
     private boolean deleteYn;
@@ -44,15 +49,20 @@ public class Category extends BaseEntity {
         return new Category(registerCategoryRequest.getCategoryName(), parentCategory);
     }
 
-    Short getId() {
+    public Short getId() {
         return id;
     }
 
-    CategoryName getName() {
+    public CategoryName getName() {
         return name;
     }
 
     public void delete() {
         deleteYn = true;
+    }
+
+    @PostLoad
+    private void init() {
+        Hibernate.initialize(productCategories);
     }
 }

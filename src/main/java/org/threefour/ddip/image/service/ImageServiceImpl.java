@@ -42,28 +42,29 @@ public class ImageServiceImpl implements ImageService {
     @Override
     @Transactional(isolation = READ_COMMITTED, timeout = 10)
     public void createImages(AddImagesRequest addImagesRequest) {
+        List<MultipartFile> imagesToUpload = addImagesRequest.getImages();
         TargetType targetType = FormatConverter.parseToTargetType(addImagesRequest.getTargetType());
         Long targetId = FormatConverter.parseToLong(addImagesRequest.getTargetId());
 
         List<Image> images = new ArrayList<>();
-        for (int i = 0; i < images.size(); i++) {
-            createImage(addImagesRequest.getImages().get(i), targetType, targetId, i == 0);
+        for (int i = 0; i < imagesToUpload.size(); i++) {
+            images.add(createImage(imagesToUpload.get(i), targetType, targetId, i == 0));
         }
 
         imageRepository.saveAll(images);
     }
 
-    private Image createImage(MultipartFile file, TargetType targetType, Long targetId, boolean isRepresentative) {
-        return Image.of(targetType, targetId, uploadToS3(file, targetType, targetId), isRepresentative);
+    private Image createImage(MultipartFile image, TargetType targetType, Long targetId, boolean isRepresentative) {
+        return Image.of(targetType, targetId, uploadToS3(image, targetType, targetId), isRepresentative);
     }
 
-    private String uploadToS3(MultipartFile file, TargetType targetType, Long productId) {
-        String originalFilename = file.getOriginalFilename();
+    private String uploadToS3(MultipartFile image, TargetType targetType, Long productId) {
+        String originalFilename = image.getOriginalFilename();
         long ms = System.currentTimeMillis();
         String key = String.format("%s/%d/%s_%s", targetType.toString().toLowerCase(), productId, ms, originalFilename);
 
         try {
-            File tempFile = convertMultipartFileToFile(file);
+            File tempFile = convertMultipartFileToFile(image);
             s3Client.putObject(PutObjectRequest.builder()
                     .bucket(s3BucketName)
                     .key(key)
@@ -76,11 +77,11 @@ public class ImageServiceImpl implements ImageService {
         return String.format("%s%s.%s/%s", TLS_HTTP_PROTOCOL, s3BucketName, S3_ADDRESS, key);
     }
 
-    private File convertMultipartFileToFile(MultipartFile file) throws IOException {
+    private File convertMultipartFileToFile(MultipartFile image) throws IOException {
         File convertedFile
-                = new File(String.format("%s/%s", System.getProperty("java.io.tmpdir"), file.getOriginalFilename()));
+                = new File(String.format("%s/%s", System.getProperty("java.io.tmpdir"), image.getOriginalFilename()));
         try (FileOutputStream fos = new FileOutputStream(convertedFile)) {
-            fos.write(file.getBytes());
+            fos.write(image.getBytes());
         }
         return convertedFile;
     }

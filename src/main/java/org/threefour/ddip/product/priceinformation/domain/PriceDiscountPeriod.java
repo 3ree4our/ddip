@@ -35,7 +35,7 @@ public class PriceDiscountPeriod {
     }
 
     private static void checkPeriodPattern(String priceDiscountPeriod) {
-        if (!FormatValidator.isNumberPattern(priceDiscountPeriod)) {
+        if (!FormatValidator.isPositiveNumberPattern(priceDiscountPeriod)) {
             throw new InvalidPriceDiscountPeriodException(
                     String.format(INVALID_PRICE_DISCOUNT_PERIOD_EXCEPTION_MESSAGE, priceDiscountPeriod)
             );

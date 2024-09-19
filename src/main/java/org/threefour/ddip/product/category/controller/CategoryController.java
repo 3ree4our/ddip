@@ -31,7 +31,7 @@ public class CategoryController {
     @GetMapping()
     public ResponseEntity<GetCategoriesResponse> getCategories(@RequestParam("parentCategoryId") String parentCategoryId) {
         Short parsedParentCategoryId = null;
-        if (FormatValidator.hasValue(parentCategoryId) && FormatValidator.isNumberPattern(parentCategoryId)) {
+        if (FormatValidator.hasValue(parentCategoryId) && FormatValidator.isPositiveNumberPattern(parentCategoryId)) {
             parsedParentCategoryId = FormatConverter.parseToShort(parentCategoryId);
         }
 
