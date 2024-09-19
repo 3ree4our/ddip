@@ -1,12 +1,12 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   const loginForm = document.querySelector('form');
-  loginForm.addEventListener('submit', function(e) {
+  loginForm.addEventListener('submit', function (e) {
     e.preventDefault();
 
     const formData = new FormData(loginForm);
     fetch('/login', {
-      method: 'POST',
-      body: new FormData(loginForm),
+      method : 'POST',
+      body   : new FormData(loginForm),
       headers: {
         'Accept': 'application/json'
       }
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
           if (data.success) {
             const accessToken = data.accessToken; // 서버에서 보낸 토큰
             localStorage.setItem('access-token', accessToken);
-            localStorage.setItem('username', data.nickname);
+            localStorage.setItem('nickname', data.nickname);
             window.location.href = '/';
           }
         })

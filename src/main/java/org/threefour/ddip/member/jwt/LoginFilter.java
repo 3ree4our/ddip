@@ -33,13 +33,14 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
   }
 
   @Override
-  protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException{
+  protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException {
     String username = authResult.getName();
     MemberDetails memberDetails = (MemberDetails) authResult.getPrincipal();
+    Long id = memberDetails.getId();
     String nickname = memberDetails.getNickname();
 
-    String access = jwtUtil.createJwt(memberDetails.getId(),"access", username, nickname, 600000L);
-    String refresh = jwtUtil.createJwt(memberDetails.getId(),"refresh", username, nickname, 43200000L);
+    String access = jwtUtil.createJwt(id, "access", username, nickname, 600000L);
+    String refresh = jwtUtil.createJwt(id, "refresh", username, nickname, 43200000L);
     addRefreshEntity(username, refresh, 86400000L);
 
     response.addHeader("access", access);
@@ -47,17 +48,18 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     response.setStatus(HttpStatus.OK.value());
 
     response.setContentType("application/json; charset=utf-8");
-    response.getWriter().write("{\"nickname\":\"" + nickname +  "\", \"success\": true, \"accessToken\": \"" + access + "\"}");
+    System.out.println("access!!! :" + access);
+    response.getWriter().write("{\"nickname\":\"" + nickname + "\", \"success\": true, \"accessToken\": \"" + access + "\"}");
   }
 
   @Override
-  protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed){
+  protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) {
     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
   }
 
   private Cookie createCookie(String key, String value) {
     Cookie cookie = new Cookie(key, value);
-    cookie.setMaxAge(24*60*60);
+    cookie.setMaxAge(24 * 60 * 60);
     cookie.setSecure(true);
     cookie.setHttpOnly(true);
 

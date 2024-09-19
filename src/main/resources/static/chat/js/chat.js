@@ -5,7 +5,7 @@ const productId = path.substring(path.lastIndexOf('/') + 1);
 let stompClient = '';
 
 const getAuthHeader = () => {
-  const token = localStorage.getItem('access_token');
+  const token = localStorage.getItem('access-token');
   if (!token) {
     console.error('No access token found');
     return null;

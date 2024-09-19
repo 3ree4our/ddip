@@ -68,39 +68,38 @@ const subscribeToProduct = (productId) => {
   if (stompClient && stompClient.connected) {
     stompClient.subscribe(`/room/${productId}`, async (chatMessage) => {
       const messageObj = JSON.parse(chatMessage.body);
-
       const selectedImages = getSelectedImagesData();
-
       const formData = new FormData();
 
       let imageUrls = [];
-      selectedImages.forEach(file => {
-        formData.append('files', file);
-      });
-
-      let imageIds = '';
-      if (selectedImages.length > 0) {
-        formData.append('chatId', messageObj.messageId);
-        imageIds = await imageUpload(formData);
-        imageUrls.push(imageIds);
-      }
 
       const sleep = (sec) => {
         return new Promise(resolve => setTimeout(resolve, sec * 1000));
       }
 
+      selectedImages.forEach(file => {
+        formData.append('files', file);
+      });
 
-      if (imageUrls.length === 0) {
-        console.log('여기선? imageIds', imageIds)
-        const imageIds = await getImageUrl(messageObj.messageId);
+      if (selectedImages.length > 0) {
+        formData.append('chatId', messageObj.messageId);
+        const imageIds = await imageUpload(formData);
+
         imageUrls.push(imageIds);
+      }
+
+      if (messageObj.images) {
         showPlaceholder(document.querySelector('.chat ul li:last-child'));
         await sleep(1);
         removePlaceholder(document.querySelector('.chat ul li:last-child'));
       }
 
-      messageObj.imageUrls = imageUrls;
+      if (imageUrls.length === 0) {
+        const imageIds = await getImageUrl(messageObj.messageId);
+        imageUrls.push(imageIds);
+      }
 
+      messageObj.imageUrls = imageUrls;
       clearImageSelection();
 
       let roomElement = document.querySelector(`[data-product="${messageObj.roomId}"]`);
@@ -160,15 +159,14 @@ const sendMessage = async () => {
   if (message === '' && selectedImages.length === 0) return;
 
   const headers = {
-    'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+    'Authorization': 'Bearer ' + localStorage.getItem('access-token')
   };
 
   try {
     if (message !== '' || selectedImages.length > 0) {
-
-      const messageObj = {message}
+      let messageObj = {message, images: false}
+      if (selectedImages.length > 0) messageObj = {message, images: true}
       stompClient.send(`/messages/${focusChatroom}`, headers, JSON.stringify(messageObj));
-
     }
 
   } catch (error) {
@@ -203,7 +201,10 @@ const appendMessageTag = (messageObj) => {
     });
   } else {
     // 단일 메시지의 경우
-    chatLi = createMessageTag(messageObj.type, messageObj.nickname, messageObj.message);
+    const savedName = localStorage.getItem('nickname');
+    let type = messageObj.nickname === savedName ? 'right' : 'left';
+
+    chatLi = createMessageTag(type, messageObj.nickname, messageObj.message);
     document.querySelector("#chatWrapper .chat:not(.format) ul").appendChild(chatLi);
     appendImageToMessage(chatLi, messageObj.chatImageIds);
     document.querySelector("#chatWrapper .chat").scrollTop = document.querySelector("section.chat").scrollHeight;
@@ -285,8 +286,16 @@ const drawChatList = async () => {
   let productIds = [];
 
   if (allChatroom.length === 0) {
-    chatRoomArea.innerHTML = '<h3>게시글이 없습니다.</h3>';
+    chatRoomArea.innerHTML = `
+      <div class="no-chats">
+        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM20 16H6L4 18V4H20V16Z" fill="#CCCCCC"/>
+        </svg>
+        <p>채팅 내역이 없습니다.</p>
+      </div>
+    `;
   } else {
+    chatRoomArea.replaceChildren('')
     chatRoomArea.innerHTML = '';
     for (let chat of allChatroom) {
       productIds.push(chat.productId);
@@ -344,13 +353,15 @@ const initializeUnreadCounts = async () => {
 }
 
 const createChatRoomElement = (chat) => {
+  const nickname = localStorage.getItem('nickname');
+  const name = nickname === chat.productOwner.nickname ? chat.sender.nickname : chat.productOwner.nickname;
   const div = document.createElement('div');
   div.className = 'user';
   div.setAttribute('data-product', chat.productId);
   div.innerHTML = `
     <img src="/img/trend/bs-1.jpg" alt="물품사진"/>
     <div>
-      <p>${chat.sender.nickname}</p>
+      <p>${name}</p>
       <p>${chat.message}</p>
     </div>
     <span class="unread-badge" style="display: none;"></span>

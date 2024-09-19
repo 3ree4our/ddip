@@ -19,7 +19,7 @@
 </article>
 
 <script th:inline="javascript">
-  const accessToken = localStorage.getItem('access_token');
+  const accessToken = localStorage.getItem('access-token');
   const alertImgEle = document.querySelector('#alertImgContainer > img');
   alertImgEle.addEventListener('click', () => {
     if (accessToken === null) location.href = '/member/login'

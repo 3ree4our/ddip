@@ -18,7 +18,6 @@ import org.threefour.ddip.product.service.ProductServiceImpl;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -56,15 +55,13 @@ public class ChatMessageController {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     String format = formatter.format(LocalDateTime.now());
 
-    // 이미지 처리
-    List<Long> imageIds = imageLocalService.getImageByChatId(saveId);
-
     ChatMessage mg = ChatMessage.builder()
             .roomId(productByProductId.getId())
             .messageId(saveId)
             .nickname(nickName)
             .title(productByProductId.getTitle())
             .message(message.getMessage())
+            .isImages(message.isImages())
             .sendDate(format)
             .build();
 

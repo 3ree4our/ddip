@@ -812,14 +812,6 @@
 <!--chat end-->
 
 <!-- Search End -->
-<script>
-  const a = async () => {
-    const response = await fetch('/access');
-    const bb = response.headers.get("accessToken");
-    if (bb) localStorage.setItem('access_token', bb);
-  }
-  a();
-</script>
 <!-- Js Plugins -->
 <script th:src="@{js/jquery-3.3.1.min.js}"></script>
 <script th:src="@{js/bootstrap.min.js}"></script>
