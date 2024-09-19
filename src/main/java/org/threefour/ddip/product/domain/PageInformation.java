@@ -3,6 +3,7 @@ package org.threefour.ddip.product.domain;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.domain.Page;
+import org.threefour.ddip.deal.domain.Deal;
 
 @Getter
 public class PageInformation {
@@ -25,7 +26,7 @@ public class PageInformation {
         this.isLast = isLast;
     }
 
-    public static PageInformation from(Page<Product> pagedProducts) {
+    public static PageInformation fromProduct(Page<Product> pagedProducts) {
         return PageInformation.builder()
                 .totalElements(pagedProducts.getTotalElements())
                 .totalPages(pagedProducts.getTotalPages())
@@ -33,6 +34,17 @@ public class PageInformation {
                 .pageNumber(pagedProducts.getNumber())
                 .isFirst(pagedProducts.isFirst())
                 .isLast(pagedProducts.isLast())
+                .build();
+    }
+
+    public static PageInformation fromDeal(Page<Deal> pagedDeals) {
+        return PageInformation.builder()
+                .totalElements(pagedDeals.getTotalElements())
+                .totalPages(pagedDeals.getTotalPages())
+                .size(pagedDeals.getSize())
+                .pageNumber(pagedDeals.getNumber())
+                .isFirst(pagedDeals.isFirst())
+                .isLast(pagedDeals.isLast())
                 .build();
     }
 }
