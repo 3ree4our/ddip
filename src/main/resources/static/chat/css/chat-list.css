@@ -211,20 +211,41 @@ p {
 }
 
 .chat-modal-prev, .chat-modal-next {
-    cursor: pointer;
     position: absolute;
     top: 50%;
-    width: auto;
-    padding: 16px;
-    margin-top: -50px;
+    transform: translateY(-50%);
     color: white;
+    background-color: rgba(105, 181, 232, 0.7);
+    padding: 16px;
+    font-size: 18px;
     font-weight: bold;
-    font-size: 20px;
-    transition: 0.6s ease;
-    border-radius: 0 3px 3px 0;
-    user-select: none;
-    -webkit-user-select: none;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: 0.3s;
+    cursor: pointer;
+    z-index: 1001;
 }
+
+.chat-modal-prev {
+    left: 20px;
+}
+
+.chat-modal-next {
+    right: 20px;
+}
+
+.chat-modal-prev:hover, .chat-modal-next:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.chat-modal-prev::before {
+    content: "◀ 이전";
+}
+
+.chat-modal-next::before {
+    content: "다음 ▶";
+}
+
 
 .chat-modal-next {
     right: 0;

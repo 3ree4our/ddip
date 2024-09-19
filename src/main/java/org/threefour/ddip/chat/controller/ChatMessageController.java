@@ -1,19 +1,12 @@
 package org.threefour.ddip.chat.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.hibernate.tool.schema.internal.exec.ScriptTargetOutputToFile;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.threefour.ddip.chat.domain.Chat;
 import org.threefour.ddip.chat.domain.ChatMessage;
-import org.threefour.ddip.chat.domain.Waiting;
 import org.threefour.ddip.chat.domain.dto.ChatRequestDTO;
-import org.threefour.ddip.chat.domain.dto.ProductResponseDTO;
-import org.threefour.ddip.chat.domain.dto.WaitingRequestDTO;
 import org.threefour.ddip.chat.service.ChatService;
 import org.threefour.ddip.chat.service.WaitingService;
 import org.threefour.ddip.image.service.ImageLocalServiceImpl;
@@ -25,7 +18,6 @@ import org.threefour.ddip.product.service.ProductServiceImpl;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -64,6 +56,9 @@ public class ChatMessageController {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     String format = formatter.format(LocalDateTime.now());
 
+    // 이미지 처리
+    List<Long> imageIds = imageLocalService.getImageByChatId(saveId);
+
     ChatMessage mg = ChatMessage.builder()
             .roomId(productByProductId.getId())
             .messageId(saveId)
@@ -72,6 +67,7 @@ public class ChatMessageController {
             .message(message.getMessage())
             .sendDate(format)
             .build();
+
 
     return mg;
   }

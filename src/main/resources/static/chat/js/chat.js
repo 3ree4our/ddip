@@ -35,10 +35,10 @@ function connect(productId) {
 
 function sendChat(productId) {
   const messageObj = {
-    message: "채팅방이 생성되었습니다."
+    message: "할롱~"
   }
 
   stompClient.send(`/messages/${productId}`, getAuthHeader(), JSON.stringify(messageObj));
 
-  location.href = `/chat/${productId}`;
+  location.href = `/chat-list`;
 }

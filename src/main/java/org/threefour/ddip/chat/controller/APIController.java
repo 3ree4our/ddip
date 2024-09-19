@@ -73,7 +73,6 @@ public class APIController {
 
     List<ChatResponseDTO> allChatByProductId = chatService.findAllChatByProductId(chatroomId);
 
-
     List<ChatResponseDTO> list = new ArrayList<>();
     for (ChatResponseDTO chat : allChatByProductId) {
 

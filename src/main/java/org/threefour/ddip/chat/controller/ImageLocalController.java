@@ -1,6 +1,7 @@
 package org.threefour.ddip.chat.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
@@ -17,6 +18,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/images")
 @RequiredArgsConstructor
@@ -33,7 +35,7 @@ public class ImageLocalController {
   }
 
   @GetMapping("/{imageId}")
-  public ResponseEntity<Resource> getImage(@PathVariable Long imageId) throws IOException {
+  public ResponseEntity<Resource> getImageByImageId(@PathVariable Long imageId) throws IOException {
     Image image = imageLocalService.getImageById(imageId);
 
     if (image == null) return ResponseEntity.notFound().build();
@@ -50,5 +52,13 @@ public class ImageLocalController {
     return ResponseEntity.ok()
             .contentType(MediaType.parseMediaType(contentType))
             .body(resource);
+  }
+
+  @GetMapping("/chat/{chatId}")
+  public ResponseEntity<List<Long>> getImageByChatId(@PathVariable Long chatId) {
+    List<Long> imageByChatId = imageLocalService.getImageByChatId(chatId);
+    System.out.println("chatId: " + chatId);
+    System.out.println("imageByChatId: " + imageByChatId);
+    return ResponseEntity.ok().body(imageByChatId);
   }
 }

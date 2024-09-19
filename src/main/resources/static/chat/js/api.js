@@ -79,12 +79,17 @@ export const markRead = async (productId) => {
   });
 }
 
-
 export const imageUpload = async (formData) => {
   const result = await fetch(`${SERVER_API}/api/images/upload`, {
     method: 'POST',
     headers,
     body  : formData
   })
+
+  return result.json();
+}
+
+export const getImageUrl = async (chatId) => {
+  const result = await fetch(`${SERVER_API}/api/images/chat/${chatId}`)
   return result.json();
 }

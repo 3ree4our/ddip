@@ -4,7 +4,7 @@ import {
   getChatroomByProductId,
   getUnreadMessageCounts,
   imageUpload,
-  markRead, SERVER_API
+  markRead, SERVER_API, getImageUrl
 } from "./api.js";
 import {clearImageSelection, getSelectedImagesData} from "./image.js";
 
@@ -77,11 +77,27 @@ const subscribeToProduct = (productId) => {
       selectedImages.forEach(file => {
         formData.append('files', file);
       });
+
       if (selectedImages.length > 0) {
         formData.append('chatId', messageObj.messageId);
         const imageIds = await imageUpload(formData);
         imageUrls.push(imageIds);
       }
+
+      const sleep = (sec) => {
+        return new Promise(resolve => setTimeout(resolve, sec * 1000));
+      }
+
+      showPlaceholder(document.querySelector('.chat ul li:last-child'));
+      await sleep(1);
+      removePlaceholder(document.querySelector('.chat ul li:last-child'));
+
+      if (imageUrls.length === 0) {
+        const imageIds = await getImageUrl(messageObj.messageId);
+        imageUrls.push(imageIds);
+      }
+
+      console.log('받는쪽은? messageObj', messageObj)
       messageObj.imageUrls = imageUrls;
 
       clearImageSelection();
@@ -115,7 +131,17 @@ const subscribeToProduct = (productId) => {
     })
   }
 }
+const showPlaceholder = (messageElement) => {
+  const placeholder = document.createElement('p');
+  placeholder.className = 'message-placeholder';
+  placeholder.textContent = '이미지 전송 중...';
+  messageElement.appendChild(placeholder);
+};
 
+const removePlaceholder = (messageElement) => {
+  const placeholder = messageElement.querySelector('.message-placeholder');
+  if (placeholder) placeholder.remove();
+};
 
 //===========메시지 전송===============
 document.querySelector("section.input-div textarea").addEventListener("keydown", async (e) => {
@@ -128,8 +154,9 @@ document.querySelector("section.input-div textarea").addEventListener("keydown",
 const sendMessage = async () => {
   const messageInputEle = document.querySelector('section.input-div textarea');
   const message = messageInputEle.value.trim();
-
   const selectedImages = getSelectedImagesData();
+
+  let imageIds = [];
 
   if (message === '' && selectedImages.length === 0) return;
 
@@ -138,10 +165,11 @@ const sendMessage = async () => {
   };
 
   try {
-
     if (message !== '' || selectedImages.length > 0) {
+
       const messageObj = {message}
       stompClient.send(`/messages/${focusChatroom}`, headers, JSON.stringify(messageObj));
+
     }
 
   } catch (error) {
@@ -330,7 +358,6 @@ const createChatRoomElement = (chat) => {
   div.addEventListener('click', chatRoomClickHandler);
   return div;
 }
-
 
 const openChatImageModal = (images, index) => {
   const modal = document.getElementById('chatImageModal');
