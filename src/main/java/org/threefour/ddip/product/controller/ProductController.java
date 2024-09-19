@@ -2,16 +2,18 @@ package org.threefour.ddip.product.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.threefour.ddip.deal.service.DealService;
 import org.threefour.ddip.image.domain.Image;
 import org.threefour.ddip.image.domain.RepresentativeImagesRequest;
 import org.threefour.ddip.image.service.ImageService;
+import org.threefour.ddip.member.jwt.JWTUtil;
 import org.threefour.ddip.product.category.domain.Category;
 import org.threefour.ddip.product.category.domain.GetCategoriesResponse;
 import org.threefour.ddip.product.category.service.CategoryService;
@@ -19,6 +21,7 @@ import org.threefour.ddip.product.domain.*;
 import org.threefour.ddip.product.service.ProductService;
 import org.threefour.ddip.util.FormatConverter;
 import org.threefour.ddip.util.FormatValidator;
+import org.threefour.ddip.util.PageableGenerator;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -31,9 +34,11 @@ import static org.threefour.ddip.util.PaginationConstant.*;
 @RequestMapping("/product")
 @RequiredArgsConstructor
 public class ProductController {
+    private final JWTUtil jwtUtil;
     private final ProductService productService;
     private final CategoryService categoryService;
     private final ImageService imageService;
+    private final DealService dealService;
 
     @GetMapping("/registration-form")
     public ModelAndView getRegistrationForm() {
@@ -49,7 +54,6 @@ public class ProductController {
         Long productId = productService.createProduct(registerProductRequest, images);
         return String.format("redirect:details?id=%d", productId);
     }
-
 
     @GetMapping("/list")
     public ModelAndView getProducts(
@@ -71,14 +75,7 @@ public class ProductController {
             categoryId = ZERO;
         }
 
-        Pageable pageable = FormatConverter.parseToBoolean(paged)
-                ? PageRequest.of(
-                FormatConverter.parseToInt(pageNumber),
-                FormatConverter.parseToInt(size),
-                FormatConverter.parseSortString(sort)
-        )
-                : Pageable.unpaged();
-
+        Pageable pageable = PageableGenerator.createPageable(paged, pageNumber, size, sort);
         Page<Product> products
                 = productService.getProducts(pageable, FormatConverter.parseToShort(categoryId));
         List<Image> representativeImages
@@ -87,17 +84,38 @@ public class ProductController {
         return new ModelAndView("product/list", "products", GetProductsResponse.from(products, representativeImages));
     }
 
+    @PostMapping("/save-member-id")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<Void> saveMemberIdToSession(
+            @RequestHeader("Authorization") String authorizationHeader, HttpSession httpSession
+    ) {
+        String accessToken = authorizationHeader.substring(7).trim();
+        if (FormatValidator.hasValue(accessToken)) {
+            Long memberId = jwtUtil.getId(accessToken);
+            httpSession.setAttribute("memberId", memberId);
+        }
+
+        return ResponseEntity.status(NO_CONTENT).build();
+    }
+
     @GetMapping("/details")
-    public ModelAndView getProduct(@RequestParam String id) {
+    public ModelAndView getProduct(@RequestParam String id, HttpSession httpSession) {
         if (!FormatValidator.hasValue(id) || !FormatValidator.isPositiveNumberPattern(id)) {
             return new ModelAndView("redirect:list");
         }
         Long parsedId = FormatConverter.parseToLong(id);
+        Object memberId = httpSession.getAttribute("memberId");
+        int waitingNumber = -1;
+        if (FormatValidator.hasValue(memberId)) {
+            waitingNumber = dealService.getWinningNumber(parsedId, (Long) memberId);
+        }
 
         return new ModelAndView(
                 "product/details", "product",
-                GetProductResponse.fromDetails(
-                        productService.getProduct(parsedId, true), imageService.getImages(PRODUCT, parsedId)
+                GetProductResponse.from(
+                        productService.getProduct(parsedId, true),
+                        imageService.getImages(PRODUCT, parsedId),
+                        waitingNumber
                 )
         );
     }

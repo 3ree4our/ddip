@@ -18,14 +18,13 @@ public class GetProductsResponse {
     }
 
     public static GetProductsResponse from(Page<Product> pagedProducts, List<Image> images) {
-
         List<Product> products = pagedProducts.getContent();
         List<GetProductResponse> getProductResponses = new ArrayList<>();
         for (int i = 0; i < products.size(); i++) {
             getProductResponses.add(GetProductResponse.from(products.get(i), List.of(images.get(i))));
         }
 
-        return new GetProductsResponse(getProductResponses, PageInformation.from(pagedProducts));
+        return new GetProductsResponse(getProductResponses, PageInformation.fromProduct(pagedProducts));
     }
 
     public GetProductResponse get(int index) {

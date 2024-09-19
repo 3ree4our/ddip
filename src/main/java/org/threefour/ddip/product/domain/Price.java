@@ -9,12 +9,11 @@ import org.threefour.ddip.util.FormatValidator;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
-import java.io.Serializable;
 
 import static org.threefour.ddip.product.exception.ExceptionMessage.INVALID_PRICE_EXCEPTION_MESSAGE;
 import static org.threefour.ddip.product.exception.ExceptionMessage.PRICE_NO_VALUE_EXCEPTION_MESSAGE;
 
-public class Price implements Serializable {
+public class Price {
     private final int price;
 
     private Price(int price) {
