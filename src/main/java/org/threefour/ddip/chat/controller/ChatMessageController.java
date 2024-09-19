@@ -40,7 +40,7 @@ public class ChatMessageController {
     String username = principal.getName();
 
     long pi = Long.parseLong(productId);
-    Product productByProductId = productService.getProduct(pi);
+    Product productByProductId = productService.getProduct(pi, false);
 
     MemberDetails memberDetails = (MemberDetails) memberDetailsService.loadUserByUsername(username);
     String nickName = memberDetails.getNickName();

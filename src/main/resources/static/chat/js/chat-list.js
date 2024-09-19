@@ -156,8 +156,6 @@ const sendMessage = async () => {
   const message = messageInputEle.value.trim();
   const selectedImages = getSelectedImagesData();
 
-  let imageIds = [];
-
   if (message === '' && selectedImages.length === 0) return;
 
   const headers = {
@@ -192,6 +190,7 @@ const createMessageTag = (LR_className, senderName, message) => {
 
 // 메시지 태그 추가
 const appendMessageTag = (messageObj) => {
+  console.log('시간을 추가해보자,', messageObj)
   let chatLi = '';
 
   if (Array.isArray(messageObj)) {

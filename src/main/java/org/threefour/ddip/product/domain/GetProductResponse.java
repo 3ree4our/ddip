@@ -54,6 +54,19 @@ public class GetProductResponse {
                 .build();
     }
 
+    public static Object fromDetails(Product product, List<Image> images) {
+        return GetProductResponse.builder()
+                .id(product.getId())
+                .name(product.getName())
+                .price(product.getPrice().getValue())
+                .title(product.getTitle())
+                .content(product.getContent())
+                .seller(product.getSeller())
+                .getCategoriesResponse(GetCategoriesResponse.fromProduct(product.getProductCategories()))
+                .imageResponses(images.stream().map(GetImageResponse::from).collect(Collectors.toList()))
+                .build();
+    }
+
     public GetImageResponse getImage(int index) {
         return imageResponses.get(index);
     }

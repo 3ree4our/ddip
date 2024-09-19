@@ -14,7 +14,7 @@ import java.util.List;
 public interface ProductService {
     Long createProduct(RegisterProductRequest registerProductRequest, List<MultipartFile> images);
 
-    Product getProduct(Long productId);
+    Product getProduct(Long productId, boolean isCacheableRequest);
 
     Page<Product> getProducts(Pageable pageable, Short categoryId);
 

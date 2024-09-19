@@ -1,7 +1,9 @@
 package org.threefour.ddip.product.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import org.hibernate.Hibernate;
 import org.threefour.ddip.audit.BaseGeneralEntity;
 import org.threefour.ddip.member.domain.Member;
 import org.threefour.ddip.product.category.domain.ProductCategory;
@@ -36,6 +38,7 @@ public class Product extends BaseGeneralEntity {
     private Member seller;
 
     @OneToMany(mappedBy = "product", cascade = {PERSIST, MERGE, REMOVE}, orphanRemoval = true, fetch = LAZY)
+    @JsonManagedReference
     private List<ProductCategory> productCategories;
 
     @OneToMany(mappedBy = "product", cascade = {PERSIST, MERGE, REMOVE}, fetch = LAZY)
@@ -62,29 +65,27 @@ public class Product extends BaseGeneralEntity {
                 .build();
     }
 
-    String getName() {
+    public String getName() {
         return name;
     }
 
-    Price getPrice() {
+    public Price getPrice() {
         return price;
     }
 
-  // 나중에 말하기
-  public String getTitle() {
-    return title;
-  }
+    public String getTitle() {
+        return title;
+    }
 
-    String getContent() {
+    public String getContent() {
         return content;
     }
 
-  // 나중에 말하기
-  public Member getSeller() {
-    return seller;
-  }
+    public Member getSeller() {
+        return seller;
+    }
 
-    List<ProductCategory> getProductCategories() {
+    public List<ProductCategory> getProductCategories() {
         return productCategories;
     }
 
@@ -119,5 +120,11 @@ public class Product extends BaseGeneralEntity {
 
     public void delete() {
         deleteEntity();
+    }
+
+    @PostLoad
+    private void init() {
+        Hibernate.initialize(seller);
+        Hibernate.initialize(productCategories);
     }
 }

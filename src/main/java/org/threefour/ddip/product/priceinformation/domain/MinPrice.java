@@ -36,7 +36,7 @@ public class MinPrice {
     }
 
     private static void checkMinPricePattern(String minPrice) {
-        if (!FormatValidator.isNumberPattern(minPrice)) {
+        if (!FormatValidator.isPositiveNumberOrZeroPattern(minPrice)) {
             throw new InvalidPriceException(String.format(INVALID_MIN_PRICE_EXCEPTION_MESSAGE, minPrice));
         }
     }

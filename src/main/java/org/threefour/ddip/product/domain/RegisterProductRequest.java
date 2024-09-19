@@ -9,6 +9,7 @@ import org.threefour.ddip.product.category.domain.ConnectCategoryRequest;
 @Getter
 @Setter
 public class RegisterProductRequest {
+    private String memberId;
     private ConnectCategoryRequest connectCategoryRequest;
     private String name;
     private String price;

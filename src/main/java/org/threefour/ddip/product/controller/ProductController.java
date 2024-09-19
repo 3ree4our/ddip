@@ -44,7 +44,7 @@ public class ProductController {
     @PostMapping("/registration-confirm")
     public String registerProduct(
             @ModelAttribute RegisterProductRequest registerProductRequest,
-            @RequestParam("images") List<MultipartFile> images
+            @RequestParam("images") @RequestPart List<MultipartFile> images
     ) {
         Long productId = productService.createProduct(registerProductRequest, images);
         return String.format("redirect:details?id=%d", productId);
@@ -89,27 +89,29 @@ public class ProductController {
 
     @GetMapping("/details")
     public ModelAndView getProduct(@RequestParam String id) {
-        if (!FormatValidator.hasValue(id) || !FormatValidator.isNumberPattern(id)) {
+        if (!FormatValidator.hasValue(id) || !FormatValidator.isPositiveNumberPattern(id)) {
             return new ModelAndView("redirect:list");
         }
         Long parsedId = FormatConverter.parseToLong(id);
 
         return new ModelAndView(
                 "product/details", "product",
-                GetProductResponse.from(productService.getProduct(parsedId), imageService.getImages(PRODUCT, parsedId))
+                GetProductResponse.fromDetails(
+                        productService.getProduct(parsedId, true), imageService.getImages(PRODUCT, parsedId)
+                )
         );
     }
 
     @GetMapping("/modification-form")
     public ModelAndView getModificationForm(@RequestParam String id) {
-        if (!FormatValidator.hasValue(id) || !FormatValidator.isNumberPattern(id)) {
+        if (!FormatValidator.hasValue(id) || !FormatValidator.isPositiveNumberPattern(id)) {
             return new ModelAndView("redirect:list");
         }
         ModelAndView modelAndView = new ModelAndView();
         Long parsedId = FormatConverter.parseToLong(id);
         modelAndView.addObject(
                 "product",
-                GetProductResponse.from(productService.getProduct(parsedId), imageService.getImages(PRODUCT, parsedId))
+                GetProductResponse.from(productService.getProduct(parsedId, false), imageService.getImages(PRODUCT, parsedId))
         );
         modelAndView.addObject("categories", GetCategoriesResponse.from(categoryService.getCategories(null)));
         modelAndView.setViewName("product/modification");
