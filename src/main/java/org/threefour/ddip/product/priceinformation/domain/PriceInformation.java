@@ -13,7 +13,7 @@ import org.threefour.ddip.product.domain.Price;
 import org.threefour.ddip.product.domain.Product;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -51,12 +51,12 @@ public class PriceInformation {
     @Column(nullable = false, updatable = false)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    private Timestamp createdAt;
+    private LocalDateTime createdAt;
 
     @Builder
     private PriceInformation(
             Long id, Product product, Price price, PriceDiscountPeriod priceDiscountPeriod,
-            PriceDiscountRate priceDiscountRate, Timestamp createdAt,
+            PriceDiscountRate priceDiscountRate, LocalDateTime createdAt,
             NextDiscountedAt nextDiscountedAt, MinPrice minPrice
     ) {
         this.id = id;
@@ -72,7 +72,7 @@ public class PriceInformation {
     public static PriceInformation from(Product product, AutoDiscountRequest autoDiscountRequest) {
         return PriceInformation.builder()
                 .product(product)
-                .price(Price.from(product))
+                .price(product.getPrice())
                 .priceDiscountPeriod(PriceDiscountPeriod.of(autoDiscountRequest.getPriceDiscountPeriod()))
                 .priceDiscountRate(PriceDiscountRate.of(autoDiscountRequest.getPriceDiscountRate()))
                 .nextDiscountedAt(NextDiscountedAt.of(autoDiscountRequest.getFirstDiscountDate()))

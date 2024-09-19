@@ -1,5 +1,7 @@
 package org.threefour.ddip.product.domain;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.threefour.ddip.product.exception.InvalidPriceException;
 import org.threefour.ddip.product.exception.PriceNoValueException;
 import org.threefour.ddip.util.FormatConverter;
@@ -7,18 +9,20 @@ import org.threefour.ddip.util.FormatValidator;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
+import java.io.Serializable;
 
 import static org.threefour.ddip.product.exception.ExceptionMessage.INVALID_PRICE_EXCEPTION_MESSAGE;
 import static org.threefour.ddip.product.exception.ExceptionMessage.PRICE_NO_VALUE_EXCEPTION_MESSAGE;
 
-public class Price {
+public class Price implements Serializable {
     private final int price;
 
     private Price(int price) {
         this.price = price;
     }
 
-    public static Price of(String price) {
+    @JsonCreator
+    public static Price of(@JsonProperty("price") String price) {
         validate(price);
         return new Price(FormatConverter.parseToInt(price));
     }
@@ -35,15 +39,12 @@ public class Price {
     }
 
     private static void checkPricePattern(String price) {
-        if (!FormatValidator.isNumberPattern(price)) {
+        if (!FormatValidator.isPositiveNumberPattern(price)) {
             throw new InvalidPriceException(String.format(INVALID_PRICE_EXCEPTION_MESSAGE, price));
         }
     }
 
-    public static Price from(Product product) {
-        return new Price(product.getPrice().getValue());
-    }
-
+    @JsonProperty(value = "price")
     int getValue() {
         return price;
     }

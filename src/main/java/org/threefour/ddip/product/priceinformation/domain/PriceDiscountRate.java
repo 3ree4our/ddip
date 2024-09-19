@@ -35,7 +35,7 @@ public class PriceDiscountRate {
     }
 
     private static void checkRatePattern(String priceDiscountPercentRate) {
-        if (!FormatValidator.isNumberPattern(priceDiscountPercentRate)) {
+        if (!FormatValidator.isPositiveNumberPattern(priceDiscountPercentRate)) {
             throw new InvalidPriceDiscountRateException(
                     String.format(INVALID_PRICE_DISCOUNT_RATE_EXCEPTION_MESSAGE, priceDiscountPercentRate)
             );

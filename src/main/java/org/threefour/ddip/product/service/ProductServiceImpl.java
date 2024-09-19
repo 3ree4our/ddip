@@ -1,6 +1,9 @@
 package org.threefour.ddip.product.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -38,22 +41,45 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final MemberRepository memberRepository;
 
+    private static final String CREATE_PRODUCT_KEY = "#result + '_' + #registerProductRequest.memberId";
+    private static final String CREATE_KEY_CONDITION
+            = "#registerProductRequest != null && #registerProductRequest.memberId != null";
+
+    private static final String GET_PRODUCT_KEY = "#productId";
+    private static final String GET_KEY_CONDITION = "#productId != null && #isCacheableRequest == true";
+
+    private static final String KEY_VALUE = "product";
+    private static final String UNLESS_CONDITION = "#result == null";
+
+    private static final String UPDATE_PRODUCT_KEY = "#updateProductRequest.id";
+    private static final String UPDATE_KEY_CONDITION
+            = "#updateProductRequest != null && #updateProductRequest.id != null";
+
+    private static final String DELETE_PRODUCT_KEY = "#id";
+    private static final String DELETE_KEY_CONDITION = "#id != null";
+
     @Override
     @Transactional(isolation = READ_COMMITTED, propagation = NESTED, timeout = 20)
+    @CachePut(key = CREATE_PRODUCT_KEY, condition = CREATE_KEY_CONDITION, unless = UNLESS_CONDITION, value = KEY_VALUE)
     public Long createProduct(RegisterProductRequest registerProductRequest, List<MultipartFile> images) {
+        Long memberId = FormatConverter.parseToLong(registerProductRequest.getMemberId());
+
         // TODO: 회원 연결
         Product product = productRepository.save(
-                Product.from(registerProductRequest, memberRepository.findById(1L).get())
+                Product.from(registerProductRequest, memberRepository.findById(memberId).get())
         );
 
         categoryService.createProductCategories(registerProductRequest.getConnectCategoryRequest(), product);
 
-        if (images != null && !images.isEmpty()) {
+        if (FormatValidator.hasValue(images)) {
             imageService.createImages(AddImagesRequest.from(images, PRODUCT.name(), product.getId().toString()));
         }
 
         AutoDiscountRequest autoDiscountRequest = registerProductRequest.getAutoDiscountRequest();
-        if (autoDiscountRequest != null) {
+        if (
+                FormatValidator.hasValue(autoDiscountRequest)
+                        && FormatValidator.hasValue(autoDiscountRequest.getFirstDiscountDate())
+        ) {
             priceInformationService.createPriceInformation(product, autoDiscountRequest);
         }
 
@@ -62,7 +88,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional(isolation = READ_COMMITTED, readOnly = true, timeout = 10)
-    public Product getProduct(Long productId) {
+    @Cacheable(key = GET_PRODUCT_KEY, condition = GET_KEY_CONDITION, unless = UNLESS_CONDITION, value = KEY_VALUE)
+    public Product getProduct(Long productId, boolean isCacheableRequest) {
         return productRepository.findByIdAndDeleteYnFalse(productId).orElseThrow(
                 () -> new ProductNotFoundException(String.format(PRODUCT_NOT_FOUND_EXCEPTION_MESSAGE, productId))
         );
@@ -80,8 +107,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional(isolation = READ_COMMITTED, timeout = 10)
+    @CachePut(key = UPDATE_PRODUCT_KEY, condition = UPDATE_KEY_CONDITION, unless = UNLESS_CONDITION, value = KEY_VALUE)
     public void update(UpdateProductRequest updateProductRequest) {
-        Product product = getProduct(FormatConverter.parseToLong(updateProductRequest.getId()));
+        Product product = getProduct(FormatConverter.parseToLong(updateProductRequest.getId()), false);
 
         ConnectCategoryRequest connectCategoryRequest = updateProductRequest.getConnectCategoryRequest();
         if (FormatValidator.hasValue(connectCategoryRequest)) {
@@ -94,8 +122,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional(isolation = READ_UNCOMMITTED, timeout = 10)
+    @CacheEvict(key = DELETE_PRODUCT_KEY, condition = DELETE_KEY_CONDITION, value = KEY_VALUE)
     public void delete(Long id) {
-        Product product = getProduct(id);
+        Product product = getProduct(id, false);
         product.delete();
         productRepository.save(product);
     }
