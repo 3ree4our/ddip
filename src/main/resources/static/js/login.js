@@ -18,10 +18,12 @@ document.addEventListener('DOMContentLoaded', function() {
           throw new Error('Login failed');
         })
         .then(data => {
-          if (data.nickname) {
-            updateUIWithNickname(data.nickname);
-          }
           if (data.success) {
+            alert(data.nickname)
+            console.log("success");
+            const accessToken = data.accessToken; // 서버에서 보낸 토큰
+            localStorage.setItem('access-token', accessToken);
+            localStorage.setItem('username', data.nickname);
             window.location.href = '/';
           }
         })
