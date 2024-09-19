@@ -33,32 +33,31 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
   }
 
   @Override
-  protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException {
+  protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException{
     String username = authResult.getName();
     MemberDetails memberDetails = (MemberDetails) authResult.getPrincipal();
     String nickname = memberDetails.getNickname();
 
-    String access = jwtUtil.createJwt(memberDetails.getId(), "access", username, nickname, 600000L);
-    String refresh = jwtUtil.createJwt(memberDetails.getId(), "refresh", username, nickname, 43200000L);
+    String access = jwtUtil.createJwt(memberDetails.getId(),"access", username, nickname, 600000L);
+    String refresh = jwtUtil.createJwt(memberDetails.getId(),"refresh", username, nickname, 43200000L);
     addRefreshEntity(username, refresh, 86400000L);
 
-    response.addCookie(createCookie("access", access));
+    response.addHeader("access", access);
     response.addCookie(createCookie("refresh", refresh));
     response.setStatus(HttpStatus.OK.value());
 
-    System.out.println("왜 물음표지?" + nickname);
     response.setContentType("application/json; charset=utf-8");
-    response.getWriter().write("{\"nickname\":\"" + nickname + "\", \"success\": true}");
+    response.getWriter().write("{\"nickname\":\"" + nickname +  "\", \"success\": true, \"accessToken\": \"" + access + "\"}");
   }
 
   @Override
-  protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) {
+  protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed){
     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
   }
 
   private Cookie createCookie(String key, String value) {
     Cookie cookie = new Cookie(key, value);
-    cookie.setMaxAge(24 * 60 * 60);
+    cookie.setMaxAge(24*60*60);
     cookie.setSecure(true);
     cookie.setHttpOnly(true);
 

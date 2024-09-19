@@ -1,12 +1,12 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
   const loginForm = document.querySelector('form');
-  loginForm.addEventListener('submit', function (e) {
+  loginForm.addEventListener('submit', function(e) {
     e.preventDefault();
 
     const formData = new FormData(loginForm);
     fetch('/login', {
-      method : 'POST',
-      body   : new FormData(loginForm),
+      method: 'POST',
+      body: new FormData(loginForm),
       headers: {
         'Accept': 'application/json'
       }
@@ -18,11 +18,10 @@ document.addEventListener('DOMContentLoaded', function () {
           throw new Error('Login failed');
         })
         .then(data => {
-          console.log('data', data)
-          if (data.nickname) {
-            updateUIWithNickname(data.nickname);
-          }
           if (data.success) {
+            const accessToken = data.accessToken; // 서버에서 보낸 토큰
+            localStorage.setItem('access-token', accessToken);
+            localStorage.setItem('username', data.nickname);
             window.location.href = '/';
           }
         })
@@ -33,8 +32,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function updateUIWithNickname(nickname) {
-  console.log('nickname', nickname)
-  alert(nickname)
   const authLinks = document.querySelectorAll('.header__right__auth');
   authLinks.forEach(link => {
     link.innerHTML = `<a href="#">${nickname}</a>`;
