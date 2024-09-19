@@ -32,9 +32,14 @@ public class MemberController {
     }
 
     @PostMapping("/signUp")
-    public String join(MemberRequestDTO memberRequestDTO, Model model) {
-        System.out.println("Controller: " + memberRequestDTO.getEmail() + " " + memberRequestDTO.getPassword());
-        model.addAttribute("member", memberService.join(memberRequestDTO));
+    public String join(MemberRequestDTO memberRequestDTO, Member member, Address address) {
+        //x, y 좌표 구하기
+        Address xyAddress = addressService.getCoordinates(address.getRoadAddress());
+        xyAddress.setZipcode(address.getZipcode());
+        xyAddress.setDetailedAddress(address.getDetailedAddress());
+        xyAddress.setMember(member);
+        memberService.join(memberRequestDTO);
+        //memberService.saveMember(member, xyAddress);
         return "redirect:/member/login";
     }
 
