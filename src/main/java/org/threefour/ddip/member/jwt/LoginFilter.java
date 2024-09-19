@@ -41,16 +41,16 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     MemberDetails memberDetails = (MemberDetails) authResult.getPrincipal();
     String nickname = memberDetails.getNickname();
 
-    String access = jwtUtil.createJwt("access", username, nickname, 600000L);
-    String refresh = jwtUtil.createJwt("refresh", username, nickname, 43200000L);
+    String access = jwtUtil.createJwt(memberDetails.getId(),"access", username, nickname, 600000L);
+    String refresh = jwtUtil.createJwt(memberDetails.getId(),"refresh", username, nickname, 43200000L);
     addRefreshEntity(username, refresh, 86400000L);
 
     response.addHeader("access", access);
     response.addCookie(createCookie("refresh", refresh));
     response.setStatus(HttpStatus.OK.value());
 
-    response.setContentType("application/json");
-    response.getWriter().write("{\"nickname\":\"" + nickname + "\", \"success\": true}");
+    response.setContentType("application/json; charset=utf-8");
+    response.getWriter().write("{\"nickname\":\"" + nickname +  "\", \"success\": true, \"accessToken\": \"" + access + "\"}");
   }
 
   @Override

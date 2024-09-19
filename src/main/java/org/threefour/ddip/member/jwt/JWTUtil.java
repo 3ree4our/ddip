@@ -21,6 +21,10 @@ public class JWTUtil {
     secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
   }
 
+  public Long getId(String token) {
+    return Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token).getBody().get("id", Long.class);
+  }
+
   public String getCategory(String token) {
     return Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token).getBody().get("category", String.class);
   }
@@ -37,8 +41,9 @@ public class JWTUtil {
     return Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token).getBody().getExpiration().before(new Date());
   }
 
-  public String createJwt(String category, String username, String nickname ,Long expiredMs) {
+  public String createJwt(Long id,String category, String username, String nickname ,Long expiredMs) {
     return Jwts.builder()
+            .claim("id", id)
             .claim("category", category)
             .claim("username", username)
             .claim("nickname", nickname)
