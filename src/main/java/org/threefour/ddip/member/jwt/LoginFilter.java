@@ -1,26 +1,28 @@
 package org.threefour.ddip.member.jwt;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.threefour.ddip.member.domain.MemberDetails;
+import org.threefour.ddip.member.domain.Refresh;
+import org.threefour.ddip.member.repository.RefreshRepository;
 
 import javax.servlet.FilterChain;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Iterator;
+import java.util.Date;
 
 @RequiredArgsConstructor
 public class LoginFilter extends UsernamePasswordAuthenticationFilter {
   private final AuthenticationManager authenticationManager;
   private final JWTUtil jwtUtil;
+  private final RefreshRepository refreshRepository;
 
   @Override
   public Authentication attemptAuthentication(HttpServletRequest request, final HttpServletResponse response) throws AuthenticationException {
@@ -32,22 +34,21 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
   @Override
   protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException {
+    String username = authResult.getName();
     MemberDetails memberDetails = (MemberDetails) authResult.getPrincipal();
-    String username = memberDetails.getUsername();
-    Collection<? extends GrantedAuthority> authorities = authResult.getAuthorities();
-    Iterator<? extends GrantedAuthority> iterator = authorities.iterator();
-    GrantedAuthority authority = iterator.next();
+    String nickname = memberDetails.getNickname();
 
-    Long id = memberDetails.getId();
+    String access = jwtUtil.createJwt(memberDetails.getId(), "access", username, nickname, 600000L);
+    String refresh = jwtUtil.createJwt(memberDetails.getId(), "refresh", username, nickname, 43200000L);
+    addRefreshEntity(username, refresh, 86400000L);
 
-    String token = jwtUtil.createJwt(id, username, /*role, */ 1000 * 60 * 60L);
+    response.addCookie(createCookie("access", access));
+    response.addCookie(createCookie("refresh", refresh));
+    response.setStatus(HttpStatus.OK.value());
 
-    //HTTP 인증 방식인 RFC 7235에 맞추어 정의
-    //Authorization: Bearer <token>
-    //response.addHeader("Authorization", "Bearer " + token);
-    Cookie cookie = createCookie(token);
-    response.addCookie(cookie);
-    response.sendRedirect("/");
+    System.out.println("왜 물음표지?" + nickname);
+    response.setContentType("application/json; charset=utf-8");
+    response.getWriter().write("{\"nickname\":\"" + nickname + "\", \"success\": true}");
   }
 
   @Override
@@ -55,13 +56,23 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
   }
 
-  private Cookie createCookie(String accessToken) {
-    Cookie cookie = new Cookie("access_token", accessToken);
-    cookie.setPath("/");
-    cookie.setMaxAge(60 * 60);
+  private Cookie createCookie(String key, String value) {
+    Cookie cookie = new Cookie(key, value);
+    cookie.setMaxAge(24 * 60 * 60);
+    cookie.setSecure(true);
     cookie.setHttpOnly(true);
 
     return cookie;
   }
 
+  private void addRefreshEntity(String username, String refresh, Long expiredMs) {
+    Date date = new Date(System.currentTimeMillis() + expiredMs);
+
+    Refresh refreshEntity = new Refresh();
+    refreshEntity.setUsername(username);
+    refreshEntity.setRefreshToken(refresh);
+    refreshEntity.setExpiration(date.toString());
+
+    refreshRepository.save(refreshEntity);
+  }
 }

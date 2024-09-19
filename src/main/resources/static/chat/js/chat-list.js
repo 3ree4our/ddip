@@ -78,9 +78,10 @@ const subscribeToProduct = (productId) => {
         formData.append('files', file);
       });
 
+      let imageIds = '';
       if (selectedImages.length > 0) {
         formData.append('chatId', messageObj.messageId);
-        const imageIds = await imageUpload(formData);
+        imageIds = await imageUpload(formData);
         imageUrls.push(imageIds);
       }
 
@@ -88,16 +89,16 @@ const subscribeToProduct = (productId) => {
         return new Promise(resolve => setTimeout(resolve, sec * 1000));
       }
 
-      showPlaceholder(document.querySelector('.chat ul li:last-child'));
-      await sleep(1);
-      removePlaceholder(document.querySelector('.chat ul li:last-child'));
 
       if (imageUrls.length === 0) {
+        console.log('여기선? imageIds', imageIds)
         const imageIds = await getImageUrl(messageObj.messageId);
         imageUrls.push(imageIds);
+        showPlaceholder(document.querySelector('.chat ul li:last-child'));
+        await sleep(1);
+        removePlaceholder(document.querySelector('.chat ul li:last-child'));
       }
 
-      console.log('받는쪽은? messageObj', messageObj)
       messageObj.imageUrls = imageUrls;
 
       clearImageSelection();
