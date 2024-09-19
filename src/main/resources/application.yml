@@ -16,16 +16,10 @@ spring:
       prefix: /
       suffix: .html
   datasource:
-    master:
-      driver-class-name: org.mariadb.jdbc.Driver
-      jdbc-url: jdbc:mariadb://ddip-db.c12qq8qq0tns.ap-northeast-2.rds.amazonaws.com:3306/${PROJECT_NAME}?serverTimezone=UTC&characterEncoding=UTF-8
-      username: ${DB_MASTER_USER_NAME}
-      password: ${DB_MASTER_USER_PASSWORD}
-    slave:
-      driver-class-name: org.mariadb.jdbc.Driver
-      jdbc-url: jdbc:mariadb://mariadb-container:3306/${PROJECT_NAME}?serverTimezone=UTC&characterEncoding=UTF-8
-      username: ${DB_SLAVE_USER_NAME}
-      password: ${DB_SLAVE_USER_PASSWORD}
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://ddip-db.c1smcu2wa2ue.us-east-2.rds.amazonaws.com:3306/${PROJECT_NAME}?serverTimezone=UTC&characterEncoding=UTF-8
+    username: ${DB_USER_NAME}
+    password: ${DB_USER_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: update
@@ -43,7 +37,7 @@ spring:
     serialization:
       fail-on-empty-beans: false
   redis:
-    host: redis-container
+    host: localhost
     port: 6379
     password: ${REDIS_PASSWORD}
   jwt:
@@ -56,20 +50,3 @@ naver:
     key:
       id: ${NAVER_API_KEY_ID}
       secret: ${NAVER_API_KEY_SECRET}
-cloud:
-  aws:
-    credentials:
-      access-key: ${DDIP_S3_ACCESS_KEY}
-      secret-key: ${DDIP_S3_SECRET_KEY}
-    region:
-      static: ap-northeast-2
-    s3:
-      bucket-name: ${DDIP_S3_BUCKET_NAME}
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health
-  endpoint:
-    health:
-      enabled: true
