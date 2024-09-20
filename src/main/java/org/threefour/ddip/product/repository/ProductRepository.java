@@ -11,13 +11,13 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
-  Optional<Product> findByIdAndDeleteYnFalse(Long productId);
+    Optional<Product> findByIdAndDeleteYnFalse(Long productId);
 
-  Page<Product> findByDeleteYnFalse(Pageable pageable);
+    Page<Product> findByDeleteYnFalse(Pageable pageable);
 
-  @Query("SELECT p FROM Product p JOIN p.productCategories pc WHERE pc.category.id = :categoryId AND p.deleteYn = false")
-  Page<Product> findByCategoryIdAndDeleteYnFalse(@Param("categoryId") Short categoryId, Pageable pageable);
+    @Query("SELECT p FROM Product p JOIN p.productCategories pc WHERE pc.category.id = :categoryId AND p.deleteYn = false")
+    Page<Product> findByCategoryIdAndDeleteYnFalse(@Param("categoryId") Short categoryId, Pageable pageable);
 
-  // 나중에 말하기
-  List<Product> findBySellerId(Long sellerId);
+    // 나중에 말하기
+    List<Product> findBySellerId(Long sellerId);
 }
