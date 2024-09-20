@@ -26,55 +26,55 @@ import java.util.Collection;
 
 import static org.springframework.data.redis.cache.RedisCacheConfiguration.defaultCacheConfig;
 
-@Configuration
+//@Configuration
 @EnableCaching
 @RequiredArgsConstructor
 public class CacheConfig {
-    @Value("${spring.redis.host}")
-    private String host;
+  @Value("${spring.redis.host}")
+  private String host;
 
-    @Value("${spring.redis.port}")
-    private int port;
+  @Value("${spring.redis.port}")
+  private int port;
 
-    @Value("${spring.redis.password}")
-    private String password;
+  @Value("${spring.redis.password}")
+  private String password;
 
-    private ObjectMapper objectMapper() {
-        ObjectMapper mapper = new ObjectMapper();
+  private ObjectMapper objectMapper() {
+    ObjectMapper mapper = new ObjectMapper();
 
-        mapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
+    mapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
 
-        mapper.registerModule(new Jdk8Module());
-        mapper.registerModule(new Hibernate5Module());
-        mapper.registerModule(new JavaTimeModule());
+    mapper.registerModule(new Jdk8Module());
+    mapper.registerModule(new Hibernate5Module());
+    mapper.registerModule(new JavaTimeModule());
 
-        mapper.addMixIn(Collection.class, HibernateCollectionMixIn.class);
+    mapper.addMixIn(Collection.class, HibernateCollectionMixIn.class);
 
-        return mapper;
-    }
+    return mapper;
+  }
 
-    @Bean
-    public CacheManager redisCacheManager(RedisConnectionFactory redisConnectionFactory) {
-        RedisCacheConfiguration redisCacheConfiguration = defaultCacheConfig()
-                .serializeKeysWith(RedisSerializationContext
-                        .SerializationPair.fromSerializer(new StringRedisSerializer()))
-                .serializeValuesWith(RedisSerializationContext
-                        .SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer(objectMapper())))
-                .entryTtl(defaultCacheConfig().entryTtl(Duration.ofMinutes(30)).getTtl());
+  @Bean
+  public CacheManager redisCacheManager(RedisConnectionFactory redisConnectionFactory) {
+    RedisCacheConfiguration redisCacheConfiguration = defaultCacheConfig()
+            .serializeKeysWith(RedisSerializationContext
+                    .SerializationPair.fromSerializer(new StringRedisSerializer()))
+            .serializeValuesWith(RedisSerializationContext
+                    .SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer(objectMapper())))
+            .entryTtl(defaultCacheConfig().entryTtl(Duration.ofMinutes(30)).getTtl());
 
-        return RedisCacheManager.RedisCacheManagerBuilder
-                .fromConnectionFactory(redisConnectionFactory)
-                .cacheDefaults(redisCacheConfiguration)
-                .build();
-    }
+    return RedisCacheManager.RedisCacheManagerBuilder
+            .fromConnectionFactory(redisConnectionFactory)
+            .cacheDefaults(redisCacheConfiguration)
+            .build();
+  }
 
-    @Bean
-    public RedisConnectionFactory redisConnectionFactory() {
-        RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
-        redisStandaloneConfiguration.setHostName(host);
-        redisStandaloneConfiguration.setPort(port);
-        redisStandaloneConfiguration.setPassword(password);
+  @Bean
+  public RedisConnectionFactory redisConnectionFactory() {
+    RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
+    redisStandaloneConfiguration.setHostName(host);
+    redisStandaloneConfiguration.setPort(port);
+    redisStandaloneConfiguration.setPassword(password);
 
-        return new LettuceConnectionFactory(redisStandaloneConfiguration);
-    }
+    return new LettuceConnectionFactory(redisStandaloneConfiguration);
+  }
 }

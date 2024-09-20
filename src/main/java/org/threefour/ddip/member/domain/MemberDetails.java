@@ -22,8 +22,13 @@ public class MemberDetails implements UserDetails {
     });
     return authorities;
   }
-  public Long getId(){
+
+  public Long getId() {
     return member.getId();
+  }
+
+  public String getNickName() {
+    return member.getNickName();
   }
 
   @Override
