@@ -21,40 +21,45 @@ import static org.threefour.ddip.deal.exception.ExceptionMessage.DEAL_PRODUCT_BU
 @RequiredArgsConstructor
 @Transactional(isolation = READ_COMMITTED, readOnly = true, timeout = 20)
 public class DealServiceImpl implements DealService {
-    private final ProductService productService;
-    private final DealRepository dealRepository;
-    private final MemberRepository memberRepository;
+  private final ProductService productService;
+  private final DealRepository dealRepository;
+  private final MemberRepository memberRepository;
 
-    @Override
-    @Transactional(isolation = REPEATABLE_READ, timeout = 10)
-    public int createDeal(Long buyerId, InitializeDealRequest initializeDealRequest) {
-        Product product
-                = productService.getProduct(FormatConverter.parseToLong(initializeDealRequest.getProductId()), false);
-        Member seller
-                = memberRepository.findById(FormatConverter.parseToLong(initializeDealRequest.getSellerId())).get();
-        Member buyer = memberRepository.findById(buyerId).get();
-        int waitingNumber = dealRepository.countByProductAndSellerAndDeleteYnFalse(product, seller) + 1;
+  @Override
+  @Transactional(isolation = REPEATABLE_READ, timeout = 10)
+  public int createDeal(Long buyerId, InitializeDealRequest initializeDealRequest) {
+    Product product
+            = productService.getProduct(FormatConverter.parseToLong(initializeDealRequest.getProductId()), false);
+    Member seller
+            = memberRepository.findById(FormatConverter.parseToLong(initializeDealRequest.getSellerId())).get();
+    Member buyer = memberRepository.findById(buyerId).get();
+    int waitingNumber = dealRepository.countByProductAndSellerAndDeleteYnFalse(product, seller) + 1;
 
-        dealRepository.save(Deal.from(initializeDealRequest, product, seller, buyer, waitingNumber));
+    dealRepository.save(Deal.from(initializeDealRequest, product, seller, buyer, waitingNumber));
 
-        return waitingNumber;
+    return waitingNumber;
+  }
+
+  @Override
+  public int getWinningNumber(Long productId, Long memberId) {
+    try {
+      return getDealByProductIdAndBuyerId(productId, memberId).getWaitingNumber();
+    } catch (DealNotFoundException dnfe) {
+      return -1;
     }
+  }
 
-    @Override
-    public int getWinningNumber(Long productId, Long memberId) {
-        try {
-            return getDealByProductIdAndBuyerId(productId, memberId).getWaitingNumber();
-        } catch (DealNotFoundException dnfe) {
-            return -1;
-        }
-    }
+  private Deal getDealByProductIdAndBuyerId(Long productId, Long buyerId) {
+    return dealRepository.findByProductIdAndBuyerIdAndDeleteYnFalse(productId, buyerId)
+            .orElseThrow(
+                    () -> new DealNotFoundException(
+                            String.format(DEAL_PRODUCT_BUYER_NOT_FOUND_EXCEPTION_MESSAGE, productId, buyerId)
+                    )
+            );
+  }
 
-    private Deal getDealByProductIdAndBuyerId(Long productId, Long buyerId) {
-        return dealRepository.findByProductIdAndBuyerIdAndDeleteYnFalse(productId, buyerId)
-                .orElseThrow(
-                        () -> new DealNotFoundException(
-                                String.format(DEAL_PRODUCT_BUYER_NOT_FOUND_EXCEPTION_MESSAGE, productId, buyerId)
-                        )
-                );
-    }
+  @Override
+  public int getWaitingCount(Long productId) {
+    return dealRepository.countByProductIdAndDeleteYnFalse(productId);
+  }
 }

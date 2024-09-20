@@ -3,6 +3,7 @@ package org.threefour.ddip.product.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 //import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -60,7 +61,7 @@ public class ProductServiceImpl implements ProductService {
 
   @Override
   @Transactional(isolation = READ_COMMITTED, propagation = NESTED, timeout = 20)
-  //@CachePut(key = CREATE_PRODUCT_KEY, condition = CREATE_KEY_CONDITION, unless = UNLESS_CONDITION, value = KEY_VALUE)
+  @CachePut(key = CREATE_PRODUCT_KEY, condition = CREATE_KEY_CONDITION, unless = UNLESS_CONDITION, value = KEY_VALUE)
   public Long createProduct(RegisterProductRequest registerProductRequest, List<MultipartFile> images) {
     Long memberId = FormatConverter.parseToLong(registerProductRequest.getMemberId());
 
@@ -107,7 +108,7 @@ public class ProductServiceImpl implements ProductService {
 
   @Override
   @Transactional(isolation = READ_COMMITTED, timeout = 10)
-  //@CachePut(key = UPDATE_PRODUCT_KEY, condition = UPDATE_KEY_CONDITION, unless = UNLESS_CONDITION, value = KEY_VALUE)
+  @CachePut(key = UPDATE_PRODUCT_KEY, condition = UPDATE_KEY_CONDITION, unless = UNLESS_CONDITION, value = KEY_VALUE)
   public void update(UpdateProductRequest updateProductRequest) {
     Product product = getProduct(FormatConverter.parseToLong(updateProductRequest.getId()), false);
 
