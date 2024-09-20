@@ -18,13 +18,13 @@ import org.threefour.ddip.address.domain.Address;
 @Transactional
 public class AddressServiceImpl implements AddressService {
 
-  //@Value("${naver.api.url}")
+  @Value("${naver.api.url}")
   private String apiUrl;
 
-  //@Value("${naver.api.key.id}")
+  @Value("${naver.api.key.id}")
   private String apiKeyId;
 
-  //@Value("${naver.api.key.secret}")
+  @Value("${naver.api.key.secret}")
   private String apikeySecret;
 
   @Autowired

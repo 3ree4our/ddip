@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.threefour.ddip.chat.domain.ChatMessage;
 import org.threefour.ddip.chat.domain.dto.ChatRequestDTO;
 import org.threefour.ddip.chat.service.ChatService;
-import org.threefour.ddip.chat.service.WaitingService;
 import org.threefour.ddip.image.service.ImageLocalServiceImpl;
 import org.threefour.ddip.member.domain.MemberDetails;
 import org.threefour.ddip.member.service.MemberDetailsService;
@@ -26,8 +25,6 @@ public class ChatMessageController {
   private final MemberDetailsService memberDetailsService;
   private final ProductServiceImpl productService;
   private final ChatService chatService;
-  private final ImageLocalServiceImpl imageLocalService;
-  private final WaitingService waitingService;
 
   @MessageMapping("/{productId}")
   @SendTo("/room/{productId}")

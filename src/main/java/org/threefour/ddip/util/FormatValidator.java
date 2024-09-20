@@ -39,4 +39,8 @@ public class FormatValidator {
             return false;
         }
     }
+
+    public static boolean containsDot(String value) {
+        return value.contains(".");
+    }
 }

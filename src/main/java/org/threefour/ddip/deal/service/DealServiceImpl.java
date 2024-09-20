@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.threefour.ddip.deal.domain.Deal;
+import org.threefour.ddip.deal.domain.DealStatus;
 import org.threefour.ddip.deal.domain.InitializeDealRequest;
 import org.threefour.ddip.deal.exception.DealNotFoundException;
 import org.threefour.ddip.deal.repository.DealRepository;
@@ -12,6 +13,8 @@ import org.threefour.ddip.member.repository.MemberRepository;
 import org.threefour.ddip.product.domain.Product;
 import org.threefour.ddip.product.service.ProductService;
 import org.threefour.ddip.util.FormatConverter;
+
+import java.util.Optional;
 
 import static org.springframework.transaction.annotation.Isolation.READ_COMMITTED;
 import static org.springframework.transaction.annotation.Isolation.REPEATABLE_READ;
@@ -41,7 +44,12 @@ public class DealServiceImpl implements DealService {
   }
 
   @Override
-  public int getWinningNumber(Long productId, Long memberId) {
+  public int getWaitingNumberCount(Long productId) {
+    return dealRepository.countByProductIdAndDeleteYnFalse(productId);
+  }
+
+  @Override
+  public int getWaitingNumber(Long productId, Long memberId) {
     try {
       return getDealByProductIdAndBuyerId(productId, memberId).getWaitingNumber();
     } catch (DealNotFoundException dnfe) {
@@ -59,7 +67,22 @@ public class DealServiceImpl implements DealService {
   }
 
   @Override
-  public int getWaitingCount(Long productId) {
-    return dealRepository.countByProductIdAndDeleteYnFalse(productId);
+  public DealStatus checkWaitingStatus(Long productId, Long buyerId) {
+    Optional<Deal> dealOpt = dealRepository.findByProductIdAndBuyerIdAndDeleteYnFalse(productId, buyerId);
+
+    if (dealOpt.isPresent()) {
+      Deal deal = dealOpt.get();
+      int waitingNumber = deal.getWaitingNumber();
+      if (waitingNumber == 1 && deal.getBuyer().getId() == buyerId) {
+        if (deal.getDealStatus() == DealStatus.BEFORE_DEAL) {
+          deal.setDealStatus(DealStatus.IN_PROGRESS);
+          dealRepository.save(deal);
+        }
+        return deal.getDealStatus();
+      }
+    }
+
+    return null;
   }
+
 }

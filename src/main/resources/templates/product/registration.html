@@ -177,7 +177,7 @@
                         <h5>상품 등록</h5>
                         <form class="product-registration" name="f" action="registration-confirm" method="post"
                               enctype="multipart/form-data">
-                            <input type="hidden" name="memberId" id="memberId">
+                            <input type="hidden" name="memberId" th:value="${memberId}">
                             <input type="hidden" name="autoDiscountRequest.firstDiscountDate" id="firstDiscountDate">
                             <input type="hidden" name="autoDiscountRequest.priceDiscountPeriod"
                                    id="priceDiscountPeriod">
@@ -509,9 +509,6 @@
         const priceDiscountPeriod = document.getElementById('price-discount-period').value.trim();
         const priceDiscountRate = document.getElementById('price-discount-rate').value.trim();
         const minPrice = document.getElementById('min-price').value.trim();
-
-        // TODO: 회원 연결
-        document.getElementById('memberId').value = '1';
 
         if (firstCategory.length === 0) {
             alert('대분류를 선택해 주세요.');
