@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
 import org.threefour.ddip.member.domain.Member;
 import org.threefour.ddip.member.domain.MemberRequestDTO;
@@ -16,7 +17,7 @@ import org.threefour.ddip.product.domain.Product;
 import org.threefour.ddip.product.repository.ProductRepository;
 
 @SpringBootTest
-@ActiveProfiles("test")
+@TestPropertySource("classpath:application-test.properties")
 @Transactional
 class MemberServiceImplTest {
 
