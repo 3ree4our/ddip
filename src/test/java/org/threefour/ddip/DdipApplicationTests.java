@@ -1,13 +1,13 @@
 package org.threefour.ddip;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 
-@SpringBootTest
+@TestPropertySource("classpath:application-test.properties")
+@ContextConfiguration(classes = DdipApplication.class)
 class DdipApplicationTests {
-
     @Test
     void contextLoads() {
     }
-
 }
