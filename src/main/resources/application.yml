@@ -18,7 +18,7 @@ spring:
   datasource:
     master:
       driver-class-name: org.mariadb.jdbc.Driver
-      jdbc-url: jdbc:mariadb://ddip-db.c12qq8qq0tns.ap-northeast-2.rds.amazonaws.com:3306/${PROJECT_NAME}?serverTimezone=UTC&characterEncoding=UTF-8
+      jdbc-url: jdbc:mariadb://${PROJECT_NAME}-db.c12qq8qq0tns.ap-northeast-2.rds.amazonaws.com:3306/${PROJECT_NAME}?serverTimezone=UTC&characterEncoding=UTF-8
       username: ${DB_MASTER_USER_NAME}
       password: ${DB_MASTER_USER_PASSWORD}
     slave:

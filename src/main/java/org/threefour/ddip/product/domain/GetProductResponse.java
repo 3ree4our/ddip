@@ -22,12 +22,14 @@ public class GetProductResponse {
     private GetCategoriesResponse getCategoriesResponse;
     private GetPriceInformationListResponse getPriceInformationListResponse;
     private List<GetImageResponse> imageResponses;
+    private int waitingNumber;
 
     @Builder
     private GetProductResponse(
             Long id, String name, int price, String title, String content,
             Member seller, GetCategoriesResponse getCategoriesResponse,
-            GetPriceInformationListResponse getPriceInformationListResponse, List<GetImageResponse> imageResponses
+            GetPriceInformationListResponse getPriceInformationListResponse,
+            List<GetImageResponse> imageResponses, int waitingNumber
     ) {
         this.id = id;
         this.name = name;
@@ -38,6 +40,19 @@ public class GetProductResponse {
         this.getCategoriesResponse = getCategoriesResponse;
         this.getPriceInformationListResponse = getPriceInformationListResponse;
         this.imageResponses = imageResponses;
+        this.waitingNumber = waitingNumber;
+    }
+
+    public static GetProductResponse from(Product product) {
+        return GetProductResponse.builder()
+                .id(product.getId())
+                .name(product.getName())
+                .price(product.getPrice().getValue())
+                .title(product.getTitle())
+                .content(product.getContent())
+                .seller(product.getSeller())
+                .getCategoriesResponse(GetCategoriesResponse.fromProduct(product.getProductCategories()))
+                .build();
     }
 
     public static GetProductResponse from(Product product, List<Image> images) {
@@ -54,7 +69,7 @@ public class GetProductResponse {
                 .build();
     }
 
-    public static Object fromDetails(Product product, List<Image> images) {
+    public static GetProductResponse from(Product product, List<Image> images, int waitingNumber) {
         return GetProductResponse.builder()
                 .id(product.getId())
                 .name(product.getName())
@@ -64,6 +79,7 @@ public class GetProductResponse {
                 .seller(product.getSeller())
                 .getCategoriesResponse(GetCategoriesResponse.fromProduct(product.getProductCategories()))
                 .imageResponses(images.stream().map(GetImageResponse::from).collect(Collectors.toList()))
+                .waitingNumber(waitingNumber)
                 .build();
     }
 
