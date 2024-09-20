@@ -547,16 +547,27 @@
 
         fetch('/product/update', {
             method: 'PATCH',
-            headers: {'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(requestData)
-        }).then(response => {
-            if (response.ok) {
+        })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(errorData => {
+                        alert('카테고리 수정에 실패했습니다.');
+                        throw new Error(errorData.message);
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                const memberId = data;
                 alert('카테고리가 수정되었습니다.');
-                location.href = `/product/modification-form?id=${productId}`;
-            } else {
-                alert('카테고리 수정에 실패했습니다.');
-            }
-        });
+                location.href = `/product/modification-form?id=${productId}&memberId=${memberId}`;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('요청 중 오류가 발생했습니다.');
+            });
     }
 
     function updateName() {
