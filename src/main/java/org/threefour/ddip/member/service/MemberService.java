@@ -6,7 +6,5 @@ import org.threefour.ddip.member.domain.MemberRequestDTO;
 
 public interface MemberService {
   Member saveMember(Member member, Address address);
-
   Boolean join(MemberRequestDTO memberRequestDTO);
-
 }
