@@ -30,10 +30,3 @@ document.addEventListener('DOMContentLoaded', function () {
         });
   });
 });
-
-function updateUIWithNickname(nickname) {
-  const authLinks = document.querySelectorAll('.header__right__auth');
-  authLinks.forEach(link => {
-    link.innerHTML = `<a href="#">${nickname}</a>`;
-  });
-}
