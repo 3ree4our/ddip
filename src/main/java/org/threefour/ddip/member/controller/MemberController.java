@@ -52,8 +52,6 @@ public class MemberController {
 
     @PostMapping("/register")
     public String register(@ModelAttribute Member member, @ModelAttribute Address address, Model model) {
-
-
         //멤버 저장
         //member.setSchoolAuthYn(true);
         //memberService.saveMember(member);

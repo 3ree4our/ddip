@@ -23,7 +23,6 @@ public class MemberServiceImpl implements MemberService {
   public Member saveMember(Member member, Address address) {
     memberRepository.save(member);
     addressService.saveAddress(address);
-
     return member;
   }
 
