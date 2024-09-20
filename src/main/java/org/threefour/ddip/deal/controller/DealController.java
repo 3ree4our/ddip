@@ -38,8 +38,21 @@ public class DealController {
     return ResponseEntity.status(CREATED).body(waitingNumber);
   }
 
+  @GetMapping("/products/{productId}")
+  public ResponseEntity<Integer> checkActiveDeal(@PathVariable Long productId,
+                                                 @RequestHeader("Authorization") String authorizationHeader) {
+    String accessToken = authorizationHeader.substring(7).trim();
+    if (!FormatValidator.hasValue(accessToken)) {
+      throw new TokenNoValueException(TOKEN_NO_VALUE_EXCEPTION_MESSAGE);
+    }
+
+    int waitingCount = dealService.getWaitingCount(productId);
+    return ResponseEntity.ok(waitingCount);
+  }
+
   @GetMapping("/{sellerId}")
-  public ResponseEntity<Void> checkTarget(@PathVariable Long sellerId, @RequestHeader("Authorization") String authorizationHeader) {
+  public ResponseEntity<Void> checkTarget(@PathVariable Long sellerId,
+                                          @RequestHeader("Authorization") String authorizationHeader) {
     String accessToken = authorizationHeader.substring(7).trim();
     if (!FormatValidator.hasValue(accessToken)) {
       throw new TokenNoValueException(TOKEN_NO_VALUE_EXCEPTION_MESSAGE);

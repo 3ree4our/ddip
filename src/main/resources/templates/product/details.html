@@ -490,11 +490,22 @@
 <script>
   let stompClient = '';
 
-  document.addEventListener('DOMContentLoaded', function () {
+  // 음 .. 확인 .. 이미 거래가 진행중인지
+  const checkWaitingCount = async () => {
+    const response = await fetch(`/deal/products/${document.getElementById('product-info').getAttribute('data-product-id')}`, {
+      headers: getAuthHeader()
+    })
+
+    return response.json();
+  }
+
+  document.addEventListener('DOMContentLoaded', async function () {
     const productInfo = document.getElementById('product-info');
     const waitingNumber = productInfo.getAttribute('data-waiting-number');
     const actionBtn = document.getElementById('action-btn');
 
+    const waitingNum = await checkWaitingCount();
+    console.log('이게맞나', waitingNum)
     console.log(waitingNumber + "as;dfkljsdafk");
     if (parseInt(waitingNumber) !== -1) {
       actionBtn.innerHTML = `<span class="icon_bag_alt"></span> 채팅 신청 (현재 대기번호: ${waitingNumber})`;
@@ -521,7 +532,6 @@
       }
     })
         .then(response => {
-          console.log(response.ok)
           if (response.ok) initializeDeal(event);
           else alert("본인것 구매 안됨")
         })
@@ -535,7 +545,6 @@
     const sellerId = productElement.getAttribute('data-seller-id');
     const accessToken = localStorage.getItem('access-token');
 
-    const buyerId = "1";
     const price = productElement.getAttribute('data-price');
 
     fetch('/deal/initialize', {
@@ -558,7 +567,7 @@
           button.style.backgroundColor = '#4caf50';
 
           button.onclick = function (e) {
-            e.preventDefault();
+            // 대기 있으면 막기 =>
             startChat(productId);
           };
         })
@@ -569,7 +578,7 @@
   }
 
 
-  const startChat=(productId)=> {
+  const startChat = (productId) => {
     const socket = new SockJS("/ws-stomp");
     stompClient = Stomp.over(socket);
     stompClient.connect(getAuthHeader(), (frame) => {
@@ -578,7 +587,7 @@
     });
   }
 
-  const sendChat=(productId)=> {
+  const sendChat = (productId) => {
     const messageObj = {
       message: "할롱~"
     }
@@ -618,7 +627,7 @@
 
     const headers = {
       'Authorization': `Bearer ${token}`
-    };
+    }
 
     return headers;
   }

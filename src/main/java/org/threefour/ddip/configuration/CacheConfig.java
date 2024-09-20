@@ -26,7 +26,7 @@ import java.util.Collection;
 
 import static org.springframework.data.redis.cache.RedisCacheConfiguration.defaultCacheConfig;
 
-//@Configuration
+@Configuration
 @EnableCaching
 @RequiredArgsConstructor
 public class CacheConfig {
