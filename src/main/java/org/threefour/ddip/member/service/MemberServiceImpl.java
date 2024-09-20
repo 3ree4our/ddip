@@ -20,20 +20,20 @@ public class MemberServiceImpl implements MemberService {
 
 
   @Override
-  public Member saveMember(Member member, Address address){
+  public Member saveMember(Member member, Address address) {
     memberRepository.save(member);
     addressService.saveAddress(address);
     return member;
   }
 
-  public Boolean join(MemberRequestDTO memberRequestDTO){
+  public Boolean join(MemberRequestDTO memberRequestDTO) {
     String email = memberRequestDTO.getEmail();
     String password = memberRequestDTO.getPassword();
     String nickname = memberRequestDTO.getNickName();
     String school = memberRequestDTO.getSchool();
 
     Boolean isExist = memberRepository.existsByEmail(email);
-    if(isExist){
+    if (isExist) {
       System.out.println("회원이 이미 존재합니다!");
       return false;
     }

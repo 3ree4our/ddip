@@ -1,6 +1,7 @@
 package org.threefour.ddip.member.jwt;
 
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,9 +9,6 @@ import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
-
-import io.jsonwebtoken.security.Keys;
-import io.jsonwebtoken.SignatureAlgorithm;
 
 @Component
 public class JWTUtil {
@@ -41,7 +39,7 @@ public class JWTUtil {
     return Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token).getBody().getExpiration().before(new Date());
   }
 
-  public String createJwt(Long id,String category, String username, String nickname ,Long expiredMs) {
+  public String createJwt(Long id, String category, String username, String nickname ,Long expiredMs) {
     return Jwts.builder()
             .claim("id", id)
             .claim("category", category)

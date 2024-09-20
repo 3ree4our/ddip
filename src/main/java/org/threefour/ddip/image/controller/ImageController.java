@@ -17,37 +17,37 @@ import static org.springframework.http.HttpStatus.NO_CONTENT;
 @RequestMapping("/image")
 @RequiredArgsConstructor
 public class ImageController {
-    private final ImageService imageService;
+  private final ImageService imageService;
 
-    @PostMapping("/add")
-    public ResponseEntity<Void> addImages(
-            @RequestParam("images") List<MultipartFile> images,
-            @RequestParam("targetType") String targetType,
-            @RequestParam("targetId") String targetId
-    ) {
-        imageService.createImages(AddImagesRequest.from(images, targetType, targetId));
+  @PostMapping("/add")
+  public ResponseEntity<Void> addImages(
+          @RequestParam("images") List<MultipartFile> images,
+          @RequestParam("targetType") String targetType,
+          @RequestParam("targetId") String targetId
+  ) {
+    imageService.createImages(AddImagesRequest.from(images, targetType, targetId));
 
-        return ResponseEntity.status(NO_CONTENT).build();
-    }
+    return ResponseEntity.status(NO_CONTENT).build();
+  }
 
-    @PatchMapping("/designate-representative")
-    public ResponseEntity<Void> designateRepresentativeImage(@RequestParam("imageId") String id) {
-        imageService.designateRepresentativeImage(FormatConverter.parseToLong(id));
+  @PatchMapping("/designate-representative")
+  public ResponseEntity<Void> designateRepresentativeImage(@RequestParam("imageId") String id) {
+    imageService.designateRepresentativeImage(FormatConverter.parseToLong(id));
 
-        return ResponseEntity.status(NO_CONTENT).build();
-    }
+    return ResponseEntity.status(NO_CONTENT).build();
+  }
 
-    @DeleteMapping("/delete/{imageId}")
-    public ResponseEntity<Void> deleteImage(@PathVariable("imageId") String id) {
-        imageService.deleteImage(FormatConverter.parseToLong(id));
+  @DeleteMapping("/delete/{imageId}")
+  public ResponseEntity<Void> deleteImage(@PathVariable("imageId") String id) {
+    imageService.deleteImage(FormatConverter.parseToLong(id));
 
-        return ResponseEntity.status(NO_CONTENT).build();
-    }
+    return ResponseEntity.status(NO_CONTENT).build();
+  }
 
-    @PostMapping("/rollback-deletion/{imageId}")
-    public ResponseEntity<Void> rollbackDeletion(@PathVariable("imageId") String id) {
-        imageService.rollbackDeletion(FormatConverter.parseToLong(id));
+  @PostMapping("/rollback-deletion/{imageId}")
+  public ResponseEntity<Void> rollbackDeletion(@PathVariable("imageId") String id) {
+    imageService.rollbackDeletion(FormatConverter.parseToLong(id));
 
-        return ResponseEntity.status(NO_CONTENT).build();
-    }
+    return ResponseEntity.status(NO_CONTENT).build();
+  }
 }

@@ -1,0 +1,14 @@
+#chat-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 99;
+}
+
+#chat-img--wrapper {
+    width: 45px;
+}
+
+#chat-img--wrapper > img {
+    cursor: pointer;
+}

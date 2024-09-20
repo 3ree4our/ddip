@@ -12,15 +12,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.threefour.ddip.member.jwt.JWTFilter;
 import org.threefour.ddip.member.jwt.JWTUtil;
 import org.threefour.ddip.member.jwt.LoginFilter;
 import org.threefour.ddip.member.repository.RefreshRepository;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
