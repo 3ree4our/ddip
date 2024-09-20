@@ -11,5 +11,5 @@ public interface DealService {
 
   int getWaitingNumberCount(Long productId);
 
-  DealStatus checkWaitingStatus(Long productId, Long buyerId);
+  Deal checkWaitingStatus(Long productId, Long buyerId);
 }

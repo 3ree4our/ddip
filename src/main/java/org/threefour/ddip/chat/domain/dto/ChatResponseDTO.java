@@ -24,6 +24,7 @@ public class ChatResponseDTO {
   private Date sendDate;
 
   private List<Long> chatImageIds = new ArrayList<>();
+  //private List<String> chatImageIds = new ArrayList<>(); s3
 
   public ChatResponseDTO(Long chatId, Long productId, String message, String productName, Member productOwner, Member sender, Date sendDate) {
     this.chatId = chatId;

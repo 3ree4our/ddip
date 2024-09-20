@@ -8,7 +8,10 @@ import org.threefour.ddip.chat.domain.dto.ChatResponseDTO;
 import org.threefour.ddip.chat.domain.dto.ChatroomResponseDTO;
 import org.threefour.ddip.chat.domain.dto.ProductResponseDTO;
 import org.threefour.ddip.chat.service.ChatService;
+import org.threefour.ddip.image.domain.Image;
+import org.threefour.ddip.image.domain.TargetType;
 import org.threefour.ddip.image.service.ImageLocalServiceImpl;
+import org.threefour.ddip.image.service.ImageService;
 import org.threefour.ddip.member.jwt.JWTUtil;
 
 import java.util.ArrayList;
@@ -22,6 +25,7 @@ public class ChatAPIController {
 
   private final ChatService chatService;
   private final ImageLocalServiceImpl imageLocalService;
+  private final ImageService imageService;
   private final JWTUtil jwtUtil;
 
   @GetMapping("/products")
@@ -57,8 +61,35 @@ public class ChatAPIController {
     return new ResponseEntity<>(result, HttpStatus.OK);
   }
 
+  @GetMapping("/chatrooms/{chatroomId}/s3")
+  public ResponseEntity<List<ChatResponseDTO>> getChatroomByProductIdWithS3(
+          @PathVariable("chatroomId") Long chatroomId,
+          @RequestHeader("Authorization") String token) {
+    String accessToken = token.substring(7);
+    Long id = jwtUtil.getId(accessToken);
+
+    List<ChatResponseDTO> allChatByProductId = chatService.findAllChatByProductId(chatroomId);
+
+    List<ChatResponseDTO> list = new ArrayList<>();
+    for (ChatResponseDTO chat : allChatByProductId) {
+
+      if (chat.getSender().getId() != id) chat.setType("left");
+      else chat.setType("right");
+
+      List<Image> images = imageService.getImages(TargetType.CHATTING, chat.getChatId());
+
+      for (Image image : images) {
+        //chat.getChatImageIds().add(image.getS3Url());
+      }
+
+      list.add(chat);
+    }
+
+    return new ResponseEntity<>(list, HttpStatus.OK);
+  }
+
   @GetMapping("/chatrooms/{chatroomId}")
-  public ResponseEntity<List<ChatResponseDTO>> getChatroomByProductId(
+  public ResponseEntity<List<ChatResponseDTO>> getChatroomByProductIdWithLocal(
           @PathVariable("chatroomId") Long chatroomId,
           @RequestHeader("Authorization") String token) {
     String accessToken = token.substring(7);

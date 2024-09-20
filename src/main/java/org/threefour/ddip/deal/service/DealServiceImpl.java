@@ -2,6 +2,7 @@ package org.threefour.ddip.deal.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.threefour.ddip.deal.domain.Deal;
 import org.threefour.ddip.deal.domain.DealStatus;
@@ -66,23 +67,23 @@ public class DealServiceImpl implements DealService {
             );
   }
 
+
   @Override
-  public DealStatus checkWaitingStatus(Long productId, Long buyerId) {
+  @Transactional
+  public Deal checkWaitingStatus(Long productId, Long buyerId) {
     Optional<Deal> dealOpt = dealRepository.findByProductIdAndBuyerIdAndDeleteYnFalse(productId, buyerId);
+    Deal deal = null;
 
     if (dealOpt.isPresent()) {
-      Deal deal = dealOpt.get();
+      deal = dealOpt.get();
       int waitingNumber = deal.getWaitingNumber();
       if (waitingNumber == 1 && deal.getBuyer().getId() == buyerId) {
         if (deal.getDealStatus() == DealStatus.BEFORE_DEAL) {
           deal.setDealStatus(DealStatus.IN_PROGRESS);
           dealRepository.save(deal);
         }
-        return deal.getDealStatus();
       }
     }
-
-    return null;
+    return deal;
   }
-
 }

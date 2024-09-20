@@ -490,7 +490,6 @@
 <script>
   let stompClient = '';
 
-  // 음 .. 확인 .. 이미 거래가 진행중인지
   const checkWaitingCount = async () => {
     const response = await fetch(`/deal/products/${document.getElementById('product-info').getAttribute('data-product-id')}`, {
       headers: getAuthHeader()
@@ -503,59 +502,60 @@
     const productInfo = document.getElementById('product-info');
     const waitingNumber = productInfo.getAttribute('data-waiting-number');
     const actionBtn = document.getElementById('action-btn');
-
     const waitingNum = await checkWaitingCount();
+    const flag = await checkTarget();
 
-    if (waitingNum > 0) {
-      actionBtn.innerText = `거래 진행 중 (${waitingNum}명 대기)`
+    if (waitingNum > 0) actionBtn.innerText = `거래 진행 중 (${waitingNum}명 대기)`
+
+    console.log('이것도 함 보게',flag)
+    if (flag.dealStatus === 'IN_PROGRESS') {
+      actionBtn.innerHTML = `<span class="icon_bag_alt"></span> 채팅하러 가기`;
+      actionBtn.style.backgroundColor = '#7493ce';
     }
 
-    if (parseInt(waitingNumber) !== -1) {
-      console.log(waitingNumber + "as;dfkljsdafk");
-      actionBtn.innerHTML = `<span class="icon_bag_alt"></span> 채팅 신청 (현재 대기번호: ${waitingNumber})`;
-      actionBtn.style.backgroundColor = '#4caf50';
-      actionBtn.onclick = function (event) {
-        event.preventDefault();
-        startChat(productInfo.getAttribute('data-product-id'), productInfo.getAttribute('data-seller-id'));
-      };
-    } else {
-      actionBtn.onclick = function (event) {
-        checkTarget(event)
-      };
+    if (flag.dealStatus === 'BEFORE_DEAL') {
+      const num = flag.waitingNum-2 <= 0 ? '' : `(${flag.waitingNum-2} 명 대기)`;
+      actionBtn.innerHTML = `<span class="icon_bag_alt"></span> ${flag.waitingNum-1}번 ${num}`;
+      actionBtn.style.backgroundColor = '#ce3434';
+    }
+
+
+    actionBtn.onclick = async function (event) {
+      // 채팅이 가능한 상태인지 확인
+      const flag = await checkTarget();
+      console.log('후 ,,', flag.dealStatus)
+
+      if (flag.dealStatus === 'IN_PROGRESS') {
+        // 거래가 가능한 상태 => 채팅방 이동
+        startChat(productInfo.getAttribute('data-product-id'));
+      }
+
+      if (flag.dealStatus === 'GO') {
+        // 예약 가능 상태
+        initializeDeal(actionBtn);
+      }
+
+      if (flag.dealStatus === 'BEFORE_DEAL') {
+        // 거래 불가능 상태 => 이미 예약 중
+        alert(`${flag.waitingNum}번 입니다. 잠시만 기다려 주세요`)
+      }
+
     }
   });
 
-  const checkTarget = async (event) => {
-    const productInfo = document.getElementById('product-info');
-    const sellerId = productInfo.getAttribute('data-seller-id')
-    const accessToken = localStorage.getItem('access-token');
+  const checkTarget = async () => {
+    const productElement = document.getElementById('product-info');
+    const productId = productElement.getAttribute('data-product-id');
 
-    await fetch(`/deal/${sellerId}`, {
-      headers: {
-        "Authorization": `Bearer ${accessToken}`
-      }
-    })
-        .then(response => {
-          if (response.ok) {
-            initializeDeal(event);
-          } else if (response.status === 500) {
-            alert("로그인 후 진행해 주세요.")
-            return;
-          } else {
-            alert("본인것 구매 안됨.")
-            return;
-          }
-        })
+    const result = await fetch(`/deal/${productId}`, {headers: getAuthHeader()})
+    return result.json();
   }
 
-  function initializeDeal(event) {
-    event.preventDefault();
-
+  function initializeDeal(button) {
     const productElement = document.getElementById('product-info');
     const productId = productElement.getAttribute('data-product-id');
     const sellerId = productElement.getAttribute('data-seller-id');
     const accessToken = localStorage.getItem('access-token');
-
     const price = productElement.getAttribute('data-price');
 
     fetch('/deal/initialize', {
@@ -572,27 +572,17 @@
     })
         .then(response => response.json())
         .then(waitingNumber => {
+          console.log('waitingNumber', waitingNumber)
           alert('구매 신청이 완료되었습니다.');
-          const button = event.target.closest('.cart-btn');
+
           button.innerHTML = `<span class="icon_bag_alt"></span> 채팅 신청 (현재 대기번호: ${waitingNumber})`;
           button.style.backgroundColor = '#4caf50';
-
-          updateButtonStatus(button, productId, waitingNumber);
+          return waitingNumber;
         })
         .catch(error => {
           console.error('Error:', error);
           alert('요청 중 오류가 발생했습니다.');
         });
-  }
-
-  const updateButtonStatus = (button, productId, waitingNumber) => {
-    fetch(`/deal/products/${productId}/waiting`,{
-      headers:getAuthHeader()
-    })
-        .then(response => response.json())
-        .then(deal => {
-          console.log('하나님 ..! ',deal)
-        })
   }
 
   const startChat = (productId) => {

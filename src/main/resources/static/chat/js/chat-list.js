@@ -238,6 +238,7 @@ const appendImageToMessage = (chatLi, chatImageIds) => {
     chatImageIds.forEach((imageId, index) => {
       const img = document.createElement('img');
       img.src = `${SERVER_API}/api/images/${imageId}`;
+      //img.src = imageId; // s3 전용
       img.alt = 'upload image';
       img.style.cursor = 'pointer';
       img.onclick = () => openChatImageModal(chatImageIds, index);
@@ -373,6 +374,7 @@ const createChatRoomElement = (chat) => {
 const openChatImageModal = (images, index) => {
   const modal = document.getElementById('chatImageModal');
   chatCurrentImages = images.map(url => `${SERVER_API}/api/images/${url}`);
+  //chatCurrentImages = images.map(url => `${url}`); // s3 전용
   chatCurrentImageIndex = index;
   updateChatModalImage();
   modal.classList.add('show'); // 'show' 클래스 추가

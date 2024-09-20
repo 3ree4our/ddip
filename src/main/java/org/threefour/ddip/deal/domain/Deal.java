@@ -2,6 +2,7 @@ package org.threefour.ddip.deal.domain;
 
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.threefour.ddip.audit.BaseGeneralEntity;
 import org.threefour.ddip.member.domain.Member;
 import org.threefour.ddip.product.domain.Product;
@@ -9,10 +10,12 @@ import org.threefour.ddip.product.domain.Product;
 import javax.persistence.*;
 
 import static javax.persistence.FetchType.LAZY;
+import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
 @Entity
 @NoArgsConstructor(access = PROTECTED)
+@ToString
 public class Deal extends BaseGeneralEntity {
   @OneToOne(fetch = LAZY)
   @JoinColumn(name = "product_id")
