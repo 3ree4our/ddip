@@ -15,5 +15,5 @@ public class ExceptionMessage {
             = "논리형 값만 Boolean 타입으로 변환할 수 있습니다. 현재 변환 대상 값: %s";
     public static final String INVALID_TARGET_TYPE_EXCEPTION_MESSAGE
             = "존재하는 도메인만 TargetType으로 변환할 수 있습니다. 현재 변환 대상 값: %s";
-    public static final String TOKEN_NO_VALUE_EXCEPTION_MESSAGE = "토큰 값이 존재하지 않습니다. 로그인 후 다시 시도해 주세요.";
+    public static final String TOKEN_NO_VALUE_EXCEPTION_MESSAGE = "로그인 후 다시 시도해 주세요.";
 }
