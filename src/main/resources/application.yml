@@ -20,7 +20,7 @@ spring:
     username: three
     password: four
     hikari:
-      jdbc-url: jdbc:mariadb://localhost:3306/ddip?serverTimezone=UTC&characterEncoding=UTF-8&rewriteBatchedStatements=true
+      jdbc-url: jdbc:mariadb://localhost:3307/ddip?serverTimezone=UTC&characterEncoding=UTF-8&rewriteBatchedStatements=true
   #    datasource:
   #      master:
   #        driver-class-name: org.mariadb.jdbc.Driver

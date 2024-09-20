@@ -31,6 +31,13 @@
 </head>
 
 <body>
+<style>
+    .button-container {
+        display: flex;
+        gap: 10px; /* 버튼 간격을 조정할 수 있습니다. */
+    }
+</style>
+
 <!-- Page Preloder -->
 <div id="preloder">
   <div class="loader"></div>
@@ -238,12 +245,13 @@
             </ul>
           </div>
           <div class="product__details__button">
-            <div class="quantity">
+            <div class="col-lg-12">
               </br></br>
-              <div class="product__delete__button">
-                <button type="button" class="site-btn"
-                        th:onclick="'deleteProduct(' + ${product.id} + ')'">상품 삭제
-                </button>
+              <div class="product__details__button">
+                <div class="button-container">
+                  <button type="button" class="site-btn" id="modify-product-btn" style="display: none;">상품 수정</button>
+                  <button type="button" class="site-btn" id="delete-product-btn" style="display: none;">상품 삭제</button>
+                </div>
               </div>
             </div>
             <ul>
@@ -314,7 +322,6 @@
       </div>
     </div>
 
-    <!-- 나머지 상품 목록 -->
     <div class="row">
       <div class="col-lg-12 text-center">
         <div class="related__title">
@@ -343,7 +350,6 @@
 </section>
 <!-- Product Details Section End -->
 
-<!-- 나머지 부분 그대로 유지 -->
 <!-- Instagram Begin -->
 <div class="instagram">
   <div class="container-fluid">
@@ -488,7 +494,54 @@
 <!-- Search End -->
 
 <script>
-  let stompClient = '';
+  document.addEventListener('DOMContentLoaded', function () {
+    const accessToken = localStorage.getItem('access-token');
+    const modifyButton = document.getElementById('modify-product-btn');
+    const deleteButton = document.getElementById('delete-product-btn');
+    const productId = document.getElementById('product-info').getAttribute('data-product-id');
+
+    if (accessToken) {
+      fetch('/authentication/save-member-id', {
+        method : 'POST',
+        headers: {
+          'Content-Type' : 'application/json',
+          'Authorization': `Bearer ${accessToken}`
+        },
+        body   : JSON.stringify({})
+      })
+          .then(response => {
+            if (!response.ok) {
+              if (modifyButton) modifyButton.style.display = 'none';
+              if (deleteButton) deleteButton.style.display = 'none';
+              console.warn('회원 ID 저장에 실패했습니다: ' + response.statusText);
+              return;
+            }
+            return response.json();
+          })
+          .then(data => {
+            if (data) {
+              modifyButton.style.display = 'block';
+              modifyButton.addEventListener('click', function () {
+                location.href = `/product/modification-form?id=${productId}&memberId=${data}`;
+              });
+
+              deleteButton.style.display = 'block';
+              deleteButton.addEventListener('click', function () {
+                deleteProduct(data, productId);
+              });
+            }
+          })
+          .catch(error => {
+            if (modifyButton) modifyButton.style.display = 'none';
+            if (deleteButton) deleteButton.style.display = 'none';
+            console.error('회원 ID 저장 중 오류가 발생했습니다.', error);
+          });
+    } else {
+      if (modifyButton) modifyButton.style.display = 'none';
+      if (deleteButton) deleteButton.style.display = 'none';
+      console.warn('로컬 스토리지의 엑세스 토큰을 찾을 수 없습니다.');
+    }
+  });
 
   const checkWaitingCount = async () => {
     const response = await fetch(`/deal/products/${document.getElementById('product-info').getAttribute('data-product-id')}`, {
@@ -507,15 +560,15 @@
 
     if (waitingNum > 0) actionBtn.innerText = `거래 진행 중 (${waitingNum}명 대기)`
 
-    console.log('이것도 함 보게',flag)
+    console.log('이것도 함 보게', flag)
     if (flag.dealStatus === 'IN_PROGRESS') {
       actionBtn.innerHTML = `<span class="icon_bag_alt"></span> 채팅하러 가기`;
       actionBtn.style.backgroundColor = '#7493ce';
     }
 
     if (flag.dealStatus === 'BEFORE_DEAL') {
-      const num = flag.waitingNum-2 <= 0 ? '' : `(${flag.waitingNum-2} 명 대기)`;
-      actionBtn.innerHTML = `<span class="icon_bag_alt"></span> ${flag.waitingNum-1}번 ${num}`;
+      const num = flag.waitingNum - 2 <= 0 ? '' : `(${flag.waitingNum - 2} 명 대기)`;
+      actionBtn.innerHTML = `<span class="icon_bag_alt"></span> ${flag.waitingNum - 1}번 ${num}`;
       actionBtn.style.backgroundColor = '#ce3434';
     }
 
@@ -604,24 +657,28 @@
     location.href = `/chat-list`;
   }
 
-  function deleteProduct(productId) {
+  function deleteProduct(memberId, productId) {
     if (confirm('정말 상품을 삭제하시겠습니까?')) {
-      fetch(`/product/delete?id=` + productId, {
+      fetch(`/product/delete?id=${productId}&memberId=${memberId}`, {
         method : 'DELETE',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
-      }).then(response => {
-        if (response.ok) {
-          document.getElementById('delete-message').style.display = 'block';
-          alert('상품이 삭제되었습니다.');
-          location.href = '/product/list';
-        } else {
-          alert('상품 삭제에 실패했습니다.');
-        }
-      }).catch(error => {
-        console.error('Error:', error);
-      });
+      })
+          .then(response => {
+            if (!response.ok) {
+              return response.json().then(errorData => {
+                alert(`상품 삭제 실패:\n${errorData.message}`);
+                throw new Error(errorData.message);
+              });
+            }
+            document.getElementById('delete-message').style.display = 'block';
+            alert('상품이 삭제되었습니다.');
+            location.href = '/product/list';
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
     }
   }
 

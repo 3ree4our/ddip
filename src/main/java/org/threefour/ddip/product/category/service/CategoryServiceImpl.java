@@ -13,6 +13,7 @@ import org.threefour.ddip.product.category.repository.ProductCategoryRepository;
 import org.threefour.ddip.product.domain.Product;
 import org.threefour.ddip.util.FormatConverter;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 import static org.springframework.transaction.annotation.Isolation.*;
@@ -24,6 +25,7 @@ import static org.threefour.ddip.product.category.exception.ExceptionMessage.CAT
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
     private final ProductCategoryRepository productCategoryRepository;
+    private final EntityManager entityManager;
 
     @Override
     @Transactional(isolation = SERIALIZABLE, timeout = 30)
@@ -50,7 +52,9 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional(isolation = READ_COMMITTED)
     public void updateProductCategories(ConnectCategoryRequest connectCategoryRequest, Product product) {
+        entityManager.clear();
         productCategoryRepository.deleteAllByProductId(product.getId());
         createProductCategories(connectCategoryRequest, product);
     }
