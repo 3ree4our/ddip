@@ -17,7 +17,6 @@ public class MemberDetails implements UserDetails {
     authorities.add(new GrantedAuthority() {
       @Override
       public String getAuthority() {
-        //return member.getRole();
         return member.getEmail();
       }
     });
