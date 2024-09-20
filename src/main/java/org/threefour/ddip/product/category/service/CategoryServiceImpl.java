@@ -50,6 +50,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional(isolation = READ_COMMITTED)
     public void updateProductCategories(ConnectCategoryRequest connectCategoryRequest, Product product) {
         productCategoryRepository.deleteAllByProductId(product.getId());
         createProductCategories(connectCategoryRequest, product);

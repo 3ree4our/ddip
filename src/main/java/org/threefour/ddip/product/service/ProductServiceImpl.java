@@ -63,8 +63,8 @@ public class ProductServiceImpl implements ProductService {
     @CachePut(key = CREATE_PRODUCT_KEY, condition = CREATE_KEY_CONDITION, unless = UNLESS_CONDITION, value = KEY_VALUE)
     public Long createProduct(RegisterProductRequest registerProductRequest, List<MultipartFile> images) {
         Long memberId = FormatConverter.parseToLong(registerProductRequest.getMemberId());
+        System.out.println(memberRepository.findById(memberId).get() + "al;dfjl");
 
-        // TODO: 회원 연결
         Product product = productRepository.save(
                 Product.from(registerProductRequest, memberRepository.findById(memberId).get())
         );
