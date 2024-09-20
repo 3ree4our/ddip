@@ -27,12 +27,12 @@ public class MemberController {
     }
 
     @GetMapping("/signUp")
-    public String joinForm() {
+    public String signUp() {
         return "member/registration";
     }
 
     @PostMapping("/signUp")
-    public String join(MemberRequestDTO memberRequestDTO, Member member, Address address) {
+    public String signUp(MemberRequestDTO memberRequestDTO, Member member, Address address) {
         //x, y 좌표 구하기
         Address xyAddress = addressService.getCoordinates(address.getRoadAddress());
         xyAddress.setZipcode(address.getZipcode());
