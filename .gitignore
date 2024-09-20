@@ -9,6 +9,9 @@ application-local.yml
 
 logs/**
 
+test
+dev/**
+
 ### STS ###
 .apt_generated
 .classpath

@@ -23,9 +23,6 @@ class MemberServiceImplTest {
   @Autowired
   MemberServiceImpl memberService;
 
-  @Autowired
-  ProductRepository productRepository;
-
   @Test
   @DisplayName("회원가입")
   @Rollback(false)
