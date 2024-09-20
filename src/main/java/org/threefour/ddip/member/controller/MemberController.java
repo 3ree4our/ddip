@@ -17,7 +17,6 @@ import org.threefour.ddip.member.service.MemberService;
 @RequestMapping("/member")
 @RequiredArgsConstructor
 public class MemberController {
-
     private final MemberService memberService;
     private final AddressService addressService;
 
@@ -32,14 +31,11 @@ public class MemberController {
     }
 
     @PostMapping("/signUp")
-    public String signUp(MemberRequestDTO memberRequestDTO, Member member, Address address) {
-        //x, y 좌표 구하기
+    public String signUp(MemberRequestDTO memberRequestDTO, Address address) {
         Address xyAddress = addressService.getCoordinates(address.getRoadAddress());
         xyAddress.setZipcode(address.getZipcode());
         xyAddress.setDetailedAddress(address.getDetailedAddress());
-        xyAddress.setMember(member);
-        memberService.join(memberRequestDTO);
-        //memberService.saveMember(member, xyAddress);
+        memberService.join(memberRequestDTO, xyAddress);
         return "redirect:/member/login";
     }
 
