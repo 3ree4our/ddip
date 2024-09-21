@@ -1,12 +1,12 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   const loginForm = document.querySelector('form');
-  loginForm.addEventListener('submit', function(e) {
+  loginForm.addEventListener('submit', function (e) {
     e.preventDefault();
 
     const formData = new FormData(loginForm);
     fetch('/login', {
-      method: 'POST',
-      body: new FormData(loginForm),
+      method : 'POST',
+      body   : new FormData(loginForm),
       headers: {
         'Accept': 'application/json'
       }
@@ -19,11 +19,9 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(data => {
           if (data.success) {
-            alert(data.nickname)
-            console.log("success");
             const accessToken = data.accessToken; // 서버에서 보낸 토큰
             localStorage.setItem('access-token', accessToken);
-            localStorage.setItem('username', data.nickname);
+            localStorage.setItem('nickname', data.nickname);
             window.location.href = '/';
           }
         })
@@ -32,10 +30,3 @@ document.addEventListener('DOMContentLoaded', function() {
         });
   });
 });
-
-function updateUIWithNickname(nickname) {
-  const authLinks = document.querySelectorAll('.header__right__auth');
-  authLinks.forEach(link => {
-    link.innerHTML = `<a href="#">${nickname}</a>`;
-  });
-}

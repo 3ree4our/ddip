@@ -25,7 +25,7 @@ public class ReissueController {
 
   /*refresh로 access 발급*/
   @PostMapping("/reissue")
-  public ResponseEntity<?> reissue (HttpServletRequest request, HttpServletResponse response) {
+  public ResponseEntity<?> reissue(HttpServletRequest request, HttpServletResponse response) {
     String refresh = null;
     Cookie[] cookies = request.getCookies();
     for (Cookie cookie : cookies) {
@@ -50,7 +50,7 @@ public class ReissueController {
     }
 
     Boolean isExist = refreshRepository.existsByRefreshToken(refresh);
-    if(!isExist){
+    if (!isExist) {
       return new ResponseEntity<>("invalid refresh tokne", HttpStatus.BAD_REQUEST);
     }
     Long id = jwtUtil.getId(refresh);
@@ -58,9 +58,8 @@ public class ReissueController {
     String nickname = jwtUtil.getNickname(refresh);
     //String role = jwtUtil.getRole(refresh);
 
-    String newAccess = jwtUtil.createJwt(id,"access", username, nickname, /*role,*/ 600000L);
-    String newRefresh = jwtUtil.createJwt(id,"refresh", username, nickname,
-            43200000L);
+    String newAccess = jwtUtil.createJwt(id, "access", username, nickname, /*role,*/ 600000L);
+    String newRefresh = jwtUtil.createJwt(id, "refresh", username, nickname, 43200000L);
 
     refreshRepository.deleteByRefreshToken(refresh);
     addRefreshEntity(username, newRefresh, 8640000L);
@@ -72,7 +71,7 @@ public class ReissueController {
 
   private Cookie createCookie(String name, String value) {
     Cookie cookie = new Cookie(name, value);
-    cookie.setMaxAge(24*60*60);
+    cookie.setMaxAge(24 * 60 * 60);
     cookie.setSecure(true);
     cookie.setHttpOnly(true);
     return cookie;

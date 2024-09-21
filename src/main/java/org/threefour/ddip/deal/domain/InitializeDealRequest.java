@@ -10,6 +10,5 @@ import lombok.Setter;
 public class InitializeDealRequest {
     private String productId;
     private String sellerId;
-    private String buyerId;
     private String dealAmount;
 }

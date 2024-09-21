@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.threefour.ddip.image.domain.AddImagesRequest;
+import org.threefour.ddip.image.domain.DesignageRepresentativeImageRequest;
 import org.threefour.ddip.image.service.ImageService;
 import org.threefour.ddip.util.FormatConverter;
 
@@ -31,8 +32,8 @@ public class ImageController {
     }
 
     @PatchMapping("/designate-representative")
-    public ResponseEntity<Void> designateRepresentativeImage(@RequestParam("imageId") String id) {
-        imageService.designateRepresentativeImage(FormatConverter.parseToLong(id));
+    public ResponseEntity<Void> designateRepresentativeImage(@RequestBody DesignageRepresentativeImageRequest request) {
+        imageService.designateRepresentativeImage(request);
 
         return ResponseEntity.status(NO_CONTENT).build();
     }

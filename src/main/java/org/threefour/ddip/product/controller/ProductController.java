@@ -4,21 +4,21 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.threefour.ddip.deal.exception.DealsAlreadyExistException;
 import org.threefour.ddip.deal.service.DealService;
 import org.threefour.ddip.image.domain.Image;
 import org.threefour.ddip.image.domain.RepresentativeImagesRequest;
 import org.threefour.ddip.image.service.ImageService;
-import org.threefour.ddip.member.jwt.JWTUtil;
 import org.threefour.ddip.product.category.domain.Category;
 import org.threefour.ddip.product.category.domain.GetCategoriesResponse;
 import org.threefour.ddip.product.category.service.CategoryService;
 import org.threefour.ddip.product.domain.*;
 import org.threefour.ddip.product.service.ProductService;
+import org.threefour.ddip.util.AuthenticationValidator;
 import org.threefour.ddip.util.FormatConverter;
 import org.threefour.ddip.util.FormatValidator;
 import org.threefour.ddip.util.PageableGenerator;
@@ -27,6 +27,8 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.NO_CONTENT;
+import static org.springframework.http.HttpStatus.OK;
+import static org.threefour.ddip.deal.exception.ExceptionMessage.DEALS_ALREADY_EXIST_EXCEPTION_MESSAGE;
 import static org.threefour.ddip.image.domain.TargetType.PRODUCT;
 import static org.threefour.ddip.util.PaginationConstant.*;
 
@@ -34,23 +36,42 @@ import static org.threefour.ddip.util.PaginationConstant.*;
 @RequestMapping("/product")
 @RequiredArgsConstructor
 public class ProductController {
-    private final JWTUtil jwtUtil;
     private final ProductService productService;
     private final CategoryService categoryService;
     private final ImageService imageService;
     private final DealService dealService;
 
     @GetMapping("/registration-form")
-    public ModelAndView getRegistrationForm() {
+    public ModelAndView getRegistrationForm(String memberId, HttpSession httpSession) {
+        if (!AuthenticationValidator.isAuthorized(memberId, httpSession)) {
+            return new ModelAndView("redirect:/member/login");
+        }
+
+        System.out.println(memberId + "dsafkjl;sdj;fkl");
+        System.out.println(httpSession.getAttribute("memberId").toString());
         List<Category> categories = categoryService.getCategories(null);
-        return new ModelAndView("product/registration", "categories", GetCategoriesResponse.from(categories));
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("product/registration");
+        modelAndView.addObject("memberId", memberId);
+        modelAndView.addObject("categories", GetCategoriesResponse.from(categories));
+
+        return modelAndView;
     }
 
     @PostMapping("/registration-confirm")
     public String registerProduct(
             @ModelAttribute RegisterProductRequest registerProductRequest,
-            @RequestParam("images") @RequestPart List<MultipartFile> images
+            @RequestParam("images") @RequestPart List<MultipartFile> images,
+            HttpSession httpSession
     ) {
+        System.out.println(registerProductRequest.getMemberId() + "asdl;fjsdalkf");
+        System.out.println(httpSession.getAttribute("memberId").toString());
+
+        if (!AuthenticationValidator.isAuthorized(registerProductRequest.getMemberId(), httpSession)) {
+            return "redirect:/member/login";
+        }
+
         Long productId = productService.createProduct(registerProductRequest, images);
         return String.format("redirect:details?id=%d", productId);
     }
@@ -84,20 +105,6 @@ public class ProductController {
         return new ModelAndView("product/list", "products", GetProductsResponse.from(products, representativeImages));
     }
 
-    @PostMapping("/save-member-id")
-    @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<Void> saveMemberIdToSession(
-            @RequestHeader("Authorization") String authorizationHeader, HttpSession httpSession
-    ) {
-        String accessToken = authorizationHeader.substring(7).trim();
-        if (FormatValidator.hasValue(accessToken)) {
-            Long memberId = jwtUtil.getId(accessToken);
-            httpSession.setAttribute("memberId", memberId);
-        }
-
-        return ResponseEntity.status(NO_CONTENT).build();
-    }
-
     @GetMapping("/details")
     public ModelAndView getProduct(@RequestParam String id, HttpSession httpSession) {
         if (!FormatValidator.hasValue(id) || !FormatValidator.isPositiveNumberPattern(id)) {
@@ -107,7 +114,7 @@ public class ProductController {
         Object memberId = httpSession.getAttribute("memberId");
         int waitingNumber = -1;
         if (FormatValidator.hasValue(memberId)) {
-            waitingNumber = dealService.getWinningNumber(parsedId, (Long) memberId);
+            waitingNumber = dealService.getWaitingNumber(parsedId, (Long) memberId);
         }
 
         return new ModelAndView(
@@ -121,31 +128,49 @@ public class ProductController {
     }
 
     @GetMapping("/modification-form")
-    public ModelAndView getModificationForm(@RequestParam String id) {
+    public ModelAndView getModificationForm(
+            @RequestParam String id, @RequestParam String memberId, HttpSession httpSession
+    ) {
         if (!FormatValidator.hasValue(id) || !FormatValidator.isPositiveNumberPattern(id)) {
             return new ModelAndView("redirect:list");
         }
+        if (!AuthenticationValidator.isAuthorized(memberId, httpSession)) {
+            return new ModelAndView("redirect:/member/login");
+        }
+
         ModelAndView modelAndView = new ModelAndView();
         Long parsedId = FormatConverter.parseToLong(id);
         modelAndView.addObject(
                 "product",
-                GetProductResponse.from(productService.getProduct(parsedId, false), imageService.getImages(PRODUCT, parsedId))
+                GetProductResponse.from(
+                        productService.getProduct(parsedId, false), imageService.getImages(PRODUCT, parsedId)
+                )
         );
         modelAndView.addObject("categories", GetCategoriesResponse.from(categoryService.getCategories(null)));
+        modelAndView.addObject("memberId", memberId);
         modelAndView.setViewName("product/modification");
 
         return modelAndView;
     }
 
     @PatchMapping("/update")
-    public ResponseEntity<Void> updateAttribute(@RequestBody UpdateProductRequest updateProductRequest) {
+    public ResponseEntity<Long> updateAttribute(
+            @RequestBody UpdateProductRequest updateProductRequest, HttpSession httpSession
+    ) {
         productService.update(updateProductRequest);
-        return ResponseEntity.status(NO_CONTENT).build();
+
+        return ResponseEntity.status(OK).body((Long) httpSession.getAttribute("memberId"));
     }
 
     @DeleteMapping("/delete")
     public ResponseEntity<Void> deleteProduct(@RequestParam("id") String id) {
-        productService.delete(FormatConverter.parseToLong(id));
+        Long parsedId = FormatConverter.parseToLong(id);
+
+        if (dealService.getWaitingNumberCount(parsedId) > 0) {
+            throw new DealsAlreadyExistException(String.format(DEALS_ALREADY_EXIST_EXCEPTION_MESSAGE, id));
+        }
+        productService.delete(parsedId);
+
         return ResponseEntity.status(NO_CONTENT).build();
     }
 }

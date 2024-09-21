@@ -21,4 +21,7 @@ public interface ImageRepository extends JpaRepository<Image, Long> {
     );
 
     Optional<Image> findByRepresentativeYnTrueAndDeleteYnFalse();
+
+    // 추후 삭제
+    List<Image> findByTargetId(Long targetId);
 }

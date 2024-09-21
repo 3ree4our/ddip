@@ -11,4 +11,6 @@ public interface DealRepository extends JpaRepository<Deal, Long> {
     int countByProductAndSellerAndDeleteYnFalse(Product product, Member buyer);
 
     Optional<Deal> findByProductIdAndBuyerIdAndDeleteYnFalse(Long productId, Long memberId);
+
+    int countByProductIdAndDeleteYnFalse(Long productId);
 }

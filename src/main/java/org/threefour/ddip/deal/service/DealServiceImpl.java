@@ -28,12 +28,14 @@ public class DealServiceImpl implements DealService {
     @Override
     @Transactional(isolation = REPEATABLE_READ, timeout = 10)
     public int createDeal(Long buyerId, InitializeDealRequest initializeDealRequest) {
+        Long productId = FormatConverter.parseToLong(initializeDealRequest.getProductId());
         Product product
-                = productService.getProduct(FormatConverter.parseToLong(initializeDealRequest.getProductId()), false);
-        Member seller
-                = memberRepository.findById(FormatConverter.parseToLong(initializeDealRequest.getSellerId())).get();
+                = productService.getProduct(productId, false);
+
+        Long sellerId = FormatConverter.parseToLong(initializeDealRequest.getSellerId());
+        Member seller = memberRepository.findById(sellerId).get();
         Member buyer = memberRepository.findById(buyerId).get();
-        int waitingNumber = dealRepository.countByProductAndSellerAndDeleteYnFalse(product, seller) + 1;
+        int waitingNumber = getWaitingNumberCount(productId) + 1;
 
         dealRepository.save(Deal.from(initializeDealRequest, product, seller, buyer, waitingNumber));
 
@@ -41,7 +43,12 @@ public class DealServiceImpl implements DealService {
     }
 
     @Override
-    public int getWinningNumber(Long productId, Long memberId) {
+    public int getWaitingNumberCount(Long productId) {
+        return dealRepository.countByProductIdAndDeleteYnFalse(productId);
+    }
+
+    @Override
+    public int getWaitingNumber(Long productId, Long memberId) {
         try {
             return getDealByProductIdAndBuyerId(productId, memberId).getWaitingNumber();
         } catch (DealNotFoundException dnfe) {

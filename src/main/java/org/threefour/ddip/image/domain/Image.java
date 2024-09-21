@@ -7,6 +7,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
 import static lombok.AccessLevel.PROTECTED;
 import static org.threefour.ddip.util.EntityConstant.BOOLEAN_DEFAULT_FALSE;
@@ -57,4 +60,13 @@ public class Image extends BaseGeneralEntity {
     public void cancelRepresentative() {
         representativeYn = false;
     }
+
+    /*local용*/
+    private static String generateFilePath(String fileName) {
+        LocalDateTime now = LocalDateTime.now();
+        String datePath = now.format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+        String uuid = UUID.randomUUID().toString();
+        return String.format("%s/%s_%s", datePath, uuid, fileName);
+    }
+
 }
