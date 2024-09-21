@@ -575,6 +575,10 @@
       // 채팅이 가능한 상태인지 확인
       const flag = await checkTarget();
       console.log('후 ,,', flag.dealStatus)
+      if(flag.dealStatus ==='NO') {
+        alert(flag.message)
+        return;
+      }
 
       if (flag.dealStatus === 'IN_PROGRESS') {
         // 거래가 가능한 상태 => 채팅방 이동

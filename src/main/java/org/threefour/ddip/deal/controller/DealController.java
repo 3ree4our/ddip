@@ -76,7 +76,7 @@ public class DealController {
     if (product.getSeller().getId() == memberId) {
       response.put("dealStatus", "NO");
       response.put("message", "자신의 상품은 구매가 불가능 합니다.");
-      return ResponseEntity.badRequest().body("자신의 상품은 구매가 불가능 합니다.");
+      return ResponseEntity.badRequest().body(response);
     }
 
     Deal deal = dealService.checkWaitingStatus(productId, memberId);
