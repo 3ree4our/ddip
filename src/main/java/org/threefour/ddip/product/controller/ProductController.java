@@ -36,22 +36,42 @@ import static org.threefour.ddip.util.PaginationConstant.*;
 @RequestMapping("/product")
 @RequiredArgsConstructor
 public class ProductController {
-    private final ProductService productService;
-    private final CategoryService categoryService;
-    private final ImageService imageService;
-    private final DealService dealService;
+  private final ProductService productService;
+  private final CategoryService categoryService;
+  private final ImageService imageService;
+  private final DealService dealService;
 
   @GetMapping("/registration-form")
-  public ModelAndView getRegistrationForm() {
+  public ModelAndView getRegistrationForm(String memberId, HttpSession httpSession) {
+    if (!AuthenticationValidator.isAuthorized(memberId, httpSession)) {
+      return new ModelAndView("redirect:/member/login");
+    }
+
+    System.out.println(memberId + "dsafkjl;sdj;fkl");
+    System.out.println(httpSession.getAttribute("memberId").toString());
     List<Category> categories = categoryService.getCategories(null);
-    return new ModelAndView("product/registration", "categories", GetCategoriesResponse.from(categories));
+
+    ModelAndView modelAndView = new ModelAndView();
+    modelAndView.setViewName("product/registration");
+    modelAndView.addObject("memberId", memberId);
+    modelAndView.addObject("categories", GetCategoriesResponse.from(categories));
+
+    return modelAndView;
   }
 
   @PostMapping("/registration-confirm")
   public String registerProduct(
           @ModelAttribute RegisterProductRequest registerProductRequest,
-          @RequestParam("images") @RequestPart List<MultipartFile> images
+          @RequestParam("images") @RequestPart List<MultipartFile> images,
+          HttpSession httpSession
   ) {
+    System.out.println(registerProductRequest.getMemberId() + "asdl;fjsdalkf");
+    System.out.println(httpSession.getAttribute("memberId").toString());
+
+    if (!AuthenticationValidator.isAuthorized(registerProductRequest.getMemberId(), httpSession)) {
+      return "redirect:/member/login";
+    }
+
     Long productId = productService.createProduct(registerProductRequest, images);
     return String.format("redirect:details?id=%d", productId);
   }
@@ -118,39 +138,39 @@ public class ProductController {
       return new ModelAndView("redirect:/member/login");
     }
 
-        ModelAndView modelAndView = new ModelAndView();
-        Long parsedId = FormatConverter.parseToLong(id);
-        modelAndView.addObject(
-                "product",
-                GetProductResponse.from(
-                        productService.getProduct(parsedId, false), imageService.getImages(PRODUCT, parsedId)
-                )
-        );
-        modelAndView.addObject("categories", GetCategoriesResponse.from(categoryService.getCategories(null)));
-        modelAndView.addObject("memberId", memberId);
-        modelAndView.setViewName("product/modification");
+    ModelAndView modelAndView = new ModelAndView();
+    Long parsedId = FormatConverter.parseToLong(id);
+    modelAndView.addObject(
+            "product",
+            GetProductResponse.from(
+                    productService.getProduct(parsedId, false), imageService.getImages(PRODUCT, parsedId)
+            )
+    );
+    modelAndView.addObject("categories", GetCategoriesResponse.from(categoryService.getCategories(null)));
+    modelAndView.addObject("memberId", memberId);
+    modelAndView.setViewName("product/modification");
 
-        return modelAndView;
+    return modelAndView;
+  }
+
+  @PatchMapping("/update")
+  public ResponseEntity<Long> updateAttribute(
+          @RequestBody UpdateProductRequest updateProductRequest, HttpSession httpSession
+  ) {
+    productService.update(updateProductRequest);
+
+    return ResponseEntity.status(OK).body((Long) httpSession.getAttribute("memberId"));
+  }
+
+  @DeleteMapping("/delete")
+  public ResponseEntity<Void> deleteProduct(@RequestParam("id") String id) {
+    Long parsedId = FormatConverter.parseToLong(id);
+
+    if (dealService.getWaitingNumberCount(parsedId) > 0) {
+      throw new DealsAlreadyExistException(String.format(DEALS_ALREADY_EXIST_EXCEPTION_MESSAGE, id));
     }
+    productService.delete(parsedId);
 
-    @PatchMapping("/update")
-    public ResponseEntity<Long> updateAttribute(
-            @RequestBody UpdateProductRequest updateProductRequest, HttpSession httpSession
-    ) {
-        productService.update(updateProductRequest);
-
-        return ResponseEntity.status(OK).body((Long) httpSession.getAttribute("memberId"));
-    }
-
-    @DeleteMapping("/delete")
-    public ResponseEntity<Void> deleteProduct(@RequestParam("id") String id) {
-        Long parsedId = FormatConverter.parseToLong(id);
-
-        if (dealService.getWaitingNumberCount(parsedId) > 0) {
-            throw new DealsAlreadyExistException(String.format(DEALS_ALREADY_EXIST_EXCEPTION_MESSAGE, id));
-        }
-        productService.delete(parsedId);
-
-        return ResponseEntity.status(NO_CONTENT).build();
-    }
+    return ResponseEntity.status(NO_CONTENT).build();
+  }
 }
