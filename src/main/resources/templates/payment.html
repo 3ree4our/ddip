@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>결제 화면</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+</head>
+<body>
+<h1>결제 화면</h1>
+<form id="paymentForm">
+    <input type="text" id="merchantUid" placeholder="주문번호" required />
+    <input type="number" id="amount" placeholder="결제 금액" required />
+    <input type="text" id="buyerId" placeholder="구매자 ID" required />
+    <input type="text" id="sellerId" placeholder="판매자 ID" required />
+    <button type="button" id="payBtn">결제하기</button>
+</form>
+
+<script>
+    $("#payBtn").on("click", function() {
+        //const merchantUid = $("#merchantUid").val();
+        const name = ""; // 상품명
+        const paidAmount = parseInt($("#amount").val());
+        const buyerId = $("#buyerId").val();
+        const sellerId = $("#sellerId").val();
+
+
+        const IMP = window.IMP;
+        IMP.init('imp11827260'); // 가맹점 식별코드 입력
+
+        IMP.request_pay({
+            pg: "html5_inicis",
+            //merchant_uid: merchantUid, // 자동으로 생성해주는 거 써야겟다
+            name: "상품명", // 상품명
+            amount: paidAmount,
+            //buyer_id: buyerId,
+            //seller_id: sellerId,
+            pay_method : "card",
+            //pay_method : "trans" //이거 좋은데,,
+
+        }, function (rsp) {
+            if (rsp.success) {
+                // 결제가 성공하면 서버로 결제 결과 전송
+                $.ajax({
+                    type: "POST",
+                    url: "/payment/complete",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        impUid: rsp.imp_uid,
+                        merchantUid: rsp.merchant_uid,
+                        amount: rsp.paid_amount,
+                        buyerId: buyerId,
+                        sellerId: sellerId
+                    }),
+                    success: function(response) {
+                        alert(response.message);
+                    },
+                    error: function(xhr) {
+                        alert("결제 처리 중 오류 발생: " + xhr.responseText);
+                    }
+                });
+            } else {
+                alert("결제를 실패하였습니다: " + rsp.error_msg);
+            }
+        });
+    });
+</script>
+</body>
+</html>

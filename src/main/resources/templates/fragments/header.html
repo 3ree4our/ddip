@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+  <!-- Css Styles -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="/css/elegant-icons.css" type="text/css">
+  <link rel="stylesheet" href="/css/jquery-ui.min.css" type="text/css">
+  <link rel="stylesheet" href="/css/magnific-popup.css" type="text/css">
+  <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css">
+  <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/css/header.css" type="text/css">
+
+</head>
+<body>
+
+<div th:fragment="header">
+  <div>
+
+  </div>
+  <div id="preloder">
+    <div class="loader"></div>
+  </div>
+
+  <!-- Offcanvas Menu Begin -->
+  <div class="offcanvas-menu-overlay"></div>
+  <div class="offcanvas-menu-wrapper">
+    <div class="offcanvas__close">+</div>
+    <ul class="offcanvas__widget">
+      <li><span class="icon_search search-switch"></span></li>
+      <li>
+        <a href="#">
+          <span class="icon_heart_alt"></span>
+          <div class="tip">2</div>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <span class="icon_bag_alt"></span>
+          <div class="tip">2</div>
+        </a>
+      </li>
+    </ul>
+    <div class="offcanvas__logo">
+      <a href="./index.html"><img src="/img/logo.png" alt=""></a>
+    </div>
+    <div class="offcanvas__auth">
+      <a th:href="@{/member/login}">Login</a>
+      <a th:href="@{/member/signUp}">Register</a>
+    </div>
+  </div>
+  <!-- Offcanvas Menu End -->
+
+  <!-- Header Section Begin -->
+  <header class="header">
+    <div class="container-fluid">
+      <div class="row" id="header-main">
+        <div class="col-xl-3 col-lg-2">
+          <div class="header__logo">
+            <a th:href="@{/}"><img src="/img/logo.png" alt=""></a>
+          </div>
+        </div>
+        <!--<div class="col-xl-6 col-lg-7" id="search">-->
+        <!--  <nav class="header__menu">-->
+        <!--    <ul>-->
+        <!--      <li>-->
+        <!--        <div style="display: flex; justify-content: space-between; align-items: center; border: 2px solid #2641ae; padding: 2px 10px; width: 450px;">-->
+        <!--          <input type="text" placeholder="상품명" maxlength="60" style="border: none; flex-grow: 1; margin-right: 10px; padding: 0;">-->
+        <!--          <a href="#"><span class="icon_search search-switch"></span></a>-->
+        <!--        </div>-->
+        <!--      </li>-->
+        <!--    </ul>-->
+        <!--  </nav>-->
+        <!--</div>-->
+        <div class="col-lg-3" id="me">
+          <div class="header__right">
+            <div class="header__right__auth">
+              <a th:href="@{/member/login}">Login</a>
+              <a th:href="@{/member/signUp}">Register</a>
+            </div>
+            <ul class="header__right__widget">
+              <li>
+                <a href="#">
+                  <span class="icon_heart_alt"></span>
+                  <div class="tip">2</div>
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <span class="icon_bag_alt"></span>
+                  <div class="tip">2</div>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Navigation Begin -->
+    <nav class="navigation-bar">
+      <div class="container-fluid">
+        <div>
+          <ul class="nav-list">
+            <li>
+              <a th:href="@{/}" class="category-icon">category아이콘</a>
+              <ul class="dropdown">
+                <li><a href="#">카테고리 1</a></li>
+                <li><a href="#">카테고리 2</a></li>
+                <li><a href="#">카테고리 3</a></li>
+                <li><a href="#">카테고리 4</a></li>
+              </ul>
+            </li>
+            <li><div class="col-xl-6 col-lg-7" id="search">
+              <nav class="header__menu">
+                <ul>
+                  <li>
+                    <div class="search-form">
+                      <input class="input-search" type="text" placeholder="상품명, 지역명, 상점명" maxlength="60">
+                      <a href="#"><span class="icon_search search-switch"></span></a>
+                    </div>
+                  </li>
+                </ul>
+              </nav>
+            </div></li>
+            <li><a href="#">sale</a><a href="#"><img src="/img/ddip-talkS.png"></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <!-- Header Section End -->
+</div>
+
+</body>
+</html>
