@@ -91,8 +91,8 @@ public class DealServiceImpl implements DealService {
   }
 
   @Override
-  public List<Long> getProductIdsByUserId(Long id) {
-    return dealRepository.findProductIdsByBuyerIdOrSellerId(id);
+  public List<Long> getProductIdsForUserChats(Long id) {
+    return dealRepository.findProductIdsForUserChats(id);
   }
 
   @Override

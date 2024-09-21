@@ -5,7 +5,7 @@ let stompClient = '';
 
 const getConnect = async () => {
   const allProducts = await getUserChatrooms();
-
+  console.log('아 이거 안되는구나 allProducts', allProducts)
   if (allProducts.length > 0) {
     const productsId = allProducts.map(e => e);
     console.log('productsId 이것도 안나ㅗㅇ네', productsId)

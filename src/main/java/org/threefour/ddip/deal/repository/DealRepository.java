@@ -18,8 +18,13 @@ public interface DealRepository extends JpaRepository<Deal, Long> {
 
   int countByProductIdAndDeleteYnFalse(Long productId);
 
-  @Query("select distinct d.product.id from Deal d where d.buyer.id=:memberId or d.seller.id=:memberId")
-  List<Long> findProductIdsByBuyerIdOrSellerId(@Param("memberId") Long memberId);
+  @Query("SELECT DISTINCT CASE WHEN d.buyer.id = :memberId THEN d.product.id " +
+          "WHEN d.seller.id = :memberId THEN d.product.id " +
+          "ELSE p.id END " +
+          "FROM Deal d " +
+          "RIGHT JOIN Product p ON d.product.id = p.id " +
+          "WHERE d.buyer.id = :memberId OR d.seller.id = :memberId OR p.seller.id = :memberId")
+  List<Long> findProductIdsForUserChats(@Param("memberId") Long memberId);
 
   Optional<Deal> findByProductIdAndDealStatusAndDeleteYnFalse(Long buyerId, DealStatus dealStatus);
 

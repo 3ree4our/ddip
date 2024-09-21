@@ -53,7 +53,7 @@ public class ChatAPIController {
     String accessToken = token.substring(7);
     Long id = jwtUtil.getId(accessToken);
 
-    List<Long> productIds = dealService.getProductIdsByUserId(id);
+    List<Long> productIds = dealService.getProductIdsForUserChats(id);
     return ResponseEntity.ok(productIds);
   }
 
