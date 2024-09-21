@@ -29,7 +29,7 @@ export const getChatroomByProductId = async (chatroomId) => {
   return response.json();
 }
 
-export const getUnreadMessageCounts = async (productIds) => {
+export const getUnreadMessageCountsByProducts = async (productIds) => {
   try {
     const requests = productIds.map(productId =>
         fetch(`${SERVER_API}/${productId}/unread-count`, {
@@ -55,6 +55,31 @@ export const getUnreadMessageCounts = async (productIds) => {
     console.error('Failed to fetch unread message counts:', error);
     return {};
   }
+}
+
+export const getTotalUnreadCount = async () => {
+  try {
+    const response = await fetch(`${SERVER_API}/chatrooms/total-unread-count`, {
+      headers
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error('Failed to fetch total unread count', error);
+    return 0;
+  }
+}
+
+export const getUserChatrooms = async () => {
+  const response = await fetch(`${SERVER_API}/user/chatrooms`, {
+    headers
+  });
+
+  return response.json();
 }
 
 export const markRead = async (productId) => {

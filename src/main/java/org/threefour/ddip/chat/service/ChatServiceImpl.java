@@ -56,19 +56,6 @@ public class ChatServiceImpl implements ChatService {
     return chatRepository.findAllChatByProductId(productId);
   }
 
-  public int getUnreadMessageCount(Long productId, Long ownerId) {
-    LastReadMessage lastRead = lastReadMessageRepository
-            .findByIdProductIdAndIdOwnerId(productId, ownerId)
-            .orElse(new LastReadMessage(new LastReadMessageId(productId, ownerId), 0L));
-    Long lastMessageId = lastReadMessageRepository.findLastMessageIdByProductId(productId);
-
-    if (lastMessageId == null) {
-      return 0;
-    }
-
-    return lastReadMessageRepository.countUnreadMessages(productId, lastRead.getLastReadId());
-  }
-
   @Override
   public void markAsRead(Long productId, Long ownerId) {
     Long lastMessageId = lastReadMessageRepository.findLastMessageIdByProductId(productId);
@@ -100,4 +87,25 @@ public class ChatServiceImpl implements ChatService {
     return productListResponseDTO;
   }
 
+  @Override
+  public int getTotalUnreadMessageCount(Long id) {
+    List<ChatroomResponseDTO> allChatByOwnerId = findAllChatByOwnerId(id);
+    return allChatByOwnerId.stream()
+            .mapToInt(chatroom -> getUnreadMessageCount(chatroom.getProductId(), id))
+            .sum();
+  }
+
+
+  public int getUnreadMessageCount(Long productId, Long ownerId) {
+    LastReadMessage lastRead = lastReadMessageRepository
+            .findByIdProductIdAndIdOwnerId(productId, ownerId)
+            .orElse(new LastReadMessage(new LastReadMessageId(productId, ownerId), 0L));
+    Long lastMessageId = lastReadMessageRepository.findLastMessageIdByProductId(productId);
+
+    if (lastMessageId == null) {
+      return 0;
+    }
+
+    return lastReadMessageRepository.countUnreadMessages(productId, lastRead.getLastReadId());
+  }
 }

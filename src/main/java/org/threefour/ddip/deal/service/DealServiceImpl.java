@@ -15,6 +15,7 @@ import org.threefour.ddip.product.domain.Product;
 import org.threefour.ddip.product.service.ProductService;
 import org.threefour.ddip.util.FormatConverter;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.springframework.transaction.annotation.Isolation.READ_COMMITTED;
@@ -85,5 +86,10 @@ public class DealServiceImpl implements DealService {
       }
     }
     return deal;
+  }
+
+  @Override
+  public List<Long> getProductIdsByUserId(Long id) {
+    return dealRepository.findProductIdsByBuyerIdOrSellerId(id);
   }
 }

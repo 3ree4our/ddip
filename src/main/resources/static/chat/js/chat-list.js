@@ -2,7 +2,7 @@ import {
   getAllProduct,
   getAllChatroom,
   getChatroomByProductId,
-  getUnreadMessageCounts,
+  getUnreadMessageCountsByProducts,
   imageUpload,
   markRead, SERVER_API, getImageUrl
 } from "./api.js";
@@ -345,7 +345,7 @@ const initializeUnreadCounts = async () => {
   const allChatroom = await getAllChatroom();
   const allChatroomId = allChatroom.map(e => e.productId);
   if (allChatroom.length > 0) {
-    const unreadCounts = await getUnreadMessageCounts(allChatroomId);
+    const unreadCounts = await getUnreadMessageCountsByProducts(allChatroomId);
     unreadMessages = unreadCounts; // 전역 unreadMessages 객체 업데이트
     Object.entries(unreadCounts).forEach(([productId, count]) => {
       updateUnreadBadge(productId);

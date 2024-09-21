@@ -8,6 +8,7 @@ import org.threefour.ddip.chat.domain.dto.ChatResponseDTO;
 import org.threefour.ddip.chat.domain.dto.ChatroomResponseDTO;
 import org.threefour.ddip.chat.domain.dto.ProductResponseDTO;
 import org.threefour.ddip.chat.service.ChatService;
+import org.threefour.ddip.deal.service.DealService;
 import org.threefour.ddip.image.domain.Image;
 import org.threefour.ddip.image.domain.TargetType;
 import org.threefour.ddip.image.service.ImageLocalServiceImpl;
@@ -26,6 +27,7 @@ public class ChatAPIController {
   private final ChatService chatService;
   private final ImageLocalServiceImpl imageLocalService;
   private final ImageService imageService;
+  private final DealService dealService;
   private final JWTUtil jwtUtil;
 
   @GetMapping("/products")
@@ -61,6 +63,15 @@ public class ChatAPIController {
     return new ResponseEntity<>(result, HttpStatus.OK);
   }
 
+  @GetMapping("/user/chatrooms")
+  public ResponseEntity<List<Long>> getUserChatrooms(@RequestHeader("Authorization") String token) {
+    String accessToken = token.substring(7);
+    Long id = jwtUtil.getId(accessToken);
+
+    List<Long> productIds = dealService.getProductIdsByUserId(id);
+    return ResponseEntity.ok(productIds);
+  }
+
   @GetMapping("/chatrooms/{chatroomId}/s3")
   public ResponseEntity<List<ChatResponseDTO>> getChatroomByProductIdWithS3(
           @PathVariable("chatroomId") Long chatroomId,
@@ -88,14 +99,14 @@ public class ChatAPIController {
     return new ResponseEntity<>(list, HttpStatus.OK);
   }
 
-  @GetMapping("/chatrooms/{chatroomId}")
+  @GetMapping("/chatrooms/{productId}")
   public ResponseEntity<List<ChatResponseDTO>> getChatroomByProductIdWithLocal(
-          @PathVariable("chatroomId") Long chatroomId,
+          @PathVariable("productId") Long productId,
           @RequestHeader("Authorization") String token) {
     String accessToken = token.substring(7);
     Long id = jwtUtil.getId(accessToken);
 
-    List<ChatResponseDTO> allChatByProductId = chatService.findAllChatByProductId(chatroomId);
+    List<ChatResponseDTO> allChatByProductId = chatService.findAllChatByProductId(productId);
 
     List<ChatResponseDTO> list = new ArrayList<>();
     for (ChatResponseDTO chat : allChatByProductId) {
@@ -122,6 +133,15 @@ public class ChatAPIController {
 
     int count = chatService.getUnreadMessageCount(productId, id);
     return ResponseEntity.ok(count);
+  }
+
+  @GetMapping("/chatrooms/total-unread-count")
+  public ResponseEntity<Integer> getTotalUnreadCount(@RequestHeader("Authorization") String token) {
+    String accessToken = token.substring(7);
+    Long id = jwtUtil.getId(accessToken);
+
+    int totalUnreadCount = chatService.getTotalUnreadMessageCount(id);
+    return ResponseEntity.ok(totalUnreadCount);
   }
 
   @PostMapping("/{productId}/mark-read")

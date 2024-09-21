@@ -5,3 +5,15 @@
     z-index: 99;
     cursor: pointer;
 }
+
+#alertCount {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+    display: none;
+}

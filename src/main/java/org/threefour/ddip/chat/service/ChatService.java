@@ -26,4 +26,6 @@ public interface ChatService {
 
   //TODO 추후 삭제
   List<ProductResponseDTO> getAllProductBySellerId(Long sellerId);
+
+  int getTotalUnreadMessageCount(Long id);
 }

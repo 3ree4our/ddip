@@ -4,7 +4,10 @@ import org.threefour.ddip.deal.domain.Deal;
 import org.threefour.ddip.deal.domain.DealStatus;
 import org.threefour.ddip.deal.domain.InitializeDealRequest;
 
+import java.util.List;
+
 public interface DealService {
+
   int createDeal(Long buyerId, InitializeDealRequest initializeDealRequest);
 
   int getWaitingNumber(Long productId, Long memberId);
@@ -12,4 +15,6 @@ public interface DealService {
   int getWaitingNumberCount(Long productId);
 
   Deal checkWaitingStatus(Long productId, Long buyerId);
+
+  List<Long> getProductIdsByUserId(Long id);
 }
