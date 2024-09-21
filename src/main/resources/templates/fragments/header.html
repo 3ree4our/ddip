@@ -107,11 +107,19 @@
       </div>
     </div>
     <!-- Navigation Begin -->
-    <div class="navigation-bar">
+    <nav class="navigation-bar">
       <div class="container-fluid">
         <div>
           <ul class="nav-list">
-            <li><a th:href="@{/}">category</a></li>
+            <li>
+              <a th:href="@{/}" class="category-icon">category아이콘</a>
+              <ul class="dropdown">
+                <li><a href="#">카테고리 1</a></li>
+                <li><a href="#">카테고리 2</a></li>
+                <li><a href="#">카테고리 3</a></li>
+                <li><a href="#">카테고리 4</a></li>
+              </ul>
+            </li>
             <li><div class="col-xl-6 col-lg-7" id="search">
               <nav class="header__menu">
                 <ul>
@@ -128,7 +136,7 @@
           </ul>
         </div>
       </div>
-    </div>
+    </nav>
   </header>
   <!-- Header Section End -->
 </div>
