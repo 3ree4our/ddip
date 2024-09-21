@@ -2,13 +2,13 @@ package org.threefour.ddip.image.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import org.threefour.ddip.image.domain.AddImagesRequest;
-import org.threefour.ddip.image.domain.Image;
-import org.threefour.ddip.image.domain.RepresentativeImagesRequest;
-import org.threefour.ddip.image.domain.TargetType;
+import org.threefour.ddip.image.domain.*;
 import org.threefour.ddip.image.exception.ImageNotFoundException;
 import org.threefour.ddip.image.exception.S3UploadFailedException;
 import org.threefour.ddip.image.repository.ImageRepository;
@@ -35,23 +35,42 @@ public class ImageServiceImpl implements ImageService {
 
     private static final String TLS_HTTP_PROTOCOL = "https://";
     private static final String S3_ADDRESS = "s3.amazonaws.com";
+    private static final String CACHE_VALUE = "images";
+
+    private static final String CREATE_IMAGE_KEY = "#addImagesRequest.targetId";
+    private static final String CREATE_KEY_CONDITION = "#addImagesRequest != null && #addImagesRequest.targetId != null";
+
+    private static final String GET_IMAGE_KEY = "#targetId";
+    private static final String GET_KEY_CONDITION = "#targetId != null";
+
+    private static final String DELETE_IMAGE_KEY = "#id";
+    private static final String DELETE_KEY_CONDITION = "#id != null";
 
     @Value("${cloud.aws.s3.bucket-name}")
     private String s3BucketName;
 
     @Override
     @Transactional(isolation = READ_COMMITTED, timeout = 10)
-    public void createImages(AddImagesRequest addImagesRequest) {
+    @CachePut(key = CREATE_IMAGE_KEY, condition = CREATE_KEY_CONDITION, value = CACHE_VALUE)
+    public List<Image> createImages(AddImagesRequest addImagesRequest) {
         List<MultipartFile> imagesToUpload = addImagesRequest.getImages();
         TargetType targetType = FormatConverter.parseToTargetType(addImagesRequest.getTargetType());
         Long targetId = FormatConverter.parseToLong(addImagesRequest.getTargetId());
 
-        List<Image> images = new ArrayList<>();
+        List<Image> existingImages = imageRepository.findByTargetTypeAndTargetIdAndDeleteYnFalse(targetType, targetId);
+        boolean isRepresentativeImageExistent = FormatValidator.hasValue(existingImages);
+
+        List<Image> newImages = new ArrayList<>();
         for (int i = 0; i < imagesToUpload.size(); i++) {
-            images.add(createImage(imagesToUpload.get(i), targetType, targetId, i == 0));
+            newImages.add(
+                    createImage(imagesToUpload.get(i), targetType, targetId, i == 0 && !isRepresentativeImageExistent)
+            );
         }
 
-        imageRepository.saveAll(images);
+        List<Image> allImages = new ArrayList<>(existingImages);
+        allImages.addAll(imageRepository.saveAll(newImages));
+
+        return allImages;
     }
 
     private Image createImage(MultipartFile image, TargetType targetType, Long targetId, boolean isRepresentative) {
@@ -78,8 +97,7 @@ public class ImageServiceImpl implements ImageService {
     }
 
     private File convertMultipartFileToFile(MultipartFile image) throws IOException {
-        File convertedFile
-                = new File(String.format("%s/%s", System.getProperty("java.io.tmpdir"), image.getOriginalFilename()));
+        File convertedFile = new File(String.format("%s/%s", System.getProperty("java.io.tmpdir"), image.getOriginalFilename()));
         try (FileOutputStream fos = new FileOutputStream(convertedFile)) {
             fos.write(image.getBytes());
         }
@@ -88,6 +106,7 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     @Transactional(isolation = READ_COMMITTED, readOnly = true, timeout = 10)
+    @Cacheable(key = GET_IMAGE_KEY, condition = GET_KEY_CONDITION, value = CACHE_VALUE)
     public List<Image> getImages(TargetType targetType, Long targetId) {
         return imageRepository.findByTargetTypeAndTargetIdAndDeleteYnFalse(targetType, targetId);
     }
@@ -119,13 +138,18 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public void designateRepresentativeImage(Long id) {
-        Image previousRepresentativeImage = imageRepository.findByRepresentativeYnTrueAndDeleteYnFalse()
+    public void designateRepresentativeImage(DesignageRepresentativeImageRequest request) {
+        TargetType targetType = FormatConverter.parseToTargetType(request.getTargetType());
+        Long targetId = FormatConverter.parseToLong(request.getTargetId());
+        Image previousRepresentativeImage = imageRepository
+                .findByTargetTypeAndTargetIdAndRepresentativeYnTrueAndDeleteYnFalse(targetType, targetId)
                 .orElse(null);
+
         if (FormatValidator.hasValue(previousRepresentativeImage)) {
             previousRepresentativeImage.cancelRepresentative();
         }
 
+        Long id = FormatConverter.parseToLong(request.getId());
         Image imageToRepresentative = getImage(id);
         imageToRepresentative.designateRepresentative();
         imageRepository.save(imageToRepresentative);
@@ -138,6 +162,7 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     @Transactional(isolation = READ_UNCOMMITTED, timeout = 10)
+    @CacheEvict(key = DELETE_IMAGE_KEY, condition = DELETE_KEY_CONDITION, value = CACHE_VALUE)
     public void deleteImage(Long id) {
         Image image = getImage(id);
         image.delete();
@@ -146,6 +171,7 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     @Transactional(isolation = READ_UNCOMMITTED, timeout = 10)
+    @CachePut(key = DELETE_IMAGE_KEY, condition = DELETE_KEY_CONDITION, value = CACHE_VALUE)
     public void rollbackDeletion(Long id) {
         Image image = imageRepository.findById(id)
                 .orElseThrow(() -> new ImageNotFoundException(String.format(IMAGE_NOT_FOUND_EXCEPTION_MESSAGE, id)));

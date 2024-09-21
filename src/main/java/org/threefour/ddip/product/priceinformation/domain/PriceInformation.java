@@ -80,6 +80,13 @@ public class PriceInformation {
                 .build();
     }
 
+    public void update(AutoDiscountRequest autoDiscountRequest) {
+        priceDiscountPeriod = PriceDiscountPeriod.of(autoDiscountRequest.getPriceDiscountPeriod());
+        priceDiscountRate = PriceDiscountRate.of(autoDiscountRequest.getPriceDiscountRate());
+        nextDiscountedAt = NextDiscountedAt.of(autoDiscountRequest.getFirstDiscountDate());
+        minPrice = MinPrice.of(autoDiscountRequest.getMinPrice());
+    }
+
     PriceDiscountPeriod getPriceDiscountPeriod() {
         return priceDiscountPeriod;
     }
