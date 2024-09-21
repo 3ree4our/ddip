@@ -2,7 +2,6 @@ export const SERVER_API = 'http://localhost:8080';
 
 export const headers = {
   'Authorization': 'Bearer ' + localStorage.getItem('access-token')
-
 }
 
 export const getAllProduct = async () => {

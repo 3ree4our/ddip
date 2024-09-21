@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" th:lang="ko">
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
@@ -120,26 +119,41 @@
                 <li><a href="#">카테고리 4</a></li>
               </ul>
             </li>
-            <li><div class="col-xl-6 col-lg-7" id="search">
-              <nav class="header__menu">
-                <ul>
-                  <li>
-                    <div class="search-form">
-                      <input class="input-search" type="text" placeholder="상품명, 지역명, 상점명" maxlength="60">
-                      <a href="#"><span class="icon_search search-switch"></span></a>
-                    </div>
-                  </li>
-                </ul>
-              </nav>
-            </div></li>
-            <li><a href="#">sale</a><a href="#"><img src="/img/ddip-talkS.png"></a></li>
+            <li>
+              <div class="col-xl-6 col-lg-7" id="search">
+                <nav class="header__menu">
+                  <ul>
+                    <li>
+                      <div class="search-form">
+                        <input class="input-search" type="text" placeholder="상품명, 지역명, 상점명" maxlength="60">
+                        <a href="#"><span class="icon_search search-switch"></span></a>
+                      </div>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </li>
+            <li>
+              <a href="#">sale</a>
+              <a id="chatList" href="#" class="d-flex">
+                <img id="chatListImage" src="/img/ddip-talkS.png" class="mx-1">
+                <span id="alertCount"></span>
+              </a>
+            </li>
           </ul>
         </div>
       </div>
     </nav>
   </header>
   <!-- Header Section End -->
+
+  <!--chat-->
+  <script src="/webjars/jquery/jquery.min.js"></script>
+  <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+  <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+  <script th:type="module" th:src="@{/chat/js/alert.js}"></script>
 </div>
+
 
 </body>
 </html>

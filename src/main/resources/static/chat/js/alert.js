@@ -1,18 +1,28 @@
 import {getTotalUnreadCount, getUserChatrooms} from "./api.js";
 
+const chatListAEle = document.querySelector('#chatList');
 let connectStatus = false;
 let stompClient = '';
 
+chatListAEle.onclick = (e) => {
+  e.preventDefault();
+  const accessToken = localStorage.getItem('access-token');
+
+  if (accessToken === null) {
+    location.href = '/member/login'
+    alert('로그인을 먼저 진행해주세요.')
+  } else {
+    location.href = '/chat-list'
+  }
+}
+
 const getConnect = async () => {
   const allProducts = await getUserChatrooms();
-  console.log('아 이거 안되는구나 allProducts', allProducts)
   if (allProducts.length > 0) {
     const productsId = allProducts.map(e => e);
-    console.log('productsId 이것도 안나ㅗㅇ네', productsId)
     if (!connectStatus) connect(productsId);
 
     const unreadCounts = await getTotalUnreadCount();
-    console.log('11unreadCounts', unreadCounts)
     updateUnreadMessageNotification(unreadCounts);
   }
 }
@@ -41,17 +51,14 @@ const subscribeToProduct = (productId) => {
 }
 
 const updateUnreadMessageNotification = async (unreadCounts) => {
-  const alertImageContainer = document.querySelector(`#alertImgContainer`)
   const alertCount = document.querySelector('#alertCount')
 
   if (unreadCounts === undefined) unreadCounts = await getTotalUnreadCount();
 
-  console.log('22unreadCounts', unreadCounts)
   if (unreadCounts > 0) {
     alertCount.textContent = unreadCounts;
     alertCount.style.display = 'block';
   } else {
-    alertImageContainer.style.backgroundColor = '';
     alertCount.style.display = 'none';
   }
 
