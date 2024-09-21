@@ -7,6 +7,8 @@ import org.threefour.ddip.image.domain.Image;
 import org.threefour.ddip.member.domain.Member;
 import org.threefour.ddip.product.category.domain.GetCategoriesResponse;
 import org.threefour.ddip.product.priceinformation.domain.GetPriceInformationListResponse;
+import org.threefour.ddip.product.priceinformation.domain.PriceInformation;
+import org.threefour.ddip.util.FormatValidator;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -56,6 +58,8 @@ public class GetProductResponse {
     }
 
     public static GetProductResponse from(Product product, List<Image> images) {
+        List<PriceInformation> priceInformation = product.getPriceInformation();
+
         return GetProductResponse.builder()
                 .id(product.getId())
                 .name(product.getName())
@@ -64,8 +68,16 @@ public class GetProductResponse {
                 .content(product.getContent())
                 .seller(product.getSeller())
                 .getCategoriesResponse(GetCategoriesResponse.fromProduct(product.getProductCategories()))
-                .getPriceInformationListResponse(GetPriceInformationListResponse.from(product.getPriceInformation()))
-                .imageResponses(images.stream().map(GetImageResponse::from).collect(Collectors.toList()))
+                .getPriceInformationListResponse(
+                        FormatValidator.hasValue(priceInformation)
+                                ? GetPriceInformationListResponse.from(priceInformation)
+                                : null
+                )
+                .imageResponses(
+                        FormatValidator.hasValue(images)
+                                ? images.stream().map(GetImageResponse::from).collect(Collectors.toList())
+                                : null
+                )
                 .build();
     }
 

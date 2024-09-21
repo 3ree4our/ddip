@@ -11,6 +11,7 @@ import org.threefour.ddip.product.category.domain.ConnectCategoryRequest;
 public class UpdateProductRequest {
     private String id;
     private ConnectCategoryRequest connectCategoryRequest;
+    private AutoDiscountRequest autoDiscountRequest;
     private String name;
     private String price;
     private String title;

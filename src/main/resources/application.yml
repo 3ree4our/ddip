@@ -52,6 +52,9 @@ spring:
     host: redis-container
     port: 6379
     password: ${REDIS_PASSWORD}
+  session:
+    store-type: redis
+    timeout: 1800s
   jwt:
     secret: ${JWT_SECRET_KEY}
   config:

@@ -1,3 +1,4 @@
+/*
 package org.threefour.ddip.configuration;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -78,3 +79,4 @@ public class CacheConfig {
     return new LettuceConnectionFactory(redisStandaloneConfiguration);
   }
 }
+*/

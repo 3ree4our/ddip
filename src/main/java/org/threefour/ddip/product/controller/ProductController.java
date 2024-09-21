@@ -36,10 +36,10 @@ import static org.threefour.ddip.util.PaginationConstant.*;
 @RequestMapping("/product")
 @RequiredArgsConstructor
 public class ProductController {
-  private final ProductService productService;
-  private final CategoryService categoryService;
-  private final ImageService imageService;
-  private final DealService dealService;
+    private final ProductService productService;
+    private final CategoryService categoryService;
+    private final ImageService imageService;
+    private final DealService dealService;
 
   @GetMapping("/registration-form")
   public ModelAndView getRegistrationForm() {
@@ -118,37 +118,39 @@ public class ProductController {
       return new ModelAndView("redirect:/member/login");
     }
 
-    ModelAndView modelAndView = new ModelAndView();
-    Long parsedId = FormatConverter.parseToLong(id);
-    modelAndView.addObject(
-            "product",
-            GetProductResponse.from(productService.getProduct(parsedId, false), imageService.getImages(PRODUCT, parsedId))
-    );
-    modelAndView.addObject("categories", GetCategoriesResponse.from(categoryService.getCategories(null)));
-    modelAndView.addObject("memberId", memberId);
-    modelAndView.setViewName("product/modification");
+        ModelAndView modelAndView = new ModelAndView();
+        Long parsedId = FormatConverter.parseToLong(id);
+        modelAndView.addObject(
+                "product",
+                GetProductResponse.from(
+                        productService.getProduct(parsedId, false), imageService.getImages(PRODUCT, parsedId)
+                )
+        );
+        modelAndView.addObject("categories", GetCategoriesResponse.from(categoryService.getCategories(null)));
+        modelAndView.addObject("memberId", memberId);
+        modelAndView.setViewName("product/modification");
 
-    return modelAndView;
-  }
-
-  @PatchMapping("/update")
-  public ResponseEntity<Long> updateAttribute(
-          @RequestBody UpdateProductRequest updateProductRequest, HttpSession httpSession
-  ) {
-    productService.update(updateProductRequest);
-
-    return ResponseEntity.status(OK).body((Long) httpSession.getAttribute("memberId"));
-  }
-
-  @DeleteMapping("/delete")
-  public ResponseEntity<Void> deleteProduct(@RequestParam("id") String id) {
-    Long parsedId = FormatConverter.parseToLong(id);
-
-    if (dealService.getWaitingNumberCount(parsedId) > 0) {
-      throw new DealsAlreadyExistException(String.format(DEALS_ALREADY_EXIST_EXCEPTION_MESSAGE, id));
+        return modelAndView;
     }
-    productService.delete(parsedId);
 
-    return ResponseEntity.status(NO_CONTENT).build();
-  }
+    @PatchMapping("/update")
+    public ResponseEntity<Long> updateAttribute(
+            @RequestBody UpdateProductRequest updateProductRequest, HttpSession httpSession
+    ) {
+        productService.update(updateProductRequest);
+
+        return ResponseEntity.status(OK).body((Long) httpSession.getAttribute("memberId"));
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<Void> deleteProduct(@RequestParam("id") String id) {
+        Long parsedId = FormatConverter.parseToLong(id);
+
+        if (dealService.getWaitingNumberCount(parsedId) > 0) {
+            throw new DealsAlreadyExistException(String.format(DEALS_ALREADY_EXIST_EXCEPTION_MESSAGE, id));
+        }
+        productService.delete(parsedId);
+
+        return ResponseEntity.status(NO_CONTENT).build();
+    }
 }
