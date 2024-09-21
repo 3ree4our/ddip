@@ -73,7 +73,7 @@ public class DealController {
     Product product = productService.getProduct(productId, false);
     Map<String, Object> response = new HashMap<>();
 
-    if (product.getId() == memberId) {
+    if (product.getSeller().getId() == memberId) {
       response.put("dealStatus", "NO");
       response.put("message", "자신의 상품은 구매가 불가능 합니다.");
       return ResponseEntity.badRequest().body("자신의 상품은 구매가 불가능 합니다.");

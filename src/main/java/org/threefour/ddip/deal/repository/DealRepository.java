@@ -25,5 +25,8 @@ public interface DealRepository extends JpaRepository<Deal, Long> {
 
   @Query("select d from Deal d where d.product.id =:productId and d.dealStatus = 'BEFORE_DEAL' order by d.createdAt asc")
   Deal findNextWaitingDeal(@Param("productId") Long productId);
+
+  @Query("SELECT d FROM Deal d WHERE (d.buyer.id = :userId OR d.seller.id = :userId) AND d.dealStatus IN ('IN_PROGRESS', 'PAID')")
+  List<Deal> findActiveDealsForUser(@Param("userId") Long userId);
 }
 

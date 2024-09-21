@@ -26,7 +26,7 @@ public class Deal extends BaseGeneralEntity {
   private Member seller;
 
   @ManyToOne(fetch = LAZY)
-  @JoinColumn(name = "buyer_id", unique = true)
+  @JoinColumn(name = "buyer_id")
   private Member buyer;
 
   @Convert(converter = DealAmount.DealAmountConverter.class)

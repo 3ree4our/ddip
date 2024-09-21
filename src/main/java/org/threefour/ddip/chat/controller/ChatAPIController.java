@@ -41,26 +41,11 @@ public class ChatAPIController {
   @GetMapping("/chatrooms")
   public ResponseEntity<List<ChatroomResponseDTO>> getAllChatroom(@RequestHeader("Authorization") String token) {
     String accessToken = token.substring(7);
-    Long id = jwtUtil.getId(accessToken);
-    Map<Long, ChatroomResponseDTO> chatMap = new HashMap<>();
+    Long userId = jwtUtil.getId(accessToken);
 
-    List<ProductResponseDTO> allProductBySellerId = chatService.getAllProductBySellerId(id);
-    for (ProductResponseDTO product : allProductBySellerId) {
-      ChatroomResponseDTO chatByProductId = chatService.findChatByProductId(product.getProductId());
-      if (chatByProductId != null) {
-        updateChatMap(chatMap, chatByProductId);
-      }
-    }
+    List<ChatroomResponseDTO> activeChats = chatService.findAllActiveChatsForUser(userId);
 
-    List<ChatroomResponseDTO> chatByOwnerId = chatService.findAllChatByOwnerId(id);
-    if (chatByOwnerId != null) {
-      for (ChatroomResponseDTO chat : chatByOwnerId) {
-        updateChatMap(chatMap, chat);
-      }
-    }
-
-    List<ChatroomResponseDTO> result = new ArrayList<>(chatMap.values());
-    return new ResponseEntity<>(result, HttpStatus.OK);
+    return new ResponseEntity<>(activeChats, HttpStatus.OK);
   }
 
   @GetMapping("/user/chatrooms")

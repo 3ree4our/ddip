@@ -6,14 +6,13 @@ let stompClient = '';
 const getConnect = async () => {
   const allProducts = await getUserChatrooms();
 
-  console.log("기존 product찾는거에서 변경 allProducts", allProducts)
   if (allProducts.length > 0) {
     const productsId = allProducts.map(e => e);
     console.log('productsId 이것도 안나ㅗㅇ네', productsId)
     if (!connectStatus) connect(productsId);
 
     const unreadCounts = await getTotalUnreadCount();
-    console.log('unreadCounts', unreadCounts)
+    console.log('11unreadCounts', unreadCounts)
     updateUnreadMessageNotification(unreadCounts);
   }
 }
@@ -47,9 +46,8 @@ const updateUnreadMessageNotification = async (unreadCounts) => {
 
   if (unreadCounts === undefined) unreadCounts = await getTotalUnreadCount();
 
-  console.log('unreadCounts', unreadCounts)
+  console.log('22unreadCounts', unreadCounts)
   if (unreadCounts > 0) {
-    alertImageContainer.style.backgroundColor = 'red';
     alertCount.textContent = unreadCounts;
     alertCount.style.display = 'block';
   } else {

@@ -77,11 +77,6 @@ const subscribeToProduct = (productId) => {
 
         alert('거래가 완료되었습니다. 감사합니다.')
 
-        const chatRoomElement = document.querySelector(`[data-product="${messageObj.roomId}"]`);
-        if (chatRoomElement) {
-          chatRoomElement.style.backgroundColor = '#e0e0e0';  // 회색 배경으로 변경
-        }
-
         location.reload();
         return;
       }
@@ -303,6 +298,8 @@ const drawChatList = async () => {
   const chatRoomArea = document.querySelector('.chat-list');
   let productIds = [];
 
+  console.log("allChatroom", allChatroom)
+
   if (allChatroom.length === 0) {
     chatRoomArea.innerHTML = `
       <div class="no-chats">
@@ -377,7 +374,7 @@ const createChatRoomElement = (chat) => {
   div.className = 'user';
   div.setAttribute('data-product', chat.productId);
   div.innerHTML = `
-    <img src="/img/trend/bs-1.jpg" alt="물품사진"/>
+    <img src='${chat.image}' alt="물품사진"/>
     <div>
       <p>${name}</p>
       <p>${chat.message}</p>

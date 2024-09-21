@@ -17,6 +17,7 @@ public class ChatroomResponseDTO {
 
   private ChatMemberDTO sender;
   private ChatMemberDTO productOwner;
+  private String image;
 
   public ChatroomResponseDTO(Long productId, String message, Date sendDate, Member sender, Member productOwner) {
     this.productId = productId;
@@ -26,4 +27,9 @@ public class ChatroomResponseDTO {
     this.sender = new ChatMemberDTO(sender.getId(), sender.getNickName(), "SENDER");
     this.productOwner = new ChatMemberDTO(productOwner.getId(), productOwner.getNickName(), "OWNER");
   }
+
+  public void setImage(String image) {
+    this.image = image;
+  }
+
 }
