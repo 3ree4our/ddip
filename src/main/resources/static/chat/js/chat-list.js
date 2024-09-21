@@ -186,23 +186,29 @@ const sendMessage = async () => {
 
 
 // 메시지 태그 생성
-const createMessageTag = (LR_className, senderName, message) => {
+const createMessageTag = (LR_className, senderName, message, sendDate) => {
   const chatLi = document.querySelector("section.chat.format ul li").cloneNode(true);
   chatLi.classList.add(LR_className);
   chatLi.querySelector(".sender span").textContent = senderName;
   chatLi.querySelector(".message span").textContent = message;
+
+  // 날짜 추가
+  const dateSpanEle = document.createElement('span')
+  dateSpanEle.className = 'message-date';
+  dateSpanEle.textContent = formatDate(sendDate);
+  chatLi.querySelector('.message').appendChild(dateSpanEle);
+
   return chatLi;
 }
 
 // 메시지 태그 추가
 const appendMessageTag = (messageObj) => {
-  console.log('시간을 추가해보자,', messageObj)
   let chatLi = '';
 
   if (Array.isArray(messageObj)) {
     // 이전 대화 불러오기의 경우
     messageObj.forEach(message => {
-      chatLi = createMessageTag(message.type, message.sender.nickname, message.message);
+      chatLi = createMessageTag(message.type, message.sender.nickname, message.message, message.sendDate);
       appendImageToMessage(chatLi, message.chatImageIds);
       document.querySelector("#chatWrapper .chat:not(.format) ul").appendChild(chatLi);
     });
@@ -211,7 +217,7 @@ const appendMessageTag = (messageObj) => {
     const savedName = localStorage.getItem('nickname');
     let type = messageObj.nickname === savedName ? 'right' : 'left';
 
-    chatLi = createMessageTag(type, messageObj.nickname, messageObj.message);
+    chatLi = createMessageTag(type, messageObj.nickname, messageObj.message, messageObj.sendDate);
     document.querySelector("#chatWrapper .chat:not(.format) ul").appendChild(chatLi);
     appendImageToMessage(chatLi, messageObj.chatImageIds);
     document.querySelector("#chatWrapper .chat").scrollTop = document.querySelector("section.chat").scrollHeight;
@@ -487,6 +493,28 @@ const updateUIAfterDealComplete = (roomId) => {
   if (chatRoomElement) {
     chatRoomElement.style.backgroundColor = '#e0e0e0';  // 회색 배경으로 변경
   }
+}
+
+const formatDate = (dateString) => {
+  const date1 = new Date(dateString);
+  const now = new Date();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const hours = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+
+  if (date.getFullYear() === now.getFullYear())
+    return `${month}월 ${day}일 ${hours}:${minutes}`;
+
+
+  // 올해 날짜인 경우
+  if (date.getFullYear() === now.getFullYear())
+    return `${month}월 ${day}일 ${hours}:${minutes}`;
+
+
+  // 작년 이전 날짜인 경우
+  const year = date.getFullYear();
+  return `${year}년 ${month}월 ${day}일 ${hours}:${minutes}`;
 }
 
 // 이벤트 리스너 설정

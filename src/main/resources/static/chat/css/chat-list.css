@@ -312,3 +312,22 @@ p {
 }
 
 /*button end*/
+
+/*date start*/
+.message-date {
+    font-size: 0.75em;
+    color: #888;
+    margin-top: 5px;
+    display: block;
+    clear: both;
+}
+
+.right .message-date {
+    text-align: right;
+}
+
+.left .message-date {
+    text-align: left;
+}
+
+/*date end*/
