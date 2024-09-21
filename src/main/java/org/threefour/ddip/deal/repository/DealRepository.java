@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.threefour.ddip.deal.domain.Deal;
+import org.threefour.ddip.deal.domain.DealStatus;
 import org.threefour.ddip.member.domain.Member;
 import org.threefour.ddip.product.domain.Product;
 
@@ -19,4 +20,10 @@ public interface DealRepository extends JpaRepository<Deal, Long> {
 
   @Query("select distinct d.product.id from Deal d where d.buyer.id=:memberId or d.seller.id=:memberId")
   List<Long> findProductIdsByBuyerIdOrSellerId(@Param("memberId") Long memberId);
+
+  Optional<Deal> findByProductIdAndDealStatusAndDeleteYnFalse(Long buyerId, DealStatus dealStatus);
+
+  @Query("select d from Deal d where d.product.id =:productId and d.dealStatus = 'BEFORE_DEAL' order by d.createdAt asc")
+  Deal findNextWaitingDeal(@Param("productId") Long productId);
 }
+

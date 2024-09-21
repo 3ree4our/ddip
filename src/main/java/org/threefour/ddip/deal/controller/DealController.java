@@ -94,6 +94,18 @@ public class DealController {
     return ResponseEntity.ok(response);
   }
 
+  @PostMapping("/{productId}/complete")
+  public ResponseEntity<Void> completeDeal(@PathVariable Long productId) {
+    dealService.completeDeal(productId);
+    return ResponseEntity.ok().build();
+  }
+
+  @PostMapping("/{productId}/cancel")
+  public ResponseEntity<Void> cancelDeal(@PathVariable Long productId) {
+    dealService.cancelDeal(productId);
+    return ResponseEntity.ok().build();
+  }
+
   @GetMapping("/purchases")
   public ModelAndView getBoughtDeals(
           @RequestParam("buyerId") String buyerId,

@@ -17,4 +17,8 @@ public interface DealService {
   Deal checkWaitingStatus(Long productId, Long buyerId);
 
   List<Long> getProductIdsByUserId(Long id);
+
+  void completeDeal(Long productId);
+
+  void cancelDeal(Long productId);
 }

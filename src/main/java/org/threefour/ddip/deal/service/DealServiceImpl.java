@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.threefour.ddip.chat.repository.ChatRepository;
 import org.threefour.ddip.deal.domain.Deal;
 import org.threefour.ddip.deal.domain.DealStatus;
 import org.threefour.ddip.deal.domain.InitializeDealRequest;
@@ -29,6 +30,7 @@ public class DealServiceImpl implements DealService {
   private final ProductService productService;
   private final DealRepository dealRepository;
   private final MemberRepository memberRepository;
+  private final ChatRepository chatRepository;
 
   @Override
   @Transactional(isolation = REPEATABLE_READ, timeout = 10)
@@ -91,5 +93,30 @@ public class DealServiceImpl implements DealService {
   @Override
   public List<Long> getProductIdsByUserId(Long id) {
     return dealRepository.findProductIdsByBuyerIdOrSellerId(id);
+  }
+
+  @Override
+  @Transactional
+  public void completeDeal(Long productId) {
+    Deal deal = dealRepository.findByProductIdAndDealStatusAndDeleteYnFalse(productId, DealStatus.IN_PROGRESS)
+            .orElseThrow(() -> new DealNotFoundException("Deal not found"));
+
+    deal.setDealStatus(DealStatus.PAID);
+    dealRepository.save(deal);
+
+    // 해당 채팅에 관한 작업처리?
+    //chatRepository.markChatsAsDeletedByProductId(productId);
+  }
+
+  @Override
+  public void cancelDeal(Long productId) {
+    Deal deal = dealRepository.findByProductIdAndDealStatusAndDeleteYnFalse(productId, DealStatus.IN_PROGRESS)
+            .orElseThrow(() -> new DealNotFoundException("Deal not found"));
+    deal.setDealStatus(DealStatus.BEFORE_DEAL);
+    dealRepository.save(deal);
+
+    // 다음 대기자에 알림? ..
+    Deal nextDeal = dealRepository.findNextWaitingDeal(productId);
+
   }
 }

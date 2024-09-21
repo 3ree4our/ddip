@@ -4,7 +4,7 @@ import {
   getChatroomByProductId,
   getUnreadMessageCountsByProducts,
   imageUpload,
-  markRead, SERVER_API, getImageUrl
+  markRead, SERVER_API, getImageUrl, completeDeal, cancelDeal, headers
 } from "./api.js";
 import {clearImageSelection, getSelectedImagesData} from "./image.js";
 
@@ -67,9 +67,24 @@ const connect = (productsId) => {
 const subscribeToProduct = (productId) => {
   if (stompClient && stompClient.connected) {
     stompClient.subscribe(`/room/${productId}`, async (chatMessage) => {
+
+
       const messageObj = JSON.parse(chatMessage.body);
       const selectedImages = getSelectedImagesData();
       const formData = new FormData();
+
+      if (messageObj.message === 'complete') {
+
+        alert('거래가 완료되었습니다. 감사합니다.')
+
+        const chatRoomElement = document.querySelector(`[data-product="${messageObj.roomId}"]`);
+        if (chatRoomElement) {
+          chatRoomElement.style.backgroundColor = '#e0e0e0';  // 회색 배경으로 변경
+        }
+
+        location.reload();
+        return;
+      }
 
       let imageUrls = [];
 
@@ -158,14 +173,11 @@ const sendMessage = async () => {
 
   if (message === '' && selectedImages.length === 0) return;
 
-  const headers = {
-    'Authorization': 'Bearer ' + localStorage.getItem('access-token')
-  };
-
   try {
     if (message !== '' || selectedImages.length > 0) {
       let messageObj = {message, images: false}
       if (selectedImages.length > 0) messageObj = {message, images: true}
+
       stompClient.send(`/messages/${focusChatroom}`, headers, JSON.stringify(messageObj));
     }
 
@@ -250,10 +262,12 @@ const appendImageToMessage = (chatLi, chatImageIds) => {
 
 // 채팅방 클릭 이벤트 핸들러 수정
 const chatRoomClickHandler = async (e) => {
+  let roomId = '';
+
   if (document.querySelector("#chatWrapper .chat:not(.format) ul").hasChildNodes()) {
     document.querySelector("#chatWrapper .chat:not(.format) ul").replaceChildren('')
   }
-  let roomId = '';
+
   if (e.target.tagName !== 'DIV') {
     if (e.target.tagName !== 'IMG') {
       const targetEle = e.target.parentElement.parentElement;
@@ -278,6 +292,9 @@ const chatRoomClickHandler = async (e) => {
 
   const messageObj = await getChatroomByProductId(roomId);
   appendMessageTag(messageObj);
+
+  if (messageObj[0].type === 'left')
+    updateDealButtons(roomId);
 }
 
 
@@ -405,6 +422,73 @@ const prevChatImage = () => {
   if (chatCurrentImageIndex > 0) {
     chatCurrentImageIndex--;
     updateChatModalImage();
+  }
+}
+
+const updateDealButtons = (productId) => {
+  const dealButtonContainer = document.getElementById('dealButtonContainer');
+  dealButtonContainer.innerHTML = `
+    <button id="completeDealButton" data-product-id="${productId}">거래 완료</button>
+    <button id="cancelDealButton" data-product-id="${productId}">거래 취소</button>
+  `;
+
+  document.getElementById('completeDealButton').onclick = () => handleDealComplete(productId);
+  document.getElementById('cancelDealButton').onclick = () => handleCancelDeal(productId);
+}
+
+const handleDealComplete = async () => {
+  const result = confirm('거래를 완료 하시겠습니까?');
+  console.log('거래 result, ', result);
+
+  if (result) {
+    try {
+      // deal 상태를 PAID 로 변경 후 해당 채팅방에 deleteYn false로 변경해서 채팅방 없애기,
+      // 혹은 해당 상품 id 구독 x => 채팅 금지
+      const result = await completeDeal(focusChatroom);
+
+      if (!result.ok) throw new Error('Failed to complete deal');
+      alert('거래가 완료되었습니다.')
+
+      const messageObj = {
+        message: 'complete',
+        images : false
+      }
+
+      stompClient.send(`/messages/${focusChatroom}`, headers, JSON.stringify(messageObj));
+    } catch (error) {
+      console.error('Error completing deal: ', error);
+      alert('거래 완료 처리 중 오류가 발생했습니다.')
+    }
+  }
+}
+
+const handleCancelDeal = async (productId) => {
+  console.log(`거래 취소: 상품 ID ${productId}`);
+
+  const result = confirm('거래를 취소하겠습니까?');
+  if (result) {
+    try {
+      // deal 상태를 BEFORE_DEAL로 변경하고 해당 product와 senderId로 등록된 채팅 deleteYn false로 변경
+      // 다음 예약 유저에게 .. (이게 가능한가? 내 머리에) 알림 날리기 ..
+      alert('거래가 취소되었습니다.')
+      const result = await cancelDeal(focusChatroom);
+      if (!result.ok) throw new Error('Failed to cancel deal');
+
+      location.reload();
+    } catch (error) {
+      console.error(error)
+      alert('거래 취소 처리 중 오류가 발생하였습니다.')
+    }
+  }
+}
+
+const updateUIAfterDealComplete = (roomId) => {
+  const dealButtonContainer = document.getElementById('dealButtonContainer');
+  dealButtonContainer.innerHTML = '<p>완료된 거래입니다.</p>';
+
+  const chatRoomElement = document.querySelector(`[data-product="${roomId}"]`);
+  if (chatRoomElement) {
+    chatRoomElement.style.backgroundColor = '#e0e0e0';  // 회색 배경으로 변경
   }
 }
 
