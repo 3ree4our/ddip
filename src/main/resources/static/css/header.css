@@ -44,7 +44,44 @@ body {
     margin-right: 30px;
     display: flex;
     align-items: center;
+    position: relative; /* 드롭다운 위치 설정 */
 }
+
+.category-icon{
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    display: inline-block; /* 인라인 블록으로 변경하여 클릭 영역 조정 */
+}
+
+.dropdown {
+    display: none; /* 기본적으로 드롭다운 숨김 */
+    position: absolute; /* 절대 위치로 설정 */
+    top: 100%; /* 카테고리 아이콘 바로 아래에 위치 */
+    left: 0; /* 왼쪽 정렬 */
+    background-color: #fff;
+    border: 1px solid #ccc;
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000; /* 다른 요소 위에 나타나도록 설정 */
+}
+
+.dropdown li {
+    padding: 8px 12px;
+}
+
+.dropdown li a {
+    color: #333;
+    text-decoration: none;
+}
+
+.nav-list > li:hover .dropdown {
+    display: block; /* 마우스를 올리면 드롭다운 표시 */
+}
+
+
 
 .nav-list a{
     color: white;
