@@ -42,36 +42,16 @@ public class ProductController {
   private final DealService dealService;
 
   @GetMapping("/registration-form")
-  public ModelAndView getRegistrationForm(String memberId, HttpSession httpSession) {
-    if (!AuthenticationValidator.isAuthorized(memberId, httpSession)) {
-      return new ModelAndView("redirect:/member/login");
-    }
-
-    System.out.println(memberId + "dsafkjl;sdj;fkl");
-    System.out.println(httpSession.getAttribute("memberId").toString());
+  public ModelAndView getRegistrationForm() {
     List<Category> categories = categoryService.getCategories(null);
-
-    ModelAndView modelAndView = new ModelAndView();
-    modelAndView.setViewName("product/registration");
-    modelAndView.addObject("memberId", memberId);
-    modelAndView.addObject("categories", GetCategoriesResponse.from(categories));
-
-    return modelAndView;
+    return new ModelAndView("product/registration", "categories", GetCategoriesResponse.from(categories));
   }
 
   @PostMapping("/registration-confirm")
   public String registerProduct(
           @ModelAttribute RegisterProductRequest registerProductRequest,
-          @RequestParam("images") @RequestPart List<MultipartFile> images,
-          HttpSession httpSession
+          @RequestParam("images") @RequestPart List<MultipartFile> images
   ) {
-    System.out.println(registerProductRequest.getMemberId() + "asdl;fjsdalkf");
-    System.out.println(httpSession.getAttribute("memberId").toString());
-
-    if (!AuthenticationValidator.isAuthorized(registerProductRequest.getMemberId(), httpSession)) {
-      return "redirect:/member/login";
-    }
-
     Long productId = productService.createProduct(registerProductRequest, images);
     return String.format("redirect:details?id=%d", productId);
   }

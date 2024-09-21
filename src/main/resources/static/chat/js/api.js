@@ -29,13 +29,6 @@ export const getChatroomByProductId = async (chatroomId) => {
   return response.json();
 }
 
-export const createChatroom = async (productId) => {
-  const response = await fetch(`${SERVER_API}/room/${productId}`, {
-    method: 'get',
-  })
-  return response.json();
-}
-
 export const getUnreadMessageCounts = async (productIds) => {
   try {
     const requests = productIds.map(productId =>

@@ -35,75 +35,75 @@ import static org.threefour.ddip.product.exception.ExceptionMessage.PRODUCT_NOT_
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
-    private final CategoryService categoryService;
-    private final ImageService imageService;
-    private final PriceInformationService priceInformationService;
-    private final ProductRepository productRepository;
-    private final MemberRepository memberRepository;
+  private final CategoryService categoryService;
+  private final ImageService imageService;
+  private final PriceInformationService priceInformationService;
+  private final ProductRepository productRepository;
+  private final MemberRepository memberRepository;
 
-    private static final String CREATE_PRODUCT_KEY = "#result + '_' + #registerProductRequest.memberId";
-    private static final String CREATE_KEY_CONDITION
-            = "#registerProductRequest != null && #registerProductRequest.memberId != null";
+  private static final String CREATE_PRODUCT_KEY = "#result + '_' + #registerProductRequest.memberId";
+  private static final String CREATE_KEY_CONDITION
+          = "#registerProductRequest != null && #registerProductRequest.memberId != null";
 
-    private static final String GET_PRODUCT_KEY = "#productId";
-    private static final String GET_KEY_CONDITION = "#productId != null && #isCacheableRequest == true";
+  private static final String GET_PRODUCT_KEY = "#productId";
+  private static final String GET_KEY_CONDITION = "#productId != null && #isCacheableRequest == true";
 
-    private static final String KEY_VALUE = "product";
-    private static final String UNLESS_CONDITION = "#result == null";
+  private static final String KEY_VALUE = "product";
+  private static final String UNLESS_CONDITION = "#result == null";
 
-    private static final String UPDATE_PRODUCT_KEY = "#updateProductRequest.id";
-    private static final String UPDATE_KEY_CONDITION
-            = "#updateProductRequest != null && #updateProductRequest.id != null";
+  private static final String UPDATE_PRODUCT_KEY = "#updateProductRequest.id";
+  private static final String UPDATE_KEY_CONDITION
+          = "#updateProductRequest != null && #updateProductRequest.id != null";
 
-    private static final String DELETE_PRODUCT_KEY = "#id";
-    private static final String DELETE_KEY_CONDITION = "#id != null";
+  private static final String DELETE_PRODUCT_KEY = "#id";
+  private static final String DELETE_KEY_CONDITION = "#id != null";
 
-    @Override
-    @Transactional(isolation = READ_COMMITTED, propagation = NESTED, timeout = 20)
-    @CachePut(key = CREATE_PRODUCT_KEY, condition = CREATE_KEY_CONDITION, unless = UNLESS_CONDITION, value = KEY_VALUE)
-    public Long createProduct(RegisterProductRequest registerProductRequest, List<MultipartFile> images) {
-        Long memberId = FormatConverter.parseToLong(registerProductRequest.getMemberId());
-        System.out.println(memberRepository.findById(memberId).get() + "al;dfjl");
+  @Override
+  @Transactional(isolation = READ_COMMITTED, propagation = NESTED, timeout = 20)
+  @CachePut(key = CREATE_PRODUCT_KEY, condition = CREATE_KEY_CONDITION, unless = UNLESS_CONDITION, value = KEY_VALUE)
+  public Long createProduct(RegisterProductRequest registerProductRequest, List<MultipartFile> images) {
+    Long memberId = FormatConverter.parseToLong(registerProductRequest.getMemberId());
 
-        Product product = productRepository.save(
-                Product.from(registerProductRequest, memberRepository.findById(memberId).get())
-        );
+    // TODO: 회원 연결
+    Product product = productRepository.save(
+            Product.from(registerProductRequest, memberRepository.findById(memberId).get())
+    );
 
-        categoryService.createProductCategories(registerProductRequest.getConnectCategoryRequest(), product);
+    categoryService.createProductCategories(registerProductRequest.getConnectCategoryRequest(), product);
 
-        if (FormatValidator.hasValue(images)) {
-            imageService.createImages(AddImagesRequest.from(images, PRODUCT.name(), product.getId().toString()));
-        }
-
-        AutoDiscountRequest autoDiscountRequest = registerProductRequest.getAutoDiscountRequest();
-        if (
-                FormatValidator.hasValue(autoDiscountRequest)
-                        && FormatValidator.hasValue(autoDiscountRequest.getFirstDiscountDate())
-        ) {
-            priceInformationService.createPriceInformation(product, autoDiscountRequest);
-        }
-
-        return product.getId();
+    if (FormatValidator.hasValue(images)) {
+      imageService.createImages(AddImagesRequest.from(images, PRODUCT.name(), product.getId().toString()));
     }
 
-    @Override
-    @Transactional(isolation = READ_COMMITTED, readOnly = true, timeout = 10)
-    @Cacheable(key = GET_PRODUCT_KEY, condition = GET_KEY_CONDITION, unless = UNLESS_CONDITION, value = KEY_VALUE)
-    public Product getProduct(Long productId, boolean isCacheableRequest) {
-        return productRepository.findByIdAndDeleteYnFalse(productId).orElseThrow(
-                () -> new ProductNotFoundException(String.format(PRODUCT_NOT_FOUND_EXCEPTION_MESSAGE, productId))
-        );
+    AutoDiscountRequest autoDiscountRequest = registerProductRequest.getAutoDiscountRequest();
+    if (
+            FormatValidator.hasValue(autoDiscountRequest)
+                    && FormatValidator.hasValue(autoDiscountRequest.getFirstDiscountDate())
+    ) {
+      priceInformationService.createPriceInformation(product, autoDiscountRequest);
     }
 
-    @Override
-    @Transactional(isolation = READ_UNCOMMITTED, readOnly = true, timeout = 20)
-    public Page<Product> getProducts(Pageable pageable, Short categoryId) {
-        if (categoryId == 0) {
-            return productRepository.findByDeleteYnFalse(pageable);
-        }
+    return product.getId();
+  }
 
-        return productRepository.findByCategoryIdAndDeleteYnFalse(categoryId, pageable);
+  @Override
+  @Transactional(isolation = READ_COMMITTED, readOnly = true, timeout = 10)
+  @Cacheable(key = GET_PRODUCT_KEY, condition = GET_KEY_CONDITION, unless = UNLESS_CONDITION, value = KEY_VALUE)
+  public Product getProduct(Long productId, boolean isCacheableRequest) {
+    return productRepository.findByIdAndDeleteYnFalse(productId).orElseThrow(
+            () -> new ProductNotFoundException(String.format(PRODUCT_NOT_FOUND_EXCEPTION_MESSAGE, productId))
+    );
+  }
+
+  @Override
+  @Transactional(isolation = READ_UNCOMMITTED, readOnly = true, timeout = 20)
+  public Page<Product> getProducts(Pageable pageable, Short categoryId) {
+    if (categoryId == 0) {
+      return productRepository.findByDeleteYnFalse(pageable);
     }
+
+    return productRepository.findByCategoryIdAndDeleteYnFalse(categoryId, pageable);
+  }
 
   @Override
   @Transactional(isolation = READ_COMMITTED, timeout = 10)
@@ -111,15 +111,15 @@ public class ProductServiceImpl implements ProductService {
   public void update(UpdateProductRequest updateProductRequest) {
     Product product = getProduct(FormatConverter.parseToLong(updateProductRequest.getId()), false);
 
-        ConnectCategoryRequest connectCategoryRequest = updateProductRequest.getConnectCategoryRequest();
-        if (FormatValidator.hasValue(connectCategoryRequest)) {
-            categoryService.updateProductCategories(connectCategoryRequest, product);
-            return;
-        }
-
-        product.update(updateProductRequest);
-        productRepository.save(product);
+    ConnectCategoryRequest connectCategoryRequest = updateProductRequest.getConnectCategoryRequest();
+    if (FormatValidator.hasValue(connectCategoryRequest)) {
+      categoryService.updateProductCategories(connectCategoryRequest, product);
+      return;
     }
+
+    product.update(updateProductRequest);
+    productRepository.save(product);
+  }
 
   @Override
   @Transactional(isolation = READ_UNCOMMITTED, timeout = 10)
