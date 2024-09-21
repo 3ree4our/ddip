@@ -1,0 +1,98 @@
+/* 헤더 고정 스타일 */
+.header {
+    position: fixed; /* 스크롤에 관계없이 화면 상단에 고정 */
+    top: 0; /* 상단에 고정 */
+    left: 0; /* 왼쪽에 고정 */
+    width: 100%; /* 전체 너비 차지 */
+    z-index: 1000; /* 다른 요소 위에 표시되도록 설정 */
+    background-color: white; /* 배경색 추가 */
+    transition: background-color 0.3s; /* 배경색 변경 애니메이션 */
+
+    padding: 0 !important;
+}
+
+/* 페이지 내용과의 간격을 유지하기 위한 마진 */
+body {
+    padding-top: 250px; /* 헤더의 높이에 따라 조절 (헤더 높이에 맞게) */
+}
+
+#header-main{
+    display: flex;
+    justify-content: space-between;
+}
+
+.header__logo{
+    display: flex;
+    justify-content: center;
+}
+
+.navigation-bar{
+    background-color: #2641ae;
+    padding: 5px;
+    width: 100%;
+}
+
+.nav-list{
+    display: flex;
+    justify-content: space-around;
+    list-style-type: none;
+    padding: 0;
+}
+
+.nav-list li{
+    margin-left: 20px;
+    margin-right: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.nav-list a{
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s;
+    margin: 10px;
+}
+
+.categories__item{
+    display: flex;
+    justify-content: right;
+    align-items: flex-end
+}
+
+.categories__text{
+    margin: 10px;
+}
+
+.main-contents{
+    display: flex;
+    justify-content: space-between;
+}
+
+#search{
+    display: flex;
+    align-items: center;
+}
+
+.search-form{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid #2641ae;
+    padding: 2px 10px;
+    width: 500px;
+}
+
+.input-search{
+    border: none;
+    border-radius: 10px;
+    flex-grow: 1;
+    margin-right: 10px;
+    padding: 0 10px;
+    height: 40px;
+}
+
+#me{
+    display: flex;
+    align-items: center;
+}
