@@ -142,7 +142,9 @@ public class ProductController {
         Long parsedId = FormatConverter.parseToLong(id);
         modelAndView.addObject(
                 "product",
-                GetProductResponse.from(productService.getProduct(parsedId, false), imageService.getImages(PRODUCT, parsedId))
+                GetProductResponse.from(
+                        productService.getProduct(parsedId, false), imageService.getImages(PRODUCT, parsedId)
+                )
         );
         modelAndView.addObject("categories", GetCategoriesResponse.from(categoryService.getCategories(null)));
         modelAndView.addObject("memberId", memberId);

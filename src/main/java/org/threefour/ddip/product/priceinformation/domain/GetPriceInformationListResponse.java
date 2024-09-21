@@ -20,4 +20,12 @@ public class GetPriceInformationListResponse {
 
         return new GetPriceInformationListResponse(getPriceInformationResponses);
     }
+
+    public GetPriceInformationResponse get(int index) {
+        return getPriceInformationResponses.get(index);
+    }
+
+    public int size() {
+        return getPriceInformationResponses.size();
+    }
 }

@@ -64,6 +64,22 @@
     .representative-image {
         border: 2px solid gold;
     }
+
+    .quform-input input,
+    .quform-input textarea,
+    .quform-input select {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        margin-bottom: 15px;
+    }
+
+    input[type="checkbox"] {
+        height: auto !important;
+        width: auto !important;
+    }
 </style>
 
 <div id="preloder">
@@ -171,7 +187,7 @@
                 <div class="contact__content">
                     <div class="contact__form">
                         <h5>상품 수정</h5>
-                        <form class="product-edit-form" name="editForm" method="post" enctype="multipart/form-data">
+                        <form class="product-edit-form" name="f" method="post" enctype="multipart/form-data">
                             <input type="hidden" id="selectedFirstCategoryId" th:value="${selectedFirstCategoryId}">
                             <input type="hidden" id="selectedSecondCategoryId" th:value="${selectedSecondCategoryId}">
                             <input type="hidden" id="selectedThirdCategoryId" th:value="${selectedThirdCategoryId}">
@@ -309,6 +325,68 @@
                                 </div>
                                 <div id="new-image-preview"></div>
                                 <button type="button" class="btn btn-success" onclick="uploadImages()">이미지 추가</button>
+                            </div>
+                            </br></br>
+                            <div class="col-md-12">
+                                <div class="quform-element form-group">
+                                    <label for="auto-discount-yn">
+                                        <input type="checkbox" id="auto-discount-yn-checkbox" name="auto-discount-yn"
+                                               onchange="toggleDiscountFields()">
+                                        가격 할인 정보 수정
+                                    </label>
+                                </div>
+                            </div>
+                            <div id="discount-fields" style="display: none;">
+                                <div class="col-md-12">
+                                    <div class="quform-element form-group">
+                                        <label for="discount-start-date">첫 가격 할인 예정일</label>
+                                        <div class="quform-input">
+                                            <input class="form-control" id="discount-start-date" type="text" name="discount-start-date"
+                                                   th:value="${product.getPriceInformationListResponse != null ? product.getPriceInformationListResponse.get(product.getPriceInformationListResponse.size() - 1).nextDiscountedAt : ''}"
+                                                   placeholder="첫 가격 할인 예정일을 선택해 주세요"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="quform-element form-group">
+                                        <label for="price-discount-period">가격 할인 주기</label>
+                                        <div class="input-group">
+                                            <input class="form-control" id="price-discount-period" type="number" name="price-discount-period"
+                                                   th:value="${product.getPriceInformationListResponse != null ? product.getPriceInformationListResponse.get(product.getPriceInformationListResponse.size() - 1).priceDiscountPeriod : ''}"
+                                                   min="1" step="1" style="max-width: 80px;"/>
+                                            <span class="input-group-text">일</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="quform-element form-group">
+                                        <label for="price-discount-rate">가격 할인율(%)</label>
+                                        <div class="input-group">
+                                            <input class="form-control" id="price-discount-rate" type="number" name="price-discount-rate"
+                                                   th:value="${product.getPriceInformationListResponse != null ? product.getPriceInformationListResponse.get(product.getPriceInformationListResponse.size() - 1).priceDiscountRate : ''}"
+                                                   min="1" max="99" step="1" placeholder="1~99" style="max-width: 80px;"/>
+                                            <span class="input-group-text">%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="quform-element form-group">
+                                        <label for="min-price">최저 가격</label>
+                                        <div class="input-group">
+                                            <input class="form-control" id="min-price" type="number" name="min-price"
+                                                   th:value="${product.getPriceInformationListResponse != null ? product.getPriceInformationListResponse.get(product.getPriceInformationListResponse.size() - 1).minPrice : ''}"
+                                                   min="0" step="1000" placeholder="최저 가격을 입력해 주세요" style="max-width: 100px;"/>
+                                            <span class="input-group-text">원</span>
+                                        </div>
+                                        <small>최저 가격 미만으로는 할인되지 않습니다.</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <button type="button" class="btn btn-primary" onclick="updatePriceInformation()">가격 할인 정보 수정</button>
+                                </div>
+                                <div class="col-md-12">
+                                    <div id="second-discount-info" style="margin-top: 10px;"></div>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -459,6 +537,104 @@
 <!-- Search End -->
 
 <script>
+    function validate() {
+        const firstCategory = f['first-category'].value.trim();
+        const secondCategory = f['second-category'].value.trim();
+        const thirdCategory = f['third-category'].value.trim();
+        const productName = f['product-name'].value.trim();
+        const price = f.price.value.trim();
+        const title = f.title.value.trim();
+        const content = f.content.value.trim();
+        const images = document.getElementById('image-upload').files;
+        const discountCheckbox = document.getElementById('auto-discount-yn-checkbox');
+        const firstDiscountDate = document.getElementById('discount-start-date').value.trim();
+        const priceDiscountPeriod = document.getElementById('price-discount-period').value.trim();
+        const priceDiscountRate = document.getElementById('price-discount-rate').value.trim();
+        const minPrice = document.getElementById('min-price').value.trim();
+
+        if (firstCategory.length === 0) {
+            alert('대분류를 선택해 주세요.');
+            f['first-category'].focus();
+            return false;
+        }
+
+        if (secondCategory.length === 0) {
+            alert('소분류를 선택해 주세요.');
+            f['second-category'].focus();
+            return false;
+        }
+
+        if (thirdCategory.length === 0) {
+            alert('상세분류를 선택해 주세요.');
+            f['third-category'].focus();
+            return false;
+        }
+
+        if (productName.length === 0) {
+            alert('상품명을 입력해 주세요.');
+            f['product-name'].focus();
+            return false;
+        }
+
+        if (price.length === 0) {
+            alert('가격을 입력해 주세요.');
+            f.price.focus();
+            return false;
+        }
+
+        if (isNaN(price)) {
+            alert('가격은 숫자만 입력할 수 있습니다.');
+            f.price.focus();
+            return false;
+        }
+
+        if (title.length === 0) {
+            alert('게시글 제목을 입력해 주세요.');
+            f.title.focus();
+            return false;
+        }
+
+        if (content.length === 0) {
+            alert('게시글 내용을 입력해 주세요.');
+            f.content.focus();
+            return false;
+        }
+
+        if (images.length === 0) {
+            alert('상품 이미지를 하나 이상 첨부해 주세요.');
+            return false;
+        }
+
+        if (discountCheckbox.checked) {
+            if (firstDiscountDate.length === 0) {
+                alert('첫 가격 할인 예정일을 입력해 주세요.');
+                document.getElementById('discount-start-date').focus();
+                return false;
+            }
+
+            if (priceDiscountPeriod.length === 0 || isNaN(priceDiscountPeriod)) {
+                alert('가격 할인 주기를 입력해 주세요.');
+                document.getElementById('price-discount-period').focus();
+                return false;
+            }
+
+            if (priceDiscountRate.length === 0 || isNaN(priceDiscountRate)) {
+                alert('가격 할인율을 입력해 주세요.');
+                document.getElementById('price-discount-rate').focus();
+                return false;
+            }
+
+            if (minPrice.length === 0 || isNaN(minPrice)) {
+                alert('최소 가격을 입력해 주세요.');
+                document.getElementById('min-price').focus();
+                return false;
+            }
+        }
+
+        prepareFormSubmission();
+        f.submit();
+    }
+
     document.getElementById('first-category').addEventListener('change', function () {
         const parentCategoryId = this.value;
         fetch('/categories?parentCategoryId=' + parentCategoryId)
@@ -659,28 +835,39 @@
     }
 
     function designateRepresentativeImage(imageId) {
-        fetch(`/image/designate-representative?imageId=${imageId}`, {
+        const productId = document.getElementById('product-id').value;
+
+        const requestData = {
+            id: imageId,
+            targetType: 'PRODUCT',
+            targetId: productId
+        };
+
+        fetch('/image/designate-representative', {
             method: 'PATCH',
-            headers: {'Content-Type': 'application/json'}
-        }).then(response => {
-            if (response.ok) {
-                alert('대표 이미지가 설정되었습니다.');
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(requestData)
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert('대표 이미지가 설정되었습니다.');
 
-                document.querySelectorAll('.img-preview').forEach(img => {
-                    img.classList.remove('representative-image');
-                });
+                    document.querySelectorAll('.img-preview').forEach(img => {
+                        img.classList.remove('representative-image');
+                    });
 
-                const imageContainer = document.getElementById(`image-container-${imageId}`);
-                if (imageContainer) {
-                    imageContainer.querySelector('.img-preview').classList.add('representative-image');
+                    const imageContainer = document.getElementById(`image-container-${imageId}`);
+                    if (imageContainer) {
+                        imageContainer.querySelector('.img-preview').classList.add('representative-image');
+                    }
+                } else {
+                    alert('대표 이미지 설정에 실패했습니다.');
                 }
-            } else {
-                alert('대표 이미지 설정에 실패했습니다.');
-            }
-        }).catch(error => {
-            console.error('Error:', error);
-            alert('대표 이미지 설정 중 오류가 발생했습니다.');
-        });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('대표 이미지 설정 중 오류가 발생했습니다.');
+            });
     }
 
     function deleteImage(imageId) {
@@ -772,6 +959,225 @@
                 alert('이미지 업로드 실패: ' + response.statusText);
             }
         });
+    }
+
+    function toggleDiscountFields() {
+        const discountCheckbox = document.getElementById('auto-discount-yn-checkbox');
+        const discountFields = document.getElementById('discount-fields');
+
+        if (discountCheckbox && discountCheckbox.checked) {
+            discountFields.style.display = 'block';
+        } else {
+            discountFields.style.display = 'none';
+        }
+    }
+
+    function prepareFormSubmission() {
+        const discountCheckbox = document.getElementById('auto-discount-yn-checkbox');
+
+        const autoDiscountRequest = {
+            firstDiscountDate: document.getElementById('discount-start-date').value.trim(),
+            priceDiscountPeriod: document.getElementById('price-discount-period').value.trim(),
+            priceDiscountRate: document.getElementById('price-discount-rate').value.trim(),
+            minPrice: document.getElementById('min-price').value.trim()
+        };
+
+        const updateProductRequest = {
+            id: document.getElementById('product-id').value,
+            name: document.getElementById('product-name').value.trim(),
+            price: document.getElementById('price').value.trim(),
+            title: document.getElementById('title').value.trim(),
+            content: document.getElementById('content').value.trim(),
+            connectCategoryRequest: {
+                firstCategoryId: document.getElementById('first-category').value,
+                secondCategoryId: document.getElementById('second-category').value,
+                thirdCategoryId: document.getElementById('third-category').value
+            },
+            autoDiscountRequest: discountCheckbox.checked ? autoDiscountRequest : null
+        };
+
+        fetch('/product/update', {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updateProductRequest)
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert('상품 정보가 수정되었습니다.');
+                } else {
+                    alert('상품 정보 수정에 실패했습니다.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('요청 중 오류가 발생했습니다.');
+            });
+    }
+
+    function calculateDiscount() {
+        const priceField = document.getElementById('price');
+        const discountPeriodField = document.getElementById('price-discount-period');
+        const discountRateField = document.getElementById('price-discount-rate');
+        const startDateField = document.getElementById('discount-start-date');
+        const minPriceField = document.getElementById('min-price');
+
+        const originalPrice = parseFloat(priceField.value.trim());
+        const discountRate = parseFloat(discountRateField.value.trim());
+        const startDate = startDateField.value;
+
+        if (isNaN(discountRate) || discountRate <= 0) {
+            document.getElementById('second-discount-info').innerHTML = '';
+            return;
+        }
+
+        let discountedPrice = originalPrice * (1 - discountRate / 100);
+
+        if (isNaN(discountedPrice)) {
+            discountedPrice = 0;
+        }
+
+        if (startDate) {
+            document.getElementById('second-discount-info').innerHTML =
+                `<span class="highlight">${startDate} 00:00</span>에 <span class="highlight">${discountedPrice.toFixed(0)}원</span>으로 자동 할인됩니다.
+            <br> 이후 판매 시까지 <span class="highlight">${discountPeriodField.value}</span>일마다
+            <span class="highlight">${discountRateField.value}%</span>만큼 자동 할인됩니다.`;
+        } else {
+            document.getElementById('second-discount-info').innerHTML = '';
+        }
+    }
+
+    document.getElementById('price').addEventListener('input', function () {
+        calculateFeeDeduction();
+        calculateDiscount();
+    });
+
+    function calculateFeeDeduction() {
+        const priceField = document.getElementById('price');
+        const feeDeductionInfo = document.getElementById('fee-deduction-info');
+        const price = parseFloat(priceField.value.trim());
+
+        if (isNaN(price)) {
+            alert('가격은 숫자만 입력할 수 있습니다.');
+            priceField.value = 1000;
+            priceField.focus();
+            return;
+        }
+
+        if (!isNaN(price)) {
+            const feeDeductedPrice = price * 0.965;
+            feeDeductionInfo.innerHTML = `판매 완료 시 결제 수수료 3.5% 공제 후 <span class="highlight">${feeDeductedPrice.toFixed(0)}원</span>이 지급됩니다.`;
+        } else {
+            feeDeductionInfo.innerHTML = '';
+        }
+    }
+
+    document.getElementById('price-discount-period').addEventListener('input', function () {
+        validatePriceDiscountPeriod();
+    });
+
+    function validatePriceDiscountPeriod() {
+        const discountPeriodField = document.getElementById('price-discount-period');
+        const discountPeriod = discountPeriodField.value.trim();
+
+        if (isNaN(discountPeriod) || discountPeriod < 1 || discountPeriod > 30) {
+            alert('할인 주기는 1에서 30 사이의 숫자만 입력할 수 있습니다.');
+            discountPeriodField.value = 7;
+            discountPeriodField.focus();
+            return false;
+        }
+    }
+
+    document.getElementById('price-discount-rate').addEventListener('input', function () {
+        validatePriceDiscountRate();
+    });
+
+    function validatePriceDiscountRate() {
+        const discountRateField = document.getElementById('price-discount-rate');
+        const discountRate = discountRateField.value.trim();
+
+        if (isNaN(discountRate) || discountRate < 1 || discountRate > 99) {
+            alert('가격 할인율은 1에서 99 사이의 숫자만 입력할 수 있습니다.');
+            discountRateField.value = 1;
+            discountRateField.focus();
+            return false;
+        }
+
+        calculateDiscount();
+        return true;
+    }
+
+    document.getElementById('min-price').addEventListener('input', function () {
+        validateMinPrice();
+    });
+
+    function validateMinPrice() {
+        const priceField = document.getElementById('price');
+        const discountRateField = document.getElementById('price-discount-rate');
+        const minPriceField = document.getElementById('min-price');
+
+        const price = parseFloat(priceField.value.trim());
+        const discountRate = parseFloat(discountRateField.value.trim());
+        const minPrice = parseFloat(minPriceField.value.trim());
+
+        if (isNaN(minPrice)) {
+            alert('최저 가격은 숫자만 입력할 수 있습니다.');
+            minPriceField.value = 0;
+            minPriceField.focus();
+            return false;
+        }
+
+        if (!isNaN(price) && !isNaN(discountRate)) {
+            const discountedPrice = price * (1 - discountRate / 100);
+
+            if (!isNaN(minPrice) && minPrice > discountedPrice) {
+                alert(`최저 가격은 첫 번째 할인가격(${discountedPrice.toFixed(0)}원)보다 낮거나 같아야 합니다.`);
+                minPriceField.value = discountedPrice.toFixed(0);
+                minPriceField.focus();
+            }
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        flatpickr("#discount-start-date", {
+            dateFormat: "Y-m-d",
+            minDate: new Date().fp_incr(1),
+            onChange: function () {
+                calculateDiscount();
+            }
+        });
+    });
+
+    function updatePriceInformation() {
+        const discountCheckbox = document.getElementById('auto-discount-yn-checkbox');
+
+        const autoDiscountRequest = {
+            firstDiscountDate: document.getElementById('discount-start-date').value.trim(),
+            priceDiscountPeriod: document.getElementById('price-discount-period').value.trim(),
+            priceDiscountRate: document.getElementById('price-discount-rate').value.trim(),
+            minPrice: document.getElementById('min-price').value.trim()
+        };
+
+        const updateProductRequest = {
+            id: document.getElementById('product-id').value,
+            autoDiscountRequest: discountCheckbox.checked ? autoDiscountRequest : null
+        };
+
+        fetch('/product/update', {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updateProductRequest)
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert('가격 할인 정보가 수정되었습니다.');
+                } else {
+                    alert('가격 할인 정보 수정에 실패했습니다.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('요청 중 오류가 발생했습니다.');
+            });
     }
 </script>
 

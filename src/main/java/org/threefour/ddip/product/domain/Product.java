@@ -7,6 +7,7 @@ import org.hibernate.Hibernate;
 import org.threefour.ddip.audit.BaseGeneralEntity;
 import org.threefour.ddip.member.domain.Member;
 import org.threefour.ddip.product.category.domain.ProductCategory;
+import org.threefour.ddip.product.exception.UpdateFormNoValueException;
 import org.threefour.ddip.product.priceinformation.domain.PriceInformation;
 import org.threefour.ddip.util.FormatValidator;
 
@@ -16,6 +17,7 @@ import java.util.List;
 import static javax.persistence.CascadeType.*;
 import static javax.persistence.FetchType.LAZY;
 import static lombok.AccessLevel.PROTECTED;
+import static org.threefour.ddip.product.exception.ExceptionMessage.UPDATE_FORM_NO_VALUE_EXCEPTION_MESSAGE;
 
 @Entity
 @NoArgsConstructor(access = PROTECTED)
@@ -115,7 +117,22 @@ public class Product extends BaseGeneralEntity {
         String contentToUpdate = updateProductRequest.getContent();
         if (FormatValidator.hasValue(contentToUpdate)) {
             content = contentToUpdate;
+            return;
         }
+
+        AutoDiscountRequest autoDiscountRequest = updateProductRequest.getAutoDiscountRequest();
+        if (FormatValidator.hasValue(autoDiscountRequest)) {
+            if (FormatValidator.hasValue(priceInformation)) {
+                PriceInformation lastPriceInformation = priceInformation.get(priceInformation.size() - 1);
+                lastPriceInformation.update(autoDiscountRequest);
+                return;
+            }
+
+            priceInformation.add(PriceInformation.from(this, autoDiscountRequest));
+            return;
+        }
+
+        throw new UpdateFormNoValueException(UPDATE_FORM_NO_VALUE_EXCEPTION_MESSAGE);
     }
 
     public void delete() {
