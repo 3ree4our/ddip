@@ -87,7 +87,7 @@ pipeline {
                         scp -i "$EC2_DEPLOY_KEY_FOR_DDIP" ${WORKSPACE}/docker-compose.yml ubuntu@$EC2_IP_FOR_DDIP:$EC2_DEPLOY_PATH/
                         ssh -i "$EC2_DEPLOY_KEY_FOR_DDIP" ubuntu@"$EC2_IP_FOR_DDIP" << EOF
                             cd $EC2_DEPLOY_PATH
-                            export EC2_IP_FOR_DDIP='${EC2_IP_FOR_DDIP}''
+                            export EC2_IP_FOR_DDIP='${EC2_IP_FOR_DDIP}'
                             export PROJECT_NAME='${PROJECT_NAME}'
                             export PROJECT_VERSION='${PROJECT_VERSION}'
                             export DOCKER_HUB_USER_NAME='${DOCKER_HUB_USER_NAME}'
