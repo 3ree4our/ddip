@@ -51,7 +51,7 @@ public class ImageServiceImpl implements ImageService {
 
   @Override
   @Transactional(isolation = READ_COMMITTED, timeout = 10)
-  //@CachePut(key = CREATE_IMAGE_KEY, condition = CREATE_KEY_CONDITION, value = CACHE_VALUE)
+  @CachePut(key = CREATE_IMAGE_KEY, condition = CREATE_KEY_CONDITION, value = CACHE_VALUE)
   public List<Image> createImages(AddImagesRequest addImagesRequest) {
     List<MultipartFile> imagesToUpload = addImagesRequest.getImages();
     TargetType targetType = FormatConverter.parseToTargetType(addImagesRequest.getTargetType());
@@ -106,7 +106,7 @@ public class ImageServiceImpl implements ImageService {
 
   @Override
   @Transactional(isolation = READ_COMMITTED, readOnly = true, timeout = 10)
-  //@Cacheable(key = GET_IMAGE_KEY, condition = GET_KEY_CONDITION, value = CACHE_VALUE)
+  @Cacheable(key = GET_IMAGE_KEY, condition = GET_KEY_CONDITION, value = CACHE_VALUE)
   public List<Image> getImages(TargetType targetType, Long targetId) {
     return imageRepository.findByTargetTypeAndTargetIdAndDeleteYnFalse(targetType, targetId);
   }
@@ -162,7 +162,7 @@ public class ImageServiceImpl implements ImageService {
 
   @Override
   @Transactional(isolation = READ_UNCOMMITTED, timeout = 10)
-  //@CacheEvict(key = DELETE_IMAGE_KEY, condition = DELETE_KEY_CONDITION, value = CACHE_VALUE)
+  @CacheEvict(key = DELETE_IMAGE_KEY, condition = DELETE_KEY_CONDITION, value = CACHE_VALUE)
   public void deleteImage(Long id) {
     Image image = getImage(id);
     image.delete();
@@ -171,7 +171,7 @@ public class ImageServiceImpl implements ImageService {
 
   @Override
   @Transactional(isolation = READ_UNCOMMITTED, timeout = 10)
-  //@CachePut(key = DELETE_IMAGE_KEY, condition = DELETE_KEY_CONDITION, value = CACHE_VALUE)
+  @CachePut(key = DELETE_IMAGE_KEY, condition = DELETE_KEY_CONDITION, value = CACHE_VALUE)
   public void rollbackDeletion(Long id) {
     Image image = imageRepository.findById(id)
             .orElseThrow(() -> new ImageNotFoundException(String.format(IMAGE_NOT_FOUND_EXCEPTION_MESSAGE, id)));

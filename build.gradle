@@ -22,7 +22,7 @@ configurations {
 repositories {
     mavenCentral()
     // 아임포트 관련
-    maven {url 'https://jitpack.io'}
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
@@ -41,8 +41,8 @@ dependencies {
 
     // data
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client:2.7.4'
-//    implementation 'org.springframework.boot:spring-boot-starter-data-redis:2.7.12'
-//    implementation 'org.springframework.session:spring-session-data-redis:2.7.0'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis:2.7.12'
+    implementation 'org.springframework.session:spring-session-data-redis:2.7.0'
     implementation 'com.h2database:h2:2.1.214'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.7.12'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-hibernate5:2.15.2'

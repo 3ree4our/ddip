@@ -1,4 +1,3 @@
-/*
 package org.threefour.ddip.configuration;
 
 import org.springframework.context.annotation.Bean;
@@ -29,4 +28,3 @@ public class SessionConfig {
     return serializer;
   }
 }
-*/
