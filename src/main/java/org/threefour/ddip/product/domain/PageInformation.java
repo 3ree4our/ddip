@@ -4,9 +4,15 @@ import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.domain.Page;
 import org.threefour.ddip.deal.domain.Deal;
+import org.threefour.ddip.product.elasticsearch.domain.ProductDocument;
+import org.threefour.ddip.util.FormatConverter;
+
+import java.io.Serializable;
 
 @Getter
-public class PageInformation {
+public class PageInformation implements Serializable {
+    private static final long serialVersionUID = 6L;
+
     private Long totalElements;
     private int totalPages;
     private int size;
@@ -37,6 +43,17 @@ public class PageInformation {
                 .build();
     }
 
+    public static PageInformation fromProductDocument(Page<ProductDocument> pagedProductDocuments) {
+        return PageInformation.builder()
+                .totalElements(pagedProductDocuments.getTotalElements())
+                .totalPages(pagedProductDocuments.getTotalPages())
+                .size(pagedProductDocuments.getSize())
+                .pageNumber(pagedProductDocuments.getNumber())
+                .isFirst(pagedProductDocuments.isFirst())
+                .isLast(pagedProductDocuments.isLast())
+                .build();
+    }
+
     public static PageInformation fromDeal(Page<Deal> pagedDeals) {
         return PageInformation.builder()
                 .totalElements(pagedDeals.getTotalElements())
@@ -46,5 +63,9 @@ public class PageInformation {
                 .isFirst(pagedDeals.isFirst())
                 .isLast(pagedDeals.isLast())
                 .build();
+    }
+
+    public void setPageNumber(String pageNumber) {
+        this.pageNumber = FormatConverter.parseToInt(pageNumber);
     }
 }

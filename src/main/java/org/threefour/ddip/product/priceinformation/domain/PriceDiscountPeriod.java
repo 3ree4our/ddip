@@ -7,6 +7,7 @@ import org.threefour.ddip.util.FormatValidator;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
+import java.util.Objects;
 
 import static org.threefour.ddip.product.priceinformation.exception.ExceptionMessage.INVALID_PRICE_DISCOUNT_PERIOD_EXCEPTION_MESSAGE;
 import static org.threefour.ddip.product.priceinformation.exception.ExceptionMessage.PRICE_DISCOUNT_PERIOD_NO_VALUE_EXCEPTION_MESSAGE;
@@ -40,6 +41,19 @@ public class PriceDiscountPeriod {
                     String.format(INVALID_PRICE_DISCOUNT_PERIOD_EXCEPTION_MESSAGE, priceDiscountPeriod)
             );
         }
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        PriceDiscountPeriod that = (PriceDiscountPeriod) object;
+        return priceDiscountPeriod == that.priceDiscountPeriod;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(priceDiscountPeriod);
     }
 
     @Converter

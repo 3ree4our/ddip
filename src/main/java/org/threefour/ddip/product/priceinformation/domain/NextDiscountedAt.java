@@ -12,6 +12,7 @@ import org.threefour.ddip.util.FormatValidator;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 import static org.threefour.ddip.product.priceinformation.exception.ExceptionMessage.INVALID_NEXT_DISCOUNTED_AT_EXCEPTION_MESSAGE;
 import static org.threefour.ddip.product.priceinformation.exception.ExceptionMessage.NEXT_DISCOUNTED_AT_NO_VALUE_EXCEPTION_MESSAGE;
@@ -47,6 +48,19 @@ public class NextDiscountedAt {
                     String.format(INVALID_NEXT_DISCOUNTED_AT_EXCEPTION_MESSAGE, nextDiscountedAt)
             );
         }
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        NextDiscountedAt that = (NextDiscountedAt) object;
+        return Objects.equals(nextDiscountedAt, that.nextDiscountedAt);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nextDiscountedAt);
     }
 
     @Converter

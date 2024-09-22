@@ -1,6 +1,7 @@
 package org.threefour.ddip.image.domain;
 
 import org.threefour.ddip.product.domain.Product;
+import org.threefour.ddip.product.elasticsearch.domain.ProductDocument;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,6 +19,12 @@ public class RepresentativeImagesRequest {
 
     public static RepresentativeImagesRequest from(List<Product> products) {
         List<Long> targetIds = products.stream().map(Product::getId).collect(Collectors.toList());
+
+        return new RepresentativeImagesRequest(PRODUCT, targetIds);
+    }
+
+    public static RepresentativeImagesRequest fromSearch(List<ProductDocument> productDocuments) {
+        List<Long> targetIds = productDocuments.stream().map(ProductDocument::getId).collect(Collectors.toList());
 
         return new RepresentativeImagesRequest(PRODUCT, targetIds);
     }

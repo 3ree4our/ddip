@@ -6,8 +6,7 @@
 
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <!-- Css Styles -->
   <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
@@ -19,14 +18,10 @@
   <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css">
   <link rel="stylesheet" href="/css/style.css" type="text/css">
   <link rel="stylesheet" href="/css/header.css" type="text/css">
-
 </head>
 <body>
 
 <div th:fragment="header">
-  <div>
-
-  </div>
   <div id="preloder">
     <div class="loader"></div>
   </div>
@@ -69,18 +64,6 @@
             <a th:href="@{/}"><img src="/img/logo.png" alt=""></a>
           </div>
         </div>
-        <!--<div class="col-xl-6 col-lg-7" id="search">-->
-        <!--  <nav class="header__menu">-->
-        <!--    <ul>-->
-        <!--      <li>-->
-        <!--        <div style="display: flex; justify-content: space-between; align-items: center; border: 2px solid #2641ae; padding: 2px 10px; width: 450px;">-->
-        <!--          <input type="text" placeholder="상품명" maxlength="60" style="border: none; flex-grow: 1; margin-right: 10px; padding: 0;">-->
-        <!--          <a href="#"><span class="icon_search search-switch"></span></a>-->
-        <!--        </div>-->
-        <!--      </li>-->
-        <!--    </ul>-->
-        <!--  </nav>-->
-        <!--</div>-->
         <div class="col-lg-3" id="me">
           <div class="header__right">
             <div class="header__right__auth">
@@ -110,23 +93,23 @@
       <div class="container-fluid">
         <div>
           <ul class="nav-list">
-            <li>
-              <a th:href="@{/}" class="category-icon">category아이콘</a>
-              <ul class="dropdown">
-                <li><a href="#">카테고리 1</a></li>
-                <li><a href="#">카테고리 2</a></li>
-                <li><a href="#">카테고리 3</a></li>
-                <li><a href="#">카테고리 4</a></li>
-              </ul>
-            </li>
+            <li><a th:href="@{/}">category</a></li>
             <li>
               <div class="col-xl-6 col-lg-7" id="search">
                 <nav class="header__menu">
                   <ul>
                     <li>
-                      <div class="search-form">
-                        <input class="input-search" type="text" placeholder="상품명, 지역명, 상점명" maxlength="60">
-                        <a href="#"><span class="icon_search search-switch"></span></a>
+                      <div class="search-form" style="display: flex; align-items: center; position: relative;">
+                        <select id="search-type" style="margin-right: 10px; padding: 5px;">
+                          <option value="name">상품명</option>
+                          <option value="category">카테고리</option>
+                          <option value="title">글 제목</option>
+                          <option value="region">지역명</option>
+                          <option value="school">학교명</option>
+                        </select>
+                        <input id="searchkeyword" class="input-search" type="text" placeholder="검색어를 입력하세요" maxlength="60" style="flex-grow: 1; margin-right: 10px;">
+                        <a href="#" id="search-button"><span class="icon_search search-switch"></span></a>
+                        <ul id="autocomplete-list" class="autocomplete-list" style="position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid #ddd; max-height: 200px; overflow-y: auto; z-index: 1000; display: none;"></ul>
                       </div>
                     </li>
                   </ul>
@@ -153,7 +136,5 @@
   <script src="/webjars/stomp-websocket/stomp.min.js"></script>
   <script th:type="module" th:src="@{/chat/js/alert.js}"></script>
 </div>
-
-
 </body>
 </html>

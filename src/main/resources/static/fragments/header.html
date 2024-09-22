@@ -64,25 +64,24 @@
   <!-- Header Section Begin -->
   <header class="header">
     <div class="container-fluid">
-      <div class="row">
+      <div class="row" id="header-main">
         <div class="col-xl-3 col-lg-2">
           <div class="header__logo">
             <a th:href="@{/}"><img src="/img/logo.png" alt=""></a>
           </div>
         </div>
-        <div class="col-xl-6 col-lg-7" id="search">
-          <nav class="header__menu">
-            <ul>
-              <li>
-                <div style="display: flex; justify-content: space-between; align-items: center; border: 2px solid #2641ae; padding: 2px 10px; width: 450px;">
-                  <input type="text" placeholder="상품명" maxlength="60"
-                         style="border: none; flex-grow: 1; margin-right: 10px; padding: 0;">
-                  <a href="#"><span class="icon_search search-switch"></span></a>
-                </div>
-              </li>
-            </ul>
-          </nav>
-        </div>
+        <!--<div class="col-xl-6 col-lg-7" id="search">-->
+        <!--  <nav class="header__menu">-->
+        <!--    <ul>-->
+        <!--      <li>-->
+        <!--        <div style="display: flex; justify-content: space-between; align-items: center; border: 2px solid #2641ae; padding: 2px 10px; width: 450px;">-->
+        <!--          <input type="text" placeholder="상품명" maxlength="60" style="border: none; flex-grow: 1; margin-right: 10px; padding: 0;">-->
+        <!--          <a href="#"><span class="icon_search search-switch"></span></a>-->
+        <!--        </div>-->
+        <!--      </li>-->
+        <!--    </ul>-->
+        <!--  </nav>-->
+        <!--</div>-->
         <div class="col-lg-3" id="me">
           <div class="header__right">
             <div class="header__right__auth">
@@ -113,8 +112,19 @@
         <div>
           <ul class="nav-list">
             <li><a th:href="@{/}">category</a></li>
-            <li><a href="#">sale</a></li>
-            <li><a href="#">ddip talk</a></li>
+            <li><div class="col-xl-6 col-lg-7" id="search">
+              <nav class="header__menu">
+                <ul>
+                  <li>
+                    <div class="search-form">
+                      <input class="input-search" type="text" placeholder="상품명, 지역명, 상점명" maxlength="60">
+                      <a href="#"><span class="icon_search search-switch"></span></a>
+                    </div>
+                  </li>
+                </ul>
+              </nav>
+            </div></li>
+            <li><a href="#">sale</a><a href="#"><img src="/img/ddip-talkS.png"></a></li>
           </ul>
         </div>
       </div>

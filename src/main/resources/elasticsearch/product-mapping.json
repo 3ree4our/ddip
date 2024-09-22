@@ -1,0 +1,109 @@
+{
+  "properties": {
+    "id": {
+      "type": "long"
+    },
+    "name": {
+      "type": "text",
+      "analyzer": "suggest_index_analyzer",
+      "search_analyzer": "suggest_search_analyzer"
+    },
+    "price": {
+      "type": "integer"
+    },
+    "title": {
+      "type": "text",
+      "analyzer": "suggest_index_analyzer",
+      "search_analyzer": "suggest_search_analyzer"
+    },
+    "content": {
+      "type": "text"
+    },
+    "sellerId": {
+      "type": "long"
+    },
+    "sellerNickName": {
+      "type": "keyword",
+      "ignore_above": 256
+    },
+    "city": {
+      "type": "text",
+      "analyzer": "suggest_index_analyzer",
+      "search_analyzer": "suggest_search_analyzer",
+      "fields": {
+        "keyword": {
+          "type": "keyword",
+          "ignore_above": 256
+        }
+      }
+    },
+    "district": {
+      "type": "text",
+      "analyzer": "suggest_index_analyzer",
+      "search_analyzer": "suggest_search_analyzer",
+      "fields": {
+        "keyword": {
+          "type": "keyword",
+          "ignore_above": 256
+        }
+      }
+    },
+    "roadAddress": {
+      "type": "text",
+      "analyzer": "suggest_index_analyzer",
+      "search_analyzer": "suggest_search_analyzer",
+      "fields": {
+        "keyword": {
+          "type": "keyword",
+          "ignore_above": 256
+        }
+      }
+    },
+    "schoolName": {
+      "type": "text",
+      "analyzer": "suggest_index_analyzer",
+      "search_analyzer": "suggest_search_analyzer"
+    },
+    "firstCategoryName": {
+      "type": "text",
+      "analyzer": "suggest_index_analyzer",
+      "search_analyzer": "suggest_search_analyzer",
+      "fields": {
+        "keyword": {
+          "type": "keyword",
+          "ignore_above": 256
+        }
+      }
+    },
+    "secondCategoryName": {
+      "type": "text",
+      "analyzer": "suggest_index_analyzer",
+      "search_analyzer": "suggest_search_analyzer",
+      "fields": {
+        "keyword": {
+          "type": "keyword",
+          "ignore_above": 256
+        }
+      }
+    },
+    "thirdCategoryName": {
+      "type": "text",
+      "analyzer": "suggest_index_analyzer",
+      "search_analyzer": "suggest_search_analyzer",
+      "fields": {
+        "keyword": {
+          "type": "keyword",
+          "ignore_above": 256
+        }
+      }
+    },
+    "createdAt": {
+      "type": "date",
+      "format": "uuuu-MM-dd'T'HH:mm:ss.SSS||epoch_millis"
+    },
+    "modifiedAt": {
+      "type": "date",
+      "format": "uuuu-MM-dd'T'HH:mm:ss.SSS||epoch_millis"
+    }
+  }
+}

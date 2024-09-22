@@ -7,6 +7,7 @@ import org.threefour.ddip.util.FormatValidator;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
+import java.util.Objects;
 
 import static org.threefour.ddip.product.priceinformation.exception.ExceptionMessage.INVALID_MIN_PRICE_EXCEPTION_MESSAGE;
 import static org.threefour.ddip.product.priceinformation.exception.ExceptionMessage.MIN_PRICE_NO_VALUE_EXCEPTION_MESSAGE;
@@ -39,6 +40,19 @@ public class MinPrice {
         if (!FormatValidator.isPositiveNumberOrZeroPattern(minPrice)) {
             throw new InvalidPriceException(String.format(INVALID_MIN_PRICE_EXCEPTION_MESSAGE, minPrice));
         }
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        MinPrice minPrice1 = (MinPrice) object;
+        return minPrice == minPrice1.minPrice;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(minPrice);
     }
 
     int getValue() {

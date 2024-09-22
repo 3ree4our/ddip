@@ -9,6 +9,7 @@ import org.threefour.ddip.util.FormatValidator;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
+import java.util.Objects;
 
 import static org.threefour.ddip.product.exception.ExceptionMessage.INVALID_PRICE_EXCEPTION_MESSAGE;
 import static org.threefour.ddip.product.exception.ExceptionMessage.PRICE_NO_VALUE_EXCEPTION_MESSAGE;
@@ -43,8 +44,21 @@ public class Price {
         }
     }
 
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        Price price1 = (Price) object;
+        return price == price1.price;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(price);
+    }
+
     @JsonProperty(value = "price")
-    int getValue() {
+    public int getValue() {
         return price;
     }
 
