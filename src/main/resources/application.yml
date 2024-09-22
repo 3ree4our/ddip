@@ -1,5 +1,5 @@
 server:
-  url: ${DDIP_IP}
+  url: ${EC2_IP_FOR_DDIP}
   port: 443
   ssl:
     key-store: file:/app/keystore.p12
@@ -8,7 +8,7 @@ server:
     keyAlias: tomcat
 spring:
   application:
-    name: ${PROJECT_NAME}
+    name: ddip
   mvc:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
