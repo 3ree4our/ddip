@@ -1,11 +1,14 @@
-# Use an official OpenJDK runtime as a parent image
 FROM openjdk:11-jre-slim
 
-# Set the working directory
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 
-# Copy the jar file to the container
-COPY build/libs/*.jar app.jar
+COPY ./*.jar app.jar
 
-# Run the jar file
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+EXPOSE 443
+
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:8080/actuator/health || exit 1
+
+CMD ["java", "-jar", "app.jar"]
