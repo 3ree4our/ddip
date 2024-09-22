@@ -5,7 +5,7 @@ export const headers = {
 }
 
 export const getAllProduct = async () => {
-  const response = await fetch(`${SERVER_API}/products`, {
+  const response = await fetch(`/products`, {
     method: 'get',
     headers
   })
@@ -13,7 +13,7 @@ export const getAllProduct = async () => {
 }
 
 export const getAllChatroom = async () => {
-  const response = await fetch(`${SERVER_API}/chatrooms`, {
+  const response = await fetch(`/chatrooms`, {
     method: 'get',
     headers
   });
@@ -21,7 +21,7 @@ export const getAllChatroom = async () => {
 }
 
 export const getChatroomByProductId = async (chatroomId) => {
-  const response = await fetch(`${SERVER_API}/chatrooms/${chatroomId}`, {
+  const response = await fetch(`/chatrooms/${chatroomId}`, {
     method: 'get',
     headers
   });
@@ -31,7 +31,7 @@ export const getChatroomByProductId = async (chatroomId) => {
 export const getUnreadMessageCountsByProducts = async (productIds) => {
   try {
     const requests = productIds.map(productId =>
-        fetch(`${SERVER_API}/${productId}/unread-count`, {
+        fetch(`/${productId}/unread-count`, {
           method: 'GET',
           headers
         }).then(response => {
@@ -58,7 +58,7 @@ export const getUnreadMessageCountsByProducts = async (productIds) => {
 
 export const getTotalUnreadCount = async () => {
   try {
-    const response = await fetch(`${SERVER_API}/chatrooms/total-unread-count`, {
+    const response = await fetch(`/chatrooms/total-unread-count`, {
       headers
     });
 
@@ -74,7 +74,7 @@ export const getTotalUnreadCount = async () => {
 }
 
 export const getUserChatrooms = async () => {
-  const response = await fetch(`${SERVER_API}/user/chatrooms`, {
+  const response = await fetch(`/user/chatrooms`, {
     headers
   });
 
@@ -89,7 +89,7 @@ export const markRead = async (productId) => {
 }
 
 export const imageUpload = async (formData) => {
-  const result = await fetch(`${SERVER_API}/api/images/upload`, {
+  const result = await fetch(`/api/images/upload`, {
     method: 'POST',
     headers,
     body  : formData
@@ -99,16 +99,16 @@ export const imageUpload = async (formData) => {
 }
 
 export const getImageUrl = async (chatId) => {
-  const result = await fetch(`${SERVER_API}/api/images/chat/${chatId}`)
+  const result = await fetch(`/api/images/chat/${chatId}`)
   return result.json();
 }
 
 export const getDealStatus = async (productId) => {
-  await fetch(`${SERVER_API}/deal/products/${productId}`)
+  await fetch(`/deal/products/${productId}`)
 }
 
 export const completeDeal = async (productId) => {
-  const response = await fetch(`${SERVER_API}/deal/${productId}/complete`, {
+  const response = await fetch(`/deal/${productId}/complete`, {
     method: 'POST',
     headers
   });
@@ -117,7 +117,7 @@ export const completeDeal = async (productId) => {
 }
 
 export const cancelDeal = async (productId) => {
-  const response = await fetch(`${SERVER_API}/deal/${productId}/cancel`, {
+  const response = await fetch(`/deal/${productId}/cancel`, {
     method : 'POST',
     headers: {
       'Authorization': 'Bearer ' + localStorage.getItem('access-token')
