@@ -103,6 +103,10 @@ export const getImageUrl = async (chatId) => {
   return result.json();
 }
 
+export const getDealStatus = async (productId) => {
+  await fetch(`${SERVER_API}/deal/products/${productId}`)
+}
+
 export const completeDeal = async (productId) => {
   const response = await fetch(`${SERVER_API}/deal/${productId}/complete`, {
     method: 'POST',
@@ -120,5 +124,5 @@ export const cancelDeal = async (productId) => {
     }
   });
 
-  return response.json();
+  return response;
 }

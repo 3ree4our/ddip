@@ -177,7 +177,7 @@
                         <h5>상품 등록</h5>
                         <form class="product-registration" name="f" action="registration-confirm" method="post"
                               enctype="multipart/form-data">
-                            <input type="hidden" name="memberId" id="memberId" th:value="1">
+                            <input type="hidden" name="memberId" id="memberId" th:value="${memberId}">
                             <input type="hidden" name="autoDiscountRequest.firstDiscountDate" id="firstDiscountDate">
                             <input type="hidden" name="autoDiscountRequest.priceDiscountPeriod"
                                    id="priceDiscountPeriod">
@@ -632,61 +632,61 @@
     document.getElementById('first-category').addEventListener('change', function () {
         const parentCategoryId = this.value;
         fetch('/categories?parentCategoryId=' + parentCategoryId)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok ' + response.statusText);
-                }
-                return response.json();
-            })
-            .then(data => {
-                const secondCategorySelect = document.getElementById('second-category');
-                secondCategorySelect.innerHTML = '<option value="">소분류를 선택해 주세요</option>';
-                if (data.getCategoryResponses && data.getCategoryResponses.length > 0) {
-                    data.getCategoryResponses.forEach(category => {
-                        const option = document.createElement('option');
-                        option.value = category.id;
-                        option.text = category.description;
-                        secondCategorySelect.appendChild(option);
-                    });
-                } else {
-                    console.log('No categories found');
-                }
-            })
-            .catch(error => {
-                console.error('Fetch error:', error);
-            });
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const secondCategorySelect = document.getElementById('second-category');
+                    secondCategorySelect.innerHTML = '<option value="">소분류를 선택해 주세요</option>';
+                    if (data.getCategoryResponses && data.getCategoryResponses.length > 0) {
+                        data.getCategoryResponses.forEach(category => {
+                            const option = document.createElement('option');
+                            option.value = category.id;
+                            option.text = category.description;
+                            secondCategorySelect.appendChild(option);
+                        });
+                    } else {
+                        console.log('No categories found');
+                    }
+                })
+                .catch(error => {
+                    console.error('Fetch error:', error);
+                });
     });
 
     document.getElementById('second-category').addEventListener('change', function () {
         const parentCategoryId = this.value;
         fetch('/categories?parentCategoryId=' + parentCategoryId)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok ' + response.statusText);
-                }
-                return response.json();
-            })
-            .then(data => {
-                const thirdCategorySelect = document.getElementById('third-category');
-                thirdCategorySelect.innerHTML = '<option value="">상세분류를 선택해 주세요</option>';
-                if (data.getCategoryResponses && data.getCategoryResponses.length > 0) {
-                    data.getCategoryResponses.forEach(category => {
-                        const option = document.createElement('option');
-                        option.value = category.id;
-                        option.text = category.description;
-                        thirdCategorySelect.appendChild(option);
-                    });
-                } else {
-                    console.log('No categories found');
-                    const noneOption = document.createElement('option');
-                    noneOption.value = "none";
-                    noneOption.text = "없음";
-                    secondCategorySelect.appendChild(noneOption);
-                }
-            })
-            .catch(error => {
-                console.error('Fetch error:', error);
-            });
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const thirdCategorySelect = document.getElementById('third-category');
+                    thirdCategorySelect.innerHTML = '<option value="">상세분류를 선택해 주세요</option>';
+                    if (data.getCategoryResponses && data.getCategoryResponses.length > 0) {
+                        data.getCategoryResponses.forEach(category => {
+                            const option = document.createElement('option');
+                            option.value = category.id;
+                            option.text = category.description;
+                            thirdCategorySelect.appendChild(option);
+                        });
+                    } else {
+                        console.log('No categories found');
+                        const noneOption = document.createElement('option');
+                        noneOption.value = "none";
+                        noneOption.text = "없음";
+                        secondCategorySelect.appendChild(noneOption);
+                    }
+                })
+                .catch(error => {
+                    console.error('Fetch error:', error);
+                });
     });
 
     function toggleDiscountFields() {
@@ -761,7 +761,7 @@
 
         if (startDate) {
             document.getElementById('second-discount-info').innerHTML =
-                `<span class="highlight">${startDate} 00:00</span>에 <span class="highlight">${discountedPrice.toFixed(0)}원</span>으로 자동 할인됩니다.
+                    `<span class="highlight">${startDate} 00:00</span>에 <span class="highlight">${discountedPrice.toFixed(0)}원</span>으로 자동 할인됩니다.
             <br> 이후 판매 시까지 <span class="highlight">${discountPeriodField.value}</span>일마다
             <span class="highlight">${discountRateField.value}%</span>만큼 자동 할인됩니다.`;
         } else {

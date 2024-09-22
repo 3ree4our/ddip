@@ -45,6 +45,11 @@ const connect = (productsId) => {
 const subscribeToProduct = (productId) => {
   if (stompClient && stompClient.connected) {
     stompClient.subscribe(`/room/${productId}`, chatMessage => {
+      const messageObj = JSON.parse(chatMessage.body);
+
+      console.log('messageObj.message', messageObj.message)
+      console.log('messageObj.title', messageObj.title)
+      if (messageObj.title.startsWith('your')) alert(messageObj.message)
       updateUnreadMessageNotification();
     })
   }

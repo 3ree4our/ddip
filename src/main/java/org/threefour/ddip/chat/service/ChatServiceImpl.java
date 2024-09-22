@@ -40,11 +40,11 @@ public class ChatServiceImpl implements ChatService {
     Member owner = memberRepository.findById(dto.getOwner()).orElseThrow();
     Product product = productRepository.findById(dto.getProductId()).orElseThrow();
 
-    Deal deal = dealRepository.findByProductIdAndDealStatusAndDeleteYnFalse(product.getId(), DealStatus.IN_PROGRESS)
-            .orElseThrow(() -> new RuntimeException("Deal not found"));
+    List<Deal> deals = dealRepository.findByProductIdAndAndDeleteYnFalse(product.getId());
+    //.orElseThrow(() -> new RuntimeException("Deal not found"));
 
-    if (deal.getDealStatus() == DealStatus.PAID) {
-      throw new RuntimeException("Deal is paid");
+    for (Deal deal : deals) {
+      if (deal.getDealStatus() == DealStatus.PAID) throw new RuntimeException("Deal is paid");
     }
 
     Chat chat = Chat.builder()
@@ -143,6 +143,7 @@ public class ChatServiceImpl implements ChatService {
     for (Deal deal : activeDeals) {
       ChatroomResponseDTO latestChat = chatRepository.findLatestChatByProductId(deal.getProduct().getId());
       if (latestChat != null) {
+        latestChat.setStatus(deal.getDealStatus().name());
         List<Image> images = imageRepository.findByTargetTypeAndTargetIdAndDeleteYnFalse(TargetType.PRODUCT, latestChat.getProductId());
         if (!images.isEmpty()) {
           latestChat.setImage(images.get(0).getS3Url());

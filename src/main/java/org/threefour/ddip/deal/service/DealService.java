@@ -14,11 +14,14 @@ public interface DealService {
 
   int getWaitingNumberCount(Long productId);
 
-  Deal checkWaitingStatus(Long productId, Long buyerId);
+  DealStatus checkWaitingStatus(Long productId, Long buyerId);
 
   List<Long> getProductIdsForUserChats(Long id);
 
   void completeDeal(Long productId);
 
   void cancelDeal(Long productId);
+
+  DealStatus getProductIdAndDealStatusAndDeleteYnFalse(Long productId, DealStatus dealStatus);
+
 }

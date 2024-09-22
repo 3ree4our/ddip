@@ -8,6 +8,8 @@ import org.threefour.ddip.chat.domain.dto.ChatResponseDTO;
 import org.threefour.ddip.chat.domain.dto.ChatroomResponseDTO;
 import org.threefour.ddip.chat.domain.dto.ProductResponseDTO;
 import org.threefour.ddip.chat.service.ChatService;
+import org.threefour.ddip.deal.domain.Deal;
+import org.threefour.ddip.deal.domain.DealStatus;
 import org.threefour.ddip.deal.service.DealService;
 import org.threefour.ddip.image.domain.Image;
 import org.threefour.ddip.image.domain.TargetType;
@@ -34,6 +36,7 @@ public class ChatAPIController {
   public ResponseEntity<List<ProductResponseDTO>> getAllProductByMemberId(@RequestHeader("Authorization") String token) {
     String accessToken = token.substring(7);
     Long id = jwtUtil.getId(accessToken);
+
     List<ProductResponseDTO> list = chatService.getAllProductBySellerId(id);
     return new ResponseEntity<>(list, HttpStatus.OK);
   }
@@ -57,14 +60,14 @@ public class ChatAPIController {
     return ResponseEntity.ok(productIds);
   }
 
-  @GetMapping("/chatrooms/{chatroomId}/s3")
+  @GetMapping("/chatrooms/{productId}/s3")
   public ResponseEntity<List<ChatResponseDTO>> getChatroomByProductIdWithS3(
-          @PathVariable("chatroomId") Long chatroomId,
+          @PathVariable("productId") Long productId,
           @RequestHeader("Authorization") String token) {
     String accessToken = token.substring(7);
     Long id = jwtUtil.getId(accessToken);
 
-    List<ChatResponseDTO> allChatByProductId = chatService.findAllChatByProductId(chatroomId);
+    List<ChatResponseDTO> allChatByProductId = chatService.findAllChatByProductId(productId);
 
     List<ChatResponseDTO> list = new ArrayList<>();
     for (ChatResponseDTO chat : allChatByProductId) {
@@ -95,6 +98,8 @@ public class ChatAPIController {
 
     List<ChatResponseDTO> list = new ArrayList<>();
     for (ChatResponseDTO chat : allChatByProductId) {
+      DealStatus dealStatus = dealService.getProductIdAndDealStatusAndDeleteYnFalse(chat.getProductId(), DealStatus.PAID);
+      chat.setStatus(dealStatus.name());
 
       if (chat.getSender().getId() != id) chat.setType("left");
       else chat.setType("right");
@@ -135,13 +140,6 @@ public class ChatAPIController {
     Long id = jwtUtil.getId(accessToken);
     chatService.markAsRead(productId, id);
     return ResponseEntity.ok().build();
-  }
-
-  private void updateChatMap(Map<Long, ChatroomResponseDTO> chatMap, ChatroomResponseDTO newChat) {
-    Long productId = newChat.getProductId();
-    if (!chatMap.containsKey(productId) || newChat.getSendDate().after(chatMap.get(productId).getSendDate())) {
-      chatMap.put(productId, newChat);
-    }
   }
 
 

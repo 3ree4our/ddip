@@ -37,6 +37,7 @@ const updateUnreadCount = (roomId) => {
 
 const getConnect = async () => {
   const allProducts = await getAllProduct();
+
   if (allProducts.length > 0) {
     const productsId = allProducts.map(e => e.productId);
     if (!connectStatus) connect(productsId);
@@ -48,16 +49,12 @@ const connect = (productsId) => {
     return; // 이미 연결된 경우 중복 연결 방지
   }
 
-  if (!productsId) {
-    const pathname = location.pathname;
-    const path = pathname.substring(pathname.lastIndexOf('/') + 1);
-    productsId = path;
-  }
   const socket = new SockJS("/ws-stomp");
   stompClient = Stomp.over(socket);
   stompClient.connect({}, function (frame) {
     console.log('frame', frame);
-    productsId.forEach(productId => {
+    productsId.forEach(async (productId) => {
+
       subscribeToProduct(productId);
     })
   });
@@ -68,13 +65,16 @@ const subscribeToProduct = (productId) => {
   if (stompClient && stompClient.connected) {
     stompClient.subscribe(`/room/${productId}`, async (chatMessage) => {
 
-
       const messageObj = JSON.parse(chatMessage.body);
       const selectedImages = getSelectedImagesData();
       const formData = new FormData();
 
-      if (messageObj.message === 'complete') {
+      console.log('삭제 ! messageObj', messageObj)
+      console.log('삭제 ! messageObj', messageObj.message)
 
+      if (messageObj.message === null || messageObj.message === undefined) return;
+
+      if (messageObj.message === 'complete') {
         alert('거래가 완료되었습니다. 감사합니다.')
 
         location.reload();
@@ -211,6 +211,15 @@ const appendMessageTag = (messageObj) => {
       chatLi = createMessageTag(message.type, message.sender.nickname, message.message, message.sendDate);
       appendImageToMessage(chatLi, message.chatImageIds);
       document.querySelector("#chatWrapper .chat:not(.format) ul").appendChild(chatLi);
+
+      if (message.status === 'PAID') {
+        const chatInput = document.querySelector('section.input-div textarea');
+
+        chatInput.disabled = true;
+        chatInput.placeholder = '거래가 완료되어 더 이상 메시지를 보낼 수 없습니다.';
+
+        return;
+      }
     });
   } else {
     // 단일 메시지의 경우
@@ -224,6 +233,16 @@ const appendMessageTag = (messageObj) => {
   }
 
   if (messageObj?.imageUrls?.length > 0) {
+    if (messageObj.imageUrls[0].statusCode === 400) {
+      const chatInput = document.querySelector('section.input-div textarea');
+      const btnContainerEle = document.getElementById('dealButtonContainer');
+
+      if (btnContainerEle) btnContainerEle.replaceChildren('')
+
+      chatInput.disabled = true;
+      chatInput.placeholder = '거래가 완료되어 더 이상 메시지를 보낼 수 없습니다.';
+      return;
+    }
     const imageContainer = document.createElement('div');
     imageContainer.className = 'message-images';
     messageObj.imageUrls[0].forEach((url, index) => {
@@ -263,7 +282,7 @@ const appendImageToMessage = (chatLi, chatImageIds) => {
 
 // 채팅방 클릭 이벤트 핸들러 수정
 const chatRoomClickHandler = async (e) => {
-  let roomId = '';
+  let productId = '';
 
   if (document.querySelector("#chatWrapper .chat:not(.format) ul").hasChildNodes()) {
     document.querySelector("#chatWrapper .chat:not(.format) ul").replaceChildren('')
@@ -272,30 +291,44 @@ const chatRoomClickHandler = async (e) => {
   if (e.target.tagName !== 'DIV') {
     if (e.target.tagName !== 'IMG') {
       const targetEle = e.target.parentElement.parentElement;
-      roomId = targetEle.dataset.product;
+      productId = targetEle.dataset.product;
       addClassName(targetEle);
     } else {
       const targetEle = e.target.parentElement;
-      roomId = targetEle.dataset.product;
+      productId = targetEle.dataset.product;
       addClassName(targetEle);
     }
   } else {
     const targetEle = e.target;
-    roomId = targetEle.dataset.product;
+    productId = targetEle.dataset.product;
     addClassName(targetEle);
   }
 
-  focusChatroom = roomId;
-  // 읽지 않은 메시지 수 초기화
-  unreadMessages[roomId] = 0;
-  updateUnreadBadge(roomId);
-  await openChatRoom(roomId);
+  if (e.target.tagName === 'DEL') {
+    const targetEle = e.target.parentElement.parentElement.parentElement;
+    productId = targetEle.dataset.product;
+    addClassName(targetEle);
+  }
 
-  const messageObj = await getChatroomByProductId(roomId);
+  // 상태 가져오기
+
+  focusChatroom = productId;
+  // 읽지 않은 메시지 수 초기화
+  unreadMessages[productId] = 0;
+  updateUnreadBadge(productId);
+  await openChatRoom(productId);
+
+  const messageObj = await getChatroomByProductId(productId);
   appendMessageTag(messageObj);
 
-  if (messageObj[0].type === 'left')
-    updateDealButtons(roomId);
+  if (messageObj[0].status === 'PAID') return;
+
+  if (messageObj[0].type === 'left') {
+    updateDealButtons(productId);
+  } else {
+    const btnContainerEle = document.getElementById('dealButtonContainer');
+    if (btnContainerEle) btnContainerEle.replaceChildren('')
+  }
 }
 
 
@@ -303,8 +336,6 @@ const drawChatList = async () => {
   const allChatroom = await getAllChatroom();
   const chatRoomArea = document.querySelector('.chat-list');
   let productIds = [];
-
-  console.log("allChatroom", allChatroom)
 
   if (allChatroom.length === 0) {
     chatRoomArea.innerHTML = `
@@ -379,15 +410,20 @@ const createChatRoomElement = (chat) => {
   const div = document.createElement('div');
   div.className = 'user';
   div.setAttribute('data-product', chat.productId);
+
+  const messageText = chat.message.trim() === '' ? '이미지 전송' : chat.message;
+
   div.innerHTML = `
-    <img src='${chat.image}' alt="물품사진"/>
-    <div>
-      <p>${name}</p>
-      <p>${chat.message}</p>
-    </div>
-    <span class="unread-badge" style="display: none;"></span>
-  `;
+  <img src='${chat.image}' alt="물품사진"/>
+  <div>
+    <p>${name}</p>
+    <p>${chat.status === 'PAID' ? `<del>${messageText}</del>` : messageText}</p>
+  </div>
+  <span class="unread-badge" style="display: none;"></span>
+`;
+
   div.addEventListener('click', chatRoomClickHandler);
+
   return div;
 }
 
@@ -441,7 +477,6 @@ const updateDealButtons = (productId) => {
 
 const handleDealComplete = async () => {
   const result = confirm('거래를 완료 하시겠습니까?');
-  console.log('거래 result, ', result);
 
   if (result) {
     try {
@@ -450,6 +485,7 @@ const handleDealComplete = async () => {
       const result = await completeDeal(focusChatroom);
 
       if (!result.ok) throw new Error('Failed to complete deal');
+
       alert('거래가 완료되었습니다.')
 
       const messageObj = {
@@ -458,6 +494,7 @@ const handleDealComplete = async () => {
       }
 
       stompClient.send(`/messages/${focusChatroom}`, headers, JSON.stringify(messageObj));
+
     } catch (error) {
       console.error('Error completing deal: ', error);
       alert('거래 완료 처리 중 오류가 발생했습니다.')
@@ -485,6 +522,18 @@ const handleCancelDeal = async (productId) => {
   }
 }
 
+// 구독 해제 함수
+const unsubscribeFromProduct = (productId) => {
+  if (stompClient && stompClient.connected) {
+    const subscription = stompClient.subscriptions[`/room/${productId}`];
+    if (subscription) {
+      subscription.unsubscribe();
+      console.log(`Unsubscribed from room ${productId}`);
+    }
+  }
+}
+
+// UI 업데이트 함수
 const updateUIAfterDealComplete = (roomId) => {
   const dealButtonContainer = document.getElementById('dealButtonContainer');
   dealButtonContainer.innerHTML = '<p>완료된 거래입니다.</p>';
@@ -493,10 +542,17 @@ const updateUIAfterDealComplete = (roomId) => {
   if (chatRoomElement) {
     chatRoomElement.style.backgroundColor = '#e0e0e0';  // 회색 배경으로 변경
   }
+
+  // 채팅 입력 비활성화
+  const chatInput = document.querySelector('section.input-div textarea');
+  if (chatInput) {
+    chatInput.disabled = true;
+    chatInput.placeholder = '거래가 완료되어 더 이상 메시지를 보낼 수 없습니다.';
+  }
 }
 
 const formatDate = (dateString) => {
-  const date1 = new Date(dateString);
+  const date = new Date(dateString);
   const now = new Date();
   const month = date.getMonth() + 1;
   const day = date.getDate();

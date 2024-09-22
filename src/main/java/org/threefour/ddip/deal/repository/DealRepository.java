@@ -1,5 +1,6 @@
 package org.threefour.ddip.deal.repository;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,7 +17,8 @@ public interface DealRepository extends JpaRepository<Deal, Long> {
 
   Optional<Deal> findByProductIdAndBuyerIdAndDeleteYnFalse(Long productId, Long memberId);
 
-  int countByProductIdAndDeleteYnFalse(Long productId);
+  int countByProductIdAndDealStatusNotAndDeleteYnFalse(Long productId, DealStatus dealStatus);
+  //int countByProductIdAndDeleteYnFalse(Long productId);
 
   @Query("SELECT DISTINCT CASE WHEN d.buyer.id = :memberId THEN d.product.id " +
           "WHEN d.seller.id = :memberId THEN d.product.id " +
@@ -26,12 +28,26 @@ public interface DealRepository extends JpaRepository<Deal, Long> {
           "WHERE d.buyer.id = :memberId OR d.seller.id = :memberId OR p.seller.id = :memberId")
   List<Long> findProductIdsForUserChats(@Param("memberId") Long memberId);
 
-  Optional<Deal> findByProductIdAndDealStatusAndDeleteYnFalse(Long buyerId, DealStatus dealStatus);
-
-  @Query("select d from Deal d where d.product.id =:productId and d.dealStatus = 'BEFORE_DEAL' order by d.createdAt asc")
-  Deal findNextWaitingDeal(@Param("productId") Long productId);
+  List<Deal> findByProductIdAndAndDeleteYnFalse(Long productId);
 
   @Query("SELECT d FROM Deal d WHERE (d.buyer.id = :userId OR d.seller.id = :userId) AND d.dealStatus IN ('IN_PROGRESS', 'PAID')")
   List<Deal> findActiveDealsForUser(@Param("userId") Long userId);
+
+  //List<Deal> findByProductIdAndDealStatusAndDeleteYnFalse(Long productId, DealStatus dealStatus);
+  Optional<Deal> findByProductIdAndDealStatusAndDeleteYnFalse(Long productId, DealStatus dealStatus);
+
+  @Query("SELECT d FROM Deal d " +
+          "WHERE d.product.id = :productId " +
+          "AND d.dealStatus = :dealStatus " +
+          "AND d.waitingNumber > :currentWaitingNumber " +
+          "AND d.deleteYn = false " +
+          "ORDER BY d.waitingNumber ASC")
+  List<Deal> findNextDealsInQueue(
+          @Param("productId") Long productId,
+          @Param("dealStatus") DealStatus dealStatus,
+          @Param("currentWaitingNumber") int currentWaitingNumber,
+          Pageable pageable
+  );
+
 }
 

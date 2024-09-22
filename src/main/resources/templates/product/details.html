@@ -494,54 +494,55 @@
 <!-- Search End -->
 
 <script>
-   document.addEventListener('DOMContentLoaded', function () {
-     const accessToken = localStorage.getItem('access-token');
-     const modifyButton = document.getElementById('modify-product-btn');
-     const deleteButton = document.getElementById('delete-product-btn');
-     const productId = document.getElementById('product-info').getAttribute('data-product-id');
+  document.addEventListener('DOMContentLoaded', function () {
+    const accessToken = localStorage.getItem('access-token');
+    const modifyButton = document.getElementById('modify-product-btn');
+    const deleteButton = document.getElementById('delete-product-btn');
+    const productId = document.getElementById('product-info').getAttribute('data-product-id');
 
-     if (accessToken) {
-       fetch('/authentication/save-member-id', {
-         method : 'POST',
-         headers: {
-           'Content-Type' : 'application/json',
-           'Authorization': `Bearer ${accessToken}`
-         },
-         body   : JSON.stringify({})
-       })
-           .then(response => {
-             if (!response.ok) {
-               if (modifyButton) modifyButton.style.display = 'none';
-               if (deleteButton) deleteButton.style.display = 'none';
-               console.warn('회원 ID 저장에 실패했습니다: ' + response.statusText);
-               return;
-             }
-             return response.json();
-           })
-           .then(data => {
-             if (data) {
-               modifyButton.style.display = 'block';
-               modifyButton.addEventListener('click', function () {
-                 location.href = `/product/modification-form?id=${productId}&memberId=${data}`;
-               });
+    if (accessToken) {
+      fetch('/authentication/save-member-id', {
+        method : 'POST',
+        headers: {
+          'Content-Type' : 'application/json',
+          'Authorization': `Bearer ${accessToken}`
+        },
+        body   : JSON.stringify({})
+      })
+          .then(response => {
+            if (!response.ok) {
+              if (modifyButton) modifyButton.style.display = 'none';
+              if (deleteButton) deleteButton.style.display = 'none';
+              console.warn('회원 ID 저장에 실패했습니다: ' + response.statusText);
+              return;
+            }
+            return response.json();
+          })
+          .then(data => {
+            if (data) {
+              modifyButton.style.display = 'block';
+              modifyButton.addEventListener('click', function () {
+                location.href = `/product/modification-form?id=${productId}&memberId=${data}`;
+              });
 
-               deleteButton.style.display = 'block';
-               deleteButton.addEventListener('click', function () {
-                 deleteProduct(data, productId);
-               });
-             }
-           })
-           .catch(error => {
-             if (modifyButton) modifyButton.style.display = 'none';
-             if (deleteButton) deleteButton.style.display = 'none';
-             console.error('회원 ID 저장 중 오류가 발생했습니다.', error);
-           });
-     } else {
-       if (modifyButton) modifyButton.style.display = 'none';
-       if (deleteButton) deleteButton.style.display = 'none';
-       console.warn('로컬 스토리지의 엑세스 토큰을 찾을 수 없습니다.');
-     }
-   });
+              deleteButton.style.display = 'block';
+              deleteButton.addEventListener('click', function () {
+                deleteProduct(data, productId);
+              });
+            }
+          })
+          .catch(error => {
+            if (modifyButton) modifyButton.style.display = 'none';
+            if (deleteButton) deleteButton.style.display = 'none';
+            console.error('회원 ID 저장 중 오류가 발생했습니다.', error);
+          });
+    } else {
+      if (modifyButton) modifyButton.style.display = 'none';
+      if (deleteButton) deleteButton.style.display = 'none';
+      console.warn('로컬 스토리지의 엑세스 토큰을 찾을 수 없습니다.');
+    }
+  });
+
   const checkWaitingCount = async () => {
     const response = await fetch(`/deal/products/${document.getElementById('product-info').getAttribute('data-product-id')}`, {
       headers: getAuthHeader()
@@ -554,10 +555,12 @@
     const productInfo = document.getElementById('product-info');
     const waitingNumber = productInfo.getAttribute('data-waiting-number');
     const actionBtn = document.getElementById('action-btn');
-    const waitingNum = await checkWaitingCount();
     const flag = await checkTarget();
+    let waitingNum = await checkWaitingCount();
 
     if (waitingNum > 0) actionBtn.innerText = `거래 진행 중 (${waitingNum}명 대기)`
+
+    console.log('으앙', flag)
 
     if (flag.dealStatus === 'IN_PROGRESS') {
       actionBtn.innerHTML = `<span class="icon_bag_alt"></span> 채팅하러 가기`;
@@ -565,17 +568,23 @@
     }
 
     if (flag.dealStatus === 'BEFORE_DEAL') {
-      const num = flag.waitingNum - 2 <= 0 ? '' : `(${flag.waitingNum - 2} 명 대기)`;
-      actionBtn.innerHTML = `<span class="icon_bag_alt"></span> ${flag.waitingNum - 1}번 ${num}`;
+      actionBtn.innerHTML = `<span class="icon_bag_alt"></span> ${waitingNum - 1}번 (${waitingNum - 1}명 대기중)`;
       actionBtn.style.backgroundColor = '#ce3434';
     }
 
+    if (flag.dealStatus === 'PAID') {
+      // 거래 완료
+      actionBtn.innerHTML = `<span class="icon_bag_alt"></span> 거래 완료상품`;
+      actionBtn.style.backgroundColor = '#e8e068';
+      return;
+    }
 
     actionBtn.onclick = async function (event) {
       // 채팅이 가능한 상태인지 확인
       const flag = await checkTarget();
       console.log('후 ,,', flag.dealStatus)
-      if(flag.dealStatus ==='NO') {
+
+      if (flag.dealStatus === 'NO') {
         alert(flag.message)
         return;
       }
@@ -588,13 +597,17 @@
       if (flag.dealStatus === 'GO') {
         // 예약 가능 상태
         initializeDeal(actionBtn);
+        location.reload();
       }
 
       if (flag.dealStatus === 'BEFORE_DEAL') {
         // 거래 불가능 상태 => 이미 예약 중
-        alert(`${flag.waitingNum - 1}번 입니다. 잠시만 기다려 주세요`)
+        alert(`${waitingNum - 1}번 입니다. 잠시만 기다려 주세요`)
       }
 
+      if (flag.dealStatus === 'CANCELED') {
+        alert('이미 거래가 취소되었습니다.')
+      }
     }
   });
 
@@ -629,9 +642,7 @@
         .then(waitingNumber => {
           console.log('waitingNumber', waitingNumber)
           alert('구매 신청이 완료되었습니다.');
-
-          button.innerHTML = `<span class="icon_bag_alt"></span> 채팅 신청 (현재 대기번호: ${waitingNumber})`;
-          button.style.backgroundColor = '#4caf50';
+          button.innerHTML = `<span class="icon_bag_alt"></span> 거래 진행 중 (${waitingNumber}명 대기)`;
           return waitingNumber;
         })
         .catch(error => {
@@ -688,7 +699,7 @@
     const token = localStorage.getItem('access-token');
     if (!token) {
       console.error('No access token found');
-      return null;
+      return;
     }
 
     const headers = {

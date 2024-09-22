@@ -47,7 +47,17 @@ public class ChatMessageController {
             .message(message.getMessage())
             .build();
 
-    Long saveId = chatService.createChat(dto);
+    Long saveId = 0L;
+
+    try {
+      saveId = chatService.createChat(dto);
+    } catch (RuntimeException re) {
+      return ChatMessage.builder()
+              .roomId(productByProductId.getId())
+              .message("종료된 채팅입니다.")
+              .build();
+    }
+
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     String format = formatter.format(LocalDateTime.now());

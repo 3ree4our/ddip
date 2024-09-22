@@ -65,13 +65,20 @@ public class DealController {
   @GetMapping("/{productId}")
   public ResponseEntity<?> checkTarget(@PathVariable Long productId,
                                        @RequestHeader("Authorization") String authorizationHeader) {
-    String accessToken = authorizationHeader.substring(7).trim();
-    if (!FormatValidator.hasValue(accessToken)) {
-      throw new TokenNoValueException(TOKEN_NO_VALUE_EXCEPTION_MESSAGE);
-    }
-    Long memberId = jwtUtil.getId(accessToken);
-    Product product = productService.getProduct(productId, false);
+
     Map<String, Object> response = new HashMap<>();
+
+    String accessToken = authorizationHeader.substring(7).trim();
+    Long memberId = jwtUtil.getId(accessToken);
+
+    DealStatus dealStatusByStatusWithPaid = dealService.getProductIdAndDealStatusAndDeleteYnFalse(productId, DealStatus.PAID);
+    if (dealStatusByStatusWithPaid.name().equals(DealStatus.PAID.name())) {
+      response.put("dealStatus", dealStatusByStatusWithPaid);
+      return ResponseEntity.ok(response);
+    }
+
+
+    Product product = productService.getProduct(productId, false);
 
     if (product.getSeller().getId() == memberId) {
       response.put("dealStatus", "NO");
@@ -79,13 +86,11 @@ public class DealController {
       return ResponseEntity.badRequest().body(response);
     }
 
-    Deal deal = dealService.checkWaitingStatus(productId, memberId);
+    DealStatus dealStatusBySellerId = dealService.checkWaitingStatus(productId, memberId);
 
-    if (deal != null) {
-      DealStatus dealStatus = deal.getDealStatus();
-      response.put("dealStatus", dealStatus);
-      response.put("message", getMessageForStatus(dealStatus));
-      response.put("waitingNum", deal.getWaitingNumber());
+    if (dealStatusBySellerId != null) {
+      response.put("dealStatus", dealStatusBySellerId);
+      response.put("message", getMessageForStatus(dealStatusBySellerId));
     } else {
       response.put("dealStatus", "GO");
       response.put("message", "구매 가능한 상태입니다.");

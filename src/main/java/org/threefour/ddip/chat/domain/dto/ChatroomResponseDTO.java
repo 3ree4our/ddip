@@ -18,6 +18,7 @@ public class ChatroomResponseDTO {
   private ChatMemberDTO sender;
   private ChatMemberDTO productOwner;
   private String image;
+  private String status;
 
   public ChatroomResponseDTO(Long productId, String message, Date sendDate, Member sender, Member productOwner) {
     this.productId = productId;
@@ -32,4 +33,7 @@ public class ChatroomResponseDTO {
     this.image = image;
   }
 
+  public void setStatus(String status) {
+    this.status = status;
+  }
 }
