@@ -254,7 +254,7 @@ const appendImageToMessage = (chatLi, chatImageIds) => {
     imageContainer.className = 'message-images';
     chatImageIds.forEach((imageId, index) => {
       const img = document.createElement('img');
-      //img.src = `${SERVER_API}/api/images/${imageId}`;
+      //img.src = `/api/images/${imageId}`;
       if (typeof imageId === 'string') img.src = imageId;
       else img.src = imageId.s3Url;
       img.alt = 'upload image';
@@ -415,7 +415,7 @@ const createChatRoomElement = (chat) => {
 
 const openChatImageModal = (images, index) => {
   const modal = document.getElementById('chatImageModal');
-  //chatCurrentImages = images.map(url => `${SERVER_API}/api/images/${url}`);
+  //chatCurrentImages = images.map(url => `/api/images/${url}`);
   chatCurrentImages = images.map(url => `${url.s3Url}`); // s3 전용
   chatCurrentImageIndex = index;
   updateChatModalImage();
