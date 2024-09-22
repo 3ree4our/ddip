@@ -1,25 +1,43 @@
-import {getAllProduct} from "./api.js";
+import {getTotalUnreadCount, getUserChatrooms} from "./api.js";
 
+const chatListAEle = document.querySelector('#chatList');
 let connectStatus = false;
 let stompClient = '';
 
-const getConnect = async () => {
-  const allProducts = await getAllProduct();
-  if (allProducts.length > 0) {
-    const productsId = allProducts.map(e => e.productId);
-    if (!connectStatus) connect(productsId);
+chatListAEle.onclick = (e) => {
+  e.preventDefault();
+  const accessToken = localStorage.getItem('access-token');
+
+  if (accessToken === null) {
+    location.href = '/member/login'
+    alert('로그인을 먼저 진행해주세요.')
+  } else {
+    location.href = '/chat-list'
   }
 }
+
+const getConnect = async () => {
+  const allProducts = await getUserChatrooms();
+  if (allProducts.length > 0) {
+    const productsId = allProducts.map(e => e);
+    if (!connectStatus) connect(productsId);
+
+    const unreadCounts = await getTotalUnreadCount();
+    updateUnreadMessageNotification(unreadCounts);
+  }
+}
+
 getConnect();
 
 const connect = (productsId) => {
   const socket = new SockJS("/ws-stomp");
   stompClient = Stomp.over(socket);
+
   stompClient.connect({}, function (frame) {
     console.log('frame', frame);
     productsId.forEach(productId => {
       subscribeToProduct(productId);
-    })
+    });
   });
   connectStatus = true;
 }
@@ -27,8 +45,26 @@ const connect = (productsId) => {
 const subscribeToProduct = (productId) => {
   if (stompClient && stompClient.connected) {
     stompClient.subscribe(`/room/${productId}`, chatMessage => {
-      const targetEle = document.querySelector('#alertImgContainer');
-      targetEle.style.backgroundColor = 'red';
+      const messageObj = JSON.parse(chatMessage.body);
+
+      console.log('messageObj.message', messageObj.message)
+      console.log('messageObj.title', messageObj.title)
+      if (messageObj.title.startsWith('your')) alert(messageObj.message)
+      updateUnreadMessageNotification();
     })
   }
+}
+
+const updateUnreadMessageNotification = async (unreadCounts) => {
+  const alertCount = document.querySelector('#alertCount')
+
+  if (unreadCounts === undefined) unreadCounts = await getTotalUnreadCount();
+
+  if (unreadCounts > 0) {
+    alertCount.textContent = unreadCounts;
+    alertCount.style.display = 'block';
+  } else {
+    alertCount.style.display = 'none';
+  }
+
 }

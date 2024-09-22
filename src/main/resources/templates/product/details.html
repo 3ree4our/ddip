@@ -2,27 +2,32 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="Ashion Template">
-    <meta name="keywords" content="Ashion, unica, creative, html">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title th:text="${product.name} + ' | Product Details'">Ashion | Template</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="Ashion Template">
+  <meta name="keywords" content="Ashion, unica, creative, html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title th:text="${product.name} + ' | Product Details'">Ashion | Template</title>
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
-          rel="stylesheet">
+  <!--chat-->
+  <script src="/webjars/jquery/jquery.min.js"></script>
+  <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+  <script src="/webjars/stomp-websocket/stomp.min.js"></script>
 
-    <!-- Css Styles -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="/css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="/css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="/css/magnific-popup.css" type="text/css">
-    <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+  <!-- Css Styles -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="/css/elegant-icons.css" type="text/css">
+  <link rel="stylesheet" href="/css/jquery-ui.min.css" type="text/css">
+  <link rel="stylesheet" href="/css/magnific-popup.css" type="text/css">
+  <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css">
+  <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
 </head>
 
 <body>
@@ -35,601 +40,674 @@
 
 <!-- Page Preloder -->
 <div id="preloder">
-    <div class="loader"></div>
+  <div class="loader"></div>
 </div>
 
 <!-- Offcanvas Menu Begin -->
 <div class="offcanvas-menu-overlay"></div>
 <div class="offcanvas-menu-wrapper">
-    <div class="offcanvas__close">+</div>
-    <ul class="offcanvas__widget">
-        <li><span class="icon_search search-switch"></span></li>
-        <li><a href="#"><span class="icon_heart_alt"></span>
-            <div class="tip">2</div>
-        </a></li>
-        <li><a href="#"><span class="icon_bag_alt"></span>
-            <div class="tip">2</div>
-        </a></li>
-    </ul>
-    <div class="offcanvas__logo">
-        <a href="./index.html"><img src="/img/logo.png" alt=""></a>
-    </div>
-    <div id="mobile-menu-wrap"></div>
-    <div class="offcanvas__auth">
-        <a href="#">Login</a>
-        <a href="#">Register</a>
-    </div>
+  <div class="offcanvas__close">+</div>
+  <ul class="offcanvas__widget">
+    <li><span class="icon_search search-switch"></span></li>
+    <li><a href="#"><span class="icon_heart_alt"></span>
+      <div class="tip">2</div>
+    </a></li>
+    <li><a href="#"><span class="icon_bag_alt"></span>
+      <div class="tip">2</div>
+    </a></li>
+  </ul>
+  <div class="offcanvas__logo">
+    <a href="./index.html"><img src="/img/logo.png" alt=""></a>
+  </div>
+  <div id="mobile-menu-wrap"></div>
+  <div class="offcanvas__auth">
+    <a href="#">Login</a>
+    <a href="#">Register</a>
+  </div>
 </div>
 <!-- Offcanvas Menu End -->
 
 <!-- Header Section Begin -->
 <header class="header">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xl-3 col-lg-2">
-                <div class="header__logo">
-                    <a href="./index.html"><img src="/img/logo.png" alt=""></a>
-                </div>
-            </div>
-            <div class="col-xl-6 col-lg-7">
-                <nav class="header__menu">
-                    <ul>
-                        <li><a href="./index.html">Home</a></li>
-                        <li><a href="#">Women’s</a></li>
-                        <li><a href="#">Men’s</a></li>
-                        <li class="active"><a href="./shop.html">Shop</a></li>
-                        <li><a href="#">Pages</a>
-                            <ul class="dropdown">
-                                <li><a href="./product-details.html">Product Details</a></li>
-                                <li><a href="./shop-cart.html">Shop Cart</a></li>
-                                <li><a href="./checkout.html">Checkout</a></li>
-                                <li><a href="./blog-details.html">Blog Details</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="./blog.html">Blog</a></li>
-                        <li><a href="./contact.html">Contact</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="col-lg-3">
-                <div class="header__right">
-                    <div class="header__right__auth">
-                        <a href="#">Login</a>
-                        <a href="#">Register</a>
-                    </div>
-                    <ul class="header__right__widget">
-                        <li><span class="icon_search search-switch"></span></li>
-                        <li><a href="#"><span class="icon_heart_alt"></span>
-                            <div class="tip">2</div>
-                        </a></li>
-                        <li><a href="#"><span class="icon_bag_alt"></span>
-                            <div class="tip">2</div>
-                        </a></li>
-                    </ul>
-                </div>
-            </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xl-3 col-lg-2">
+        <div class="header__logo">
+          <a href="./index.html"><img src="/img/logo.png" alt=""></a>
         </div>
-        <div class="canvas__open">
-            <i class="fa fa-bars"></i>
+      </div>
+      <div class="col-xl-6 col-lg-7">
+        <nav class="header__menu">
+          <ul>
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="#">Women’s</a></li>
+            <li><a href="#">Men’s</a></li>
+            <li class="active"><a href="./shop.html">Shop</a></li>
+            <li><a href="#">Pages</a>
+              <ul class="dropdown">
+                <li><a href="./product-details.html">Product Details</a></li>
+                <li><a href="./shop-cart.html">Shop Cart</a></li>
+                <li><a href="./checkout.html">Checkout</a></li>
+                <li><a href="./blog-details.html">Blog Details</a></li>
+              </ul>
+            </li>
+            <li><a href="./blog.html">Blog</a></li>
+            <li><a href="./contact.html">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="col-lg-3">
+        <div class="header__right">
+          <div class="header__right__auth">
+            <a href="#">Login</a>
+            <a href="#">Register</a>
+          </div>
+          <ul class="header__right__widget">
+            <li><span class="icon_search search-switch"></span></li>
+            <li><a href="#"><span class="icon_heart_alt"></span>
+              <div class="tip">2</div>
+            </a></li>
+            <li><a href="#"><span class="icon_bag_alt"></span>
+              <div class="tip">2</div>
+            </a></li>
+          </ul>
         </div>
+      </div>
     </div>
+    <div class="canvas__open">
+      <i class="fa fa-bars"></i>
+    </div>
+  </div>
 </header>
 <!-- Header Section End -->
 
 <!-- Breadcrumb Begin -->
 <div class="breadcrumb-option">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="breadcrumb__links">
-                    <a href="./index.html"><i class="fa fa-home"></i> Home</a>
-                    <a th:href="@{/product/list(categoryId=${product.getCategoriesResponse.getCategoryResponses.get(0).id})}"
-                       th:text="${product.getCategoriesResponse.getCategoryResponses.get(0).name.description}">Category
-                        Level 1</a>
-                    <a th:href="@{/product/list(categoryId=${product.getCategoriesResponse.getCategoryResponses.get(1).id})}"
-                       th:text="${product.getCategoriesResponse.getCategoryResponses.get(1).name.description}">Category
-                        Level 2</a>
-                    <span th:text="${product.getCategoriesResponse.getCategoryResponses.get(2).name.description}">Category Level 3</span>
-                </div>
-                <div id="product-info" th:data-product-id="${product.id}" th:data-seller-id="${product.seller.id}" th:data-price="${product.price}" th:data-waiting-number="${product.waitingNumber}">
-                </div>
-            </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="breadcrumb__links">
+          <a href="./index.html"><i class="fa fa-home"></i> Home</a>
+          <a th:href="@{/product/list(categoryId=${product.getCategoriesResponse.getCategoryResponses.get(0).id})}"
+             th:text="${product.getCategoriesResponse.getCategoryResponses.get(0).name.description}">Category
+            Level 1</a>
+          <a th:href="@{/product/list(categoryId=${product.getCategoriesResponse.getCategoryResponses.get(1).id})}"
+             th:text="${product.getCategoriesResponse.getCategoryResponses.get(1).name.description}">Category
+            Level 2</a>
+          <span th:text="${product.getCategoriesResponse.getCategoryResponses.get(2).name.description}">Category Level 3</span>
         </div>
+        <div id="product-info" th:data-product-id="${product.id}" th:data-seller-id="${product.seller.id}"
+             th:data-price="${product.price}" th:data-waiting-number="${product.waitingNumber}">
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 <!-- Breadcrumb End -->
 
 <!-- Product Details Section Begin -->
 <section class="product-details spad">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="product__details__pic">
-                    <div class="product__details__pic__left product__thumb nice-scroll">
-                        <!-- 실제 데이터로 이미지 렌더링 -->
-                        <a th:each="image : ${product.imageResponses}" th:href="'#product-' + ${image.id}">
-                            <img th:src="${image.url}" alt="">
-                        </a>
-                    </div>
-                    <div class="product__details__slider__content">
-                        <div class="product__details__pic__slider owl-carousel">
-                            <img th:each="image : ${product.imageResponses}" th:data-hash="'product-' + ${image.id}"
-                                 th:src="${image.url}" alt="">
-                        </div>
-                    </div>
-                </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="product__details__pic">
+          <div class="product__details__pic__left product__thumb nice-scroll">
+            <!-- 실제 데이터로 이미지 렌더링 -->
+            <a th:each="image : ${product.imageResponses}" th:href="'#product-' + ${image.id}">
+              <img th:src="${image.url}" alt="">
+            </a>
+          </div>
+          <div class="product__details__slider__content">
+            <div class="product__details__pic__slider owl-carousel">
+              <img th:each="image : ${product.imageResponses}" th:data-hash="'product-' + ${image.id}"
+                   th:src="${image.url}" alt="">
             </div>
-            <div class="col-lg-6">
-                <div class="product__details__text">
-                    <h3 th:text="${product.name}">Product Name</h3>
-                    <span th:text="'판매자: ' + ${product.seller.nickName}">Seller Nickname</span>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <!-- TODO: 평점 연결 -->
-                        <span th:text="'(' + ${product.seller.id} + ')'">average    score</span>
-                    </div>
-                    <div class="product__details__price" th:text="${product.price} + ' 원'">$ 75.0</div>
-                    <p th:text="${product.content}">Nemo enim ipsam voluptatem quia aspernatur aut odit aut loret fugit,
-                        sed quia consequuntur magni lores eos qui ratione voluptatem sequi nesciunt.</p>
-                    <div class="product__details__button">
-                        <button class="cart-btn" id="action-btn"><span class="icon_bag_alt"></span> 구매 신청</button>
-                        <ul>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_adjust-horiz"></span></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__details__widget">
-                        <ul>
-                            <li>
-                                <span>Availability:</span>
-                                <div class="stock__checkbox">
-                                    <label for="stockin">
-                                        In Stock
-                                        <input type="checkbox" id="stockin">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
-                            </li>
-                            <li>
-                                <span>Available color:</span>
-                                <div class="color__checkbox">
-                                    <label for="red">
-                                        <input type="radio" name="color__radio" id="red" checked>
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <label for="black">
-                                        <input type="radio" name="color__radio" id="black">
-                                        <span class="checkmark black-bg"></span>
-                                    </label>
-                                    <label for="grey">
-                                        <input type="radio" name="color__radio" id="grey">
-                                        <span class="checkmark grey-bg"></span>
-                                    </label>
-                                </div>
-                            </li>
-                            <li>
-                                <span>Available size:</span>
-                                <div class="size__btn">
-                                    <label for="xs-btn" class="active">
-                                        <input type="radio" id="xs-btn">
-                                        xs
-                                    </label>
-                                    <label for="s-btn">
-                                        <input type="radio" id="s-btn">
-                                        s
-                                    </label>
-                                    <label for="m-btn">
-                                        <input type="radio" id="m-btn">
-                                        m
-                                    </label>
-                                    <label for="l-btn">
-                                        <input type="radio" id="l-btn">
-                                        l
-                                    </label>
-                                </div>
-                            </li>
-                            <li>
-                                <span>Promotions:</span>
-                                <p>Free shipping</p>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="product__details__button">
-                        <div class="col-lg-12">
-                            </br></br>
-                            <div class="product__details__button">
-                                <div class="button-container">
-                                    <button type="button" class="site-btn" id="modify-product-btn" style="display: none;">상품 수정</button>
-                                    <button type="button" class="site-btn" id="delete-product-btn" style="display: none;">상품 삭제</button>
-                                </div>
-                            </div>
-                        </div>
-                        <ul>
-                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
-                            <li><a href="#"><span class="icon_adjust-horiz"></span></a></li>
-                        </ul>
-                    </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="product__details__text">
+          <h3 th:text="${product.name}">Product Name</h3>
+          <span th:text="'판매자: ' + ${product.seller.nickName}">Seller Nickname</span>
+          <div class="rating">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <!-- TODO: 평점 연결 -->
+            <span th:text="'(' + ${product.seller.id} + ')'">average    score</span>
+          </div>
+          <div class="product__details__price" th:text="${product.price} + ' 원'">$ 75.0</div>
+          <p th:text="${product.content}">Nemo enim ipsam voluptatem quia aspernatur aut odit aut loret fugit,
+            sed quia consequuntur magni lores eos qui ratione voluptatem sequi nesciunt.</p>
+          <div class="product__details__button">
+            <button class="cart-btn" id="action-btn"><span class="icon_bag_alt"></span> 구매 신청</button>
+            <ul>
+              <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+              <li><a href="#"><span class="icon_adjust-horiz"></span></a></li>
+            </ul>
+          </div>
+          <div class="product__details__widget">
+            <ul>
+              <li>
+                <span>Availability:</span>
+                <div class="stock__checkbox">
+                  <label for="stockin">
+                    In Stock
+                    <input type="checkbox" id="stockin">
+                    <span class="checkmark"></span>
+                  </label>
                 </div>
-            </div>
-
-            <div id="delete-message" style="display: none; color: green; font-weight: bold;">상품이 삭제되었습니다.</div>
-
+              </li>
+              <li>
+                <span>Available color:</span>
+                <div class="color__checkbox">
+                  <label for="red">
+                    <input type="radio" name="color__radio" id="red" checked>
+                    <span class="checkmark"></span>
+                  </label>
+                  <label for="black">
+                    <input type="radio" name="color__radio" id="black">
+                    <span class="checkmark black-bg"></span>
+                  </label>
+                  <label for="grey">
+                    <input type="radio" name="color__radio" id="grey">
+                    <span class="checkmark grey-bg"></span>
+                  </label>
+                </div>
+              </li>
+              <li>
+                <span>Available size:</span>
+                <div class="size__btn">
+                  <label for="xs-btn" class="active">
+                    <input type="radio" id="xs-btn">
+                    xs
+                  </label>
+                  <label for="s-btn">
+                    <input type="radio" id="s-btn">
+                    s
+                  </label>
+                  <label for="m-btn">
+                    <input type="radio" id="m-btn">
+                    m
+                  </label>
+                  <label for="l-btn">
+                    <input type="radio" id="l-btn">
+                    l
+                  </label>
+                </div>
+              </li>
+              <li>
+                <span>Promotions:</span>
+                <p>Free shipping</p>
+              </li>
+            </ul>
+          </div>
+          <div class="product__details__button">
             <div class="col-lg-12">
-                <div class="product__details__tab">
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">Description</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Specification</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab">Reviews ( 2 )</a>
-                        </li>
-                    </ul>
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="tabs-1" role="tabpanel">
-                            <h6>Description</h6>
-                            <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed
-                                quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret.
-                                Neque porro lorem quisquam est, qui dolorem ipsum quia dolor si. Nemo enim ipsam
-                                voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia ipsu
-                                consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla
-                                consequat massa quis enim.</p>
-                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
-                                dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
-                                nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
-                                quis, sem.</p>
-                        </div>
-                        <div class="tab-pane" id="tabs-2" role="tabpanel">
-                            <h6>Specification</h6>
-                            <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed
-                                quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret.
-                                Neque porro lorem quisquam est, qui dolorem ipsum quia dolor si. Nemo enim ipsam
-                                voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia ipsu
-                                consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla
-                                consequat massa quis enim.</p>
-                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
-                                dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
-                                nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
-                                quis, sem.</p>
-                        </div>
-                        <div class="tab-pane" id="tabs-3" role="tabpanel">
-                            <h6>Reviews ( 2 )</h6>
-                            <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed
-                                quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret.
-                                Neque porro lorem quisquam est, qui dolorem ipsum quia dolor si. Nemo enim ipsam
-                                voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia ipsu
-                                consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla
-                                consequat massa quis enim.</p>
-                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
-                                dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
-                                nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
-                                quis, sem.</p>
-                        </div>
-                    </div>
+              </br></br>
+              <div class="product__details__button">
+                <div class="button-container">
+                  <button type="button" class="site-btn" id="modify-product-btn" style="display: none;">상품 수정</button>
+                  <button type="button" class="site-btn" id="delete-product-btn" style="display: none;">상품 삭제</button>
                 </div>
+              </div>
             </div>
+            <ul>
+              <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+              <li><a href="#"><span class="icon_adjust-horiz"></span></a></li>
+            </ul>
+          </div>
         </div>
+      </div>
 
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <div class="related__title">
-                    <h5>RELATED PRODUCTS</h5>
-                </div>
+      <div id="delete-message" style="display: none; color: green; font-weight: bold;">상품이 삭제되었습니다.</div>
+
+      <div class="col-lg-12">
+        <div class="product__details__tab">
+          <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">Description</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Specification</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab">Reviews ( 2 )</a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="tabs-1" role="tabpanel">
+              <h6>Description</h6>
+              <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed
+                quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret.
+                Neque porro lorem quisquam est, qui dolorem ipsum quia dolor si. Nemo enim ipsam
+                voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia ipsu
+                consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla
+                consequat massa quis enim.</p>
+              <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
+                dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
+                nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
+                quis, sem.</p>
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6" th:each="relatedProduct : ${relatedProducts}">
-                <div class="product__item">
-                    <div class="product__item__pic set-bg"
-                         th:style="'background-image: url(' + ${relatedProduct.imageUrl} + ')'">
-                        <ul class="product__hover">
-                            <li><a th:href="@{/product/details/{id}(id=${relatedProduct.id})}"><span
-                                    class="icon_bag_alt"></span></a></li>
-                        </ul>
-                        삭제
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a th:href="@{/product/details/{id}(id=${relatedProduct.id})}"
-                               th:text="${relatedProduct.name}">Product Name</a></h6>
-                        <div class="product__price" th:text="${relatedProduct.price} + ' 원'">₩ 0.0</div>
-                    </div>
-                </div>
+            <div class="tab-pane" id="tabs-2" role="tabpanel">
+              <h6>Specification</h6>
+              <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed
+                quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret.
+                Neque porro lorem quisquam est, qui dolorem ipsum quia dolor si. Nemo enim ipsam
+                voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia ipsu
+                consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla
+                consequat massa quis enim.</p>
+              <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
+                dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
+                nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
+                quis, sem.</p>
             </div>
+            <div class="tab-pane" id="tabs-3" role="tabpanel">
+              <h6>Reviews ( 2 )</h6>
+              <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed
+                quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt loret.
+                Neque porro lorem quisquam est, qui dolorem ipsum quia dolor si. Nemo enim ipsam
+                voluptatem quia voluptas sit aspernatur aut odit aut loret fugit, sed quia ipsu
+                consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Nulla
+                consequat massa quis enim.</p>
+              <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
+                dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
+                nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
+                quis, sem.</p>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <div class="related__title">
+          <h5>RELATED PRODUCTS</h5>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6" th:each="relatedProduct : ${relatedProducts}">
+        <div class="product__item">
+          <div class="product__item__pic set-bg"
+               th:style="'background-image: url(' + ${relatedProduct.imageUrl} + ')'">
+            <ul class="product__hover">
+              <li><a th:href="@{/product/details/{id}(id=${relatedProduct.id})}"><span
+                      class="icon_bag_alt"></span></a></li>
+            </ul>
+            삭제
+          </div>
+          <div class="product__item__text">
+            <h6><a th:href="@{/product/details/{id}(id=${relatedProduct.id})}"
+                   th:text="${relatedProduct.name}">Product Name</a></h6>
+            <div class="product__price" th:text="${relatedProduct.price} + ' 원'">₩ 0.0</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 <!-- Product Details Section End -->
 
 <!-- Instagram Begin -->
 <div class="instagram">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                <div class="instagram__item set-bg" data-setbg="/img/instagram/insta-1.jpg">
-                    <div class="instagram__text">
-                        <i class="fa fa-instagram"></i>
-                        <a href="#">@ ashion_shop</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                <div class="instagram__item set-bg" data-setbg="/img/instagram/insta-2.jpg">
-                    <div class="instagram__text">
-                        <i class="fa fa-instagram"></i>
-                        <a href="#">@ ashion_shop</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                <div class="instagram__item set-bg" data-setbg="/img/instagram/insta-3.jpg">
-                    <div class="instagram__text">
-                        <i class="fa fa-instagram"></i>
-                        <a href="#">@ ashion_shop</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                <div class="instagram__item set-bg" data-setbg="/img/instagram/insta-4.jpg">
-                    <div class="instagram__text">
-                        <i class="fa fa-instagram"></i>
-                        <a href="#">@ ashion_shop</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                <div class="instagram__item set-bg" data-setbg="/img/instagram/insta-5.jpg">
-                    <div class="instagram__text">
-                        <i class="fa fa-instagram"></i>
-                        <a href="#">@ ashion_shop</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-4 p-0">
-                <div class="instagram__item set-bg" data-setbg="/img/instagram/insta-6.jpg">
-                    <div class="instagram__text">
-                        <i class="fa fa-instagram"></i>
-                        <a href="#">@ ashion_shop</a>
-                    </div>
-                </div>
-            </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+        <div class="instagram__item set-bg" data-setbg="/img/instagram/insta-1.jpg">
+          <div class="instagram__text">
+            <i class="fa fa-instagram"></i>
+            <a href="#">@ ashion_shop</a>
+          </div>
         </div>
+      </div>
+      <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+        <div class="instagram__item set-bg" data-setbg="/img/instagram/insta-2.jpg">
+          <div class="instagram__text">
+            <i class="fa fa-instagram"></i>
+            <a href="#">@ ashion_shop</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+        <div class="instagram__item set-bg" data-setbg="/img/instagram/insta-3.jpg">
+          <div class="instagram__text">
+            <i class="fa fa-instagram"></i>
+            <a href="#">@ ashion_shop</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+        <div class="instagram__item set-bg" data-setbg="/img/instagram/insta-4.jpg">
+          <div class="instagram__text">
+            <i class="fa fa-instagram"></i>
+            <a href="#">@ ashion_shop</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+        <div class="instagram__item set-bg" data-setbg="/img/instagram/insta-5.jpg">
+          <div class="instagram__text">
+            <i class="fa fa-instagram"></i>
+            <a href="#">@ ashion_shop</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-4 col-sm-4 p-0">
+        <div class="instagram__item set-bg" data-setbg="/img/instagram/insta-6.jpg">
+          <div class="instagram__text">
+            <i class="fa fa-instagram"></i>
+            <a href="#">@ ashion_shop</a>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 <!-- Instagram End -->
 
 <!-- Footer Section Begin -->
 <footer class="footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4 col-md-6 col-sm-7">
-                <div class="footer__about">
-                    <div class="footer__logo">
-                        <a href="./index.html"><img src="/img/logo.png" alt=""></a>
-                    </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                        cilisis.</p>
-                    <div class="footer__payment">
-                        <a href="#"><img src="/img/payment/payment-1.png" alt=""></a>
-                        <a href="#"><img src="/img/payment/payment-2.png" alt=""></a>
-                        <a href="#"><img src="/img/payment/payment-3.png" alt=""></a>
-                        <a href="#"><img src="/img/payment/payment-4.png" alt=""></a>
-                        <a href="#"><img src="/img/payment/payment-5.png" alt=""></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-3 col-sm-5">
-                <div class="footer__widget">
-                    <h6>Quick links</h6>
-                    <ul>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Blogs</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">FAQ</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-3 col-sm-4">
-                <div class="footer__widget">
-                    <h6>Account</h6>
-                    <ul>
-                        <li><a href="#">My Account</a></li>
-                        <li><a href="#">Orders Tracking</a></li>
-                        <li><a href="#">Checkout</a></li>
-                        <li><a href="#">Wishlist</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-8 col-sm-8">
-                <div class="footer__newslatter">
-                    <h6>NEWSLETTER</h6>
-                    <form action="#">
-                        <input type="text" placeholder="Email">
-                        <button type="submit" class="site-btn">Subscribe</button>
-                    </form>
-                    <div class="footer__social">
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                        <a href="#"><i class="fa fa-twitter"></i></a>
-                        <a href="#"><i class="fa fa-youtube-play"></i></a>
-                        <a href="#"><i class="fa fa-instagram"></i></a>
-                        <a href="#"><i class="fa fa-pinterest"></i></a>
-                    </div>
-                </div>
-            </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-md-6 col-sm-7">
+        <div class="footer__about">
+          <div class="footer__logo">
+            <a href="./index.html"><img src="/img/logo.png" alt=""></a>
+          </div>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+            cilisis.</p>
+          <div class="footer__payment">
+            <a href="#"><img src="/img/payment/payment-1.png" alt=""></a>
+            <a href="#"><img src="/img/payment/payment-2.png" alt=""></a>
+            <a href="#"><img src="/img/payment/payment-3.png" alt=""></a>
+            <a href="#"><img src="/img/payment/payment-4.png" alt=""></a>
+            <a href="#"><img src="/img/payment/payment-5.png" alt=""></a>
+          </div>
         </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                <div class="footer__copyright__text">
-                    <p>Copyright &copy;
-                        <script>document.write(new Date().getFullYear());</script>
-                        All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i>
-                        by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
-                </div>
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            </div>
+      </div>
+      <div class="col-lg-2 col-md-3 col-sm-5">
+        <div class="footer__widget">
+          <h6>Quick links</h6>
+          <ul>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Blogs</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
         </div>
+      </div>
+      <div class="col-lg-2 col-md-3 col-sm-4">
+        <div class="footer__widget">
+          <h6>Account</h6>
+          <ul>
+            <li><a href="#">My Account</a></li>
+            <li><a href="#">Orders Tracking</a></li>
+            <li><a href="#">Checkout</a></li>
+            <li><a href="#">Wishlist</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-8 col-sm-8">
+        <div class="footer__newslatter">
+          <h6>NEWSLETTER</h6>
+          <form action="#">
+            <input type="text" placeholder="Email">
+            <button type="submit" class="site-btn">Subscribe</button>
+          </form>
+          <div class="footer__social">
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-youtube-play"></i></a>
+            <a href="#"><i class="fa fa-instagram"></i></a>
+            <a href="#"><i class="fa fa-pinterest"></i></a>
+          </div>
+        </div>
+      </div>
     </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+        <div class="footer__copyright__text">
+          <p>Copyright &copy;
+            <script>document.write(new Date().getFullYear());</script>
+            All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i>
+            by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+        </div>
+        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+      </div>
+    </div>
+  </div>
 </footer>
 <!-- Footer Section End -->
 
 <!-- Search Begin -->
 <div class="search-model">
-    <div class="h-100 d-flex align-items-center justify-content-center">
-        <div class="search-close-switch">+</div>
-        <form class="search-model-form">
-            <input type="text" id="search-input" placeholder="Search here.....">
-        </form>
-    </div>
+  <div class="h-100 d-flex align-items-center justify-content-center">
+    <div class="search-close-switch">+</div>
+    <form class="search-model-form">
+      <input type="text" id="search-input" placeholder="Search here.....">
+    </form>
+  </div>
 </div>
 <!-- Search End -->
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const accessToken = localStorage.getItem('access-token');
-        const modifyButton = document.getElementById('modify-product-btn');
-        const deleteButton = document.getElementById('delete-product-btn');
-        const productId = document.getElementById('product-info').getAttribute('data-product-id');
+  document.addEventListener('DOMContentLoaded', function () {
+    const accessToken = localStorage.getItem('access-token');
+    const modifyButton = document.getElementById('modify-product-btn');
+    const deleteButton = document.getElementById('delete-product-btn');
+    const productId = document.getElementById('product-info').getAttribute('data-product-id');
 
-        if (accessToken) {
-            fetch('/authentication/save-member-id', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${accessToken}`
-                },
-                body: JSON.stringify({})
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        if (modifyButton) modifyButton.style.display = 'none';
-                        if (deleteButton) deleteButton.style.display = 'none';
-                        console.warn('회원 ID 저장에 실패했습니다: ' + response.statusText);
-                        return;
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data) {
-                        modifyButton.style.display = 'block';
-                        modifyButton.addEventListener('click', function() {
-                            location.href = `/product/modification-form?id=${productId}&memberId=${data}`;
-                        });
+    if (accessToken) {
+      fetch('/authentication/save-member-id', {
+        method : 'POST',
+        headers: {
+          'Content-Type' : 'application/json',
+          'Authorization': `Bearer ${accessToken}`
+        },
+        body   : JSON.stringify({})
+      })
+          .then(response => {
+            if (!response.ok) {
+              if (modifyButton) modifyButton.style.display = 'none';
+              if (deleteButton) deleteButton.style.display = 'none';
+              console.warn('회원 ID 저장에 실패했습니다: ' + response.statusText);
+              return;
+            }
+            return response.json();
+          })
+          .then(data => {
+            if (data) {
+              modifyButton.style.display = 'block';
+              modifyButton.addEventListener('click', function () {
+                location.href = `/product/modification-form?id=${productId}&memberId=${data}`;
+              });
 
-                        deleteButton.style.display = 'block';
-                        deleteButton.addEventListener('click', function() {
-                            deleteProduct(data, productId);
-                        });
-                    }
-                })
-                .catch(error => {
-                    if (modifyButton) modifyButton.style.display = 'none';
-                    if (deleteButton) deleteButton.style.display = 'none';
-                    console.error('회원 ID 저장 중 오류가 발생했습니다.', error);
-                });
-        } else {
+              deleteButton.style.display = 'block';
+              deleteButton.addEventListener('click', function () {
+                deleteProduct(data, productId);
+              });
+            }
+          })
+          .catch(error => {
             if (modifyButton) modifyButton.style.display = 'none';
             if (deleteButton) deleteButton.style.display = 'none';
-            console.warn('로컬 스토리지의 엑세스 토큰을 찾을 수 없습니다.');
-        }
-    });
+            console.error('회원 ID 저장 중 오류가 발생했습니다.', error);
+          });
+    } else {
+      if (modifyButton) modifyButton.style.display = 'none';
+      if (deleteButton) deleteButton.style.display = 'none';
+      console.warn('로컬 스토리지의 엑세스 토큰을 찾을 수 없습니다.');
+    }
+  });
 
-    document.addEventListener('DOMContentLoaded', function() {
-        const productInfo = document.getElementById('product-info');
-        const waitingNumber = productInfo.getAttribute('data-waiting-number');
-        const actionBtn = document.getElementById('action-btn');
+  const checkWaitingCount = async () => {
+    const response = await fetch(`/deal/products/${document.getElementById('product-info').getAttribute('data-product-id')}`, {
+      headers: getAuthHeader()
+    })
 
-        if (parseInt(waitingNumber) !== -1) {
-            actionBtn.innerHTML = `<span class="icon_bag_alt"></span> 채팅 신청 (현재 대기번호: ${waitingNumber})`;
-            actionBtn.style.backgroundColor = '#4caf50';
-            actionBtn.onclick = function(event) {
-                event.preventDefault();
-                startChat(productInfo.getAttribute('data-product-id'), productInfo.getAttribute('data-seller-id'));
-            };
-        } else {
-            actionBtn.onclick = function(event) {
-                initializeDeal(event);
-            };
-        }
-    });
+    return response.json();
+  }
 
-    function initializeDeal(event) {
-        event.preventDefault();
+  document.addEventListener('DOMContentLoaded', async function () {
+    const productInfo = document.getElementById('product-info');
+    const waitingNumber = productInfo.getAttribute('data-waiting-number');
+    const actionBtn = document.getElementById('action-btn');
+    const flag = await checkTarget();
+    let waitingNum = await checkWaitingCount();
 
-        const productElement = document.getElementById('product-info');
-        const productId = productElement.getAttribute('data-product-id');
-        const sellerId = productElement.getAttribute('data-seller-id');
-        const accessToken = localStorage.getItem('access-token');
-        const price = productElement.getAttribute('data-price');
+    if (waitingNum > 0) actionBtn.innerText = `거래 진행 중 (${waitingNum}명 대기)`
 
-        fetch('/deal/initialize', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${accessToken}`
-            },
-            body: JSON.stringify({
-                productId: productId,
-                sellerId: sellerId,
-                dealAmount: price
-            })
+    console.log('으앙', flag)
+
+    if (flag.dealStatus === 'IN_PROGRESS') {
+      actionBtn.innerHTML = `<span class="icon_bag_alt"></span> 채팅하러 가기`;
+      actionBtn.style.backgroundColor = '#7493ce';
+    }
+
+    if (flag.dealStatus === 'BEFORE_DEAL') {
+      actionBtn.innerHTML = `<span class="icon_bag_alt"></span> ${waitingNum - 1}번 (${waitingNum - 1}명 대기중)`;
+      actionBtn.style.backgroundColor = '#ce3434';
+    }
+
+    if (flag.dealStatus === 'PAID') {
+      // 거래 완료
+      actionBtn.innerHTML = `<span class="icon_bag_alt"></span> 거래 완료상품`;
+      actionBtn.style.backgroundColor = '#e8e068';
+      return;
+    }
+
+    actionBtn.onclick = async function (event) {
+      // 채팅이 가능한 상태인지 확인
+      const flag = await checkTarget();
+      console.log('후 ,,', flag.dealStatus)
+
+      if (flag.dealStatus === 'NO') {
+        alert(flag.message)
+        return;
+      }
+
+      if (flag.dealStatus === 'IN_PROGRESS') {
+        // 거래가 가능한 상태 => 채팅방 이동
+        startChat(productInfo.getAttribute('data-product-id'));
+      }
+
+      if (flag.dealStatus === 'GO') {
+        // 예약 가능 상태
+        initializeDeal(actionBtn);
+        location.reload();
+      }
+
+      if (flag.dealStatus === 'BEFORE_DEAL') {
+        // 거래 불가능 상태 => 이미 예약 중
+        alert(`${waitingNum - 1}번 입니다. 잠시만 기다려 주세요`)
+      }
+
+      if (flag.dealStatus === 'CANCELED') {
+        alert('이미 거래가 취소되었습니다.')
+      }
+    }
+  });
+
+  const checkTarget = async () => {
+    const productElement = document.getElementById('product-info');
+    const productId = productElement.getAttribute('data-product-id');
+
+    const result = await fetch(`/deal/${productId}`, {headers: getAuthHeader()})
+    return result.json();
+  }
+
+  function initializeDeal(button) {
+    const productElement = document.getElementById('product-info');
+    const productId = productElement.getAttribute('data-product-id');
+    const sellerId = productElement.getAttribute('data-seller-id');
+    const accessToken = localStorage.getItem('access-token');
+    const price = productElement.getAttribute('data-price');
+
+    fetch('/deal/initialize', {
+      method : 'POST',
+      headers: {
+        'Content-Type' : 'application/json',
+        'Authorization': `Bearer ${accessToken}`
+      },
+      body   : JSON.stringify({
+        productId : productId,
+        sellerId  : sellerId,
+        dealAmount: price
+      })
+    })
+        .then(response => response.json())
+        .then(waitingNumber => {
+          console.log('waitingNumber', waitingNumber)
+          alert('구매 신청이 완료되었습니다.');
+          button.innerHTML = `<span class="icon_bag_alt"></span> 거래 진행 중 (${waitingNumber}명 대기)`;
+          return waitingNumber;
         })
-            .then(response => {
-                if (!response.ok) {
-                    return response.json().then(errorData => {
-                        alert(`구매 신청 실패:\n${errorData.message}`);
-                        throw new Error(errorData.message);
-                    });
-                }
-                return response.json();
-            })
-            .then(waitingNumber => {
-                alert('구매 신청이 완료되었습니다.');
-                const button = event.target.closest('.cart-btn');
-                button.innerHTML = `<span class="icon_bag_alt"></span> 채팅 신청 (현재 대기번호: ${waitingNumber})`;
-                button.style.backgroundColor = '#4caf50';
+        .catch(error => {
+          console.error('Error:', error);
+          alert('요청 중 오류가 발생했습니다.');
+        });
+  }
 
-                button.onclick = function (e) {
-                    e.preventDefault();
-                    startChat();
-                };
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+  const startChat = (productId) => {
+    const socket = new SockJS("/ws-stomp");
+    stompClient = Stomp.over(socket);
+    stompClient.connect(getAuthHeader(), (frame) => {
+      sendChat(productId);
+      stompClient.subscribe(`/room/${productId}`);
+    });
+  }
+
+  const sendChat = (productId) => {
+    const messageObj = {
+      message: "할롱~"
     }
 
-    function startChat() {
-        window.location.href = `/chat-list`;
-    }
+    stompClient.send(`/messages/${productId}`, getAuthHeader(), JSON.stringify(messageObj));
 
-    function deleteProduct(memberId, productId) {
-        if (confirm('정말 상품을 삭제하시겠습니까?')) {
-            fetch(`/product/delete?id=${productId}&memberId=${memberId}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                }
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        return response.json().then(errorData => {
-                            alert(`상품 삭제 실패:\n${errorData.message}`);
-                            throw new Error(errorData.message);
-                        });
-                    }
-                    document.getElementById('delete-message').style.display = 'block';
-                    alert('상품이 삭제되었습니다.');
-                    location.href = '/product/list';
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
+    location.href = `/chat-list`;
+  }
+
+  function deleteProduct(memberId, productId) {
+    if (confirm('정말 상품을 삭제하시겠습니까?')) {
+      fetch(`/product/delete?id=${productId}&memberId=${memberId}`, {
+        method : 'DELETE',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
         }
+      })
+          .then(response => {
+            if (!response.ok) {
+              return response.json().then(errorData => {
+                alert(`상품 삭제 실패:\n${errorData.message}`);
+                throw new Error(errorData.message);
+              });
+            }
+            document.getElementById('delete-message').style.display = 'block';
+            alert('상품이 삭제되었습니다.');
+            location.href = '/product/list';
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
     }
+  }
+
+  const getAuthHeader = () => {
+    const token = localStorage.getItem('access-token');
+    if (!token) {
+      console.error('No access token found');
+      return;
+    }
+
+    const headers = {
+      'Authorization': `Bearer ${token}`
+    }
+
+    return headers;
+  }
 </script>
 
 <!-- Js Plugins -->

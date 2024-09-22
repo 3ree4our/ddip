@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.threefour.ddip.chat.domain.ChatMessage;
 import org.threefour.ddip.chat.domain.dto.ChatRequestDTO;
 import org.threefour.ddip.chat.service.ChatService;
-import org.threefour.ddip.chat.service.WaitingService;
 import org.threefour.ddip.image.service.ImageLocalServiceImpl;
 import org.threefour.ddip.member.domain.MemberDetails;
 import org.threefour.ddip.member.service.MemberDetailsService;
@@ -26,8 +25,6 @@ public class ChatMessageController {
   private final MemberDetailsService memberDetailsService;
   private final ProductServiceImpl productService;
   private final ChatService chatService;
-  private final ImageLocalServiceImpl imageLocalService;
-  private final WaitingService waitingService;
 
   @MessageMapping("/{productId}")
   @SendTo("/room/{productId}")
@@ -50,7 +47,17 @@ public class ChatMessageController {
             .message(message.getMessage())
             .build();
 
-    Long saveId = chatService.createChat(dto);
+    Long saveId = 0L;
+
+    try {
+      saveId = chatService.createChat(dto);
+    } catch (RuntimeException re) {
+      return ChatMessage.builder()
+              .roomId(productByProductId.getId())
+              .message("종료된 채팅입니다.")
+              .build();
+    }
+
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     String format = formatter.format(LocalDateTime.now());

@@ -1,8 +1,7 @@
 export const SERVER_API = 'http://localhost:8080';
 
-const headers = {
+export const headers = {
   'Authorization': 'Bearer ' + localStorage.getItem('access-token')
-
 }
 
 export const getAllProduct = async () => {
@@ -29,14 +28,7 @@ export const getChatroomByProductId = async (chatroomId) => {
   return response.json();
 }
 
-export const createChatroom = async (productId) => {
-  const response = await fetch(`${SERVER_API}/room/${productId}`, {
-    method: 'get',
-  })
-  return response.json();
-}
-
-export const getUnreadMessageCounts = async (productIds) => {
+export const getUnreadMessageCountsByProducts = async (productIds) => {
   try {
     const requests = productIds.map(productId =>
         fetch(`${SERVER_API}/${productId}/unread-count`, {
@@ -64,6 +56,31 @@ export const getUnreadMessageCounts = async (productIds) => {
   }
 }
 
+export const getTotalUnreadCount = async () => {
+  try {
+    const response = await fetch(`${SERVER_API}/chatrooms/total-unread-count`, {
+      headers
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error('Failed to fetch total unread count', error);
+    return 0;
+  }
+}
+
+export const getUserChatrooms = async () => {
+  const response = await fetch(`${SERVER_API}/user/chatrooms`, {
+    headers
+  });
+
+  return response.json();
+}
+
 export const markRead = async (productId) => {
   await fetch(`/${productId}/mark-read`, {
     method: 'POST',
@@ -84,4 +101,28 @@ export const imageUpload = async (formData) => {
 export const getImageUrl = async (chatId) => {
   const result = await fetch(`${SERVER_API}/api/images/chat/${chatId}`)
   return result.json();
+}
+
+export const getDealStatus = async (productId) => {
+  await fetch(`${SERVER_API}/deal/products/${productId}`)
+}
+
+export const completeDeal = async (productId) => {
+  const response = await fetch(`${SERVER_API}/deal/${productId}/complete`, {
+    method: 'POST',
+    headers
+  });
+
+  return response;
+}
+
+export const cancelDeal = async (productId) => {
+  const response = await fetch(`${SERVER_API}/deal/${productId}/cancel`, {
+    method : 'POST',
+    headers: {
+      'Authorization': 'Bearer ' + localStorage.getItem('access-token')
+    }
+  });
+
+  return response;
 }

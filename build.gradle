@@ -22,7 +22,7 @@ configurations {
 repositories {
     mavenCentral()
     // 아임포트 관련
-    maven {url 'https://jitpack.io'}
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {

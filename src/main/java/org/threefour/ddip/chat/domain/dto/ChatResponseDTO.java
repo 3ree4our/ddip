@@ -23,7 +23,9 @@ public class ChatResponseDTO {
   private ChatMemberDTO productOwner;
   private Date sendDate;
 
-  private List<Long> chatImageIds = new ArrayList<>();
+  //private List<Long> chatImageIds = new ArrayList<>();
+  private List<String> chatImageIds = new ArrayList<>();
+  private String status;
 
   public ChatResponseDTO(Long chatId, Long productId, String message, String productName, Member productOwner, Member sender, Date sendDate) {
     this.chatId = chatId;
@@ -33,5 +35,9 @@ public class ChatResponseDTO {
     this.sender = new ChatMemberDTO(sender.getId(), sender.getNickName(), "SENDER");
     this.productOwner = new ChatMemberDTO(productOwner.getId(), productOwner.getNickName(), "OWNER");
     this.sendDate = sendDate;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
   }
 }

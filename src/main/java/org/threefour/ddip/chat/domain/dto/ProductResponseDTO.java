@@ -9,4 +9,5 @@ public class ProductResponseDTO {
   private Long productId;
   private String title;
   private Long sellerId;
+  private String image;
 }

@@ -22,8 +22,9 @@ public interface ChatService {
   void markAsRead(Long productId, Long ownerId);
 
   //TODO 추후 삭제
-  ProductResponseDTO getProductByProductId(Long productId);
-
-  //TODO 추후 삭제
   List<ProductResponseDTO> getAllProductBySellerId(Long sellerId);
+
+  int getTotalUnreadMessageCount(Long id);
+
+  List<ChatroomResponseDTO> findAllActiveChatsForUser(Long userId);
 }
