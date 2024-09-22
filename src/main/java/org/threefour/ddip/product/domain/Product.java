@@ -13,6 +13,7 @@ import org.threefour.ddip.util.FormatValidator;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 import static javax.persistence.CascadeType.*;
 import static javax.persistence.FetchType.LAZY;
@@ -65,6 +66,23 @@ public class Product extends BaseGeneralEntity {
                 .content(registerProductRequest.getContent())
                 .seller(seller)
                 .build();
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        Product product = (Product) object;
+        return Objects.equals(name, product.name) && Objects.equals(price, product.price)
+                && Objects.equals(title, product.title) && Objects.equals(content, product.content)
+                && Objects.equals(seller, product.seller)
+                && Objects.equals(productCategories, product.productCategories)
+                && Objects.equals(priceInformation, product.priceInformation);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, price, title, content, seller, productCategories, priceInformation);
     }
 
     public String getName() {

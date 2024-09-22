@@ -8,23 +8,25 @@ import org.springframework.session.web.http.CookieSerializer;
 import org.springframework.session.web.http.DefaultCookieSerializer;
 import org.springframework.session.web.http.HttpSessionIdResolver;
 
-//@Configuration
+@Configuration
 @EnableRedisHttpSession(maxInactiveIntervalInSeconds = 1_800)
 public class SessionConfig {
-  @Bean
-  public HttpSessionIdResolver httpSessionIdResolver() {
-    CookieHttpSessionIdResolver resolver = new CookieHttpSessionIdResolver();
-    resolver.setCookieSerializer(cookieSerializer());
-    return resolver;
-  }
+    @Bean
+    public HttpSessionIdResolver httpSessionIdResolver() {
+        CookieHttpSessionIdResolver resolver = new CookieHttpSessionIdResolver();
+        resolver.setCookieSerializer(cookieSerializer());
 
-  @Bean
-  public CookieSerializer cookieSerializer() {
-    DefaultCookieSerializer serializer = new DefaultCookieSerializer();
-    serializer.setCookieName("MEMBER_SESSION");
-    serializer.setCookiePath("/");
-    serializer.setUseHttpOnlyCookie(true);
-    serializer.setUseSecureCookie(true);
-    return serializer;
-  }
+        return resolver;
+    }
+
+    @Bean
+    public CookieSerializer cookieSerializer() {
+        DefaultCookieSerializer serializer = new DefaultCookieSerializer();
+        serializer.setCookieName("MEMBER_SESSION");
+        serializer.setCookiePath("/");
+        serializer.setUseHttpOnlyCookie(true);
+        serializer.setUseSecureCookie(true);
+
+        return serializer;
+    }
 }

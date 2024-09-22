@@ -9,7 +9,7 @@ import javax.persistence.criteria.*;
 import java.util.List;
 
 @Repository
-public class ProductRepositoryImpl  {
+public class ProductRepositoryImpl {
     @PersistenceContext
     private EntityManager em;
 

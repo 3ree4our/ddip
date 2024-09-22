@@ -2,8 +2,12 @@ package org.threefour.ddip.image.domain;
 
 import lombok.Getter;
 
+import java.io.Serializable;
+
 @Getter
-public class GetImageResponse {
+public class GetImageResponse implements Serializable {
+    private static final long serialVersionUID = 5L;
+
     private Long id;
     private String url;
 

@@ -22,58 +22,58 @@ import java.time.format.DateTimeFormatter;
 @RequiredArgsConstructor
 public class ChatMessageController {
 
-  private final MemberDetailsService memberDetailsService;
-  private final ProductServiceImpl productService;
-  private final ChatService chatService;
+    private final MemberDetailsService memberDetailsService;
+    private final ProductServiceImpl productService;
+    private final ChatService chatService;
 
-  @MessageMapping("/{productId}")
-  @SendTo("/room/{productId}")
-  public ChatMessage sendMessage(
-          @DestinationVariable("productId") String productId,
-          ChatMessage message,
-          Principal principal) {
+    @MessageMapping("/{productId}")
+    @SendTo("/room/{productId}")
+    public ChatMessage sendMessage(
+            @DestinationVariable("productId") String productId,
+            ChatMessage message,
+            Principal principal) {
 
-    String username = principal.getName();
+        String username = principal.getName();
 
-    long pi = Long.parseLong(productId);
-    Product productByProductId = productService.getProduct(pi, false);
+        long pi = Long.parseLong(productId);
+        Product productByProductId = productService.getProduct(pi, false);
 
-    MemberDetails memberDetails = (MemberDetails) memberDetailsService.loadUserByUsername(username);
-    String nickName = memberDetails.getNickName();
+        MemberDetails memberDetails = (MemberDetails) memberDetailsService.loadUserByUsername(username);
+        String nickName = memberDetails.getNickName();
 
-    ChatRequestDTO dto = ChatRequestDTO.builder()
-            .owner(memberDetails.getId())
-            .productId(pi)
-            .message(message.getMessage())
-            .build();
+        ChatRequestDTO dto = ChatRequestDTO.builder()
+                .owner(memberDetails.getId())
+                .productId(pi)
+                .message(message.getMessage())
+                .build();
 
-    Long saveId = 0L;
+        Long saveId = 0L;
 
-    try {
-      saveId = chatService.createChat(dto);
-    } catch (RuntimeException re) {
-      return ChatMessage.builder()
-              .roomId(productByProductId.getId())
-              .message("종료된 채팅입니다.")
-              .build();
+        try {
+            saveId = chatService.createChat(dto);
+        } catch (RuntimeException re) {
+            return ChatMessage.builder()
+                    .roomId(productByProductId.getId())
+                    .message("종료된 채팅입니다.")
+                    .build();
+        }
+
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String format = formatter.format(LocalDateTime.now());
+
+        ChatMessage mg = ChatMessage.builder()
+                .roomId(productByProductId.getId())
+                .messageId(saveId)
+                .nickname(nickName)
+                .title(productByProductId.getTitle())
+                .message(message.getMessage())
+                .isImages(message.isImages())
+                .sendDate(format)
+                .build();
+
+
+        return mg;
     }
-
-
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    String format = formatter.format(LocalDateTime.now());
-
-    ChatMessage mg = ChatMessage.builder()
-            .roomId(productByProductId.getId())
-            .messageId(saveId)
-            .nickname(nickName)
-            .title(productByProductId.getTitle())
-            .message(message.getMessage())
-            .isImages(message.isImages())
-            .sendDate(format)
-            .build();
-
-
-    return mg;
-  }
 
 }

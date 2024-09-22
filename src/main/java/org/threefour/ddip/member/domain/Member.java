@@ -1,11 +1,20 @@
 package org.threefour.ddip.member.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
+import org.threefour.ddip.address.domain.Address;
 import org.threefour.ddip.audit.BaseEntity;
+import org.threefour.ddip.product.category.domain.ProductCategory;
+
 import javax.persistence.*;
 
+import java.util.List;
+
+import static javax.persistence.CascadeType.*;
+import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
@@ -33,4 +42,8 @@ public class Member extends BaseEntity {
 
     @ColumnDefault("0")
     private boolean deleteYn;
+
+    @OneToMany(mappedBy = "member", cascade = {PERSIST, MERGE, REMOVE}, orphanRemoval = true, fetch = LAZY)
+    @ToString.Exclude
+    private List<Address> addresses;
 }
