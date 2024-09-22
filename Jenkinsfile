@@ -72,7 +72,7 @@ pipeline {
                         string(credentialsId: 'DB_SLAVE_USER_NAME', variable: 'DB_SLAVE_USER_NAME'),
                         string(credentialsId: 'DB_SLAVE_USER_PASSWORD', variable: 'DB_SLAVE_USER_PASSWORD'),
                         string(credentialsId: 'REDIS_PASSWORD', variable: 'REDIS_PASSWORD'),
-                        string(credentialsId: 'ELASTICSEARCH_PASSWORD', variable: 'ELASTICSEARCH_PASSWORD'),
+                        string(credentialsId: 'DDIP_ELASTICSEARCH_PASSWORD', variable: 'DDIP_FELASTICSEARCH_PASSWORD'),
                         string(credentialsId: 'JWT_SECRET_KEY', variable: 'JWT_SECRET_KEY'),
                         string(credentialsId: 'SSL_KEY_STORE_PASSWORD', variable: 'SSL_KEY_STORE_PASSWORD'),
                         string(credentialsId: 'NAVER_API_URL', variable: 'NAVER_API_URL'),
@@ -96,7 +96,7 @@ pipeline {
                             export DB_SLAVE_USER_PASSWORD='$DB_SLAVE_USER_PASSWORD'
                             export DB_ROOT_PASSWORD='$DB_ROOT_PASSWORD'
                             export REDIS_PASSWORD='$REDIS_PASSWORD'
-                            export ELASTICSEARCH_PASSWORD='$ELASTICSEARCH_PASSWORD'
+                            export DDIP_ELASTICSEARCH_PASSWORD='$DDIP_ELASTICSEARCH_PASSWORD'
                             export JWT_SECRET_KEY='$JWT_SECRET_KEY'
                             export SSL_KEY_STORE_PASSWORD='$SSL_KEY_STORE_PASSWORD'
                             export NAVER_API_URL='$NAVER_API_URL'
