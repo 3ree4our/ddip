@@ -69,9 +69,6 @@ const subscribeToProduct = (productId) => {
       const selectedImages = getSelectedImagesData();
       const formData = new FormData();
 
-      console.log('삭제 ! messageObj', messageObj)
-      console.log('삭제 ! messageObj', messageObj.message)
-
       if (messageObj.message === null || messageObj.message === undefined) return;
 
       if (messageObj.message === 'complete') {
@@ -228,7 +225,7 @@ const appendMessageTag = (messageObj) => {
 
     chatLi = createMessageTag(type, messageObj.nickname, messageObj.message, messageObj.sendDate);
     document.querySelector("#chatWrapper .chat:not(.format) ul").appendChild(chatLi);
-    appendImageToMessage(chatLi, messageObj.chatImageIds);
+    appendImageToMessage(chatLi, messageObj.imageUrls[0]);
     document.querySelector("#chatWrapper .chat").scrollTop = document.querySelector("section.chat").scrollHeight;
   }
 
@@ -243,21 +240,9 @@ const appendMessageTag = (messageObj) => {
       chatInput.placeholder = '거래가 완료되어 더 이상 메시지를 보낼 수 없습니다.';
       return;
     }
-    const imageContainer = document.createElement('div');
-    imageContainer.className = 'message-images';
-    messageObj.imageUrls[0].forEach((url, index) => {
-      const img = document.createElement('img');
-      img.src = `${SERVER_API}/api/images/${url}`;
-      img.alt = 'upload image';
-      img.style.maxWidth = '200px';
-      img.style.maxHeight = '200px';
-      img.style.margin = '5px';
-      img.style.cursor = 'pointer';
-      img.onclick = () => openChatImageModal(messageObj.imageUrls[0], index);
-      imageContainer.appendChild(img);
-    })
-    chatLi.querySelector('.message').appendChild(imageContainer);
+
   }
+
   const chatContainer = document.querySelector("#chatWrapper .chat");
   chatContainer.scrollTop = chatContainer.scrollHeight;
 }
@@ -269,8 +254,9 @@ const appendImageToMessage = (chatLi, chatImageIds) => {
     imageContainer.className = 'message-images';
     chatImageIds.forEach((imageId, index) => {
       const img = document.createElement('img');
-      img.src = `${SERVER_API}/api/images/${imageId}`;
-      //img.src = imageId; // s3 전용
+      //img.src = `${SERVER_API}/api/images/${imageId}`;
+      if (typeof imageId === 'string') img.src = imageId;
+      else img.src = imageId.s3Url;
       img.alt = 'upload image';
       img.style.cursor = 'pointer';
       img.onclick = () => openChatImageModal(chatImageIds, index);
@@ -429,8 +415,8 @@ const createChatRoomElement = (chat) => {
 
 const openChatImageModal = (images, index) => {
   const modal = document.getElementById('chatImageModal');
-  chatCurrentImages = images.map(url => `${SERVER_API}/api/images/${url}`);
-  //chatCurrentImages = images.map(url => `${url}`); // s3 전용
+  //chatCurrentImages = images.map(url => `${SERVER_API}/api/images/${url}`);
+  chatCurrentImages = images.map(url => `${url.s3Url}`); // s3 전용
   chatCurrentImageIndex = index;
   updateChatModalImage();
   modal.classList.add('show'); // 'show' 클래스 추가

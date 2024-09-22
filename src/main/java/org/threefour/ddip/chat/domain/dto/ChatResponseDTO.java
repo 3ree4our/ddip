@@ -23,8 +23,8 @@ public class ChatResponseDTO {
   private ChatMemberDTO productOwner;
   private Date sendDate;
 
-  private List<Long> chatImageIds = new ArrayList<>();
-  //private List<String> chatImageIds = new ArrayList<>(); s3
+  //private List<Long> chatImageIds = new ArrayList<>();
+  private List<String> chatImageIds = new ArrayList<>();
   private String status;
 
   public ChatResponseDTO(Long chatId, Long productId, String message, String productName, Member productOwner, Member sender, Date sendDate) {

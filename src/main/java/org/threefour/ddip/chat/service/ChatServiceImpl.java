@@ -41,7 +41,6 @@ public class ChatServiceImpl implements ChatService {
     Product product = productRepository.findById(dto.getProductId()).orElseThrow();
 
     List<Deal> deals = dealRepository.findByProductIdAndAndDeleteYnFalse(product.getId());
-    //.orElseThrow(() -> new RuntimeException("Deal not found"));
 
     for (Deal deal : deals) {
       if (deal.getDealStatus() == DealStatus.PAID) throw new RuntimeException("Deal is paid");

@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.threefour.ddip.image.domain.AddImagesRequest;
 import org.threefour.ddip.image.domain.Image;
 import org.threefour.ddip.image.domain.TargetType;
 import org.threefour.ddip.image.service.ImageLocalServiceImpl;
@@ -30,7 +31,7 @@ public class ImageLocalController {
 
   private final ImageLocalServiceImpl imageLocalService;
   private final ImageService imageService;
-
+  /*
   @PostMapping("/upload")
   public ResponseEntity<List<Long>> uploadImage(@RequestParam("files") List<MultipartFile> files,
                                                 @RequestParam("chatId") Long chatId) {
@@ -38,8 +39,19 @@ public class ImageLocalController {
 
     return ResponseEntity.ok().body(longs);
   }
+  */
 
-  @GetMapping("/{imageId}/s3")
+  @PostMapping("/upload")
+  public ResponseEntity<List<Image>> uploadImage(@RequestParam("files") List<MultipartFile> files,
+                                                 @RequestParam("chatId") Long chatId) {
+    AddImagesRequest from = AddImagesRequest.from(files, TargetType.CHATTING.name(), String.valueOf(chatId));
+
+    List<Image> images = imageService.createImages(from);
+
+    return ResponseEntity.ok().body(images);
+  }
+
+  @GetMapping("/{imageId}")
   public ResponseEntity<List<String>> getImageByImageIdWithS3(@PathVariable Long imageId) throws IOException {
     List<Image> images = imageService.getImages(TargetType.CHATTING, imageId);
     List<String> resources = new ArrayList<>();
@@ -52,7 +64,7 @@ public class ImageLocalController {
             .body(resources);
   }
 
-  @GetMapping("/{imageId}")
+ /* @GetMapping("/{imageId}")
   public ResponseEntity<Resource> getImageByImageIdWithLocal(@PathVariable Long imageId) throws IOException {
     Image image = imageLocalService.getImageById(imageId);
 
@@ -70,7 +82,7 @@ public class ImageLocalController {
     return ResponseEntity.ok()
             .contentType(MediaType.parseMediaType(contentType))
             .body(resource);
-  }
+  }*/
 
   @GetMapping("/chat/{chatId}")
   public ResponseEntity<List<Long>> getImageByChatId(@PathVariable Long chatId) {

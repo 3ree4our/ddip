@@ -27,7 +27,7 @@ import java.util.Map;
 public class ChatAPIController {
 
   private final ChatService chatService;
-  private final ImageLocalServiceImpl imageLocalService;
+  //private final ImageLocalServiceImpl imageLocalService;
   private final ImageService imageService;
   private final DealService dealService;
   private final JWTUtil jwtUtil;
@@ -60,7 +60,7 @@ public class ChatAPIController {
     return ResponseEntity.ok(productIds);
   }
 
-  @GetMapping("/chatrooms/{productId}/s3")
+  @GetMapping("/chatrooms/{productId}")
   public ResponseEntity<List<ChatResponseDTO>> getChatroomByProductIdWithS3(
           @PathVariable("productId") Long productId,
           @RequestHeader("Authorization") String token) {
@@ -78,7 +78,7 @@ public class ChatAPIController {
       List<Image> images = imageService.getImages(TargetType.CHATTING, chat.getChatId());
 
       for (Image image : images) {
-        //chat.getChatImageIds().add(image.getS3Url());
+        chat.getChatImageIds().add(image.getS3Url());
       }
 
       list.add(chat);
@@ -86,7 +86,7 @@ public class ChatAPIController {
 
     return new ResponseEntity<>(list, HttpStatus.OK);
   }
-
+/*
   @GetMapping("/chatrooms/{productId}")
   public ResponseEntity<List<ChatResponseDTO>> getChatroomByProductIdWithLocal(
           @PathVariable("productId") Long productId,
@@ -114,7 +114,7 @@ public class ChatAPIController {
     }
 
     return new ResponseEntity<>(list, HttpStatus.OK);
-  }
+  }*/
 
   @GetMapping("/{productId}/unread-count")
   public ResponseEntity<Integer> getUnreadCount(@PathVariable Long productId, @RequestHeader("Authorization") String token) {
