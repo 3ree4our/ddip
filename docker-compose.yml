@@ -33,6 +33,7 @@ services:
     build:
       context: ./elasticsearch
     container_name: elasticsearch-container
+    restart: "no"
     environment:
       - ELASTICSEARCH_PASSWORD=${DDIP_ELASTICSEARCH_PASSWORD}
       - node.name=single-node
@@ -86,7 +87,7 @@ services:
       DDIP_S3_ACCESS_KEY: ${DDIP_S3_ACCESS_KEY}
       DDIP_S3_SECRET_KEY: ${DDIP_S3_SECRET_KEY}
       DDIP_S3_BUCKET_NAME: ${DDIP_S3_BUCKET_NAME}
-      JAVA_OPTS: "-Xms12g -Xmx12g -XX:MaxPermSize=1024m"
+      JAVA_OPTS: "-Xms512m -Xmx1024m"
     ports:
       - "443:443"
     networks:

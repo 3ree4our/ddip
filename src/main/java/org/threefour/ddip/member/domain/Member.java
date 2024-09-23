@@ -44,6 +44,10 @@ public class Member extends BaseEntity {
     @ColumnDefault("0")
     private boolean deleteYn;
 
+  @OneToMany(mappedBy = "member", cascade = {PERSIST, MERGE, REMOVE}, orphanRemoval = true, fetch = LAZY)
+  @ToString.Exclude
+  private List<Address> addresses;
+
   @ManyToMany(fetch = FetchType.EAGER) //다른방법
   @JoinTable(
           name = "member_roles",
