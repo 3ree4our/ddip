@@ -51,7 +51,7 @@
     <div class="offcanvas__auth">
       <a th:href="@{/member/login}" class="loginLink">Login</a>
       <a th:href="@{/member/signUp}" class="registerLink">Register</a>
-      <a th:href="@{/access}" class="logoutLink">Logout</a>
+      <a th:href="@{/access}" class="logoutLink" style="display: none;>Logout</a>
     </div>
   </div>
   <!-- Offcanvas Menu End -->
@@ -68,9 +68,9 @@
         <div class="col-lg-3" id="me">
           <div class="header__right">
             <div class="header__right__auth">
-              <a th:href="@{/member/login}">Login</a>
-              <a th:href="@{/member/signUp}">Register</a>
-              <a th:href="@{/access}" class="logoutLink">Logout</a>
+              <a th:href="@{/member/login}" class="loginLink">Login</a>
+              <a th:href="@{/member/signUp}" class="registerLink">Register</a>
+              <a th:href="@{/access}" class="logoutLink" style="display: none;>Logout</a>
             </div>
             <ul class="header__right__widget">
               <li>
