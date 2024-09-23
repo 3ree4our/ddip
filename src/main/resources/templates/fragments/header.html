@@ -1,145 +1,151 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <title>Title</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
 
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
 
-  <!-- Css Styles -->
-  <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
-  <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css">
-  <link rel="stylesheet" href="/css/elegant-icons.css" type="text/css">
-  <link rel="stylesheet" href="/css/jquery-ui.min.css" type="text/css">
-  <link rel="stylesheet" href="/css/magnific-popup.css" type="text/css">
-  <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css">
-  <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css">
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
-  <link rel="stylesheet" href="/css/header.css" type="text/css">
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="stylesheet" href="/css/header.css" type="text/css">
 </head>
 <body>
 
 <div th:fragment="header">
-  <div id="preloder">
-    <div class="loader"></div>
-  </div>
-
-  <!-- Offcanvas Menu Begin -->
-  <div class="offcanvas-menu-overlay"></div>
-  <div class="offcanvas-menu-wrapper">
-    <div class="offcanvas__close">+</div>
-    <ul class="offcanvas__widget">
-      <li><span class="icon_search search-switch"></span></li>
-      <li>
-        <a href="#">
-          <span class="icon_heart_alt"></span>
-          <div class="tip">2</div>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <span class="icon_bag_alt"></span>
-          <div class="tip">2</div>
-        </a>
-      </li>
-    </ul>
-    <div class="offcanvas__logo">
-      <a href="./index.html"><img src="/img/logo.png" alt=""></a>
+    <div id="preloder">
+        <div class="loader"></div>
     </div>
-    <div class="offcanvas__auth">
-      <a th:href="@{/member/login}">Login</a>
-      <a th:href="@{/member/signUp}">Register</a>
-      <a th:href="@{/access}" class="logoutLink">Logout</a>
-    </div>
-  </div>
-  <!-- Offcanvas Menu End -->
 
-  <!-- Header Section Begin -->
-  <header class="header">
-    <div class="container-fluid">
-      <div class="row" id="header-main">
-        <div class="col-xl-3 col-lg-2">
-          <div class="header__logo">
-            <a th:href="@{/}"><img src="/img/logo.png" alt=""></a>
-          </div>
+    <!-- Offcanvas Menu Begin -->
+    <div class="offcanvas-menu-overlay"></div>
+    <div class="offcanvas-menu-wrapper">
+        <div class="offcanvas__close">+</div>
+        <ul class="offcanvas__widget">
+            <li><span class="icon_search search-switch"></span></li>
+            <li>
+                <a href="#">
+                    <span class="icon_heart_alt"></span>
+                    <div class="tip">2</div>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="icon_bag_alt"></span>
+                    <div class="tip">2</div>
+                </a>
+            </li>
+        </ul>
+        <div class="offcanvas__logo">
+            <a href="./index.html"><img src="/img/logo.png" alt=""></a>
         </div>
-        <div class="col-lg-3" id="me">
-          <div class="header__right">
-            <div class="header__right__auth">
-              <a th:href="@{/member/login}">Login</a>
-              <a th:href="@{/member/signUp}">Register</a>
-              <a th:href="@{/access}" class="logoutLink">Logout</a>
+        <div class="offcanvas__auth">
+            <a th:href="@{/member/login}">Login</a>
+            <a th:href="@{/member/signUp}">Register</a>
+            <a th:href="@{/access}" class="logoutLink">Logout</a>
+        </div>
+    </div>
+    <!-- Offcanvas Menu End -->
+
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="container-fluid">
+            <div class="row" id="header-main">
+                <div class="col-xl-3 col-lg-2">
+                    <div class="header__logo">
+                        <a th:href="@{/}"><img src="/img/logo.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-3" id="me">
+                    <div class="header__right">
+                        <div class="header__right__auth">
+                            <a th:href="@{/member/login}">Login</a>
+                            <a th:href="@{/member/signUp}">Register</a>
+                            <a th:href="@{/access}" class="logoutLink">Logout</a>
+                        </div>
+                        <ul class="header__right__widget">
+                            <li>
+                                <a href="#">
+                                    <span class="icon_heart_alt"></span>
+                                    <div class="tip">2</div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="icon_bag_alt"></span>
+                                    <div class="tip">2</div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <ul class="header__right__widget">
-              <li>
-                <a href="#">
-                  <span class="icon_heart_alt"></span>
-                  <div class="tip">2</div>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <span class="icon_bag_alt"></span>
-                  <div class="tip">2</div>
-                </a>
-              </li>
-            </ul>
-          </div>
         </div>
-      </div>
-    </div>
-    <!-- Navigation Begin -->
-    <nav class="navigation-bar">
-      <div class="container-fluid">
-        <div>
-          <ul class="nav-list">
-            <li><a th:href="@{/}">category</a></li>
-            <li>
-              <div class="col-xl-6 col-lg-7" id="search">
-                <nav class="header__menu">
-                  <ul>
-                    <li>
-                      <div class="search-form" style="display: flex; align-items: center; position: relative;">
-                        <select id="search-type" style="margin-right: 10px; padding: 5px;">
-                          <option value="name">상품명</option>
-                          <option value="category">카테고리</option>
-                          <option value="title">글 제목</option>
-                          <option value="region">지역명</option>
-                          <option value="school">학교명</option>
-                        </select>
-                        <input id="searchkeyword" class="input-search" type="text" placeholder="검색어를 입력하세요" maxlength="60" style="flex-grow: 1; margin-right: 10px;">
-                        <a href="#" id="search-button"><span class="icon_search search-switch"></span></a>
-                        <ul id="autocomplete-list" class="autocomplete-list" style="position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid #ddd; max-height: 200px; overflow-y: auto; z-index: 1000; display: none;"></ul>
-                      </div>
-                    </li>
-                  </ul>
-                </nav>
-              </div>
-            </li>
-            <li>
-              <a href="#">sale</a>
-              <a id="chatList" href="#" class="d-flex">
-                <img id="chatListImage" src="/img/ddip-talkS.png" class="mx-1">
-                <span id="alertCount"></span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </header>
-  <!-- Header Section End -->
+        <!-- Navigation Begin -->
+        <nav class="navigation-bar">
+            <div class="container-fluid">
+                <div>
+                    <ul class="nav-list">
+                        <li><a href="/product/list">product</a></li>
+                        <li>
+                            <div class="col-xl-6 col-lg-7" id="search">
+                                <nav class="header__menu">
+                                    <ul>
+                                        <li>
+                                            <div class="search-form"
+                                                 style="display: flex; align-items: center; position: relative;">
+                                                <select id="search-type" style="margin-right: 10px; padding: 5px;">
+                                                    <option value="name">상품명</option>
+                                                    <option value="category">카테고리</option>
+                                                    <option value="title">글 제목</option>
+                                                    <option value="region">지역명</option>
+                                                    <option value="school">학교명</option>
+                                                </select>
+                                                <input id="searchkeyword" class="input-search" type="text"
+                                                       placeholder="검색어를 입력하세요" maxlength="60"
+                                                       style="flex-grow: 1; margin-right: 10px;">
+                                                <a href="#" id="search-button"><span
+                                                        class="icon_search search-switch"></span></a>
+                                                <ul id="autocomplete-list" class="autocomplete-list"
+                                                    style="position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid #ddd; max-height: 200px; overflow-y: auto; z-index: 1000; display: none;"></ul>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </li>
+                        <li>
+                            <a th:href="@{'/product/registration-form?memberId=' + ${memberId}}">sale</a>
+                            <a id="chatList" href="#" class="d-flex">
+                                <img id="chatListImage" src="/img/ddip-talkS.png" class="mx-1">
+                                <span id="alertCount"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- Header Section End -->
 
-  <!--chat-->
-  <script src="/webjars/jquery/jquery.min.js"></script>
-  <script src="/webjars/sockjs-client/sockjs.min.js"></script>
-  <script src="/webjars/stomp-websocket/stomp.min.js"></script>
-  <script th:type="module" th:src="@{/chat/js/alert.js}"></script>
+    <!--chat-->
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script th:type="module" th:src="@{/chat/js/alert.js}"></script>
 
-  <!--login-->
-  <script th:src="@{/js/login.js}"></script>
+    <!--login-->
+    <script th:src="@{/js/login.js}"></script>
 </div>
 </body>
 </html>
