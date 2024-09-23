@@ -4,8 +4,6 @@ document.addEventListener('DOMContentLoaded', function () {
   loginForm.addEventListener('submit', function (e) {
     e.preventDefault();
 
-    const rememberMe = event.target.rememberMe.checked;
-
     fetch('/login', {
       method : 'POST',
       body   : new FormData(loginForm),
@@ -22,15 +20,9 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(data => {
           if (data.success) {
             const accessToken = data.accessToken; // 서버에서 보낸 토큰
-            if (rememberMe) {
-              localStorage.setItem('access-token', accessToken);
-              localStorage.setItem('nickname', data.nickname);
-              localStorage.setItem('role', data.role); //[1]
-            } else {
-              sessionStorage.setItem('access-token', accessToken);
-              sessionStorage.setItem('nickname', data.nickname);
-              sessionStorage.setItem('role', data.role);
-            }
+            localStorage.setItem('access-token', accessToken);
+            localStorage.setItem('nickname', data.nickname);
+            localStorage.setItem('role', data.role); //[1]
             location.href = '/';
           }
         })
