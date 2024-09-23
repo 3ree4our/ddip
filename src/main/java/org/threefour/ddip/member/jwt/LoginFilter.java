@@ -6,6 +6,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.threefour.ddip.member.domain.MemberDetails;
 import org.threefour.ddip.member.domain.Refresh;
@@ -16,7 +17,10 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class LoginFilter extends UsernamePasswordAuthenticationFilter {
@@ -38,9 +42,13 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     MemberDetails memberDetails = (MemberDetails) authResult.getPrincipal();
     Long id = memberDetails.getId();
     String nickname = memberDetails.getNickname();
+    List<String> role = new ArrayList<>();
+    for (GrantedAuthority authority : authResult.getAuthorities()) {
+      role.add(authority.getAuthority());
+    }
 
-    String access = jwtUtil.createJwt(id, "access", username, nickname, 600000L);
-    String refresh = jwtUtil.createJwt(id, "refresh", username, nickname, 43200000L);
+    String access = jwtUtil.createJwt(id, role,"access", username, nickname, 600000L);
+    String refresh = jwtUtil.createJwt(id, role, "refresh", username, nickname, 43200000L);
     addRefreshEntity(username, refresh, 86400000L);
 
     response.addHeader("access", access);
@@ -48,8 +56,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     response.setStatus(HttpStatus.OK.value());
 
     response.setContentType("application/json; charset=utf-8");
-    System.out.println("access!!! :" + access);
-    response.getWriter().write("{\"nickname\":\"" + nickname + "\", \"success\": true, \"accessToken\": \"" + access + "\"}");
+    response.getWriter().write("{\"nickname\":\"" + nickname + "\", \"role\":\"" + role + "\", \"success\": true, \"accessToken\": \"" + access + "\"}");
   }
 
   @Override
@@ -62,6 +69,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     cookie.setMaxAge(24 * 60 * 60);
     cookie.setSecure(true);
     cookie.setHttpOnly(true);
+    cookie.setPath("/");
 
     return cookie;
   }

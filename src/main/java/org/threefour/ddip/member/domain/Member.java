@@ -11,6 +11,7 @@ import org.threefour.ddip.product.category.domain.ProductCategory;
 
 import javax.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static javax.persistence.CascadeType.*;
@@ -43,7 +44,10 @@ public class Member extends BaseEntity {
     @ColumnDefault("0")
     private boolean deleteYn;
 
-    @OneToMany(mappedBy = "member", cascade = {PERSIST, MERGE, REMOVE}, orphanRemoval = true, fetch = LAZY)
-    @ToString.Exclude
-    private List<Address> addresses;
+  @ManyToMany(fetch = FetchType.EAGER) //다른방법
+  @JoinTable(
+          name = "member_roles",
+          joinColumns = @JoinColumn(name = "member_id"),
+          inverseJoinColumns = @JoinColumn(name = "role_id"))
+  private List<Role> roles = new ArrayList<>();
 }

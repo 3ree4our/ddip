@@ -1,17 +1,17 @@
 package org.threefour.ddip.member.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.threefour.ddip.address.domain.Address;
 import org.threefour.ddip.address.service.AddressService;
 import org.threefour.ddip.member.domain.Member;
 import org.threefour.ddip.member.domain.MemberRequestDTO;
 import org.threefour.ddip.member.service.MemberService;
+
+import java.util.Collections;
 
 @Controller
 @RequestMapping("/member")
@@ -31,12 +31,13 @@ public class MemberController {
     }
 
     @PostMapping("/signUp")
-    public String signUp(MemberRequestDTO memberRequestDTO, Address address) {
+    @ResponseBody
+    public ResponseEntity<?> signUp(MemberRequestDTO memberRequestDTO, Address address) {
         Address xyAddress = addressService.getCoordinates(address.getRoadAddress());
         xyAddress.setZipcode(address.getZipcode());
         xyAddress.setDetailedAddress(address.getDetailedAddress());
         memberService.join(memberRequestDTO, xyAddress);
-        return "redirect:/member/login";
+        return ResponseEntity.ok().body(Collections.singletonMap("success", true));
     }
 
     @GetMapping("/registration-form")

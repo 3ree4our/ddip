@@ -3,10 +3,9 @@ package org.threefour.ddip.member.jwt;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
-import org.threefour.ddip.member.domain.Member;
-import org.threefour.ddip.member.domain.MemberDetails;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -14,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class JWTFilter extends OncePerRequestFilter {
@@ -49,15 +50,13 @@ public class JWTFilter extends OncePerRequestFilter {
     }
 
     String username = jwtUtil.getUsername(accessToken);
-    //String role = jwtUtil.getRole(accessToken);
+    List<String> role = jwtUtil.getRole(accessToken);
 
-    Member member = new Member();
-    member.setEmail(username);
-    //member.setRole(role);
+    List<SimpleGrantedAuthority> authorities = role.stream()
+            .map(SimpleGrantedAuthority::new)
+            .collect(Collectors.toList());
 
-    MemberDetails memberDetails = new MemberDetails(member);
-
-    Authentication authToken = new UsernamePasswordAuthenticationToken(memberDetails, null, memberDetails.getAuthorities());
+    Authentication authToken = new UsernamePasswordAuthenticationToken(username/*memberDetails*/, null, authorities);
     SecurityContextHolder.getContext().setAuthentication(authToken);
 
     filterChain.doFilter(request, response);
