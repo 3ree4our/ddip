@@ -1,22 +1,26 @@
 package org.threefour.ddip.member.jwt;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.io.Encoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
+import java.security.Key;
 import java.util.Date;
+import java.util.List;
 
 @Component
 public class JWTUtil {
-  private SecretKey secretKey;
+  private Key secretKey;
 
   public JWTUtil(@Value("${spring.jwt.secret}")String secret) {
-    byte[] bytes = Decoders.BASE64.decode(secret);
-    secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    byte[] keyBytes = Decoders.BASE64.decode(secret);
+    this.secretKey = Keys.hmacShaKeyFor(keyBytes);
   }
 
   public Long getId(String token) {
@@ -39,16 +43,24 @@ public class JWTUtil {
     return Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token).getBody().getExpiration().before(new Date());
   }
 
-  public String createJwt(Long id, String category, String username, String nickname ,Long expiredMs) {
-    return Jwts.builder()
+  public List<String> getRole(String token) {
+    return Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token).getBody().get("roles", List.class);
+  }
+
+  public String createJwt(Long id, List<String> role, String category, String username, String nickname ,Long expiredMs) {
+    String jwt = Jwts.builder()
             .claim("id", id)
+            .claim("roles", role)
             .claim("category", category)
             .claim("username", username)
             .claim("nickname", nickname)
-            //.claim("role", role)
             .setIssuedAt(new Date(System.currentTimeMillis()))
             .setExpiration(new Date(System.currentTimeMillis() + expiredMs))
-            .signWith(secretKey)
+            .signWith(secretKey, SignatureAlgorithm.HS384)
             .compact();
+
+    System.out.println("Generated JWT: " + jwt);
+
+    return jwt;
   }
 }
