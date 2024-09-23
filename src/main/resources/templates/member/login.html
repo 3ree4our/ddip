@@ -49,8 +49,8 @@
     </div>
     <div id="mobile-menu-wrap"></div>
     <div class="offcanvas__auth">
-        <a href="#">Login</a>
-        <a href="#">Register</a>
+        <a th:href="@{/member/login}" class="loginLink">Login</a>
+        <a th:href="@{/member/signUp}" class="registerLink">Register</a>
     </div>
 
 </div>
@@ -88,9 +88,8 @@
             <div class="col-lg-3">
                 <div class="header__right">
                     <div class="header__right__auth">
-                        <a href="/member/login" id="loginLink">Login</a>
-                        <a href="/member/signUp" id="registerLink">Register</a>
-                        <a href="/access" id="logoutLink">Logout</a>
+                        <a th:href="@{/member/login}" class="loginLink">Login</a>
+                        <a th:href="@{/member/signUp}" class="registerLink">Register</a>
                     </div>
                     <ul class="header__right__widget">
                         <li><span class="icon_search search-switch"></span></li>

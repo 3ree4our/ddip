@@ -1,4 +1,3 @@
-/* Login */
 document.addEventListener('DOMContentLoaded', function () {
   const loginForm = document.querySelector('form');
   loginForm.addEventListener('submit', function (e) {
@@ -40,10 +39,10 @@ $(document).ready(function() {
 
   function updateAuthLinks() {
     if (checkLoggedIn()) {
-      $('#loginLink, #registerLink').hide();
+      $('.loginLink, .registerLink').hide();
       $('.logoutLink').show();
     } else {
-      $('#loginLink, #registerLink').show();
+      $('.loginLink, .registerLink').show();
       $('.logoutLink').hide();
     }
   }
