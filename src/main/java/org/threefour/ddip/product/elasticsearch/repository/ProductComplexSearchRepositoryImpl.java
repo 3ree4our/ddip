@@ -1,15 +1,14 @@
 package org.threefour.ddip.product.elasticsearch.repository;
 
 import lombok.RequiredArgsConstructor;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.SearchHit;
 import org.springframework.data.elasticsearch.core.SearchHits;
-import org.springframework.data.elasticsearch.core.query.Criteria;
-import org.springframework.data.elasticsearch.core.query.CriteriaQuery;
-import org.springframework.data.elasticsearch.core.query.Query;
+import org.springframework.data.elasticsearch.core.query.*;
 import org.springframework.stereotype.Repository;
 import org.threefour.ddip.product.elasticsearch.domain.ProductDocument;
 
@@ -22,6 +21,26 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ProductComplexSearchRepositoryImpl implements ProductComplexSearchRepository {
     private final ElasticsearchOperations elasticsearchOperations;
+
+    @Override
+    public Page<ProductDocument> findByKeywordSortedByRelevance(String keyword, Pageable pageable) {
+        NativeSearchQuery searchQuery = new NativeSearchQueryBuilder()
+                .withQuery(QueryBuilders.multiMatchQuery(keyword)
+                        .field("name", 2.0f)
+                        .field("title", 3.0f)
+                        .field("content")
+                        .field("schoolName"))
+                .withPageable(pageable)
+                .build();
+
+        SearchHits<ProductDocument> searchHits = elasticsearchOperations.search(searchQuery, ProductDocument.class);
+
+        List<ProductDocument> productDocuments = searchHits.stream()
+                .map(SearchHit::getContent)
+                .collect(Collectors.toList());
+
+        return new PageImpl<>(productDocuments, pageable, searchHits.getTotalHits());
+    }
 
     @Override
     public Page<ProductDocument> findByCategoryKeyword(String keyword, Pageable pageable) {

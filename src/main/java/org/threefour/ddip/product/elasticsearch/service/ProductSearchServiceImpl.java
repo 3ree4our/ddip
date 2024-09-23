@@ -29,6 +29,11 @@ public class ProductSearchServiceImpl implements ProductSearchService {
     }
 
     @Override
+    public Page<ProductDocument> getByKeywordRelevance(String keyword, Pageable pageable) {
+        return productComplexSearchRepository.findByKeywordSortedByRelevance(keyword, pageable);
+    }
+
+    @Override
     public Page<ProductDocument> getByProductKeyword(String keyword, Pageable pageable) {
         return productSearchRepository.findByName(keyword, pageable);
     }

@@ -10,6 +10,8 @@ import java.util.List;
 public interface ProductSearchService {
     void saveProductDocument(Product product);
 
+    Page<ProductDocument> getByKeywordRelevance(String keyword, Pageable pageable);
+
     Page<ProductDocument> getByProductKeyword(String keyword, Pageable pageable);
 
     Page<ProductDocument> getByTitleKeyword(String keyword, Pageable pageable);
