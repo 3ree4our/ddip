@@ -19,8 +19,7 @@ public class JWTUtil {
   private Key secretKey;
 
   public JWTUtil(@Value("${spring.jwt.secret}")String secret) {
-    byte[] keyBytes = Decoders.BASE64.decode(secret);
-    this.secretKey = Keys.hmacShaKeyFor(keyBytes);
+    this.secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
   }
 
   public Long getId(String token) {
