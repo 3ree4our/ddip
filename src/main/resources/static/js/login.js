@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
           }
         })
         .catch(error => {
+          alert("로그인에 실패하였습니다.");
           console.error('Error:', error);
         });
   });
