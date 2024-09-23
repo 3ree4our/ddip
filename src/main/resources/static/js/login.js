@@ -1,4 +1,3 @@
-/* Login */
 document.addEventListener('DOMContentLoaded', function () {
   const loginForm = document.querySelector('form');
   loginForm.addEventListener('submit', function (e) {
@@ -33,52 +32,61 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 /* Logout */
-$(document).ready(function() {
+document.addEventListener('DOMContentLoaded', function () {
   function checkLoggedIn() {
     return localStorage.getItem('access-token') !== null;
   }
 
   function updateAuthLinks() {
+    const loginLink = document.querySelector('.loginLink');
+    const registerLink = document.querySelector('.registerLink');
+    const logoutLink = document.querySelector('.logoutLink');
+
     if (checkLoggedIn()) {
-      $('#loginLink, #registerLink').hide();
-      $('.logoutLink').show();
+      if (loginLink) loginLink.style.display = 'none';
+      if (registerLink) registerLink.style.display = 'none';
+      if (logoutLink) logoutLink.style.display = 'inline-block';
     } else {
-      $('#loginLink, #registerLink').show();
-      $('.logoutLink').hide();
+      if (loginLink) loginLink.style.display = 'inline-block';
+      if (registerLink) registerLink.style.display = 'inline-block';
+      if (logoutLink) logoutLink.style.display = 'none';
     }
   }
 
   updateAuthLinks();
 
-  $('.logoutLink').click(function(e) {
-    e.preventDefault();
-    const accessToken = localStorage.getItem('access-token');
+  const logoutLink = document.querySelector('.logoutLink');
+  if (logoutLink) {
+    logoutLink.addEventListener('click', function(e) {
+      e.preventDefault();
+      const accessToken = localStorage.getItem('access-token');
 
-    if (!accessToken) {
-      console.error('No access token found');
-      return;
-    }
-
-    $.ajax({
-      url: '/logout',
-      type: 'POST',
-      headers: {
-        'Authorization': 'Bearer ' + accessToken,
-      },
-      xhrFields: {
-        withCredentials: true  // 쿠키를 포함시키기 위해
-      },
-      success: function(result) {
-        localStorage.removeItem('access-token');
-        localStorage.removeItem('nickname');
-        localStorage.removeItem('role');
-        updateAuthLinks();
-        location.href = '/';
-      },
-      error: function(xhr, status, error) {
-        console.error('Logout failed:', error);
-        alert('Logout failed. Please try again.');
+      if (!accessToken) {
+        console.error('No access token found');
+        return;
       }
+
+      $.ajax({
+        url: '/logout',
+        type: 'POST',
+        headers: {
+          'Authorization': 'Bearer ' + accessToken,
+        },
+        xhrFields: {
+          withCredentials: true  // 쿠키를 포함시키기 위해
+        },
+        success: function (result) {
+          localStorage.removeItem('access-token');
+          localStorage.removeItem('nickname');
+          localStorage.removeItem('role');
+          updateAuthLinks();
+          location.href = '/';
+        },
+        error: function (xhr, status, error) {
+          console.error('Logout failed:', error);
+          alert('Logout failed. Please try again.');
+        }
     });
   });
+  }
 });
