@@ -12,6 +12,10 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
+  servlet:
+    multipart:
+      max-file-size: 10MB   # 파일 하나의 최대 크기
+      max-request-size: 10MB # 전체 요청의 최대 크기
     view:
       prefix: /
       suffix: .html
