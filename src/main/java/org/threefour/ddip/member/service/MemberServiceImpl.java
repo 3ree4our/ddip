@@ -9,9 +9,8 @@ import org.threefour.ddip.address.domain.Address;
 import org.threefour.ddip.address.service.AddressService;
 import org.threefour.ddip.member.domain.Member;
 import org.threefour.ddip.member.domain.MemberRequestDTO;
+import org.threefour.ddip.member.domain.Role;
 import org.threefour.ddip.member.repository.MemberRepository;
-
-import java.util.List;
 
 @Service
 @Transactional
@@ -41,7 +40,9 @@ public class MemberServiceImpl implements MemberService {
     member.setPassword(bCryptPasswordEncoder.encode(memberRequestDTO.getPassword()));
     member.setSchool(memberRequestDTO.getSchool());
     member.setEmail(email);
-    member.setAddresses(List.of(address));
+
+    Role userRole = memberRepository.findByRoles(Role.RoleType.ROLE_USER);
+    member.getRoles().add(userRole);
 
     member = memberRepository.save(member);
     address.setLat(address.getLat());

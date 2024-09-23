@@ -2,10 +2,12 @@ package org.threefour.ddip.member.domain;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class MemberDetails implements UserDetails {
@@ -13,14 +15,9 @@ public class MemberDetails implements UserDetails {
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    Collection<GrantedAuthority> authorities = new ArrayList<>();
-    authorities.add(new GrantedAuthority() {
-      @Override
-      public String getAuthority() {
-        return member.getEmail();
-      }
-    });
-    return authorities;
+    return member.getRoles().stream()
+            .map(role -> new SimpleGrantedAuthority(role.getRole().name()))
+            .collect(Collectors.toList());
   }
 
   public Long getId() {

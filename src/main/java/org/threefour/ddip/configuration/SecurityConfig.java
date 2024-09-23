@@ -12,9 +12,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
+import org.threefour.ddip.member.jwt.CoustomLogoutFilter;
 import org.threefour.ddip.member.jwt.JWTUtil;
 import org.threefour.ddip.member.jwt.LoginFilter;
 import org.threefour.ddip.member.repository.RefreshRepository;
+
+import javax.servlet.http.HttpServletResponse;
 
 @Configuration
 @EnableWebSecurity
@@ -40,16 +43,15 @@ public class SecurityConfig {
             .csrf().disable()
             .httpBasic().disable()
             .authorizeHttpRequests()
-            .antMatchers("/**")
-            .permitAll()
-            /*.antMatchers("/admin")
-            .hasRole("ADMIN")*/
-            .antMatchers("/reissue")
-            .permitAll()
-            .anyRequest()
-            .authenticated();
-    http
-            .addFilterBefore(new org.threefour.ddip.member.jwt.LogoutFilter(jwtUtil, refreshRepository), LogoutFilter.class)
+            .antMatchers("/**").permitAll()
+            .antMatchers("/admin").hasRole("ADMIN")
+            .and()
+            .logout()
+            .logoutUrl("/logout")
+            .logoutSuccessHandler((request, response, authentication) -> {
+              response.setStatus(HttpServletResponse.SC_OK);})
+            .and()
+            .addFilterBefore(new CoustomLogoutFilter(jwtUtil, refreshRepository), LogoutFilter.class)
             .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil, refreshRepository), UsernamePasswordAuthenticationFilter.class)
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     return http.build();
