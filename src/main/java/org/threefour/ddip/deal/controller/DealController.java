@@ -20,6 +20,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 import static org.threefour.ddip.deal.exception.ExceptionMessage.IDENTICAL_SELLER_EXCEPTION_MESSAGE;
 import static org.threefour.ddip.exception.ExceptionMessage.TOKEN_NO_VALUE_EXCEPTION_MESSAGE;
 import static org.threefour.ddip.util.PaginationConstant.*;
+import static org.threefour.ddip.util.SessionConstant.WAITING_NUMBER;
 
 @Controller
 @RequestMapping("/deal")
@@ -43,7 +44,7 @@ public class DealController {
             throw new IdenticalSellerException(IDENTICAL_SELLER_EXCEPTION_MESSAGE);
         }
         int waitingNumber = dealService.createDeal(jwtUtil.getId(accessToken), initializeDealRequest);
-        httpSession.setAttribute("waitingNumber", waitingNumber);
+        httpSession.setAttribute(WAITING_NUMBER, waitingNumber);
 
         return ResponseEntity.status(CREATED).body(waitingNumber);
     }

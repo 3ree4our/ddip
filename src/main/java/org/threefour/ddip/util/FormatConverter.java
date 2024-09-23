@@ -15,7 +15,6 @@ public class FormatConverter {
     private static final String TRUE = "true";
     private static final String FALSE = "false";
 
-
     public static long parseToLong(String number) {
         try {
             return Long.parseLong(number);

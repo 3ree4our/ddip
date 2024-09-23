@@ -186,24 +186,6 @@
                             </div>
                         </div>
                         </br></br>
-                        <div class="sidebar__filter">
-                            <div class="section-title">
-                                <h4>가격 범위 설정</h4>
-                            </div>
-                            <div class="filter-range-wrap">
-                                <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
-                                     data-min="0" data-max="10000000"></div>
-                                <div class="range-slider">
-                                    <div class="price-input">
-                                        <p>Price:</p>
-                                        <input type="text" id="minamount">
-                                        <input type="text" id="maxamount">
-                                    </div>
-                                </div>
-                            </div>
-                            </br>
-                            <a href="#">설정</a>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -305,7 +287,7 @@
 <button id="product-registration-button" onclick="redirectToProductRegistration()">상품 등록</button>
 <!-- Shop Section End -->
 
-<div th:include="fragments/footer :: footer"></div>
+<div th:include="/fragments/footer :: footer"></div>
 
 <!-- Search Begin -->
 <div class="search-model">
@@ -335,6 +317,49 @@
     });
 </script>
 <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const accessToken = localStorage.getItem('access-token');
+        const registrationButton = document.getElementById('product-registration-button');
+
+        if (accessToken) {
+            fetch('/authentication/save-member-id', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
+                },
+                body: JSON.stringify({})
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        if (registrationButton) {
+                            registrationButton.style.display = 'none';
+                        }
+                        console.warn('회원 ID 저장에 실패했습니다: ' + response.statusText);
+                        return;
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data) {
+                        savedMemberId = data;
+                        console.log('회원 ID가 저장되었습니다.', data);
+                    }
+                })
+                .catch(error => {
+                    if (registrationButton) {
+                        registrationButton.style.display = 'none';
+                    }
+                    console.error('회원 ID 저장 중 오류가 발생했습니다.', error);
+                });
+        } else {
+            if (registrationButton) {
+                registrationButton.style.display = 'none';
+            }
+            console.warn('로컬 스토리지의 엑세스 토큰을 찾을 수 없습니다.');
+        }
+    });
+
     ('DOMContentLoaded', function () {
         document.getElementById('search-button').addEventListener('click', function (event) {
             event.preventDefault();
@@ -350,7 +375,6 @@
     });
 
     document.addEventListener('DOMContentLoaded', function () {
-        // 1차 카테고리 클릭 시 하위 2차 카테고리를 불러오는 이벤트 설정
         document.querySelectorAll('.category-link').forEach(categoryLink => {
             categoryLink.addEventListener('click', function (event) {
                 event.preventDefault();
