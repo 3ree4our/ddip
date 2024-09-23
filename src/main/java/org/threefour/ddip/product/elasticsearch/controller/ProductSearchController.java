@@ -43,7 +43,9 @@ public class ProductSearchController {
             HttpSession httpSession
     ) {
         Pageable pageable = PageableGenerator.createPageable(paged, pageNumber, size, sort);
-        Page<ProductDocument> productDocuments = productSearchService.getByProductKeyword(keyword, pageable);
+        Page<ProductDocument> productDocuments = sort.startsWith("_")
+                ? productSearchService.getByKeywordRelevance(keyword, pageable)
+                : productSearchService.getByProductKeyword(keyword, pageable);
         List<Image> representativeImages = imageService
                 .getRepresentativeImages(RepresentativeImagesRequest.fromSearch(productDocuments.getContent()));
         GetProductsResponse getProductsResponse = GetProductsResponse.fromSearch(productDocuments, representativeImages);
@@ -63,7 +65,9 @@ public class ProductSearchController {
             HttpSession httpSession
     ) {
         Pageable pageable = PageableGenerator.createPageable(paged, pageNumber, size, sort);
-        Page<ProductDocument> productDocuments = productSearchService.getByTitleKeyword(keyword, pageable);
+        Page<ProductDocument> productDocuments = sort.startsWith("_")
+                ? productSearchService.getByKeywordRelevance(keyword, pageable)
+                : productSearchService.getByTitleKeyword(keyword, pageable);
         List<Image> representativeImages = imageService
                 .getRepresentativeImages(RepresentativeImagesRequest.fromSearch(productDocuments.getContent()));
         GetProductsResponse getProductsResponse = GetProductsResponse.fromSearch(productDocuments, representativeImages);
@@ -82,7 +86,9 @@ public class ProductSearchController {
             HttpSession httpSession
     ) {
         Pageable pageable = PageableGenerator.createPageable(paged, pageNumber, size, sort);
-        Page<ProductDocument> productDocuments = productSearchService.getByCategoryKeyword(keyword, pageable);
+        Page<ProductDocument> productDocuments = sort.startsWith("_")
+                ? productSearchService.getByKeywordRelevance(keyword, pageable)
+                : productSearchService.getByCategoryKeyword(keyword, pageable);
         List<Image> representativeImages = imageService
                 .getRepresentativeImages(RepresentativeImagesRequest.fromSearch(productDocuments.getContent()));
         GetProductsResponse getProductsResponse = GetProductsResponse.fromSearch(productDocuments, representativeImages);
@@ -101,7 +107,9 @@ public class ProductSearchController {
             HttpSession httpSession
     ) {
         Pageable pageable = PageableGenerator.createPageable(paged, pageNumber, size, sort);
-        Page<ProductDocument> productDocuments = productSearchService.getByRegionKeyword(keyword, pageable);
+        Page<ProductDocument> productDocuments = sort.startsWith("_")
+                ? productSearchService.getByKeywordRelevance(keyword, pageable)
+                : productSearchService.getByRegionKeyword(keyword, pageable);
         List<Image> representativeImages = imageService
                 .getRepresentativeImages(RepresentativeImagesRequest.fromSearch(productDocuments.getContent()));
         GetProductsResponse getProductsResponse
@@ -121,7 +129,9 @@ public class ProductSearchController {
             HttpSession httpSession
     ) {
         Pageable pageable = PageableGenerator.createPageable(paged, pageNumber, size, sort);
-        Page<ProductDocument> productDocuments = productSearchService.getBySchoolKeyword(keyword, pageable);
+        Page<ProductDocument> productDocuments = sort.startsWith("_")
+                ? productSearchService.getByKeywordRelevance(keyword, pageable)
+                : productSearchService.getBySchoolKeyword(keyword, pageable);
         List<Image> representativeImages = imageService
                 .getRepresentativeImages(RepresentativeImagesRequest.fromSearch(productDocuments.getContent()));
         GetProductsResponse getProductsResponse
