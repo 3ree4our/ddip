@@ -90,9 +90,6 @@ public class ProductController {
         if (!FormatValidator.hasValue(categoryId)) {
             categoryId = ZERO;
         }
-        if (sort.startsWith("_")) {
-            sort = ORDER_BY_CREATED_AT_DESCENDING;
-        }
 
         Pageable pageable = PageableGenerator.createPageable(paged, pageNumber, size, sort);
         Page<Product> products
