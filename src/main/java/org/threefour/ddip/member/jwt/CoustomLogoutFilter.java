@@ -41,8 +41,7 @@ public class CoustomLogoutFilter extends GenericFilterBean {
       for (Cookie cookie : cookies) {
         if ("refresh".equals(cookie.getName())) {
           refresh = cookie.getValue();
-          System.out.println("@@@@@@@@@@Received refresh JWT to" +
-                  "ken from cookie: " + refresh);
+          //System.out.println("@@@@@@@@@@Received refresh JWT to" + "ken from cookie: " + refresh);
         }
       }
     } else {
