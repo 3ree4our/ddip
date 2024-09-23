@@ -7,8 +7,6 @@ import org.threefour.ddip.product.elasticsearch.domain.ProductDocument;
 import java.util.List;
 
 public interface ProductComplexSearchRepository {
-    Page<ProductDocument> findByKeywordSortedByRelevance(String keyword, Pageable pageable);
-
     Page<ProductDocument> findByCategoryKeyword(String categoryKeyword, Pageable pageable);
 
     Page<ProductDocument> findByRegionKeyword(String keyword, Pageable pageable);

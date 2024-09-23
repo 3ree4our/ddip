@@ -1,4 +1,4 @@
-# Dockerfile for Elasticsearch
+# Elasticsearch Dockerfile
 FROM docker.elastic.co/elasticsearch/elasticsearch:7.15.1
 
 # Install plugins
