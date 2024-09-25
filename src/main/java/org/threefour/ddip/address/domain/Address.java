@@ -1,7 +1,9 @@
 package org.threefour.ddip.address.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.Hibernate;
 import org.threefour.ddip.audit.BaseEntity;
 import org.threefour.ddip.member.domain.Member;
 
@@ -35,5 +37,6 @@ public class Address extends BaseEntity {
 
   @ManyToOne(fetch = LAZY)
   @JoinColumn(name = "member_id")
+  @JsonBackReference
   private Member member;
 }
