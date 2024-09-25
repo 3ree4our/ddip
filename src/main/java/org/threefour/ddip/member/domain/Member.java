@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.Hibernate;
 import org.hibernate.annotations.ColumnDefault;
 import org.threefour.ddip.address.domain.Address;
 import org.threefour.ddip.audit.BaseEntity;
@@ -46,6 +47,7 @@ public class Member extends BaseEntity {
 
   @OneToMany(mappedBy = "member", cascade = {PERSIST, MERGE, REMOVE}, orphanRemoval = true, fetch = LAZY)
   @ToString.Exclude
+  @JsonManagedReference
   private List<Address> addresses;
 
   @ManyToMany(fetch = FetchType.EAGER) //다른방법
@@ -54,4 +56,9 @@ public class Member extends BaseEntity {
           joinColumns = @JoinColumn(name = "member_id"),
           inverseJoinColumns = @JoinColumn(name = "role_id"))
   private List<Role> roles = new ArrayList<>();
+
+  @PostLoad
+  private void init() {
+    Hibernate.initialize(addresses);
+  }
 }
