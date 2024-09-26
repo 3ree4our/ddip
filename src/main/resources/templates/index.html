@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ashion Template">
+    <meta name="keywords" content="Ashion, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ashion | Template</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="css/header.css" type="text/css">
+    <style>
+        .advertisement-banner {
+            position: relative;
+            max-width: 1200px;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        .slider {
+            position: relative;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .slide {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            overflow: hidden;
+        }
+
+        button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.5);
+            border: none;
+            cursor: pointer;
+        }
+
+        .prev {
+            left: 10px;
+        }
+
+        .next {
+            right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+<!-- Header 포함 -->
+<div th:include="fragments/header :: header"></div>
+<section class="advertisement-banner">
+    <div class="slider">
+        <div class="slides">
+            <div class="slide">
+                <a th:href="@{/mypage/mypage-form}">
+                    <img th:src="@{/img/banner/oi1.jpg}" alt="Advertisement 1">
+                </a>
+            </div>
+            <div class="slide">
+                <a th:href="@{/mypage/mypage-form}">
+                    <img th:src="@{/img/banner/oi2.jpg}" alt="Advertisement 2">
+                </a>
+            </div>
+            <div class="slide">
+                <a th:href="@{/mypage/mypage-form}">
+                    <img th:src="@{/img/banner/oi3.jpg}" alt="Advertisement 3">
+                </a>
+            </div>
+        </div>
+        <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+        <button class="next" onclick="moveSlide(1)">&#10095;</button>
+    </div>
+</section>
+<!-- Categories Section End -->
+
+<!-- Shop Section Begin -->
+<section class="shop spad">
+    <div class="container">
+        <div class="row">
+            <!-- 상품 리스트 반복 렌더링 -->
+            <div class="col-lg-4 col-md-6" th:each="product : ${products.getProductResponses}">
+                <div class="product__item">
+                    <div class="product__item__pic" th:onclick="'redirectToProductDetails(' + ${product.id} + ')'">
+                        <img th:src="${product.getImage(0).url}" alt="Product Image" class="img-fluid">
+                        <div class="label new">New</div>
+                        <ul class="product__hover">
+                            <li><a th:href="@{${product.getImage(0).url}}" class="image-popup"><span class="arrow_expand"></span></a></li>
+                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                            <li><a href="#"><span class="icon_bag_alt"></span></a></li>
+                        </ul>
+                    </div>
+                    <div class="product__item__text">
+                        <h5>
+                            <a th:text="${product.title}" th:onclick="'redirectToProductDetails(' + ${product.id} + ')'">Product Title</a>
+                        </h5>
+                        <p>
+                            <span th:text="${product.getCategoriesResponse.getCategoryResponses.get(0).name.description}">1차 카테고리</span>
+                            |
+                            <span th:text="${product.getCategoriesResponse.getCategoryResponses.get(1).name.description}">2차 카테고리</span>
+                            |
+                            <span th:text="${product.getCategoriesResponse.getCategoryResponses.get(2).name.description}">3차 카테고리</span>
+                        </p>
+                        <h5>
+                            <a th:text="${product.name}"
+                               th:onclick="'redirectToProductDetails(' + ${product.id} + ')'">Product
+                                Name</a>
+                        </h5></br>
+                        <span th:text="'판매자: ' + ${product.getSellerNickName}">Seller Name</span><br>
+                        <span th:text="'주소: ' + ${product.sellerRegion}">Seller Region</span><br>
+                        <div class="rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <div class="product__price" th:text="${product.price} + '원'">Price</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="col-lg-12 text-center">
+            <div th:if="${products.getProductResponses.size() == 0}" class="no-products-message">
+                <p>해당하는 상품 목록이 존재하지 않습니다.</p>
+            </div>
+
+            <div th:if="${products.getProductResponses.size() > 0}" class="pagination__option">
+                <a th:if="${!products.pageInformation.isFirst}" th:href="@{/product/list(page=${products.pageInformation.pageNumber - 1})}">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+
+                <span th:each="page : ${#numbers.sequence(1, products.pageInformation.totalPages)}">
+        </span>
+
+                <a th:if="${!products.pageInformation.isLast}" th:href="@{/product/list(page=${products.pageInformation.pageNumber + 1})}">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Shop Section End -->
+
+<!-- Discount Section Begin -->
+<section class="discount">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 p-0">
+                <div class="discount__pic">
+                    <img src="img/discount.jpg" alt="">
+                </div>
+            </div>
+            <div class="col-lg-6 p-0">
+                <div class="discount__text">
+                    <div class="discount__text__title">
+                        <span>고양이 팔아요</span>
+                        <h2>Chuseok 2024</h2>
+                        <h5><span>Sale</span> 99%</h5>
+                    </div>
+                    <div class="discount__countdown" id="countdown-time">
+                        <div class="countdown__item">
+                            <span>22</span>
+                            <p>Days</p>
+                        </div>
+                        <div class="countdown__item">
+                            <span>18</span>
+                            <p>Hour</p>
+                        </div>
+                        <div class="countdown__item">
+                            <span>46</span>
+                            <p>Min</p>
+                        </div>
+                        <div class="countdown__item">
+                            <span>05</span>
+                            <p>Sec</p>
+                        </div>
+                    </div>
+                    <a href="#">Shop now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Discount Section End -->
+
+<!-- Services Section Begin -->
+<section class="services spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="services__item">
+                    <i class="fa fa-car"></i>
+                    <h6>Free Shipping</h6>
+                    <p>For all oder over $99</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="services__item">
+                    <i class="fa fa-money"></i>
+                    <h6>Money Back Guarantee</h6>
+                    <p>If good have Problems</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="services__item">
+                    <i class="fa fa-support"></i>
+                    <h6>Online Support 24/7</h6>
+                    <p>Dedicated support</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="services__item">
+                    <i class="fa fa-headphones"></i>
+                    <h6>Payment Secure</h6>
+                    <p>100% secure payment</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Services Section End -->
+
+<!-- Footer 포함 -->
+<div th:include="fragments/footer :: footer"></div>
+
+<!-- Search Begin -->
+<div class="search-model">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <div class="search-close-switch">+</div>
+        <form class="search-model-form">
+            <input type="text" id="search-input" placeholder="Search here.....">
+        </form>
+    </div>
+</div>
+
+<!--chat start-->
+<!--<th:block th:replace="~{alert/alert :: alertFragment}"></th:block>-->
+<!--chat end-->
+
+<!-- Search End -->
+
+<!-- Js Plugins -->
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.magnific-popup.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/mixitup.min.js"></script>
+<script src="js/jquery.countdown.min.js"></script>
+<script src="js/jquery.slicknav.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/jquery.nicescroll.min.js"></script>
+<script src="js/main.js"></script>
+<script src="js/header.js"></script>
+
+<script src="/js/search.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('search-button').addEventListener('click', function (event) {
+            event.preventDefault();
+            performSearch();
+        });
+
+        document.getElementById('searchkeyword').addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                performSearch();
+            }
+        });
+    });
+</script>
+<script>
+    let currentSlide = 0;
+
+    function moveSlide(direction) {
+        const slides = document.querySelector('.slides');
+        const totalSlides = document.querySelectorAll('.slide').length;
+
+        currentSlide += direction;
+
+        if (currentSlide < 0) {
+            currentSlide = totalSlides - 1;
+        } else if (currentSlide >= totalSlides) {
+            currentSlide = 0;
+        }
+
+        const offset = -currentSlide * 100;
+        slides.style.transform = `translateX(${offset}%)`;
+    }
+
+    setInterval(() => {
+        moveSlide(1);
+    }, 5000);
+
+    function redirectToProductDetails(productId) {
+        const accessToken = localStorage.getItem('access-token');
+        fetch(`/authentication/save-member-id`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
+            .then(response => {
+                if (response.ok) {
+                    location.href = "/product/details?id=" + productId
+                } else {
+                    throw new Error('서버로부터 올바른 응답을 받지 못했습니다.');
+                }
+            })
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('요청 중 오류가 발생했습니다.');
+            });
+    }
+</script>
+</body>
+
+</html>

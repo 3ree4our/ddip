@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ashion Template">
+    <meta name="keywords" content="Ashion, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title th:text="${product.name} + ' | Product Details'">Ashion | Template</title>
+
+    <!--chat-->
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="stylesheet" href="/css/header.css" type="text/css">
+</head>
+
+<body>
+<style>
+    .button-container {
+        display: flex;
+        gap: 10px;
+    }
+</style>
+<div th:include="fragments/header :: header"></div>
+
+<!-- Product Details Section Begin -->
+<section class="product-details spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="product__details__pic">
+                    <div class="product__details__pic__left product__thumb nice-scroll">
+                        <a th:each="image : ${product.imageResponses}" th:href="'#product-' + ${image.id}">
+                            <img th:src="${image.url}" alt="">
+                        </a>
+                    </div>
+                    <div class="product__details__slider__content">
+                        <div class="product__details__pic__slider owl-carousel">
+                            <img th:each="image : ${product.imageResponses}" th:data-hash="'product-' + ${image.id}"
+                                 th:src="${image.url}" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="product__details__text">
+                    <h3 th:text="${product.name}">Product Name</h3>
+
+                    <div id="product-info"
+                         th:attr="data-product-id=${product.id}, data-seller-id=${product.sellerId}"></div>
+
+                    <p>
+        <span th:text="${product.getCategoriesResponse != null
+                       and product.getCategoriesResponse.getCategoryResponses != null
+                       and product.getCategoriesResponse.getCategoryResponses.size() > 0
+                       and product.getCategoriesResponse.getCategoryResponses.get(0).name != null
+                       ? product.getCategoriesResponse.getCategoryResponses.get(0).name.description : '1차 카테고리 없음'}">
+            1차 카테고리
+        </span> |
+                        <span th:text="${product.getCategoriesResponse != null
+                       and product.getCategoriesResponse.getCategoryResponses != null
+                       and product.getCategoriesResponse.getCategoryResponses.size() > 1
+                       and product.getCategoriesResponse.getCategoryResponses.get(1).name != null
+                       ? product.getCategoriesResponse.getCategoryResponses.get(1).name.description : '2차 카테고리 없음'}">
+            2차 카테고리
+        </span> |
+                        <span th:text="${product.getCategoriesResponse != null
+                       and product.getCategoriesResponse.getCategoryResponses != null
+                       and product.getCategoriesResponse.getCategoryResponses.size() > 2
+                       and product.getCategoriesResponse.getCategoryResponses.get(2).name != null
+                       ? product.getCategoriesResponse.getCategoryResponses.get(2).name.description : '3차 카테고리 없음'}">
+            3차 카테고리
+        </span>
+                    </p>
+
+                    <span th:text="'판매자: ' + ${product.getSellerNickName}">Seller Nickname</span></br>
+                    <span th:text="'주소: ' + ${product.sellerRegion}">Seller Address</span>
+                    <br>
+                    <span th:text="'학교: ' + ${product.schoolName}">School Name</span>
+                    <div class="rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <span th:text="'(' + ${product.getSellerId} + ')'">average    score</span>
+                    </div>
+                    <div class="product__details__price" th:text="${product.price} + ' 원'">Price</div>
+                    <p th:text="${product.content}">Nemo enim ipsam voluptatem quia aspernatur aut odit aut loret fugit,
+                        sed quia consequuntur magni lores eos qui ratione voluptatem sequi nesciunt.</p>
+                    <div class="product__details__button">
+                        <button class="cart-btn" id="action-btn"><span class="icon_bag_alt"></span> 구매 신청</button>
+                        <ul>
+                        </ul>
+                    </div>
+                    <div class="product__details__widget">
+                        <ul>
+
+                        </ul>
+                    </div>
+                    <div class="product__details__button">
+                        <div class="col-lg-12">
+                            </br></br>
+                            <div class="button-container">
+                                <button type="button" class="site-btn" id="modify-product-btn"
+                                        style="display: none;">상품 수정
+                                </button>
+                                <button type="button" class="site-btn" id="delete-product-btn"
+                                        style="display: none;">상품 삭제
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ul>
+            </ul>
+        </div>
+    </div>
+    <div class="product__details__button">
+        <div class="col-lg-12">
+            </br></br>
+            <div class="product__details__button">
+                <div class="button-container">
+                    <button type="button" class="site-btn" id="modify-product-btn" style="display: none;">상품
+                        수정
+                    </button>
+                    <button type="button" class="site-btn" id="delete-product-btn" style="display: none;">상품
+                        삭제
+                    </button>
+                </div>
+            </div>
+        </div>
+        <ul>
+        </ul>
+    </div>
+    </div>
+    </div>
+
+    <div id="delete-message" style="display: none; color: green; font-weight: bold;">상품이 삭제되었습니다.</div>
+
+    <div class="col-lg-12">
+        <div class="product__details__tab">
+            <ul class="nav nav-tabs" role="tablist">
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                </div>
+                <div class="tab-pane" id="tabs-2" role="tabpanel">
+                </div>
+                <div class="tab-pane" id="tabs-3" role="tabpanel">
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <div class="related__title">
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6" th:each="relatedProduct : ${relatedProducts}">
+            <div class="product__item">
+                <div class="product__item__pic set-bg"
+                     th:style="'background-image: url(' + ${relatedProduct.imageUrl} + ')'">
+                    <ul class="product__hover">
+                        <li><a th:href="@{/product/details/{id}(id=${relatedProduct.id})}"><span
+                                class="icon_bag_alt"></span></a></li>
+                    </ul>
+                    삭제
+                </div>
+                <div class="product__item__text">
+                    <h6><a th:href="@{/product/details/{id}(id=${relatedProduct.id})}"
+                           th:text="${relatedProduct.name}">Product Name</a></h6>
+                    <div class="product__price" th:text="${relatedProduct.price} + ' 원'">₩ 0.0</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+<!-- Product Details Section End -->
+
+<div th:include="fragments/footer :: footer"></div>
+
+<!-- Search Begin -->
+<div class="search-model">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <div class="search-close-switch">+</div>
+        <form class="search-model-form">
+            <input type="text" id="search-input" placeholder="Search here.....">
+        </form>
+    </div>
+</div>
+<!-- Search End -->
+
+<script src="/js/search.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('search-button').addEventListener('click', function (event) {
+            event.preventDefault();
+            performSearch();
+        });
+
+        document.getElementById('searchkeyword').addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                performSearch();
+            }
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const accessToken = localStorage.getItem('access-token');
+        const modifyButton = document.getElementById('modify-product-btn');
+        const deleteButton = document.getElementById('delete-product-btn');
+        const productId = document.getElementById('product-info').getAttribute('data-product-id');
+        const productSellerId = document.getElementById('product-info').getAttribute('data-seller-id');
+
+        if (accessToken) {
+            fetch('/authentication/save-member-id', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
+                },
+                body: JSON.stringify({})
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        if (modifyButton) modifyButton.style.display = 'none';
+                        if (deleteButton) deleteButton.style.display = 'none';
+                        console.warn('회원 ID 저장에 실패했습니다: ' + response.statusText);
+                        return;
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data && data == productSellerId) {
+                        modifyButton.style.display = 'block';
+                        modifyButton.addEventListener('click', function () {
+                            location.href = `/product/modification-form?id=${productId}&memberId=${data}`;
+                        });
+
+                        deleteButton.style.display = 'block';
+                        deleteButton.addEventListener('click', function () {
+                            deleteProduct(data, productId);
+                        });
+                    } else {
+                        if (modifyButton) modifyButton.style.display = 'none';
+                        if (deleteButton) deleteButton.style.display = 'none';
+                    }
+                })
+                .catch(error => {
+                    if (modifyButton) modifyButton.style.display = 'none';
+                    if (deleteButton) deleteButton.style.display = 'none';
+                    console.error('회원 ID 저장 중 오류가 발생했습니다.', error);
+                });
+        } else {
+            if (modifyButton) modifyButton.style.display = 'none';
+            if (deleteButton) deleteButton.style.display = 'none';
+            console.warn('로컬 스토리지의 엑세스 토큰을 찾을 수 없습니다.');
+        }
+    });
+
+    const checkWaitingCount = async () => {
+        const response = await fetch(`/deal/products/${document.getElementById('product-info').getAttribute('data-product-id')}`, {
+            headers: getAuthHeader()
+        })
+
+        return response.json();
+    }
+
+    document.addEventListener('DOMContentLoaded', async function () {
+        const productInfo = document.getElementById('product-info');
+        const waitingNumber = productInfo.getAttribute('data-waiting-number');
+        const actionBtn = document.getElementById('action-btn');
+        const flag = await checkTarget();
+        let waitingNum = await checkWaitingCount();
+
+        if (waitingNum > 0) actionBtn.innerText = `거래 진행 중 (${waitingNum}명 대기)`
+
+        console.log('으앙', flag)
+
+        if (flag.dealStatus === 'IN_PROGRESS') {
+            actionBtn.innerHTML = `<span class="icon_bag_alt"></span> 채팅하러 가기`;
+            actionBtn.style.backgroundColor = '#7493ce';
+        }
+
+        if (flag.dealStatus === 'BEFORE_DEAL') {
+            actionBtn.innerHTML = `<span class="icon_bag_alt"></span> ${waitingNum - 1}번 (${waitingNum - 1}명 대기중)`;
+            actionBtn.style.backgroundColor = '#ce3434';
+        }
+
+        if (flag.dealStatus === 'PAID') {
+            // 거래 완료
+            actionBtn.innerHTML = `<span class="icon_bag_alt"></span> 거래 완료상품`;
+            actionBtn.style.backgroundColor = '#e8e068';
+            return;
+        }
+
+        actionBtn.onclick = async function (event) {
+            // 채팅이 가능한 상태인지 확인
+            const flag = await checkTarget();
+            console.log('후 ,,', flag.dealStatus)
+
+            if (flag.dealStatus === 'NO') {
+                alert(flag.message)
+                return;
+            }
+
+            if (flag.dealStatus === 'IN_PROGRESS') {
+                // 거래가 가능한 상태 => 채팅방 이동
+                startChat(productInfo.getAttribute('data-product-id'));
+            }
+
+            if (flag.dealStatus === 'GO') {
+                // 예약 가능 상태
+                initializeDeal(actionBtn);
+                location.reload();
+            }
+
+            if (flag.dealStatus === 'BEFORE_DEAL') {
+                // 거래 불가능 상태 => 이미 예약 중
+                alert(`${waitingNum - 1}번 입니다. 잠시만 기다려 주세요`)
+            }
+
+            if (flag.dealStatus === 'CANCELED') {
+                alert('이미 거래가 취소되었습니다.')
+            }
+        }
+    });
+
+    const checkTarget = async () => {
+        const productElement = document.getElementById('product-info');
+        const productId = productElement.getAttribute('data-product-id');
+
+        const result = await fetch(`/deal/${productId}`, {headers: getAuthHeader()})
+        return result.json();
+    }
+
+    function initializeDeal(button) {
+        const productElement = document.getElementById('product-info');
+        const productId = productElement.getAttribute('data-product-id');
+        const sellerId = productElement.getAttribute('data-seller-id');
+        const accessToken = localStorage.getItem('access-token');
+        const price = productElement.getAttribute('data-price');
+
+        fetch('/deal/initialize', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`
+            },
+            body: JSON.stringify({
+                productId: productId,
+                sellerId: sellerId,
+                dealAmount: price
+            })
+        })
+            .then(response => response.json())
+            .then(waitingNumber => {
+                console.log('waitingNumber', waitingNumber)
+                alert('구매 신청이 완료되었습니다.');
+                button.innerHTML = `<span class="icon_bag_alt"></span> 거래 진행 중 (${waitingNumber}명 대기)`;
+                return waitingNumber;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('요청 중 오류가 발생했습니다.');
+            });
+    }
+
+    const startChat = (productId) => {
+        const socket = new SockJS("/ws-stomp");
+        stompClient = Stomp.over(socket);
+        stompClient.connect(getAuthHeader(), (frame) => {
+            sendChat(productId);
+            stompClient.subscribe(`/room/${productId}`);
+        });
+    }
+
+    const sendChat = (productId) => {
+        const messageObj = {
+            message: "할롱~"
+        }
+
+        stompClient.send(`/messages/${productId}`, getAuthHeader(), JSON.stringify(messageObj));
+
+        location.href = `/chat-list`;
+    }
+
+    function deleteProduct(memberId, productId) {
+        if (confirm('정말 상품을 삭제하시겠습니까?')) {
+            fetch(`/product/delete?id=${productId}&memberId=${memberId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(errorData => {
+                            alert(`상품 삭제 실패:\n${errorData.message}`);
+                            throw new Error(errorData.message);
+                        });
+                    }
+                    document.getElementById('delete-message').style.display = 'block';
+                    alert('상품이 삭제되었습니다.');
+                    location.href = '/product/list';
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    }
+
+    const getAuthHeader = () => {
+        const token = localStorage.getItem('access-token');
+        if (!token) {
+            console.error('No access token found');
+            return;
+        }
+
+        const headers = {
+            'Authorization': `Bearer ${token}`
+        }
+
+        return headers;
+    }
+</script>
+
+<!-- Js Plugins -->
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/jquery-ui.min.js"></script>
+<script src="/js/mixitup.min.js"></script>
+<script src="/js/jquery.countdown.min.js"></script>
+<script src="/js/jquery.slicknav.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/jquery.nicescroll.min.js"></script>
+<script src="/js/main.js"></script>
+</body>
+</html>

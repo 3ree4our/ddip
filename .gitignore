@@ -5,6 +5,13 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+application-local.yml
+
+logs/**
+
+test
+dev/**
+
 ### STS ###
 .apt_generated
 .classpath

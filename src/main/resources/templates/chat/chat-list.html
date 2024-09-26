@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Ashion Template">
+  <meta name="keywords" content="Ashion, unica, creative, html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Chatting list</title>
+
+  <!--chat-->
+  <script src="/webjars/jquery/jquery.min.js"></script>
+  <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+  <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+
+  <!-- Css Styles -->
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" type="text/css">
+  <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+
+  <link rel="stylesheet" th:href="@{/chat/css/chat-list.css}" type="text/css">
+  <link rel="stylesheet" th:href="@{/chat/css/image.css}" type="text/css">
+  <script th:defer th:type="module" th:src="@{/chat/js/chat-list.js}"></script>
+  <script th:defer th:type="module" th:src="@{/chat/js/image.js}"></script>
+</head>
+<body>
+
+<main id="chatContainer">
+  <section class="header">
+    <div id="dealButtonContainer">
+      <!-- 버튼들이 여기에 동적으로 추가됩니다 -->
+    </div>
+    </div>
+    <div>
+      <label for="images"><img th:src="@{/chat/img/camera.png}" alt="카메라 이미지"></label>
+      <input type="file" name="images" id="images" multiple>
+    </div>
+  </section>
+  <section id="chatWrapper">
+    <div class="chat-list">
+      <div class="user"></div>
+    </div>
+    <div class="chat">
+      <ul><!-- 동적 생성 --></ul>
+    </div>
+  </section>
+  <section class="input-div">
+    <textarea placeholder="Press Enter for send message."></textarea>
+  </section>
+
+  <section class="chat format">
+    <ul>
+      <li>
+        <div class="sender">
+          <span></span>
+        </div>
+        <div class="message">
+          <span></span>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section id="imageContainer">
+    <div class="preview-container">
+      <!-- 미리보기 이미지들이 여기에 동적으로 추가됩니다 -->
+    </div>
+  </section>
+
+  <div id="imageModal" class="modal">
+    <span class="close">&times;</span>
+    <a class="prev"></a>
+    <div class="modal-content">
+      <img id="modalImage">
+    </div>
+    <a class="next"></a>
+    <div class="modal-nav">
+      <span id="imageCounter"></span>
+    </div>
+  </div>
+
+  <div id="chatImageModal" class="modal">
+    <span class="chat-modal-close">&times;</span>
+    <a class="chat-modal-prev"></a>
+    <div class="chat-modal-content">
+      <img id="chatModalImage">
+    </div>
+    <a class="chat-modal-next"></a>
+    <div class="chat-modal-nav">
+      <span id="chatImageCounter"></span>
+    </div>
+  </div>
+
+</main>
+
+<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+
+</html>

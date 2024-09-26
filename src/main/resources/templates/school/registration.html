@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div>
+  <input type="text" id="keyword" th:value="${keyword}" placeholder="학교명을 입력해주세요">
+  <i onclick="search_school()">Search</i>
+</div>
+<div>
+  <select id="result_select">
+    <!-- Results will be populated here -->
+  </select>
+</div>
+
+<script>
+  $(document).ready(function(){
+    // Optionally set the input value if a keyword is passed from the server
+    const keywordInput = $("#keyword").val();
+    if(keywordInput != null && keywordInput != ""){
+      search_school();
+    }
+  });
+
+  let apiUrl = "https://open.neis.go.kr/hub/schoolInfo?";
+  let apiKey = "ab990bdc7bdf4826925509ded40029dd";
+
+  function search_school(){
+    const keyword = $('#keyword').val();
+
+    const url = apiUrl + "KEY=" + apiKey + "&Type=json&pIndex=1&pSize=1000&SCHUL_NM=" + keyword;
+
+    console.log(url);
+
+    $.ajax({
+      url: url,
+      async: true,
+      type: "POST",
+      dataType: 'json',
+      success: function(data){
+        display(data);
+      },
+      error: function(request, textStatus){
+        console.log("학교 검색 오류" + textStatus);
+      }
+    });
+  }
+
+  function display(data){
+    const select = $('#result_select');
+    const rows = data.schoolInfo[1].row;
+
+    select.empty(); // Clear previous results
+
+    $.each(rows, function(index, rowData){
+      const schoolName = rowData["SCHUL_NM"];
+      const option = $("<option>").text(schoolName).val(schoolName);
+
+      select.append(option);
+    });
+  }
+</script>
+</body>
+</html>

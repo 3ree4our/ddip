@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ashion Template">
+    <meta name="keywords" content="Ashion, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title th:text="${product.name} + ' | Product Edit'">Product Edit</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="stylesheet" href="/css/header.css" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+
+<body>
+<style>
+    .image-container {
+        position: relative;
+        display: inline-block;
+        margin: 10px;
+    }
+
+    .img-preview {
+        width: 150px;
+        height: auto;
+        border: 1px solid #ddd;
+    }
+
+    .btn-delete {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        padding: 2px 6px;
+        font-size: 12px;
+        background-color: red;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    .category-select-wrapper {
+        margin-left: 10px;
+    }
+
+    .image-deleted {
+        opacity: 0.5;
+        filter: grayscale(100%);
+    }
+
+    .representative-image {
+        border: 2px solid gold;
+    }
+
+    .quform-input input,
+    .quform-input textarea,
+    .quform-input select {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        margin-bottom: 15px;
+    }
+
+    input[type="checkbox"] {
+        height: auto !important;
+        width: auto !important;
+    }
+</style>
+<div th:include="fragments/header :: header"></div>
+
+<!-- Product Edit Section Begin -->
+<section class="product-edit spad">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-6">
+                <div class="contact__content">
+                    <div class="contact__form">
+                        <h5>상품 수정</h5>
+                        <form class="product-edit-form" name="f" method="post" enctype="multipart/form-data">
+                            <input type="hidden" id="selectedFirstCategoryId" th:value="${selectedFirstCategoryId}">
+                            <input type="hidden" id="selectedSecondCategoryId" th:value="${selectedSecondCategoryId}">
+                            <input type="hidden" id="selectedThirdCategoryId" th:value="${selectedThirdCategoryId}">
+                            <input type="hidden" id="product-id" th:value="${product.id}"/>
+
+                            <div class="col-md-12">
+                                <label for="category-select">카테고리 수정</label>
+                                <p>현재 카테고리:
+                                    <span th:text="${product.getCategoriesResponse.getCategoryResponses.get(0).name.description}">1차 카테고리</span>
+                                    >
+                                    <span th:text="${product.getCategoriesResponse.getCategoryResponses.get(1).name.description}">2차 카테고리</span>
+                                    >
+                                    <span th:text="${product.getCategoriesResponse.getCategoryResponses.get(2).name.description}">3차 카테고리</span>
+                                </p>
+                            </div>
+
+                            <div class="category-select-wrapper">
+                                <select class="form-control category-select" id="first-category"
+                                        name="connectCategoryRequest.firstCategoryId">
+                                    <option value="">대분류를 선택해 주세요</option>
+                                    <option th:each="category : ${categories.getGetCategoryResponses()}"
+                                            th:value="${category.id}"
+                                            th:text="${category.name.description}">
+                                    </option>
+                                </select></br>
+                            </div>
+
+                            <div class="category-select-wrapper">
+                                <select class="form-control category-select" id="second-category"
+                                        name="connectCategoryRequest.secondCategoryId">
+                                    <option value="">소분류를 선택해 주세요</option>
+                                </select></br>
+                            </div>
+
+                            <div class="category-select-wrapper">
+                                <select class="form-control category-select" id="third-category"
+                                        name="connectCategoryRequest.thirdCategoryId">
+                                    <option value="">상세분류를 선택해 주세요</option>
+                                </select></br>
+                            </div>
+
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-primary" onclick="updateCategories()">카테고리 수정
+                                </button>
+                                </br></br></br>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="quform-element form-group">
+                                    <label for="product-name">상품명</label>
+                                    <div class="quform-input">
+                                        <input class="form-control" id="product-name" type="text" name="name"
+                                               th:value="${product.name}"/>
+                                        <button type="button" class="btn btn-primary" onclick="updateName('name')">수정
+                                        </button>
+                                        </br></br>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="quform-element form-group">
+                                    <label for="price">가격</label>
+                                    <div class="quform-input">
+                                        <input class="form-control" id="price" type="text" name="price"
+                                               th:value="${product.price}"/>
+                                        <button type="button" class="btn btn-primary" onclick="updatePrice('price')">
+                                            수정
+                                        </button>
+                                        </br></br>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="quform-element form-group">
+                                    <label for="title">게시글 제목</label>
+                                    <div class="quform-input">
+                                        <input class="form-control" id="title" type="text" name="title"
+                                               th:value="${product.title}"/>
+                                        <button type="button" class="btn btn-primary" onclick="updateTitle('title')">
+                                            수정
+                                        </button>
+                                        </br></br>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="quform-element form-group">
+                                    <label for="content">게시글 내용</label>
+                                    <div class="quform-input">
+                                            <textarea class="form-control" id="content" name="content"
+                                                      th:text="${product.content}"></textarea>
+                                        <button type="button" class="btn btn-primary"
+                                                onclick="updateContent('content')">
+                                            수정
+                                        </button>
+                                        </br></br>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label>기존 이미지</label>
+                                <div id="existing-images">
+                                    <div th:each="image : ${product.imageResponses}"
+                                         th:id="'image-container-' + ${image.id}" class="image-container">
+                                        <img th:src="${image.url}" alt="이미지 없음" class="img-preview"/>
+
+                                        <span class="crown-icon"
+                                              style="position: absolute; top: 5px; left: 5px; cursor: pointer;"
+                                              th:onclick="'designateRepresentativeImage(' + ${image.id} + ')'">👑</span>
+
+                                        <button type="button" class="btn btn-danger btn-delete"
+                                                th:id="'delete-button-' + ${image.id}"
+                                                style="position: absolute; top: 5px; right: 5px;"
+                                                th:onclick="'deleteImage(' + ${image.id} + ')'">x
+                                        </button>
+
+                                        <button type="button" class="btn btn-secondary btn-rollback-delete"
+                                                th:id="'rollback-delete-' + ${image.id}" style="display: none;"
+                                                th:onclick="'rollbackDeletion(' + ${image.id} + ')'">삭제 취소
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <small style="color: gray;">대표 이미지로 설정된 사진이 상품 목록에 게시됩니다.</small>
+                            <br/><br/>
+
+                            <div class="col-md-12">
+                                <div class="quform-element form-group">
+                                    <label for="image-upload">이미지 추가</label>
+                                    <div class="quform-input">
+                                        <input class="form-control" id="image-upload" type="file" name="images"
+                                               multiple accept="image/*" onchange="previewNewImages()"/>
+                                    </div>
+                                </div>
+                                <div id="new-image-preview"></div>
+                                <button type="button" class="btn btn-success" onclick="uploadImages()">이미지 추가</button>
+                            </div>
+                            </br></br>
+                            <div class="col-md-12">
+                                <div class="quform-element form-group">
+                                    <label for="auto-discount-yn">
+                                        <input type="checkbox" id="auto-discount-yn-checkbox" name="auto-discount-yn"
+                                               onchange="toggleDiscountFields()">
+                                        가격 할인 정보 수정
+                                    </label>
+                                </div>
+                            </div>
+                            <div id="discount-fields" style="display: none;">
+                                <div class="col-md-12">
+                                    <div class="quform-element form-group">
+                                        <label for="discount-start-date">첫 가격 할인 예정일</label>
+                                        <div class="quform-input">
+                                            <input class="form-control" id="discount-start-date" type="text"
+                                                   name="discount-start-date"
+                                                   th:value="${product.getPriceInformationListResponse != null ? product.getPriceInformationListResponse.get(product.getPriceInformationListResponse.size() - 1).nextDiscountedAt : ''}"
+                                                   placeholder="첫 가격 할인 예정일을 선택해 주세요"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="quform-element form-group">
+                                        <label for="price-discount-period">가격 할인 주기</label>
+                                        <div class="input-group">
+                                            <input class="form-control" id="price-discount-period" type="number"
+                                                   name="price-discount-period"
+                                                   th:value="${product.getPriceInformationListResponse != null ? product.getPriceInformationListResponse.get(product.getPriceInformationListResponse.size() - 1).priceDiscountPeriod : ''}"
+                                                   min="1" step="1" style="max-width: 80px;"/>
+                                            <span class="input-group-text">일</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="quform-element form-group">
+                                        <label for="price-discount-rate">가격 할인율(%)</label>
+                                        <div class="input-group">
+                                            <input class="form-control" id="price-discount-rate" type="number"
+                                                   name="price-discount-rate"
+                                                   th:value="${product.getPriceInformationListResponse != null ? product.getPriceInformationListResponse.get(product.getPriceInformationListResponse.size() - 1).priceDiscountRate : ''}"
+                                                   min="1" max="99" step="1" placeholder="1~99"
+                                                   style="max-width: 80px;"/>
+                                            <span class="input-group-text">%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="quform-element form-group">
+                                        <label for="min-price">최저 가격</label>
+                                        <div class="input-group">
+                                            <input class="form-control" id="min-price" type="number" name="min-price"
+                                                   th:value="${product.getPriceInformationListResponse != null ? product.getPriceInformationListResponse.get(product.getPriceInformationListResponse.size() - 1).minPrice : ''}"
+                                                   min="0" step="1000" placeholder="최저 가격을 입력해 주세요"
+                                                   style="max-width: 100px;"/>
+                                            <span class="input-group-text">원</span>
+                                        </div>
+                                        <small>최저 가격 미만으로는 할인되지 않습니다.</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <button type="button" class="btn btn-primary" onclick="updatePriceInformation()">가격
+                                        할인 정보 수정
+                                    </button>
+                                </div>
+                                <div class="col-md-12">
+                                    <div id="second-discount-info" style="margin-top: 10px;"></div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Product Edit Section End -->
+
+<div th:include="fragments/footer :: footer"></div>
+
+<!-- Search Begin -->
+<div class="search-model">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <div class="search-close-switch">+</div>
+        <form class="search-model-form">
+            <input type="text" id="search-input" placeholder="Search here.....">
+        </form>
+    </div>
+</div>
+<!-- Search End -->
+
+<script src="/js/search.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('search-button').addEventListener('click', function (event) {
+            event.preventDefault();
+            performSearch();
+        });
+
+        document.getElementById('searchkeyword').addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                performSearch();
+            }
+        });
+    });
+</script>
+<script>
+    function validate() {
+        const firstCategory = f['first-category'].value.trim();
+        const secondCategory = f['second-category'].value.trim();
+        const thirdCategory = f['third-category'].value.trim();
+        const productName = f['product-name'].value.trim();
+        const price = f.price.value.trim();
+        const title = f.title.value.trim();
+        const content = f.content.value.trim();
+        const images = document.getElementById('image-upload').files;
+        const discountCheckbox = document.getElementById('auto-discount-yn-checkbox');
+        const firstDiscountDate = document.getElementById('discount-start-date').value.trim();
+        const priceDiscountPeriod = document.getElementById('price-discount-period').value.trim();
+        const priceDiscountRate = document.getElementById('price-discount-rate').value.trim();
+        const minPrice = document.getElementById('min-price').value.trim();
+
+        if (firstCategory.length === 0) {
+            alert('대분류를 선택해 주세요.');
+            f['first-category'].focus();
+            return false;
+        }
+
+        if (secondCategory.length === 0) {
+            alert('소분류를 선택해 주세요.');
+            f['second-category'].focus();
+            return false;
+        }
+
+        if (thirdCategory.length === 0) {
+            alert('상세분류를 선택해 주세요.');
+            f['third-category'].focus();
+            return false;
+        }
+
+        if (productName.length === 0) {
+            alert('상품명을 입력해 주세요.');
+            f['product-name'].focus();
+            return false;
+        }
+
+        if (price.length === 0) {
+            alert('가격을 입력해 주세요.');
+            f.price.focus();
+            return false;
+        }
+
+        if (isNaN(price)) {
+            alert('가격은 숫자만 입력할 수 있습니다.');
+            f.price.focus();
+            return false;
+        }
+
+        if (title.length === 0) {
+            alert('게시글 제목을 입력해 주세요.');
+            f.title.focus();
+            return false;
+        }
+
+        if (content.length === 0) {
+            alert('게시글 내용을 입력해 주세요.');
+            f.content.focus();
+            return false;
+        }
+
+        if (images.length === 0) {
+            alert('상품 이미지를 하나 이상 첨부해 주세요.');
+            return false;
+        }
+
+        if (discountCheckbox.checked) {
+            if (firstDiscountDate.length === 0) {
+                alert('첫 가격 할인 예정일을 입력해 주세요.');
+                document.getElementById('discount-start-date').focus();
+                return false;
+            }
+
+            if (priceDiscountPeriod.length === 0 || isNaN(priceDiscountPeriod)) {
+                alert('가격 할인 주기를 입력해 주세요.');
+                document.getElementById('price-discount-period').focus();
+                return false;
+            }
+
+            if (priceDiscountRate.length === 0 || isNaN(priceDiscountRate)) {
+                alert('가격 할인율을 입력해 주세요.');
+                document.getElementById('price-discount-rate').focus();
+                return false;
+            }
+
+            if (minPrice.length === 0 || isNaN(minPrice)) {
+                alert('최소 가격을 입력해 주세요.');
+                document.getElementById('min-price').focus();
+                return false;
+            }
+        }
+
+        prepareFormSubmission();
+        f.submit();
+    }
+
+    document.getElementById('first-category').addEventListener('change', function () {
+        const parentCategoryId = this.value;
+        fetch('/categories?parentCategoryId=' + parentCategoryId)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                const secondCategorySelect = document.getElementById('second-category');
+                secondCategorySelect.innerHTML = '<option value="">소분류를 선택해 주세요</option>';
+
+                if (data.getCategoryResponses && data.getCategoryResponses.length > 0) {
+                    data.getCategoryResponses.forEach(category => {
+                        const option = document.createElement('option');
+                        option.value = category.id;
+                        option.text = category.description;
+                        secondCategorySelect.appendChild(option);
+                    });
+                } else {
+                    const noneOption = document.createElement('option');
+                    noneOption.value = "";
+                    noneOption.text = "카테고리가 없습니다";
+                    secondCategorySelect.appendChild(noneOption);
+                }
+
+                document.getElementById('third-category').innerHTML = '<option value="">상세분류를 선택해 주세요</option>';
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+            });
+    });
+
+    document.getElementById('second-category').addEventListener('change', function () {
+        const parentCategoryId = this.value;
+        fetch('/categories?parentCategoryId=' + parentCategoryId)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                const thirdCategorySelect = document.getElementById('third-category');
+                thirdCategorySelect.innerHTML = '<option value="">상세분류를 선택해 주세요</option>';
+
+                if (data.getCategoryResponses && data.getCategoryResponses.length > 0) {
+                    data.getCategoryResponses.forEach(category => {
+                        const option = document.createElement('option');
+                        option.value = category.id;
+                        option.text = category.description;
+                        thirdCategorySelect.appendChild(option);
+                    });
+                } else {
+                    const noneOption = document.createElement('option');
+                    noneOption.value = "";
+                    noneOption.text = "카테고리가 없습니다";
+                    thirdCategorySelect.appendChild(noneOption);
+                }
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+            });
+    });
+
+    function updateCategories() {
+        const productId = document.getElementById('product-id').value;
+        const firstCategoryId = document.getElementById('first-category').value;
+        const secondCategoryId = document.getElementById('second-category').value;
+        const thirdCategoryId = document.getElementById('third-category').value;
+
+        if (!firstCategoryId || !secondCategoryId || !thirdCategoryId) {
+            alert('카테고리를 모두 선택해 주세요.');
+            return;
+        }
+
+        const requestData = {
+            id: productId,
+            connectCategoryRequest: {
+                firstCategoryId: firstCategoryId,
+                secondCategoryId: secondCategoryId,
+                thirdCategoryId: thirdCategoryId
+            }
+        };
+
+        fetch('/product/update', {
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(requestData)
+        })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(errorData => {
+                        alert('카테고리 수정에 실패했습니다.');
+                        throw new Error(errorData.message);
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                const memberId = data;
+                alert('카테고리가 수정되었습니다.');
+                location.href = `/product/modification-form?id=${productId}&memberId=${memberId}`;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('요청 중 오류가 발생했습니다.');
+            });
+    }
+
+    function updateName() {
+        const productId = document.getElementById('product-id').value;
+        const productName = document.getElementById('product-name').value;
+
+        const requestData = {
+            id: productId,
+            name: productName
+        };
+
+        fetch('/product/update', {
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(requestData)
+        }).then(response => {
+            if (response.ok) {
+                alert('상품명이 수정되었습니다.');
+            } else {
+                alert('상품명 수정에 실패했습니다.');
+            }
+        });
+    }
+
+    function updatePrice() {
+        const productId = document.getElementById('product-id').value;
+        const productPrice = document.getElementById('price').value;
+
+        const requestData = {
+            id: productId,
+            price: productPrice
+        };
+
+        fetch('/product/update', {
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(requestData)
+        }).then(response => {
+            if (response.ok) {
+                alert('가격이 수정되었습니다.');
+            } else {
+                alert('가격 수정에 실패했습니다.');
+            }
+        });
+    }
+
+    function updateTitle() {
+        const productId = document.getElementById('product-id').value;
+        const productTitle = document.getElementById('title').value;
+
+        const requestData = {
+            id: productId,
+            title: productTitle
+        };
+
+        fetch('/product/update', {
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(requestData)
+        }).then(response => {
+            if (response.ok) {
+                alert('게시글 제목이 수정되었습니다.');
+            } else {
+                alert('게시글 제목 수정에 실패했습니다.');
+            }
+        });
+    }
+
+    function updateContent() {
+        const productId = document.getElementById('product-id').value;
+        const productContent = document.getElementById('content').value;
+
+        const requestData = {
+            id: productId,
+            content: productContent
+        };
+
+        fetch('/product/update', {
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(requestData)
+        }).then(response => {
+            if (response.ok) {
+                alert('게시글 내용이 수정되었습니다.');
+            } else {
+                alert('게시글 내용 수정에 실패했습니다.');
+            }
+        });
+    }
+
+    function designateRepresentativeImage(imageId) {
+        const productId = document.getElementById('product-id').value;
+
+        const requestData = {
+            id: imageId,
+            targetType: 'PRODUCT',
+            targetId: productId
+        };
+
+        fetch('/image/designate-representative', {
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(requestData)
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert('대표 이미지가 설정되었습니다.');
+
+                    document.querySelectorAll('.img-preview').forEach(img => {
+                        img.classList.remove('representative-image');
+                    });
+
+                    const imageContainer = document.getElementById(`image-container-${imageId}`);
+                    if (imageContainer) {
+                        imageContainer.querySelector('.img-preview').classList.add('representative-image');
+                    }
+                } else {
+                    alert('대표 이미지 설정에 실패했습니다.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('대표 이미지 설정 중 오류가 발생했습니다.');
+            });
+    }
+
+    function deleteImage(imageId) {
+        fetch(`/image/delete/${imageId}`, {
+            method: 'DELETE'
+        }).then(response => {
+            if (response.ok) {
+                alert('이미지가 삭제되었습니다.');
+                const rollbackButton = document.getElementById(`rollback-delete-${imageId}`);
+                rollbackButton.style.display = 'inline-block';
+
+                const deleteButton = document.getElementById(`delete-button-${imageId}`);
+                deleteButton.style.display = 'none';
+
+                const imageContainer = document.getElementById(`image-container-${imageId}`);
+                if (imageContainer) {
+                    imageContainer.classList.add('image-deleted');
+                }
+            } else {
+                alert('이미지 삭제 실패: ' + response.statusText);
+            }
+        });
+    }
+
+    function rollbackDeletion(imageId) {
+        fetch(`/image/rollback-deletion/${imageId}`, {
+            method: 'POST'
+        }).then(response => {
+            if (response.ok) {
+                alert('이미지 삭제가 취소되었습니다.');
+
+                const rollbackButton = document.getElementById(`rollback-delete-${imageId}`);
+                rollbackButton.style.display = 'none';
+
+                const deleteButton = document.getElementById(`delete-button-${imageId}`);
+                deleteButton.style.display = 'inline-block';
+
+                const imageContainer = document.getElementById(`image-container-${imageId}`);
+                if (imageContainer) {
+                    imageContainer.classList.remove('image-deleted');
+                }
+            } else {
+                alert('삭제 취소 실패: ' + response.statusText);
+            }
+        });
+    }
+
+    function previewNewImages() {
+        const preview = document.getElementById('new-image-preview');
+        preview.innerHTML = '';
+        const files = document.getElementById('image-upload').files;
+
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            if (!file.type.startsWith('image/')) {
+                continue;
+            }
+
+            const img = document.createElement("img");
+            img.classList.add("img-preview");
+            preview.appendChild(img);
+
+            const reader = new FileReader();
+            reader.onload = (e) => img.src = e.target.result;
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function uploadImages() {
+        const formData = new FormData();
+        const files = document.getElementById('image-upload').files;
+        const productId = document.getElementById('product-id').value;
+
+        for (let i = 0; i < files.length; i++) {
+            formData.append('images', files[i]);
+        }
+
+        formData.append('targetType', 'PRODUCT');
+        formData.append('targetId', productId);
+
+        fetch('/image/add', {
+            method: 'POST',
+            body: formData
+        }).then(response => {
+            if (response.ok) {
+                alert('이미지가 업로드되었습니다.');
+                location.reload();
+            } else {
+                alert('이미지 업로드 실패: ' + response.statusText);
+            }
+        });
+    }
+
+    function toggleDiscountFields() {
+        const discountCheckbox = document.getElementById('auto-discount-yn-checkbox');
+        const discountFields = document.getElementById('discount-fields');
+
+        if (discountCheckbox && discountCheckbox.checked) {
+            discountFields.style.display = 'block';
+        } else {
+            discountFields.style.display = 'none';
+        }
+    }
+
+    function prepareFormSubmission() {
+        const discountCheckbox = document.getElementById('auto-discount-yn-checkbox');
+
+        const autoDiscountRequest = {
+            firstDiscountDate: document.getElementById('discount-start-date').value.trim(),
+            priceDiscountPeriod: document.getElementById('price-discount-period').value.trim(),
+            priceDiscountRate: document.getElementById('price-discount-rate').value.trim(),
+            minPrice: document.getElementById('min-price').value.trim()
+        };
+
+        const updateProductRequest = {
+            id: document.getElementById('product-id').value,
+            name: document.getElementById('product-name').value.trim(),
+            price: document.getElementById('price').value.trim(),
+            title: document.getElementById('title').value.trim(),
+            content: document.getElementById('content').value.trim(),
+            connectCategoryRequest: {
+                firstCategoryId: document.getElementById('first-category').value,
+                secondCategoryId: document.getElementById('second-category').value,
+                thirdCategoryId: document.getElementById('third-category').value
+            },
+            autoDiscountRequest: discountCheckbox.checked ? autoDiscountRequest : null
+        };
+
+        fetch('/product/update', {
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(updateProductRequest)
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert('상품 정보가 수정되었습니다.');
+                } else {
+                    alert('상품 정보 수정에 실패했습니다.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('요청 중 오류가 발생했습니다.');
+            });
+    }
+
+    function calculateDiscount() {
+        const priceField = document.getElementById('price');
+        const discountPeriodField = document.getElementById('price-discount-period');
+        const discountRateField = document.getElementById('price-discount-rate');
+        const startDateField = document.getElementById('discount-start-date');
+        const minPriceField = document.getElementById('min-price');
+
+        const originalPrice = parseFloat(priceField.value.trim());
+        const discountRate = parseFloat(discountRateField.value.trim());
+        const startDate = startDateField.value;
+
+        if (isNaN(discountRate) || discountRate <= 0) {
+            document.getElementById('second-discount-info').innerHTML = '';
+            return;
+        }
+
+        let discountedPrice = originalPrice * (1 - discountRate / 100);
+
+        if (isNaN(discountedPrice)) {
+            discountedPrice = 0;
+        }
+
+        if (startDate) {
+            document.getElementById('second-discount-info').innerHTML =
+                `<span class="highlight">${startDate} 00:00</span>에 <span class="highlight">${discountedPrice.toFixed(0)}원</span>으로 자동 할인됩니다.
+            <br> 이후 판매 시까지 <span class="highlight">${discountPeriodField.value}</span>일마다
+            <span class="highlight">${discountRateField.value}%</span>만큼 자동 할인됩니다.`;
+        } else {
+            document.getElementById('second-discount-info').innerHTML = '';
+        }
+    }
+
+    document.getElementById('price').addEventListener('input', function () {
+        calculateFeeDeduction();
+        calculateDiscount();
+    });
+
+    function calculateFeeDeduction() {
+        const priceField = document.getElementById('price');
+        const feeDeductionInfo = document.getElementById('fee-deduction-info');
+        const price = parseFloat(priceField.value.trim());
+
+        if (isNaN(price)) {
+            alert('가격은 숫자만 입력할 수 있습니다.');
+            priceField.value = 1000;
+            priceField.focus();
+            return;
+        }
+
+        if (!isNaN(price)) {
+            const feeDeductedPrice = price * 0.965;
+            feeDeductionInfo.innerHTML = `판매 완료 시 결제 수수료 3.5% 공제 후 <span class="highlight">${feeDeductedPrice.toFixed(0)}원</span>이 지급됩니다.`;
+        } else {
+            feeDeductionInfo.innerHTML = '';
+        }
+    }
+
+    document.getElementById('price-discount-period').addEventListener('input', function () {
+        validatePriceDiscountPeriod();
+    });
+
+    function validatePriceDiscountPeriod() {
+        const discountPeriodField = document.getElementById('price-discount-period');
+        const discountPeriod = discountPeriodField.value.trim();
+
+        if (isNaN(discountPeriod) || discountPeriod < 1 || discountPeriod > 30) {
+            alert('할인 주기는 1에서 30 사이의 숫자만 입력할 수 있습니다.');
+            discountPeriodField.value = 7;
+            discountPeriodField.focus();
+            return false;
+        }
+    }
+
+    document.getElementById('price-discount-rate').addEventListener('input', function () {
+        validatePriceDiscountRate();
+    });
+
+    function validatePriceDiscountRate() {
+        const discountRateField = document.getElementById('price-discount-rate');
+        const discountRate = discountRateField.value.trim();
+
+        if (isNaN(discountRate) || discountRate < 1 || discountRate > 99) {
+            alert('가격 할인율은 1에서 99 사이의 숫자만 입력할 수 있습니다.');
+            discountRateField.value = 1;
+            discountRateField.focus();
+            return false;
+        }
+
+        calculateDiscount();
+        return true;
+    }
+
+    document.getElementById('min-price').addEventListener('input', function () {
+        validateMinPrice();
+    });
+
+    function validateMinPrice() {
+        const priceField = document.getElementById('price');
+        const discountRateField = document.getElementById('price-discount-rate');
+        const minPriceField = document.getElementById('min-price');
+
+        const price = parseFloat(priceField.value.trim());
+        const discountRate = parseFloat(discountRateField.value.trim());
+        const minPrice = parseFloat(minPriceField.value.trim());
+
+        if (isNaN(minPrice)) {
+            alert('최저 가격은 숫자만 입력할 수 있습니다.');
+            minPriceField.value = 0;
+            minPriceField.focus();
+            return false;
+        }
+
+        if (!isNaN(price) && !isNaN(discountRate)) {
+            const discountedPrice = price * (1 - discountRate / 100);
+
+            if (!isNaN(minPrice) && minPrice > discountedPrice) {
+                alert(`최저 가격은 첫 번째 할인가격(${discountedPrice.toFixed(0)}원)보다 낮거나 같아야 합니다.`);
+                minPriceField.value = discountedPrice.toFixed(0);
+                minPriceField.focus();
+            }
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        flatpickr("#discount-start-date", {
+            dateFormat: "Y-m-d",
+            minDate: new Date().fp_incr(1),
+            onChange: function () {
+                calculateDiscount();
+            }
+        });
+    });
+
+    function updatePriceInformation() {
+        const discountCheckbox = document.getElementById('auto-discount-yn-checkbox');
+
+        const autoDiscountRequest = {
+            firstDiscountDate: document.getElementById('discount-start-date').value.trim(),
+            priceDiscountPeriod: document.getElementById('price-discount-period').value.trim(),
+            priceDiscountRate: document.getElementById('price-discount-rate').value.trim(),
+            minPrice: document.getElementById('min-price').value.trim()
+        };
+
+        const updateProductRequest = {
+            id: document.getElementById('product-id').value,
+            autoDiscountRequest: discountCheckbox.checked ? autoDiscountRequest : null
+        };
+
+        fetch('/product/update', {
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(updateProductRequest)
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert('가격 할인 정보가 수정되었습니다.');
+                } else {
+                    alert('가격 할인 정보 수정에 실패했습니다.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('요청 중 오류가 발생했습니다.');
+            });
+    }
+</script>
+
+<!-- Js Plugins -->
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/jquery-ui.min.js"></script>
+<script src="/js/mixitup.min.js"></script>
+<script src="/js/jquery.countdown.min.js"></script>
+<script src="/js/jquery.slicknav.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/jquery.nicescroll.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</body>
+</html>
