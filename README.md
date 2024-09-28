@@ -11,6 +11,8 @@
 
 ## 📚 관련 URL
 
+- [ddip 서비스](https://ddip.info)
+- [ddip CI/CD 파이프라인](http://hyobin-jenkins.duckdns.org:8080/job/ddip)
 - [3ree4our팀 노션](https://gravel-clematis-b77.notion.site/3ree-4our-123e9acc4e8b4c9f9e34614efa250024?pvs=4)
 - [발표 자료](https://www.canva.com/design/DAGRX3AHAIE/sniLGnINkZEH0tThU1yccw/edit)
   <br><br>
