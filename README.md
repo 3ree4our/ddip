@@ -34,7 +34,7 @@
   <br><br>
 
 ## 🗼 Architecture
-![ddip-architecture](https://github.com/user-attachments/assets/cf9ad473-5990-4265-88f3-9552dc694e91)
+![ddip-architecture](https://github.com/user-attachments/assets/3bc39731-ab0f-4630-aea5-569f300ec20a)
 <br><br>
 
 ## 🗄️ ERD
